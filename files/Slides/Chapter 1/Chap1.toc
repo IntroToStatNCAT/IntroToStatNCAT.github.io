@@ -1,3 +1,0 @@
-\beamer@sectionintoc {1}{Case Study}{2}{0}{1}
-\beamer@sectionintoc {2}{Sampling principles and strategies}{35}{0}{2}
-\beamer@sectionintoc {3}{Experiments}{62}{0}{3}

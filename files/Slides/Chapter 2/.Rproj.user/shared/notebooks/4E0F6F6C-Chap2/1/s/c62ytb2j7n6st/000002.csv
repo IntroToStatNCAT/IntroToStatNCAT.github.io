@@ -1,5 +1,0 @@
-"0","d = read_csv(""msw3-all.csv"")"
-"0",""
-"0","colors = rev(as.vector(COL))"
-"0",""
-"0","pie(sort(table(d$Order)), labels="""", col = c(colors,""white""))"

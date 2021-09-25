@@ -1,2 +1,0 @@
-"0","par(mar=c(2, 1, 1, 1), mgp=c(5, 0.6, 0))"
-"0","plot(c(-4, 4), c(0, dnorm(0)), type='n', axes=FALSE)"
