@@ -1,0 +1,1490 @@
+---
+title: "Chapter 6"
+subtitle: "Inference for categorical data^[These notes use content from OpenIntro Statistics Slides by Mine Cetinkaya-Rundel.]"
+author: |
+  | (Author Name)
+  | Department of Mathematics & Statistics
+  | North Carolina A\&T State University
+#date: "8/19/2020"
+urlcolor: blue
+header-includes:
+    \usepackage{multirow}
+    \usepackage{graphicx}
+    \usepackage{subfigure}
+    \usepackage{multicol}
+    \usepackage[utf8]{inputenc}
+    \usepackage[english]{babel}
+    \usepackage{bm}
+    \usepackage{amsmath}
+    \usepackage{tikz}
+    \usepackage{mathtools}
+    \usepackage{textcomp}
+    \usepackage{fdsymbol}
+    \usepackage{siunitx}
+    \usepackage{xcolor,pifont}
+    \usepackage{hyperref}
+output: 
+  beamer_presentation:
+    fig_caption: true
+    latex_engine: xelatex
+    
+    
+---
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+```{r, echo=F, message=F, warning=F}
+library(readr)
+library(openintro)
+library(here)
+library(tidyverse)
+data(COL)
+```
+
+# Inference for a single proportion
+
+## Practice
+
+\alert{Two scientists want to know if a certain druh is effective against high blood pressure. The first scientist wants to give the drug to 1000 people with high blood pressure and see how many of them experience lower blood pressure levels. The second scientist wants to give the drug to 500 people with high blood pressure, and not give the drug to another 500 people with high blood pressure, and see how many in both groups experience lower blood pressure levels. Which is the better way to test this drug?}
+
+A) All 1000 get the drug.
+
+B) 500 get the drug, 500 don't
+
+## Practice
+
+\alert{Two scientists want to know if a certain druh is effective against high blood pressure. The first scientist wants to give the drug to 1000 people with high blood pressure and see how many of them experience lower blood pressure levels. The second scientist wants to give the drug to 500 people with high blood pressure, and not give the drug to another 500 people with high blood pressure, and see how many in both groups experience lower blood pressure levels. Which is the better way to test this drug?}
+
+A) All 1000 get the drug.
+
+B) **500 get the drug, 500 don't**
+
+## Results from the GSS
+
+The GSS asks the same question, below is the distribution of responses from the 2010 survey:
+
+\begin{center}
+\begin{tabular}{l c}
+All 1000 get the drug		& 99 \\
+500 get the drug 500 don't	& 571 \\
+\hline
+Total						& 670
+\end{tabular}
+\end{center}
+
+## Parameter and point estimate
+
+\alert{We would like to estimate the proportion of all Americans who have good intuition about experimental desgin, i.e. would answer "500 get the drug, 500 don't"? What are the parameter of interest and the point estimate?}
+
+## Parameter and point estimate
+
+\alert{We would like to estimate the proportion of all Americans who have good intuition about experimental desgin, i.e. would answer "500 get the drug, 500 don't"? What are the parameter of interest and the point estimate?}
+
+- **Parameter of interest:** Proportion of **all** Americans who have good intuition about experimental design.
+
+\centering{$\mathbf{p}$ (a population proportion)}
+
+## Parameter and point estimate
+
+\alert{We would like to estimate the proportion of all Americans who have good intuition about experimental desgin, i.e. would answer "500 get the drug, 500 don't"? What are the parameter of interest and the point estimate?}
+
+- **Parameter of interest:** Proportion of **all** Americans who have good intuition about experimental design.
+
+\centering{$\mathbf{p}$ (a population proportion)}
+
+- **Point estimate:** Proportion of **sampled** Americans who have good intuition about experimental design.
+
+\centering{$\mathbf{\hat{p}}$ (a sample proportion)}
+
+## Inference on a proportion
+
+\alert{What percent of all Americans have good intuition about experimental desgin, i.e. would answer "500 get the drug, 500 don't"?}
+
+
+## Inference on a proportion
+
+\alert{What percent of all Americans have good intuition about experimental desgin, i.e. would answer "500 get the drug, 500 don't"?}
+
+- We can answer this research question using a confidence interval, which we know is always of the form
+
+\centering{\textbf{point estimate} $\mathbf{\pm}$ \textbf{ME}}
+
+- And we also know that \textcolor{red}{ME = critical value $\times$ standard error} of the point estimate
+
+\raggedright Standard error of a sample proportion
+
+\centering{$SE_{\hat{p}}= \sqrt{\frac{p(1-p)}{n}}$}
+
+## Sample proportions are also nearly normally distributed
+
+**Central limit theorem for proportions**
+
+Sample proportions will be nearly normally distributed with mean equal to the population proportion, $p$, and standard error equal to $\sqrt{\frac{p(1-p)}{n}}$.
+
+\centering{$\hat{p} \sim N \left( mean = p, SE = \sqrt{\frac{p(1-p)}{n}} \right)$}
+
+\raggedright But of course this is true only under certain conditions...
+
+\alert{Any guesses?}
+
+## Sample proportions are also nearly normally distributed
+
+**Central limit theorem for proportions**
+
+Sample proportions will be nearly normally distributed with mean equal to the population proportion, $p$, and standard error equal to $\sqrt{\frac{p(1-p)}{n}}$.
+
+\centering{$\hat{p} \sim N \left( mean = p, SE = \sqrt{\frac{p(1-p)}{n}} \right)$}
+
+\raggedright But of course this is true only under certain conditions...
+
+\alert{Any guesses?}
+
+Independent observations, at least 10 successes and 10 failures
+
+\noindent\rule{4cm}{0.4pt}
+
+\small \alert{Note:} If $p$ is unknown (most cases), we use $\hat{p}$ in the calculation of the standard error.
+
+
+## Back to experimental design...
+
+\alert{The GSS found that 571 out of 670 (87\%) Americans answered the question on experimental design correctly. Estimate (using a 95\% confidence interval) the proportion of all Americans who have good intuition about experimental design?}
+
+## Back to experimental design...
+
+\alert{The GSS found that 571 out of 670 (87\%) Americans answered the question on experimental design correctly. Estimate (using a 95\% confidence interval) the proportion of all Americans who have good intuition about experimental design?}
+
+Given: $n = 670, \hat{p} = 0.85$. First, check conditions.
+
+- **Independence**: The sample is random, and 670 < 10\% of all Americans, therefore we can assume that one respondent's response is independent of another.
+
+- **Success-Failure**: 571 people answered correctly (successes) and 99 answered incorrectly (failures), both are greater than 10.
+
+## Practice
+
+\alert{We are given that $n = 670, \hat{p} 0.85$, we also just learned that the standard error of the sample proportion is $SE = \sqrt{\frac{p(1-p)}{n}}$. Which of the below is the correct calculation of the 95\% confidence interval?}
+
+A) $0.85 \pm 1.96 \times \sqrt{\frac{0.85 \times 0.15}{670}}$
+
+B) $0.85 \pm 1.65 \times \sqrt{\frac{0.85 \times 0.15}{670}}$
+
+C) $0.85 \pm 1.96 \times \frac{0.85 \times 0.15}{\sqrt{670}}$
+
+D) $571 \pm 1.96 \times \sqrt{\frac{571 \times 99}{670}}$
+
+## Practice
+
+\alert{We are given that $n = 670, \hat{p} 0.85$, we also just learned that the standard error of the sample proportion is $SE = \sqrt{\frac{p(1-p)}{n}}$. Which of the below is the correct calculation of the 95\% confidence interval?}
+
+A) \textcolor{red}{$0.85 \pm 1.96 \times \sqrt{\frac{0.85 \times 0.15}{670}} \rightarrow (0.82, 0.88)$}
+
+B) $0.85 \pm 1.65 \times \sqrt{\frac{0.85 \times 0.15}{670}}$
+
+C) $0.85 \pm 1.96 \times \frac{0.85 \times 0.15}{\sqrt{670}}$
+
+D) $571 \pm 1.96 \times \sqrt{\frac{571 \times 99}{670}}$
+
+## Choosing a sample size
+
+\alert{How many people should you sample in order to cut the margin of error of a 95\% confidence interval down to 1\%?}
+
+## Choosing a sample size
+
+\alert{How many people should you sample in order to cut the margin of error of a 95\% confidence interval down to 1\%?}
+
+\centering{$ME = z^* \times SE$}
+
+\begin{align*}
+0.01 &\geq 1.96 \times \sqrt{\frac{0.85 \times 0.15}{n}}\textcolor{red}{\rightarrow \text{Use } \hat{p} \text{ from previous study}}\\
+0.01^2 &\geq 1.96^2 \times \frac{0.85 \times 0.15}{n}\\
+n &\geq \frac{1.96^2 \times 0.85 \times 0.15}{0.01^2}\\
+n &\geq 4898.04 \textcolor{red}{\rightarrow \text{n should be at least 4,899}}
+\end{align*}
+
+
+## What if there isn't a previous study?
+
+... use $\hat{p} = 0.5$
+
+\alert{Why?}
+
+## What if there isn't a previous study?
+
+... use $\hat{p} = 0.5$
+
+\alert{Why?}
+
+- If you don't know any better, 50-50 is a good guess.
+
+- $\hat{p}=0.5$ gives the most conservative estimate $-$ highest possible sample size.
+
+## CI vs. HT for proportions
+
+- Success-Failure conditions:
+
+  - CI: At least 10 **observed** successes and failures.
+  - HT: At least 10 **expected** successes and failures, calculated using the null value.
+  
+- Standard error:
+
+  - CI: Calculate using observed sample proportion: $SE = \sqrt{\frac{\hat{p}(1-\hat{p})}{n}}$.
+  - HT: Calculate using the null value: $SE = \sqrt{\frac{p_0(1-p_0)}{n}}$
+  
+##
+
+\alert{The GSS found that 571 out of 670 (85\%) Americans answered the question on experimental design correctly. Do these data provide convincing evidence that more than 80\% of Americans have a good intuition about experimental design?}
+
+##
+
+\alert{The GSS found that 571 out of 670 (85\%) Americans answered the question on experimental design correctly. Do these data provide convincing evidence that more than 80\% of Americans have a good intuition about experimental design?}
+
+\centering{$H_0: p = 0.80$ \text{   } $H_A: p>0.80$}
+
+\begin{multicols}{2}
+
+\begin{align*}
+SE &= \sqrt{\frac{0.80 \times 0.20}{670}} = 0.0154 \\
+Z &= \frac{0.85-0.80}{0.0154} = 3.25 \\
+p-value &= 1-0.9994 = 0.0006
+\end{align*}
+
+\columnbreak
+
+\includegraphics[width=1\columnwidth]{expdesgn_norm.pdf}
+
+\end{multicols}
+
+Since the p-value is low, we reject $H_0$. The data provide convincing evidence that more than 80\% of Americans have a good intuition on experimental design.
+
+## Practice
+
+\alert{11\% of 1,001 Americans responding to a 2006 Gallup survey stated that they have objections to celebrating Halloween on religious grounds. At 95\% confidence level, the margin of error for this survey is $\pm3\%$. A news piece on this study's findings states: "More than 10\% of all Americans have objections on religious grounds to celebrating Halloween." At 95\% confidence level, is this news piece's statement justified?}
+
+A) Yes
+
+B) No
+
+C) Cannot tell
+
+## Practice
+
+\alert{11\% of 1,001 Americans responding to a 2006 Gallup survey stated that they have objections to celebrating Halloween on religious grounds. At 95\% confidence level, the margin of error for this survey is $\pm3\%$. A news piece on this study's findings states: "More than 10\% of all Americans have objections on religious grounds to celebrating Halloween." At 95\% confidence level, is this news piece's statement justified?}
+
+A) Yes
+
+B) **No**
+
+C) Cannot tell
+
+## Recap - Inference for one proportion
+
+- Popular parameter: $p$. point estimate: $\hat{p}$
+
+- Conditions:
+
+  - Independence
+    - Random sample and 10% condition
+    
+  - At least 10 successes and failures
+    - If not $\rightarrow$ randomization
+
+- Standard error: $SE = \sqrt{\frac{p(1-p)}{n}}$
+  
+  - for CI: use $\hat{p}$
+  - for HT: use $p_0$
+
+# Difference of two proportions
+
+## Melting ice cap
+
+\alert{Scientists predict that global warming may be have big effects on the polar regions within the next 100 years. One of the possible effects is that the northern ice cap may completely melt. Would this bother you a great deal, some, a little, or not at all if it actually happened?}
+
+A) A great deal
+
+B) Some
+
+C) A little
+
+D) Not at all
+
+## Results from the GSS
+
+The GSS asks the same question, below are the distributions of responses from the 2020 GSS as well as from a group of introductory statistics students at Duke University:
+
+\begin{center}
+\begin{tabular}{l r r}
+\hline
+				& GSS	& Duke \\
+\hline
+A great deal		& 454	& 69 \\
+Some			& 124 	& 30\\
+A little			& 52 		& 4\\
+Not at all			& 50 		& 2 \\
+\hline
+Total				& 680 	& 105\\
+\hline
+\end{tabular}
+\end{center}
+
+## Parameter and point estimate
+
+- **Parameter of interest:** Difference betweenm the proportions of **all** Duke students and **all** Americans who would be bothered a great deal by the northern ice cap completely melting.
+
+\centering{$p_{Duke}-p_{US}$}
+
+- **Point estimate:** Difference between the proportions of **sampled** Duke students and **sampled** Americans who would be bothered a great deal by the northern ice cap completely melting.
+
+$\hat{p}_{Duke}-\hat{p}_{US}$
+
+## Inference for comparing proportions
+
+- The details are the same as before...
+
+- CI: $\textcolor{red}{point \text{ }estimate \pm margin \text{ }of \text{ }error}$.
+
+- HT: Use $\textcolor{red}{Z = \frac{point \text{ }estimate- null \text{ }value}{SE}}$ to find appropriate p-value.
+
+- We just need the appropriate standard error of the point estimate ($SE_{\hat{p}_{Duke} - \hat{p}_{US}}$). which is the only new concept.
+
+**Standard error of the difference between two sample proportions**
+
+\centering{$SE_{(\hat{p}_1-\hat{p}_2)} = \sqrt{\frac{p_1(1-p_1)}{n_1}+\frac{p_2(1-p_2)}{n_2}}$}
+
+## Conditions for CI for difference of proportions
+
+- **Independence within groups:**
+
+  - The US group is sampled randomly and we're assuming that the Duke group represents a random sample as well.
+  
+  - 105 < 10% of all Duke students and 680 < 10% of all Americans.
+  
+  We can assume that the attitudes of Duke students in the sample are independent of each other, and attitudes of US residents in the sample are independent of each other as well.
+  
+- **Independence between groups:** The sampled Duke students and the US residents are independent of each other.
+
+- **Success-Failure:** At least 10 observed successes and 10 observed failures in the two groups.
+
+
+## Practice
+
+\alert{Construct 95\% confidence interval for the difference between the proportions of Duke students and Americans who would be bothered a great deal by melting of the northern cap. Which sample proportion ($\hat{p}_{Duke}$ or $\hat{p}_{US}$) the pooled estimate is closer to? Why?}
+
+\begin{center}
+\begin{tabular}{l | c c}
+Data			& Duke		& US \\
+\hline
+A great deal	& 69			& 454 \\
+Not a great deal& 36			& 226 \\
+\hline
+Total			& 105		& 680 \\
+\hline
+\pause
+$\hat{p}$		& 0.657		& 0.668
+\end{tabular}
+\end{center}
+
+
+\begin{eqnarray*}
+&& (\hat{p}_{Duke} - \hat{p}_{US}) \pm z^\star \times \sqrt{ \frac{ \hat{p}_{Duke} (1 - \hat{p}_{Duke})}{n_{Duke} } + \frac{ \hat{p}_{US} (1 -  \hat{p}_{US})}{n_{US} } }  \\
+\pause
+&=& (0.657 - 0.668) \pause \pm 1.96 \pause \times \sqrt{ \frac{0.657 \times 0.343}{105} + \frac{0.668 \times 0.332}{680} } \\
+\pause
+&=& -0.011 \pm \pause 1.96 \times 0.0497 \\
+\pause
+&=& -0.011 \pm 0.097 \\
+\pause
+&=& (-0.108, 0.086)
+\end{eqnarray*}
+
+## Practice
+
+\alert{Which of the following is the correct set of hypotheses for testing if the proportion of all Duke students who would be bothered a great deal by the melting of the northern ice cap differs from the proportion of all Americans who do?}
+
+A) $H_0: p_{Duke} = p_{US}$
+
+   $H_A: p_{Duke} \neq p_{US}$
+
+B) $H_0: \hat{p}_{Duke} = \hat{p}_{US}$
+
+   $H_A: \hat{p}_{Duke} \neq \hat{p}_{US}$
+
+C) $H_0: p_{Duke}-p_{US}=0$
+
+   $H_A:p_{Duke}-p_{US} \neq 0$
+
+D) $H_0: p_{Duke} = p_{US}$
+
+   $H_A: p_{Duke} < p_{US}$
+
+## Practice
+
+\alert{Which of the following is the correct set of hypotheses for testing if the proportion of all Duke students who would be bothered a great deal by the melting of the northern ice cap differs from the proportion of all Americans who do?}
+
+A) $\textcolor{red}{H_0: p_{Duke} = p_{US}}$
+
+   $\textcolor{red}{H_A: p_{Duke} \neq p_{US}}$
+
+B) $H_0: \hat{p}_{Duke} = \hat{p}_{US}$
+
+   $H_A: \hat{p}_{Duke} \neq \hat{p}_{US}$
+
+C) $H_0: p_{Duke}-p_{US}=0$
+
+   $H_A:p_{Duke}-p_{US} \neq 0$
+
+D) $H_0: p_{Duke} = p_{US}$
+
+   $H_A: p_{Duke} < p_{US}$
+   
+**Both A) and C) are correct.**
+
+## Flashback to working with one proportion
+
+- When constructing a confidence interval for a population proportion, we check if the **observed** number of successes and failures are at least 10.
+
+\centering{$n\hat{p} \geq 10$ \text{    } $n(1-\hat{p}) \geq 10$}
+
+- When conducting a hypothesis test for a population proportion, we check if the **expected** number of successes and failure are at least 10.
+
+\centering{$np_0 \geq 10$ \text{    } $n(1-p_0) \geq 10$}
+
+## Pooled estimate of a proportion
+
+- In the case of comparing two proportions where $h_0: p_1 = p_2$, there isn't a given null value we can use to calculate the **expected** number of successes and failures in each sample.
+
+- Therefore, we need to first find a common (**pooled**) proportion for the two groups, and use that in our analysis.
+
+- This simply means finding the proportion of total successes among the total number of observations.
+
+**Pooled estimate of a proportion**
+
+\centering{\[ \hat{p} = \frac{\#~of~successes_1 + \#~of~successes_2}{n_1 + n_2} \] }
+
+## Practice
+
+\alert{Calculate the estimated \underline{pooled proportion} of Duke students and Americans who would be bothered a great deal by the melting of the northern ice cap. Which sample proportion ($\hat{p}_{Duke}$ or $\hat{p}_{US}$) the pooled estimate is closer to? Why?}
+
+\begin{center}
+\begin{tabular}{l | c c}
+Data			& Duke		& US \\
+\hline
+A great deal	& 69			& 454 \\
+Not a great deal& 36			& 226 \\
+\hline
+Total			& 105		& 680 \\
+\hline
+$\hat{p}$		& 0.657		& 0.668
+\end{tabular}
+\end{center}
+
+
+\pause
+
+\begin{eqnarray*}
+\hat{p} &=& \frac{\#~of~successes_1 + \#~of~successes_2}{n_1 + n_2} \\
+\pause
+&=& \frac{69+454}{105+680} \pause = \frac{523}{785} \pause = 0.666
+\end{eqnarray*}
+
+
+## Practice
+
+\alert{Do these data suggest that the proportion of all Duke students who would be bothered a great deal by the melting of the northern ice cap differs from the proportion of all Americans who do? Calculate the test statistic, the p-value, and interpret your conclusion in context of the data.}
+
+\footnotesize
+\begin{center}
+\begin{tabular}{l | c c}
+Data			& Duke		& US \\
+\hline
+A great deal	& 69			& 454 \\
+Not a great deal& 36			& 226 \\
+\hline
+Total			& 105		& 680 \\
+\hline
+$\hat{p}$		& 0.657		& 0.668
+\end{tabular}
+\end{center}
+
+
+\pause
+
+\normalsize
+\begin{eqnarray*}
+Z &=& \frac{(\hat{p}_{Duke} - \hat{p}_{US})}{\sqrt{ \frac{ \hat{p} (1 - \hat{p})}{n_{Duke} } + \frac{ \hat{p} (1 -  \hat{p})}{n_{US} } }} \\
+\pause 
+&=& \frac{(0.657 - 0.668)}{\sqrt{ \frac{0.666 \times 0.334}{105} + \frac{0.666 \times 0.334}{680} }} = \pause \frac{-0.011}{0.0495} \pause = -0.22 \\
+\pause
+p-value &=& 2 \times P(Z < -0.22) \pause = 2 \times 0.41 = 0.82
+\end{eqnarray*}
+
+## Recap - comparing two proportions
+
+\begin{itemize}
+
+\item Population parameter: $(p_1 - p_2)$, point estimate: $(\hat{p}_1 - \hat{p}_2)$
+
+\pause
+
+\item Conditions:
+\pause
+\begin{itemize}
+\item independence within groups \\
+- random sample and 10\% condition met for both groups
+\item independence between groups
+\item at least 10 successes and failures in each group\\ 
+- if not $\rightarrow$ randomization (Section 6.4)
+\end{itemize}
+
+\pause
+
+\item $SE_{(\hat{p}_1 - \hat{p}_2)} = \sqrt{ \frac{p_1(1-p_1)}{n_1} + \frac{p_2(1-p_2)}{n_2} }$
+\begin{itemize}
+\item for CI: use $\hat{p}_1$ and $\hat{p}_2$
+\item for HT:
+\begin{itemize}
+\item when $H_0: p_1 = p_2$: use $\hat{p}_{pool} = \frac{\#~suc_1 + \#suc_2}{n_1 + n_2}$
+\item when $H_0: p_1 - p_2 = $ \textit{(some value other than 0)}: use $\hat{p}_1$ and $\hat{p}_2$ \\
+- this is pretty rare
+\end{itemize}
+\end{itemize}
+
+\end{itemize}
+  
+
+## Reference - Standard error calculations
+
+\begin{center}
+\begin{tabular}{l | l | l}
+			& one sample					& two samples \\ 
+\hline
+& & \\
+mean		& $SE = \frac{s}{\sqrt{n}}$			& $SE = \sqrt{ \frac{s_1^2}{n_1} + \frac{s_2^2}{n_2}}$ \\
+& & \\
+\hline
+& & \\
+proportion		& $SE = \sqrt{ \frac{p(1-p)}{n} }$	& $SE = \sqrt{ \frac{p_1(1-p_1)}{n_1} + \frac{p_2(1-p_2)}{n_2} }$	 \\	
+& & \\
+\end{tabular}
+\end{center}
+
+\pause
+
+\begin{itemize}
+
+\item When working with means, it's very rare that $\sigma$ is known, so we usually use $s$.
+
+\pause
+
+\item When working with proportions, 
+\begin{itemize}
+\item if doing a hypothesis test, $p$ comes from the null hypothesis
+\item if constructing a confidence interval, use $\hat{p}$ instead
+\end{itemize}
+
+\end{itemize}
+
+# Chi-square test of GOF
+
+## Weldon's dice
+
+\begin{multicols*}{2}
+
+\begin{itemize}
+
+\small
+\item Walter Frank Raphael Weldon (1860 - 1906), was an English evolutionary biologist and a founder of biometry. He was the joint founding editor of Biometrika, with Francis Galton and Karl Pearson.
+
+\item In 1894, he rolled 12 dice 26,306 times, and recorded the number of 5s or 6s (which he considered to be a success).
+
+\end{itemize}
+
+\columnbreak
+
+\includegraphics[width=0.8\columnwidth]{weldon.jpeg}
+
+\end{multicols*}
+
+\normalsize
+- It was observed that 5s or 6s occurred more often than expected, and Pearson hypothesized that this was probably due to the construction of the dice. Most inexpensive dice have hollowed-out pips, and since opposite sides add to 7, the face with 6 pips is lighter than its opposing face, which has only 1 pip.
+
+
+## Labby's dice
+
+\begin{multicols}{2}
+
+\begin{itemize}
+
+\item In 2009, Zacariah Labby (U of Chicago), repeated Weldon's experiment using a homemade dice-throwing, pip counting machine. \newline \url{http://www.youtube.com/watch?v=95EErdouO2w}
+
+\item The rolling-imaging process took about 20 seconds per roll.
+
+\end{itemize}
+
+\columnbreak
+
+\includegraphics[width=1\columnwidth]{labby.png}
+
+\end{multicols}
+
+  - Each day there were $\sim$ 150 images to process manually.
+  
+  - At this rate Weldon's experiment was repeated in a little more than six full days.
+
+## Labby's dice
+
+- Labby did not actually observe the same phenomenon that Weldon observed (higher frequency of 5s and 6s).
+
+- Automation allowed Labby to collect more data than Weldon did in 1894, instead of recording "successes" and "failures", Labby recorded the individual number of pips on each die.
+
+\begin{center}
+\includegraphics[width=0.6\columnwidth]{labbyPipCounts.png}
+\end{center}
+
+## Expected counts
+
+\alert{Labby rolled 12 dice 26,306 times. If each side is equally likely to come up, how many 1s, 2s, ... , 6s would he expect to have observed?}
+
+A) $\frac{1}{6}$
+
+B) $\frac{12}{6}$
+
+C) $\frac{26,306}{6}$
+
+D) $\frac{12 \times 26,306}{6}$
+
+## Expected counts
+
+\alert{Labby rolled 12 dice 26,306 times. If each side is equally likely to come up, how many 1s, 2s, ... , 6s would he expect to have observed?}
+
+A) $\frac{1}{6}$
+
+B) $\frac{12}{6}$
+
+C) $\frac{26,306}{6}$
+
+D) $\textcolor{red}{\frac{12 \times 26,306}{6} = 52,612}$
+
+## Summarizing Labby's results
+
+\begin{center}
+\renewcommand\arraystretch{1.2}
+\begin{tabular}{c | c c}
+Outcome	& Observed	& Expected \\
+\hline
+1		& 53,222		& 52,612 \\
+2		& 52,118		& 52,612 \\
+3		& 52,465		& 52,612 \\
+4		& 52,338		& 52,612 \\
+5		& 52,244		& 52,612 \\
+6		& 53,285		& 52,612 \\
+\hline
+Total		& 315,672		& 315,672
+\end{tabular}
+\end{center}
+
+\pause
+
+\alert{Why are the expected counts the same for all outcomes but the observed counts are different? At a first glance, does there appear to be an inconsistency between the observed and expected counts?}
+
+## Setting the hypotheses
+
+\alert{Do these data provide convincing evidence of an inconsistency between the observed and expected counts?}
+
+\pause
+
+\begin{itemize}
+
+\item[$H_0$:] There is no inconsistency between the observed and the expected counts. \textbf{The observed counts follow the same distribution as the expected counts.}
+
+\pause
+
+\item[$H_A$:] There is an inconsistency between the observed and the expected counts. \textbf{The observed counts \alert{do not} follow the same distribution as the expected counts.} There is a bias in which side comes up on the roll of a die.
+
+\end{itemize}
+
+## Evaluating the hypotheses
+
+- To evaluate these hypotheses, we quantify how different the observed count are from the expected counts.
+
+\pause
+
+- Large deviations from what would be expected based on sampling variation (chance) alone provide strong evidence for the alternative hypothesis.
+
+\pause
+
+- This is called a **goodness of fit** test since we're evaluating how well the observed data fit the expected distribution.
+
+## Anatomy of a test statistic
+
+- The general form of a test statistic is 
+
+\centering{$\frac{point \text{ }estimate - null \text{ }value}{SE \text{ }of \text{ }point \text{ }estimate}$}
+
+\pause
+
+- This construction is based on
+
+  \begin{enumerate}
+  \item Identifying the difference between a point estimate and an expected value if the null hypothesis was true, and
+  \item standardizing that difference using the standard error of the point estimate.
+  \end{enumerate}
+  
+\pause \raggedright
+
+  These two ideas will help in the construction of an appropriate test statistic for count data.
+  
+## Chi-square statistic
+
+When dealing with counts and investigating how far the observed counts are from the expected counts, we use a new test statistic called the **chi-square** $\boldmath{\chi^2}$ **statistic**.
+
+\pause
+
+$\chi^2$ statistic
+
+\centering{$\chi^2 = sum_{i=1}^{k} \frac{(O-E)^2}{E}$ where $k =$ total number of cells}
+
+## Calculating the chi-square statistic
+
+\renewcommand\arraystretch{1.8}
+\begin{tabular}{c | c c | c}
+Outcome	& Observed	& Expected 	& $\frac{(O - E)^2}{E}$\\
+\hline
+1		& 53,222		& 52,612 		& $\frac{(53,222 - 52,612)^2}{52,612} = 7.07$ \\
+\pause
+2		& 52,118		& 52,612 		& $\frac{(52,118 - 52,612)^2}{52,612} = 4.64$ \\
+\pause
+3		& 52,465		& 52,612 		& $\frac{(52,465 - 52,612)^2}{52,612} = 0.41$ \\
+\pause
+4		& 52,338		& 52,612 		& $\frac{(52,338 - 52,612)^2}{52,612} = 1.43$\\
+\pause
+5		& 52,244		& 52,612 		& $\frac{(52,244 - 52,612)^2}{52,612} = 2.57$\\
+\pause
+6		& 53,285		& 52,612 		& $\frac{(53,285 - 52,612)^2}{52,612} = 8.61$\ \\
+\hline
+\pause
+Total		& 315,672		& 315,672		& 24.73
+\end{tabular}
+
+## Why square?
+
+Squaring the difference between the observed and the expected outcome does two things:
+
+\pause
+  
+  - Any standardized difference that is squared will now be positive.
+  
+  \pause
+  
+  - Differences that already looked unusual will become much larger after being squared.
+  
+  \pause
+  
+\alert{When have we seen this before?}
+
+## The chi-square distribution
+
+- In order to determine if the $\chi^2$ statistic we calculated is considered unusually high or not we need to first describe its distribution.
+
+\pause
+
+- The chi-square distribution has one parameter called **degrees of freedom (df)**, which influences the shape, center, and spread of the distribution.
+
+\pause
+
+\footnotesize
+
+\alert{Remember:} So far we've seen three other continuous distributions:
+
+  - Normal distribution: unimodal and symmetric with two parameters: mean and standard deviation.
+  - T distribution: unimodal and symmetric with one parameter: defrees of freedom.
+  - F distribution: unimodal and right skewed with two parameters: degrees of freedom or numerator (between group variance) and denominator (within group variance)
+  
+## Practice
+
+\alert{Which of the following is false?}
+
+```{r, echo=F, message=F, warning=F, fig.width=4, fig.height=1.8,fig.align='center'}
+COL <- c('#225588', '#558822CC', '#88225599', '#88552266')
+par(mar=c(2, 0.5, 0.25, 0.5), mgp=c(2.1, 0.8, 0), las=1)
+x <- c(0, seq(0.0000001, 40, 0.05))
+DF <- c(2.0000001, 4, 9)
+y <- list()
+for(i in 1:length(DF)){
+	y[[i]] <- dchisq(x, DF[i])
+}
+plot(0, 0, type='n', xlim=c(0, 25), ylim=range(c(y, recursive=TRUE)), axes=FALSE)
+for(i in 1:length(DF)){
+	lines(x, y[[i]], lty=i, col=COL[i], lwd=3)
+}
+abline(h=0)
+axis(1)
+
+legend('topright', col=COL, lty=1:4, legend=paste(round(DF) ), title='Degrees of Freedom', cex=1, lwd = 3)
+```
+
+As the df increases,
+
+A) The center of the $\chi^2$ distribution increases as well.
+
+B) The variability of the $\chi^2$ distribution increases as well.
+
+C) The shape of the $\chi^2$ distribution becomes more skewed (less like a normal).
+
+## Practice
+
+\alert{Which of the following is false?}
+
+```{r, echo=F, message=F, warning=F, fig.width=4, fig.height=1.8,fig.align='center'}
+COL <- c('#225588', '#558822CC', '#88225599', '#88552266')
+par(mar=c(2, 0.5, 0.25, 0.5), mgp=c(2.1, 0.8, 0), las=1)
+x <- c(0, seq(0.0000001, 40, 0.05))
+DF <- c(2.0000001, 4, 9)
+y <- list()
+for(i in 1:length(DF)){
+	y[[i]] <- dchisq(x, DF[i])
+}
+plot(0, 0, type='n', xlim=c(0, 25), ylim=range(c(y, recursive=TRUE)), axes=FALSE)
+for(i in 1:length(DF)){
+	lines(x, y[[i]], lty=i, col=COL[i], lwd=3)
+}
+abline(h=0)
+axis(1)
+
+legend('topright', col=COL, lty=1:4, legend=paste(round(DF) ), title='Degrees of Freedom', cex=1, lwd = 3)
+```
+
+As the df increases,
+
+A) The center of the $\chi^2$ distribution increases as well.
+
+B) The variability of the $\chi^2$ distribution increases as well.
+
+C) **The shape of the** $\mathbf{\chi^2}$ **distribution becomes more skewed (less like a normal).**
+
+## Finding areas under the chi-square curve
+
+- p-value = tail area under the chi-square distribution (as usual).
+
+\pause
+
+- For this we can use technology, or chi-square probability table.
+
+## Finding aread under the chi-square curve
+
+\alert{Estimate the shaded area (above the cutoff value of 10) under the $\chi^2$ curve with $df=6$.}
+
+\pause
+
+```{r, echo=TRUE}
+pchisq(q = 10, df = 6, lower.tail = FALSE)
+```
+
+
+## Finding aread under the chi-square curve
+
+\alert{Estimate the shaded area (above the cutoff value of 10) under the $\chi^2$ curve with $df=6$.}
+
+\begin{multicols}{2}
+
+```{r, echo=F, message=F, warning=F, out.width="100%",fig.align='center'}
+chiTail <- function(df, U, showdf = TRUE, axes = TRUE){
+	par(mar=c(2, 1, 1, 1), mgp=c(2.1, 0.8, 0), las=1)
+	
+	sd <- sqrt(2*df)
+	xmax <- max(df + 4.000102*sd,U+2)
+	x <- seq(0, xmax, 0.05)
+	y <- dchisq(x, df)
+	plot(x, y, type='l', axes=FALSE)
+
+	if(axes == TRUE){
+		abline(h=0)
+		axis(1, at=c(0,U,xmax+3), label = c(0,U,NA), cex.axis = 3)		
+	}
+	if(axes == FALSE){
+		lines(c(0,xmax), c(0,0))
+	}
+	
+	if(showdf == TRUE){
+		text(x = 0.8*xmax, y = 0.5*max(y), paste("df =",df), cex = 3)	
+	}	
+	
+	these <- which(x > U)
+	X <- x[c(these[1], these, rev(these)[1])]
+	Y <- c(0, y[these], 0)
+	polygon(X, Y, col='#569BBD')
+}
+
+chiTail(df = 9, U = 17)
+```
+
+\columnbreak
+
+A) 0.05
+
+B) 0.02
+
+C) between 0.02 and 0.05
+
+D) between 0.05 and 0.1
+
+E) between 0.01 and 0.02
+
+\end{multicols}
+
+
+## Finding aread under the chi-square curve
+
+\alert{Estimate the shaded area (above the cutoff value of 10) under the $\chi^2$ curve with $df=6$.}
+
+\begin{multicols}{2}
+
+```{r, echo=F, message=F, warning=F, out.width="100%",fig.align='center'}
+chiTail <- function(df, U, showdf = TRUE, axes = TRUE){
+	par(mar=c(2, 1, 1, 1), mgp=c(2.1, 0.8, 0), las=1)
+	
+	sd <- sqrt(2*df)
+	xmax <- max(df + 4.000102*sd,U+2)
+	x <- seq(0, xmax, 0.05)
+	y <- dchisq(x, df)
+	plot(x, y, type='l', axes=FALSE)
+
+	if(axes == TRUE){
+		abline(h=0)
+		axis(1, at=c(0,U,xmax+3), label = c(0,U,NA), cex.axis = 3)		
+	}
+	if(axes == FALSE){
+		lines(c(0,xmax), c(0,0))
+	}
+	
+	if(showdf == TRUE){
+		text(x = 0.8*xmax, y = 0.5*max(y), paste("df =",df), cex = 3)	
+	}	
+	
+	these <- which(x > U)
+	X <- x[c(these[1], these, rev(these)[1])]
+	Y <- c(0, y[these], 0)
+	polygon(X, Y, col='#569BBD')
+}
+
+chiTail(df = 9, U = 17)
+```
+
+\columnbreak
+
+A) 0.05
+
+B) 0.02
+
+C) \textbf{between 0.02 and 0.05}
+
+D) between 0.05 and 0.1
+
+E) between 0.01 and 0.02
+
+\end{multicols}
+
+```{r, echo=T}
+pchisq(q = 17, df = 9, lower.tail = FALSE)
+```
+
+## Finding aread under the chi-square curve
+
+\alert{Estimate the shaded area (above 30) under the $\chi^2$ curve with $df = 10$.}
+
+\begin{multicols}{2}
+
+```{r, echo=F, message=F, warning=F, out.width="100%",fig.align='center'}
+chiTail(df = 10, U = 30)
+```
+
+\columnbreak
+
+A) greater than 0.3
+
+B) between 0.005 and 0.001
+
+C) less than 0.001
+
+D) greater than 0.001
+
+E) cannot tell using this table
+
+\end{multicols}
+
+## Finding aread under the chi-square curve
+
+\alert{Estimate the shaded area (above 30) under the $\chi^2$ curve with $df = 10$.}
+
+\begin{multicols}{2}
+
+```{r, echo=F, message=F, warning=F, out.width="100%",fig.align='center'}
+chiTail(df = 10, U = 30)
+```
+
+\columnbreak
+
+A) greater than 0.3
+
+B) between 0.005 and 0.001
+
+C) \textbf{less than 0.001}
+
+D) greater than 0.001
+
+E) cannot tell using this table
+
+\end{multicols}
+
+```{r, echo=TRUE}
+pchisq(q = 30, df = 10, lower.tail = FALSE)
+```
+
+## Back to Labby's dice
+
+\begin{itemize}
+
+\item The research question was: Do these data provide convincing evidence of an inconsistency between the observed and expected counts?
+
+\pause
+
+\item The hypotheses were:
+\begin{itemize}
+\item[$H_0$:] There is no inconsistency between the observed and the expected counts. The observed counts follow the same distribution as the expected counts.
+\item[$H_A$:] There is an inconsistency between the observed and the expected counts. The observed counts \alert{do not} follow the same distribution as the expected counts. There is a bias in which side comes up on the roll of a die.
+\end{itemize}
+
+\pause
+
+\item We had calculated a test statistic of \textbf{$\chi^2 = 24.67$}.
+
+\pause
+
+\item All we need is the $df$ and we can calculate the tail area (the p-value) and make a decision on the hypotheses.
+
+\end{itemize}
+
+## Degrees of freedom for a goodness of fit test
+
+- When conducting a goodness of fit test to evaluate how well the observed data follow an expected distribution, the degrees of freedom are calculated as the number of cells ($k$) minus 1.
+
+\centering{$\mathbf{df = k - 1}$}
+
+\pause
+
+- For dice outcomes, k = 6, therefore
+
+\centering{$df = 6 -1 = 5$}
+
+## Finding a p-value for a chi-square test
+
+The **p-value** for a chi-square test is defined as the **tail area above the calculated test statistic**.
+
+\begin{multicols}{2}
+
+```{r, echo=F, message=F, warning=F, out.width="100%",fig.align='center'}
+chiTail(df = 5, U = 24.67)
+```
+
+\columnbreak
+
+p-value $= P(\chi^2_{df=5} > 24.67)$ is less than 0.001
+
+\end{multicols}
+
+## Conclusion of the hypothesis test
+
+\alert{We calculated a p-value less than 0.001. At 5\% significance level, what is the conclusion of the hypothesis test?}
+
+A) Reject $H_0$, the data provide convincing evidence that the dice are fair.
+
+B) Reject $H_0$, the data provide convincing evidence that the dice are biased.
+
+C) Fail to reject $H_0$, the data provide convincing evidence that the dice are fair.
+
+D) Fail to reject $H_0$, the data provide convincing evidence that the dice are biased.
+
+## Conclusion of the hypothesis test
+
+\alert{We calculated a p-value less than 0.001. At 5\% significance level, what is the conclusion of the hypothesis test?}
+
+A) Reject $H_0$, the data provide convincing evidence that the dice are fair.
+
+B) **Reject** $\mathbf{H_0}$**, the data provide convincing evidence that the dice are biased.**
+
+C) Fail to reject $H_0$, the data provide convincing evidence that the dice are fair.
+
+D) Fail to reject $H_0$, the data provide convincing evidence that the dice are biased.
+
+
+## Turns out...
+
+- The 1-6 axis is consistently shorter than the other two (2-5 and 3-4), thereby supporting the hypothesis that the faces with one and six pips are larger than the other faces.
+
+- Pearson's claim that 5s and 6s appear more often due to the carved-out pips is not supported by these data.
+
+- Dice used in casinos have flush faces, where the pips are filled in with a plastic of the same density as the surrounding material and are precisely balance.
+
+\begin{multicols}{2}
+
+\includegraphics[width=1\columnwidth]{regular.jpeg}
+
+\columnbreak
+
+\includegraphics[width=1\columnwidth]{casino.jpeg}
+
+\end{multicols}
+
+
+## Recap: p-value for a chi-square test
+
+- The p-value for a chi-square test is define as the tail area **above** the calculated test statistic.
+
+- This is because the test statistic is always positive, and a higher test statistic means a stronger deviation from the null hypothesis.
+
+```{r, echo=F, message=F, warning=F, fig.width=4.5, fig.height=2.4,fig.align='center'}
+chiTail(df = 6, U = 10, showdf = FALSE, axes = FALSE)
+text(x = 12, y = 0.005, "p-value", col = "red", cex = 1)
+```
+
+## Conditions for the chi-square test
+
+\begin{enumerate}
+
+\item \textbf{Independence:} Each case that contributes a count to the table must be independent of all the other cases in the table.
+
+\pause
+
+\item \textbf{Sample size:} Each particular scenario (i.e. cell) must have at least 5 \alert{expected} cases.
+
+\pause
+
+\item \textbf{df $>$ 1:} Degrees of freedom must be greater than 1.
+
+\end{enumerate}
+
+\pause
+
+Failing to check conditions may unintentionally affect the test's error rates.
+
+## 2009 Iran Election
+
+\alert{There was lots of talk of election fraud in the 2009 Iran election. We'll compare the data from a poll conducted before the election (observed data) to the reported votes in the election to see if the two follow the same distribution.}
+
+\begin{center}
+\begin{tabular}{l | r r}
+					& \footnotesize{Observed \# of} & \footnotesize{Reported \% of} \\
+\footnotesize{Candidate}	& \footnotesize{voters in poll} & \footnotesize{votes in election} \\
+\hline
+(1) Ahmedinajad	& 338	& 63.29\% \\
+(2) Mousavi		& 136	& 34.10\% \\
+(3) Minor candidates	& 30	& 2.61\% \\
+\hline
+Total			& 504	& 100\% \\
+\pause
+			& \alert{$\downarrow$}	& \alert{$\downarrow$}	\\
+			& \alert{observed}	& \alert{expected} \\
+			& 			& \alert{distribution} 	
+\end{tabular}
+\end{center}
+
+## Hypotheses
+
+\alert{What are the hypotheses for testing if the distributions of reported and polled votes are different?}
+
+\pause
+
+\begin{itemize}
+\item[$H_0$:] The observed counts from the poll follow the same distribution as the reported votes.
+\item[$H_A$:] The observed counts from the poll do not follow the same distribution as the reported votes.
+\end{itemize}
+
+## Calculation of the test statistic
+\small
+\begin{center}
+\begin{tabular}{l | r r r}
+					& \footnotesize{Observed \# of} & \footnotesize{Reported \% of}	& \footnotesize{Expected \# of} \\
+\footnotesize{Candidate}	& \footnotesize{voters in poll} & \footnotesize{votes in election}		&  \footnotesize{votes in poll} \\
+\hline
+\footnotesize{(1) Ahmedinajad}	& 338	& 63.29\% 	& 504 $\times$ 0.6329 = 319 \\
+\footnotesize{(2) Mousavi}		& 136	& 34.10\%		& 504 $\times$ 0.3410 = 172 \\
+\footnotesize{(3) Minor candidates}	& 30	& 2.61\% 		& 504 $\times$ 0.0261 = 13\\
+\hline
+Total			& 504	& 100\%		& 504
+\end{tabular}
+\end{center}
+
+
+\pause
+
+\begin{eqnarray*}
+\frac{(O_1 - E_1)^2}{E_1} = \frac{(338 - 319)^2}{319} &=& 1.13 \\
+\pause
+\frac{(O_2 - E_2)^2}{E_2} = \frac{(136 - 172)^2}{172} &=& 7.53 \\
+\pause
+\frac{(O_3 - E_3)^2}{E_3} = \frac{(30 - 13)^2}{13} &=& 22.23 \\
+\pause
+ \chi^2_{\alert{df = 3 - 1 = 2}} &=& 30.89
+\end{eqnarray*}
+
+
+## Conclusion
+
+\alert{Based on these calculations what is the conclusion of the hypothesis test?}
+
+A) p-value is low, $H_0$ is rejected. The observed counts from the poll do \underline{not} follow the same distribution as the reported votes.
+
+B) p-value is high, $H_0$ is not rejected. The observed counts from the poll follow the same distribution as the reported votes.
+
+C) p-value is low, $H_0$ is rejected. The observed counts from the poll follow the same distribution as the reported votes.
+
+D) p-value is low $H_0$ is not rejected. The observed counts from the poll do \underline{not} follow the same distribution as the reported votes.
+
+## Conclusion
+
+\alert{Based on these calculations what is the conclusion of the hypothesis test?}
+
+A) \textbf{p-value is low,} $\mathbf{H_0}$ \textbf{is rejected. The observed counts from the poll do \underline{not} follow the same distribution as the reported votes.}
+
+B) p-value is high, $H_0$ is not rejected. The observed counts from the poll follow the same distribution as the reported votes.
+
+C) p-value is low, $H_0$ is rejected. The observed counts from the poll follow the same distribution as the reported votes.
+
+D) p-value is low $H_0$ is not rejected. The observed counts from the poll do \underline{not} follow the same distribution as the reported votes.
+
+# Chi-square test of independence
+
+## Popular kids
+
+\alert{In the dataset \texttt{popular}, students in grades 4-6 were asked whether good grades, athletic ability, or popularity was most important to them. A two-way table separating the students by grade and by choice of most important factor is shown below. Do these data provide evidence to suggest that goals vary by grade?}
+
+\begin{multicols}{2}
+
+\begin{table}[]
+\begin{tabular}{rrrr}
+\hline
+    & Grades & Popular & Sports \\ \hline
+$4^{th}$ & 63     & 31      & 25     \\
+$5^{th}$ & 88     & 55      & 33     \\
+$6^{th}$ & 96     & 55      & 32     \\ \hline
+\end{tabular}
+\end{table}
+
+\columnbreak
+
+\includegraphics[width=1\columnwidth]{popular_mosaic.pdf}
+
+\end{multicols}
+
+
+## Chi-square test of independence
+
+\begin{itemize}
+\item The hypotheses are:
+\begin{itemize}
+\item[$H_0$:] Grade and goals are independent. Goals do not vary by grade.
+\item[$H_A$:] Grade and goals are dependent. Goals vary by grade.
+\end{itemize}
+
+\pause
+
+\item The test statistic is calculated as
+\[ \chi^2_{df} = \sum_{i = 1}^{k} \frac{(O - E)^2}{E} \quad \text{ where } \quad df = (R - 1) \times (C - 1), \]
+where $k$ is the number of cells, $R$ is the number of rows, and $C$ is the number of columns.
+
+\noindent\rule{4cm}{0.4pt}
+
+\alert{Note:} We calculate $df$ differently for one-way and two-way tables.
+
+\pause
+
+\item The p-value is the area under the $\chi^2_{df}$ curve, above the calculated test statistic.
+
+\end{itemize}
+
+
+## Expected counts in two-way tables
+
+**Expected counts in two-way tables**
+
+$Expected \text{ }Count = \frac{(row \text{ }total) \times (column \text{ }total)}{table \text{ }total}$
+
+\pause
+
+\begin{table}[]
+\begin{tabular}{rrrr|r}
+\hline
+    & Grades & Popular & Sports & Total\\ \hline
+$4^{th}$ & \textcolor{red}{63}     & \textcolor{blue}{31}      & 25 & 119    \\
+$5^{th}$ & 88     & 55      & 33 & 176     \\
+$6^{th}$ & 96     & 55      & 32 & 183     \\ \hline
+Total	& 247	& 141	& 90	& 478 \\
+\end{tabular}
+\end{table}
+
+
+\pause
+
+\textcolor{red}{$E_{row~1, col~1} = \frac{119 \times 247}{478} = 61$}
+
+\pause
+
+\textcolor{blue}{$E_{row~1, col~2} = \frac{119 \times 141}{478} = 35$}
+
+## Expected counts in two-way tables
+
+\alert{What is the expected count for the highlighted cell?}
+
+\begin{table}[]
+\begin{tabular}{rrrr|r}
+\hline
+    & Grades & Popular & Sports & Total\\ \hline
+$4^{th}$ & 63     & 31      & 25 & 119    \\
+$5^{th}$ & 88     & \textcolor{red}{55}      & 33 & 176     \\
+$6^{th}$ & 96     & 55      & 32 & 183     \\ \hline
+Total	& 247	& 141	& 90	& 478 \\
+\end{tabular}
+\end{table}
+
+A) $\frac{176 \times 141}{478}$
+
+B) $\frac{119 \times 141}{478}$
+
+C) $\frac{176 \times 247}{478}$
+
+D) $\frac{176 \times 478}{478}$
+
+## Expected counts in two-way tables
+
+\alert{What is the expected count for the highlighted cell?}
+
+\begin{table}[]
+\begin{tabular}{rrrr|r}
+\hline
+    & Grades & Popular & Sports & Total\\ \hline
+$4^{th}$ & 63     & 31      & 25 & 119    \\
+$5^{th}$ & 88     & \textcolor{red}{55}      & 33 & 176     \\
+$6^{th}$ & 96     & 55      & 32 & 183     \\ \hline
+Total	& 247	& 141	& 90	& 478 \\
+\end{tabular}
+\end{table}
+
+\begin{multicols}{2}
+
+A) \textcolor{red}{$\frac{176 \times 141}{478}$}
+
+B) $\frac{119 \times 141}{478}$
+
+C) $\frac{176 \times 247}{478}$
+
+D) $\frac{176 \times 478}{478}$
+
+\columnbreak
+
+\large\alert{\rightarrow 52}
+
+\normalsize\alert{more than expected \# of 5th graders have a goal of being popular}
+
+\end{multicols}
+
+
+## Calculating the test statistic in two-way tables
+
+Expected counts are shown in \textcolor{blue}{blue} next to the observed count.
+
+\begin{center}
+\begin{tabular}{rrrr|r}
+  \hline
+ & Grades & Popular & Sports	& Total \\ 
+  \hline
+$4^{th}$ 	&  63 \textcolor{blue}{61} &  31 \textcolor{blue}{35} &  25 \textcolor{blue}{23}	&119 \\ 
+$5^{th}$ 	&  88 \textcolor{blue}{91} &  55 \textcolor{blue}{52} &  33 \textcolor{blue}{33}	& 176 \\ 
+$6^{th}$	&  96 \textcolor{blue}{95} &  55 \textcolor{blue}{54} &  32 \textcolor{blue}{34}	& 183 \\ 
+   \hline
+Total	& 247	& 141	& 90	& 478 \\
+\end{tabular}
+\end{center}
+
+\vspace{0.5cm}
+
+\pause
+
+\begin{eqnarray*} 
+\chi^2 &=& \sum \frac{(63 - 61)^2}{61} + \frac{(31 - 35)^2}{35} + \cdots + \frac{(32 - 34)^2}{34} = 1.3121 \\
+\pause
+df &=& (R - 1) \times (C - 1) = (3 - 1) \times (3 - 1) = 2 \times 2 = 4 
+\end{eqnarray*}
+
+
+## Calculating the p-value
+
+\alert{Which of the following is the correct p-value for this hypothesis test?}
+
+\centering{\textcolor{red}{$\chi^2=1.3121 \qquad df = 4$}}
+
+\begin{multicols}{2}
+
+```{r, echo=F, message=F, warning=F, out.width="100%",fig.align='center'}
+chiTail(df = 4, U = 1.3121)
+axis(1, at = 2.5, label = "1.3121", tick = FALSE, cex.axis = 3)
+```
+
+\columnbreak
+
+\raggedright
+A) More than 0.3
+
+B) Between 0.3 and 0.2
+
+C) Between 0.2 and 0.1
+
+D) Between 0.1 and 0.05
+
+E) Less than 0.001
+
+\end{multicols}
+
+
+## Calculating the p-value
+
+\alert{Which of the following is the correct p-value for this hypothesis test?}
+
+\centering{\textcolor{red}{$\chi^2=1.3121 \qquad df = 4$}}
+
+\begin{multicols}{2}
+
+```{r, echo=F, message=F, warning=F, out.width="100%",fig.align='center'}
+chiTail(df = 4, U = 1.3121)
+axis(1, at = 2.5, label = "1.3121", tick = FALSE, cex.axis = 3)
+```
+
+\columnbreak
+
+\raggedright
+A) **More than 0.3**
+
+B) Between 0.3 and 0.2
+
+C) Between 0.2 and 0.1
+
+D) Between 0.1 and 0.05
+
+E) Less than 0.001
+
+\end{multicols}
+
+## Conclusion
+
+\alert{Do these data provide evidence to suggest that goals vary by grade?}
+
+\begin{itemize}
+
+\item[$H_0$:] Grade and goals are independent. Goals do not vary by grade.
+
+\item[$H_A$:] Grade and goals are dependent. Goals vary by grade. \\
+
+\end{itemize}
+
+\pause
+
+Since p-value is high, we fail to reject $H_0$. The data do not provide convincing evidence that grade and goals are dependent. It doesn't appear that goals vary by grade.

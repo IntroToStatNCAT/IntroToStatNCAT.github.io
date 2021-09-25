@@ -1,0 +1,7 @@
+"0","d = read.csv(""basket_games.csv"")"
+"0",""
+"0","basket_games = d$basket_games[!is.na(d$basket_games)]"
+"0",""
+"0","# hist"
+"0",""
+"0","histPlot(basket_games, col = COL[1], xlab = ""# of basketball games attended"", ylab = """", cex.lab=2, cex.axis=2)"

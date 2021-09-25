@@ -1,0 +1,1865 @@
+---
+title: "Chapter 8"
+subtitle: "Introduction to linear regression^[These notes use content from OpenIntro Statistics Slides by Mine Cetinkaya-Rundel.]"
+author: |
+  | (Author Name)
+  | Department of Mathematics & Statistics
+  | North Carolina A\&T State University
+#date: "8/19/2020"
+urlcolor: blue
+header-includes:
+    \usepackage{multirow}
+    \usepackage{graphicx}
+    \usepackage{subfigure}
+    \usepackage{multicol}
+    \usepackage[utf8]{inputenc}
+    \usepackage[english]{babel}
+    \usepackage{bm}
+    \usepackage{amsmath}
+    \usepackage{tikz}
+    \usepackage{mathtools}
+    \usepackage{textcomp}
+    \usepackage{fdsymbol}
+    \usepackage{siunitx}
+    \usepackage{xcolor,pifont}
+    \usepackage{hyperref}
+    \usepackage{mathtools}
+    \usepackage[geometry]{ifsym}
+output: 
+  beamer_presentation:
+    fig_caption: true
+    latex_engine: xelatex
+    
+    
+---
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+```{r, echo=F, message=F, warning=F}
+library(readr)
+library(openintro)
+library(here)
+library(tidyverse)
+library(xtable)
+library(broom)
+library(faraway)
+data(COL)
+```
+
+# Line fitting, residuls, and correlation
+
+## Modeling numerical variables
+
+In this unit, we will learn to quantify the relationship between two numerical variables, as well as modeling numerical response variables using a numerical or categorical explanatory variable.
+
+## Powerty vs. HS graduate rate
+
+The **scatterplot** below shows the relationship between HS graduate rate in all 50 US states and DC and the % of residents who live below the poverty line (income below \$23,050 for a family of 4 in 2012).
+
+\begin{columns}
+
+\begin{column}{0.5\textwidth}
+```{r, echo=F, message=F, warning=F, out.width="100%",fig.align='center'}
+poverty = read.table("poverty.txt", header = T, sep = "\t")
+
+par(mar=c(4,4,1,1), las=1, mgp=c(2.5,0.7,0), cex.lab = 2, cex.axis = 2)
+plot(poverty$Poverty ~ poverty$Graduates, ylab = "% in poverty", xlab = "% HS grad", pch=19, col=COL[1,2])
+
+```
+\end{column}
+
+\begin{column}{0.45\textwidth}
+
+\alert{Response variable?}
+
+\pause
+
+\% in poverty
+
+\pause
+
+\alert{Explanatory variable?}
+
+\pause
+
+\% HS grad
+
+\pause
+
+\alert{Relationship?}
+
+\pause
+
+Linear, negative, moderately strong
+
+\end{column}
+
+\end{columns}
+
+##
+
+The linear model for predicting poverty from high school graduation rate in the US is
+
+\centering{$\hat{\text{poverty}} = 64.78-0.62 \times HS_{grad}$}
+
+\raggedright The "hat" is used to signify that this is an estimate.
+
+##
+
+\alert{The high school graduate rate in Georgia is 85.1\%. What poverty level does the model predict for this state?}
+
+\pause
+
+\centering{$64.78-0.62 \times 85.1 = 12.018$}
+
+## Eyeballing the line
+
+\begin{columns}
+
+\begin{column}{0.35\textwidth}
+
+\alert{Which of the following appears to be the line that best fits the linear relationship between \% in poverty and \% HS grad? Choose one}
+
+\end{column}
+
+\begin{column}{0.6\textwidth}
+
+```{r, echo=F, message=F, warning=F, out.width="100%",fig.align='center'}
+par(mar=c(4,4,1,1), las=1, mgp=c(2.5,0.7,0), cex.lab = 1.5, cex.axis = 1.5)
+
+plot(poverty$Poverty ~ poverty$Graduates, ylab = "% in poverty", xlab = "% HS grad", pch=19, col=COL[1,2])
+abline(lm(poverty$Poverty ~ poverty$Graduates), col = COL[4], lwd = 3, lty = 1)
+
+y1 = lm(poverty$Poverty ~ poverty$Graduates)$coefficients[1] + 2 + (1.1 * lm(poverty$Poverty ~ poverty$Graduates)$coefficients[2]) * poverty$Graduates
+abline(lm(y1 ~ poverty$Graduates), lwd = 3, col = COL[2], lty = 2)
+
+abline(h = 14, lwd = 3, col = COL[5], lty = 3)
+
+y2 = 114 - (12/10) * seq(70,100,1)
+abline(lm(y2 ~ seq(70,100,1)), lwd = 3, col = COL[3], lty = 4)
+
+legend("topright", inset = 0.05, c("(a)","(b)","(c)", "(d)"), 
+       col = c(COL[4],COL[2],COL[5],COL[3]), lwd = 3, lty = c(1,2,3,4))
+```
+
+\end{column}
+
+\end{columns}
+
+## Eyeballing the line
+
+\begin{columns}
+
+\begin{column}{0.35\textwidth}
+
+\alert{Which of the following appears to be the line that best fits the linear relationship between \% in poverty and \% HS grad? Choose one}
+
+\textcolor{blue}{Answer:} \textcolor{red}{(a) Solid Red Line}
+
+\end{column}
+
+\begin{column}{0.6\textwidth}
+
+```{r, echo=F, message=F, warning=F, out.width="100%",fig.align='center'}
+par(mar=c(4,4,1,1), las=1, mgp=c(2.5,0.7,0), cex.lab = 1.5, cex.axis = 1.5)
+
+plot(poverty$Poverty ~ poverty$Graduates, ylab = "% in poverty", xlab = "% HS grad", pch=19, col=COL[1,2])
+abline(lm(poverty$Poverty ~ poverty$Graduates), col = COL[4], lwd = 3, lty = 1)
+
+y1 = lm(poverty$Poverty ~ poverty$Graduates)$coefficients[1] + 2 + (1.1 * lm(poverty$Poverty ~ poverty$Graduates)$coefficients[2]) * poverty$Graduates
+abline(lm(y1 ~ poverty$Graduates), lwd = 3, col = COL[2], lty = 2)
+
+abline(h = 14, lwd = 3, col = COL[5], lty = 3)
+
+y2 = 114 - (12/10) * seq(70,100,1)
+abline(lm(y2 ~ seq(70,100,1)), lwd = 3, col = COL[3], lty = 4)
+
+legend("topright", inset = 0.05, c("(a)","(b)","(c)", "(d)"), 
+       col = c(COL[4],COL[2],COL[5],COL[3]), lwd = 3, lty = c(1,2,3,4))
+```
+
+\end{column}
+
+\end{columns}
+
+## Residuals
+
+**Residuals** are the leftovers from the model fit: Data = Fit + Residual
+
+```{r, echo=F, message=F, warning=F, out.width="100%",fig.align='center'}
+par(mar=c(4,4,1,1), las=1, mgp=c(2.5,0.7,0), cex.lab = 1.5, cex.axis = 1.5)
+
+plot(poverty$Poverty ~ poverty$Graduates, ylab = "% in poverty", xlab = "% HS grad", pch=19, col=COL[1,2], cex.lab = 2, cex.axis = 2)
+lm_pov_grad = lm(poverty$Poverty ~ poverty$Graduates)
+pred = predict(lm_pov_grad)
+x = poverty$Graduates
+for(i in 1:length(pred)){
+  lines(c(x[i],x[i]), c(poverty$Poverty[i],pred[i]), col = COL[2])
+}
+abline(lm_pov_grad, col = COL[4], lwd = 3)
+```
+
+## Residuals
+
+Residual is the difference between the observed ($y_i$) and predicted ($\hat{y_i}$)
+
+\centering{$e_i = y_i - \hat{y_i}$}
+
+\begin{columns}
+
+\begin{column}{0.5\textwidth}
+```{r, echo=F, message=F, warning=F, out.width="100%",fig.align='center'}
+par(mar=c(4,4,1,1), las=1, mgp=c(2.5,0.7,0), cex.lab = 1.5, cex.axis = 1.5)
+
+plot(poverty$Poverty ~ poverty$Graduates, ylab = "% in poverty", xlab = "% HS grad", pch=19, col=COL[1,2], cex.axis = 2, cex.lab = 2)
+lm_pov_grad = lm(poverty$Poverty ~ poverty$Graduates)
+
+pred = predict(lm_pov_grad)
+x = poverty$Graduates
+
+for(i in c(9,40)){
+  lines(c(x[i],x[i]), c(poverty$Poverty[i],pred[i]), col = COL[2])
+  text(x[i]+0.5, poverty$Poverty[i], "y", cex = 1.5, col = "blue")
+  text(x[i]+1.2, mean(c(poverty$Poverty[i],pred[i])), as.character(round(poverty$Poverty[i] - pred[i],2)), cex = 3, col = "orange")
+  text(x[i]-0.5, pred[i], expression(hat(y)), cex = 2, col = COL[4])
+}
+text(x[9], poverty$Poverty[9] + 0.5, "DC", col = COL[2],cex = 1.8)
+text(x[40], poverty$Poverty[40] - 0.5, "RI", col = COL[2],cex = 1.8)
+
+abline(lm_pov_grad, col = COL[4], lwd = 3)
+```
+\end{column}
+
+\begin{column}{0.45\textwidth}
+
+\pause
+
+\begin{itemize}
+
+\item \% living in poverty in DC is 5.44\% more than predicted.
+
+\pause
+
+\item \% living in poverty in RI is 4.16\% less than predicted.
+
+\end{itemize}
+
+\end{column}
+
+\end{columns}
+
+## Quantifying the relationship
+
+- **Correlation** describes the strength of the \underline{linear} association between two variables.
+
+\pause
+
+- It takes values between -1 (perfect negative) and +1 (perfect positive).
+
+\pause
+
+- A value of 0 indicates no linear association.
+
+## Guessting the correlation
+
+\alert{Which of the following is the best guess for the correlation between \% in poverty and \% HS grad?}
+
+\begin{columns}
+
+\begin{column}{0.3\textwidth}
+
+A) 0.6
+
+B) -0.75
+
+C) -0.1
+
+D) 0.02
+
+C) -1.5
+
+\end{column}
+
+\begin{column}{0.65\textwidth}
+
+```{r, echo=F, message=F, warning=F, out.width="100%",fig.align='center'}
+par(mar=c(4,4,1,1), las=1, mgp=c(2.5,0.7,0), cex.lab = 2, cex.axis = 2)
+plot(poverty$Poverty ~ poverty$Graduates, ylab = "% in poverty", xlab = "% HS grad", pch=19, col=COL[1,2])
+lm_pov_grad = lm(poverty$Poverty ~ poverty$Graduates)
+abline(lm_pov_grad, col = COL[4], lwd = 3)
+```
+
+\end{column}
+
+\end{columns}
+
+## Guessting the correlation
+
+\alert{Which of the following is the best guess for the correlation between \% in poverty and \% HS grad?}
+
+\begin{columns}
+
+\begin{column}{0.3\textwidth}
+
+A) 0.6
+
+B) \textcolor{red}{-0.75}
+
+C) -0.1
+
+D) 0.02
+
+C) -1.5
+
+\end{column}
+
+\begin{column}{0.65\textwidth}
+
+```{r, echo=F, message=F, warning=F, out.width="100%",fig.align='center'}
+par(mar=c(4,4,1,1), las=1, mgp=c(2.5,0.7,0), cex.lab = 2, cex.axis = 2)
+plot(poverty$Poverty ~ poverty$Graduates, ylab = "% in poverty", xlab = "% HS grad", pch=19, col=COL[1,2])
+lm_pov_grad = lm(poverty$Poverty ~ poverty$Graduates)
+abline(lm_pov_grad, col = COL[4], lwd = 3)
+```
+
+\end{column}
+
+\end{columns}
+
+
+## Guessting the correlation
+
+\alert{Which of the following is the best guess for the correlation between \% in poverty and \% female householder, no husband present?}
+
+\begin{columns}
+
+\begin{column}{0.3\textwidth}
+
+A) 0.1
+
+B) -0.6
+
+C) -0.4
+
+D) 0.9
+
+C) 0.5
+
+\end{column}
+
+\begin{column}{0.65\textwidth}
+
+```{r, echo=F, message=F, warning=F, out.width="100%",fig.align='center'}
+par(mar=c(4,4,1,1), las=1, mgp=c(2.5,0.7,0), cex.lab = 2, cex.axis = 2)
+plot(poverty$Poverty ~ poverty$PercentFemaleHouseholderNoHusbandPresent, ylab = "% in poverty", xlab = "% female householder, no husband present", pch=19, col=COL[1,2])
+
+```
+
+\end{column}
+
+\end{columns}
+
+## Guessting the correlation
+
+\alert{Which of the following is the best guess for the correlation between \% in poverty and \% female householder, no husband present?}
+
+\begin{columns}
+
+\begin{column}{0.3\textwidth}
+
+A) 0.1
+
+B) -0.6
+
+C) -0.4
+
+D) 0.9
+
+C) \textcolor{red}{0.5}
+
+\end{column}
+
+\begin{column}{0.65\textwidth}
+
+```{r, echo=F, message=F, warning=F, out.width="100%",fig.align='center'}
+par(mar=c(4,4,1,1), las=1, mgp=c(2.5,0.7,0), cex.lab = 2, cex.axis = 2)
+plot(poverty$Poverty ~ poverty$PercentFemaleHouseholderNoHusbandPresent, ylab = "% in poverty", xlab = "% female householder, no husband present", pch=19, col=COL[1,2])
+
+```
+
+\end{column}
+
+\end{columns}
+
+## Assessing the correlation
+
+\alert{Which of the following has the strongest correlation, i.e. correlation coeeficient closest to +1 or -1?}
+
+\begin{columns}
+
+\begin{column}{0.65\textwidth}
+
+```{r, echo=F, message=F, warning=F, out.width="100%",fig.align='center'}
+set.seed(179)
+
+# 4 scatterplots
+
+x = seq(0,10,0.1)
+yNonLin = (x-3)^2 - 4 + rnorm(length(x), mean = 0, sd = 1)
+yPosLinStrong = 3*x + 10 + rnorm(length(x), mean = 0, sd = 2)
+yPosLinWeak = 3*x + 10 + rnorm(length(x), mean = 0, sd = 20)
+yNegLinWeak = -3*x + 10 + rnorm(length(x), mean = 0, sd = 5)
+
+par(mar=c(2,1,1,1), las=1, mgp=c(0.5,0.7,0), mfrow = c(2,2), cex.lab = 2, cex.axis = 2)
+
+plot(yNonLin ~ x, ylab = "", xlab = "(a)", pch=19, col=COL[1,2], axes = FALSE)
+box()
+
+plot(yPosLinStrong ~ x, ylab = "", xlab = "(b)", pch=19, col=COL[1,2], axes = FALSE)
+box()
+
+plot(yPosLinWeak ~ x, ylab = "", xlab = "(c)", pch=19, col=COL[1,2], axes = FALSE)
+box()
+
+plot(yNegLinWeak ~ x, ylab = "", xlab = "(d)", pch=19, col=COL[1,2], axes = FALSE)
+box()
+```
+
+\end{column}
+
+\begin{column}{0.3\textwidth}
+
+\pause
+
+\alert{(b) \rightarrow correlation means \underline{linear} association}
+
+\end{column}
+
+\end{columns}
+
+
+# Fitting a line by least squares regression
+
+## An objective measure for finding the best line
+
+\begin{itemize}
+
+\item We want a line that has small residuals:
+\pause
+\begin{enumerate}
+\item Option 1: Minimize the sum of magnitudes (absolute values) of residuals
+\[ |e_1| + |e_2| + \cdots + |e_n| \]
+\pause
+\item Option 2: Minimize the sum of squared residuals -- \textbf{least squares}
+\[ e_1^2 + e_2^2 + \cdots + e_n^2 \]
+\end{enumerate}
+
+\pause
+
+\item Why least squares?
+\pause
+\begin{enumerate}
+\item Most commonly used
+\pause
+\item Easier to compute by hand and using software
+\pause
+\item In many applications, a residual twice as large as another is usually more than twice as bad
+\end{enumerate}
+
+\end{itemize}
+
+## The least squares line
+
+\centering{\alert{$\hat{y} = \beta_0 + \beta_1 x$}}
+
+- $\hat{y}:$ Predicted value of the response variable, $y$.
+
+- $\beta_0:$ Intercept, parameter.
+
+  - $b_0:$ Intercept, point estimate.
+  
+- $\beta_1:$ Slope, parameter
+
+  - $b_1:$ Slope, point estimate
+  
+- $x:$ Explanatory variable
+
+
+## Conditions for the least squares line
+
+\begin{enumerate}
+
+\item Linearity.
+
+\pause
+
+\item Nearly normal residuals.
+
+\pause
+
+\item Constant variability.
+
+\end{enumerate}
+
+## Conditions: Linearity
+
+\begin{itemize}
+
+\item The relationship between the explanatory and the response variable should be linear. 
+
+\pause
+
+\item Methods for fitting a model to non-linear relationships exist, but are beyond the scope of this class. If this topic is of interest, an \href{http://www.openintro.org/download.php?file=os2_extra_nonlinear_relationships&referrer=/stat/textbook.php}{Online Extra is available on openintro.org} covering new techniques.
+
+\pause
+
+\item Check using a scatterplot of the data, or a \textbf{residuals plot}.
+
+\end{itemize}
+
+```{r, echo=F, message=F, warning=F, fig.width=4, fig.height=1.5,fig.align='center'}
+COL <- c('#22558899', '#000000CC')
+set.seed(1)
+
+par(mfrow=2:3, mar=rep(0.5, 4))
+
+MyLayOut <- matrix(1:6, 2)
+nf <- layout(mat=MyLayOut, widths=c(2,2,2), heights=c(2,1), respect=TRUE)
+
+n <- c(25)
+x <- runif(n[1])
+y <- -8*x + rnorm(n[1])
+plot(x,y, axes=FALSE, pch=20, col=COL[1], cex=1.202, xlim=c(-0.03, 1.03), ylim=c(-10, 1))
+box()
+g <- lm(y~x)
+abline(g, col=COL[2])
+plot(x, summary(g)$residuals, pch=20, col=COL[1], cex=1.202, xlim=c(-0.03, 1.03), axes=FALSE, ylim=2.5*c(-1,1)*max(abs(summary(g)$residuals)))
+box()
+abline(h=0, col=COL[2], lty=2)
+
+n <- 30
+x <- c(runif(n[1]-2, 0, 4), 2, 2.1)
+y <- -2*x^2 + rnorm(n[1])
+plot(x,y, axes=FALSE, pch=20, col=COL[1], cex=1.202, xlim=c(-0.2, 4.2), ylim=c(-35, 2))
+box()
+g <- lm(y~x)
+abline(g, col=COL[2])
+plot(x, summary(g)$residuals, pch=20, col=COL[1], cex=1.202, xlim=c(-0.2, 4.2), axes=FALSE, ylim=1.8*c(-1,1)*max(abs(summary(g)$residuals)))
+box()
+abline(h=0, col=COL[2], lty=2)
+
+n <- 40
+x <- runif(n[1])
+y <- 0.2*x + rnorm(n[1])
+y[y < -2] <- -1.5
+plot(x,y, axes=FALSE, pch=20, col=COL[1], cex=1.202, xlim=c(-0.03, 1.03), ylim=c(-2, 2))
+box()
+g <- lm(y~x)
+abline(g, col=COL[2])
+plot(x, summary(g)$residuals, pch=20, col=COL[1], cex=1.202, xlim=c(-0.03, 1.03), axes=FALSE, ylim=1.2*c(-1,1)*max(abs(summary(g)$residuals)))
+box()
+abline(h=0, col=COL[2], lty=2)
+```
+
+## Anatomy of a residuals plot
+
+\begin{columns}
+
+\begin{column}{0.5\textwidth}
+
+```{r, echo=F, message=F, warning=F, out.width="100%",fig.align='center'}
+data(COL)
+
+par(mar=c(4,4,1,1), las=1, mgp=c(2.5,0.5,0), cex.lab = 2, cex.axis = 2, mfrow = c(2,1))
+
+lmPlot(x = poverty$Graduates, y = poverty$Poverty, highlight = c(9,40), hlCol = c(COL[4],COL[2]), hlPch = c(15,17), col = COL[1,2], ylab = "% in poverty", xlab = "% HS grad", lCol = COL[4], cex = 2,lwd = 3, xAxis = 4)
+
+```
+
+\end{column}
+
+\begin{column}{0.5\textwidth}
+
+\small
+
+{\textcolor{green}{\blacktriangle}} \textbf{RI:}
+
+\begin{align*}
+\%~HS~grad &= 81 \hspace{1cm} \%~in~poverty = 10.3 \\
+\widehat{\%~in~poverty} &= 64.68 - 0.62 * 81 = 14.46 \\
+e &= \%~in~poverty - \widehat{\%~in~poverty} \\
+&= 10.3 - 14.46 = \textcolor{green}{-4.16}
+\end{align*}
+
+\pause
+
+{\textcolor{red}{\Large $\blacksquare$}} \textbf{DC:}
+
+\begin{align*}
+\%~HS~grad &= 86 \hspace{1cm} \%~in~poverty = 16.8 \\
+\widehat{\%~in~poverty} &= 64.68 - 0.62 * 86 = 11.36 \\
+e &= \%~in~poverty - \widehat{\%~in~poverty} \\
+&= 16.8 - 11.36 = \textcolor{red}{5.44}
+\end{align*}
+
+\end{column}
+
+\end{columns}
+
+## Conditions: Nearly normal residuals
+
+- The residuals should be nearly normal.
+
+\pause
+
+- This condition may not be satisfied when there are unusual observations that don't follow the trend of the rest of the data.
+
+\pause
+
+- Check using a histogram.
+
+```{r, echo=F, message=F, warning=F, out.width="75%",fig.align='center'}
+histPlot(lm_pov_grad$residuals, col = COL[1], xlab = "residuals", cex.lab = 1.5)
+```
+
+## Conditions: Constant variability
+
+\begin{columns}
+
+\begin{column}{0.5\textwidth}
+
+```{r, echo=F, message=F, warning=F, out.width="100%",fig.align='center'}
+layout(matrix(1:2, 2), c(1,1), c(2,1))
+par(mar=c(4,4,1,1))
+
+plot(x = poverty$Graduates, y = poverty$Poverty, ylab = "% in poverty", xlab = "% HS grad", pch=19, col=COL[1,2], cex.lab = 1.3)
+makeTube(x = poverty$Graduates, y = poverty$Poverty)
+
+plot(x = poverty$Graduates, y = lm_pov_grad$residuals, pch=19, col=COL[1,2], ylab = "", xlab = "", axes = FALSE, ylim = c(-5.5,5.5))
+makeTube(x = poverty$Graduates, y = lm_pov_grad$residuals, addLine = FALSE)
+axis(1, at = c(80,90,95))
+axis(2, at = c(-4, 0, 4))
+box()
+abline(h = 0, lty = 2)
+```
+
+\end{column}
+
+\begin{column}{0.45\textwidth}
+
+\begin{itemize}
+
+\item The variability of points around the least squares line should be roughly constant.
+
+\pause
+
+\item This implies that the variability of residuals around the 0 line should be roughly constant as well.
+
+\pause
+
+\item Also called \textbf{homoscedasticity}.
+
+\pause
+
+\item Check using a residuals plot.
+
+\end{itemize}
+
+\end{column}
+
+\end{columns}
+
+
+## Checking conditions
+
+\begin{columns}
+
+\begin{column}{0.45\textwidth}
+
+\alert{What condition is this linear model obviously violating?}
+
+A) Constant variability
+
+B) Linear relationship
+
+C) Normal residuals
+
+D) No extreme outliers
+
+\end{column}
+
+\begin{column}{0.5\textwidth}
+
+\includegraphics[width=1\columnwidth]{nonlinear.pdf}
+
+\end{column}
+
+\end{columns}
+
+## Checking conditions
+
+\begin{columns}
+
+\begin{column}{0.45\textwidth}
+
+\alert{What condition is this linear model obviously violating?}
+
+A) Constant variability
+
+B) \alert{Linear relationship}
+
+C) Normal residuals
+
+D) No extreme outliers
+
+\end{column}
+
+\begin{column}{0.5\textwidth}
+
+\includegraphics[width=1\columnwidth]{nonlinear.pdf}
+
+\end{column}
+
+\end{columns}
+
+## Checking conditions
+
+\begin{columns}
+
+\begin{column}{0.45\textwidth}
+
+\alert{What condition is this linear model obviously violating?}
+
+A) Constant variability
+
+B) Linear relationship
+
+C) Normal residuals
+
+D) No extreme outliers
+
+\end{column}
+
+\begin{column}{0.5\textwidth}
+
+\includegraphics[width=1\columnwidth]{heteroscedastic.pdf}
+
+\end{column}
+
+\end{columns}
+
+## Checking conditions
+
+\begin{columns}
+
+\begin{column}{0.45\textwidth}
+
+\alert{What condition is this linear model obviously violating?}
+
+A) \alert{Constant variability}
+
+B) Linear relationship
+
+C) Normal residuals
+
+D) No extreme outliers
+
+\end{column}
+
+\begin{column}{0.5\textwidth}
+
+\includegraphics[width=1\columnwidth]{heteroscedastic.pdf}
+
+\end{column}
+
+\end{columns}
+
+## Given...
+
+\begin{columns}
+
+\begin{column}{0.5\textwidth}
+
+```{r, echo=F, message=F, warning=F, out.width="100%",fig.align='center'}
+par(mar=c(4,4,1,1), las=1, mgp=c(2.5,0.7,0), cex.lab = 2, cex.axis = 2)
+plot(poverty$Poverty ~ poverty$Graduates, ylab = "% in poverty", xlab = "% HS grad", pch=19, col=COL[1,2], cex =2)
+```
+
+\end{column}
+
+\begin{column}{0.5\textwidth}
+
+\begin{tabular}{l r r}
+\hline
+		& \% HS grad		& \% in poverty \\
+		& $(x)$			& $(y)$ \\
+\hline
+mean	& $\bar{x} = 86.01$	& $\bar{y} = 11.35$  \\
+sd		& $s_x = 3.73$		& $s_y = 3.1$ \\
+\hline
+		& correlation		& $R = -0.75$ \\
+\hline
+\end{tabular}
+
+\end{column}
+
+\end{columns}
+
+## Slope
+
+The slope of the regression can be calculated as
+
+\centering{$b_1 = \frac{s_y}{s_x}R$}
+
+\pause
+
+\raggedright \textbf{In context...}
+
+\centering{$b_1 = \frac{3.1}{3.73} \times -0.75 = -0.62$}
+
+\pause
+
+\raggedright \textbf{Interpretation}
+
+For each additional % point in HS graduate rate, we would expect the % living in poverty to be lower on average by 0.62% points.
+
+## Intercept
+
+The intercept is where the regression line intersects the $y$-axis. The calculation of the intercept uses the fact the a regression line always passes through ($\bar{x}, \bar{y}$).
+
+\centering{$b_0 = \bar{y}-b_1 \bar{x}$}
+
+\pause
+
+\begin{columns}
+
+\begin{column}{0.7\textwidth}
+
+```{r, echo=F, message=F, warning=F, out.width="100%",fig.align='center'}
+par(mar=c(4,4,1,1), las=1, mgp=c(2.5,0.7,0), cex.lab = 1.5, cex.axis = 1.5)
+
+plot(poverty$Poverty ~ poverty$Graduates, ylab = "% in poverty", xlab = "% HS grad", pch=19, col=COL[1,2], xlim = c(0,100), ylim = c(0,70), cex.lab = 2)
+lm_pov_grad = lm(poverty$Poverty ~ poverty$Graduates)
+abline(lm_pov_grad, col = COL[4], lwd = 3)
+abline(v = 0)
+text(y = lm_pov_grad$coefficient[1]+3, x = 7, "intercept", cex = 2, col = COL[1])
+```
+
+\end{column}
+
+\begin{column}{0.28\textwidth}
+
+\pause
+
+\begin{align*}
+b_0 &= 11.35 - (-0.62) \times 86.01 \\
+&= 64.68
+\end{align*}
+
+\end{column}
+
+\end{columns}
+
+
+## Practice
+
+\alert{Which of the following is the correct interpretation of the intercept?}
+
+A) For each % point increase in HS graduate rate, % living in poverty is expected to increase on average by 64.68%.
+
+B) For each % point decrease in HS graduate rate, % living in poverty is expected to increase on average by 64.68%.
+
+C) Having no HS graduates leads to 64.68% of residents living below the poverty line.
+
+D) States with no HS graduates are expected on average to have 64.68% of residents living below the poverty line.
+
+E) In states with no HS graduates % living in poverty is expected to increase on average by 64.68%.
+
+## Practice
+
+\alert{Which of the following is the correct interpretation of the intercept?}
+
+A) For each % point increase in HS graduate rate, % living in poverty is expected to increase on average by 64.68%.
+
+B) For each % point decrease in HS graduate rate, % living in poverty is expected to increase on average by 64.68%.
+
+C) Having no HS graduates leads to 64.68% of residents living below the poverty line.
+
+D) \alert{States with no HS graduates are expected on average to have 64.68\% of residents living below the poverty line.}
+
+E) In states with no HS graduates % living in poverty is expected to increase on average by 64.68%.
+
+## More on the intercept
+
+Since there are no states in the dataset with no HS graduates, the intercept is of no interest, not very useful, and also not reliable since the predicted value of the intercept is so far from the bulk of the data.
+
+```{r, echo=F, message=F, warning=F, out.width="80%",fig.align='center'}
+par(mar=c(4,4,1,1), las=1, mgp=c(2.5,0.7,0), cex.lab = 1.5, cex.axis = 1.5)
+
+plot(poverty$Poverty ~ poverty$Graduates, ylab = "% in poverty", xlab = "% HS grad", pch=19, col=COL[1,2], xlim = c(0,100), ylim = c(0,70), cex.lab = 2)
+lm_pov_grad = lm(poverty$Poverty ~ poverty$Graduates)
+abline(lm_pov_grad, col = COL[4], lwd = 3)
+abline(v = 0)
+text(y = lm_pov_grad$coefficient[1]+3, x = 7, "intercept", cex = 2, col = COL[1])
+```
+
+## Regression line
+
+\centering{$\widehat{\%~in~poverty} = 64.68 - 0.62 \%~HS~grad$}
+
+```{r, echo=F, message=F, warning=F, out.width="100%",fig.align='center'}
+par(mar=c(4,4,1,1), las=1, mgp=c(2.5,0.7,0), cex.lab = 1.5, cex.axis = 1.5)
+plot(poverty$Poverty ~ poverty$Graduates, ylab = "% in poverty", xlab = "% HS grad", pch=19, col=COL[1,2], cex.lab = 2)
+lm_pov_grad = lm(poverty$Poverty ~ poverty$Graduates)
+abline(lm_pov_grad, col = COL[4], lwd = 3)
+```
+
+
+## Interpretation of slope and intercept
+
+\begin{columns}
+
+\begin{column}{0.5\textwidth}
+
+\begin{itemize}
+
+\item \textbf{Intercept:} When {$x = 0$}, {$y$} is expected to equal {the intercept}. \\
+
+\item[]
+
+\item \textbf{Slope:} For each {unit} in {$x$}, {$y$} is expected to {increase / decrease} on average by {the slope}.
+
+\end{itemize}
+
+\end{column}
+
+\begin{column}{0.5\textwidth}
+
+\includegraphics[width=1\columnwidth]{diagram.png}
+
+\end{column}
+
+\end{columns}
+
+\noindent\rule{4cm}{0.4pt}
+
+\alert{Note:} These statements are not casual, unless the study is a randomized controlled experiment.
+
+## Prediction
+
+- Using the linear model to predict the value of the response variable for a given value of the explanatory variable is called **prediction**, simply by plugging in the value of $x$ in the linear model equation.
+
+- There will be some uncertainty associated with the predicted value.
+
+```{r, echo=F, message=F, warning=F, out.height="50%",fig.align='center'}
+par(mar=c(4,4,1,1), las=1, mgp=c(2.5,0.7,0), cex.lab = 1.5, cex.axis = 1.5)
+
+plot(poverty$Poverty ~ poverty$Graduates, ylab = "% in poverty", xlab = "% HS grad", pch=19, col=COL[1,2], cex.lab = 2, cex = 2)
+lm_pov_grad = lm(poverty$Poverty ~ poverty$Graduates)
+abline(lm_pov_grad, col = COL[4], lwd = 3)
+lines(x = c(82,82), y = c(0,64.781-0.6212*82), lty = 3)
+lines(x = c(0,82), y = c(64.781-0.6212*82,64.781-0.6212*82), lty = 3)
+```
+
+
+## Extrapolation
+
+- Applying a model estimate to values outside of the realm of the original data is called **extrapolation**.
+
+- Sometimes the intercept might be an extrapolation.
+
+```{r, echo=F, message=F, warning=F, out.height="55%",fig.align='center'}
+par(mar=c(4,4,1,1), las=1, mgp=c(2.5,0.7,0), cex.lab = 2, cex.axis = 2)
+
+plot(poverty$Poverty ~ poverty$Graduates, ylab = "% in poverty", xlab = "% HS grad", pch=19, col=COL[1,2], xlim = c(0,100), ylim = c(0,70))
+lm_pov_grad = lm(poverty$Poverty ~ poverty$Graduates)
+abline(lm_pov_grad, col = COL[4], lwd = 3)
+abline(v = 0)
+text(y = lm_pov_grad$coefficient[1]+3, x = 7, "intercept", cex = 2, col = COL[1])
+```
+
+## Examples of extrapolation
+
+![](extrapolation.png)
+
+## Example of extrapolation
+
+![](womenOutsprintBBC.png){width="90%"}
+
+## Example of extrapolation
+
+![](womenOutsprint.png)
+
+## $R^2$
+
+- The strength of the fit of a linear model is most commonly evaluated using $\mathbf{R^2}$.
+
+\pause
+
+- $R^2$ is calculated as the square of the correlation coefficient.
+
+\pause
+
+- It tells us what percent of variability in the response variable is explained by the model.
+
+\pause
+
+- The remainder of the variability is explained by variables not included in the model or by inherent randomness in the data.
+
+\pause
+
+- For the model we've been working with, $R^2 = (-0.75)^2 = 0.56$.
+
+## Interpretation of $R^2$
+
+\alert{Which of the below is the correct interpretation of $R = -0.75, R^2 = 0.56?$}
+
+\begin{columns}
+
+\begin{column}{0.65\textwidth}
+
+A) 56\% of the variability in the \% of HG graduates among the 51 states is explained by the model.
+
+B) 56\% of the variability in the \% of residents living in poverty among the 51 states is explained by the model.\
+
+C) 56\% of the time \% HS graduates predict \% living in poverty correctly.
+
+D) 75\% of the variability in the \% of residents living in poverty among the 51 states is explained by the model.
+
+\end{column}
+
+\begin{column}{0.35\textwidth}
+
+```{r, echo=F, message=F, warning=F, out.height="100%",fig.align='center'}
+par(mar=c(4,4,1,1), las=1, mgp=c(2.5,0.7,0), cex.lab = 2, cex.axis = 2)
+plot(poverty$Poverty ~ poverty$Graduates, ylab = "% in poverty", xlab = "% HS grad", pch=19, col=COL[1,2], cex = 2)
+
+```
+
+\end{column}
+
+\end{columns}
+
+
+## Interpretation of $R^2$
+
+\alert{Which of the below is the correct interpretation of $R = -0.75, R^2 = 0.56?$}
+
+\begin{columns}
+
+\begin{column}{0.65\textwidth}
+
+A) 56\% of the variability in the \% of HG graduates among the 51 states is explained by the model.
+
+B) \alert{56\% of the variability in the \% of residents living in poverty among the 51 states is explained by the model.}\
+
+C) 56\% of the time \% HS graduates predict \% living in poverty correctly.
+
+D) 75\% of the variability in the \% of residents living in poverty among the 51 states is explained by the model.
+
+\end{column}
+
+\begin{column}{0.35\textwidth}
+
+```{r, echo=F, message=F, warning=F, out.height="100%",fig.align='center'}
+par(mar=c(4,4,1,1), las=1, mgp=c(2.5,0.7,0), cex.lab = 2, cex.axis = 2)
+plot(poverty$Poverty ~ poverty$Graduates, ylab = "% in poverty", xlab = "% HS grad", pch=19, col=COL[1,2], cex = 2)
+
+```
+
+\end{column}
+
+\end{columns}
+
+
+# Types of outliers in linear regression
+
+## Types of outliers
+
+\begin{columns}
+
+\begin{column}{0.5\textwidth}
+
+\alert{How do outliers influence the least squares in this plot?}
+
+To answer this question think of where the regression line would be with and without the outlier(s). Without the outliers the regression line would be steeper, and lie closer to the larger group of observations. With the outliers the line is pulled up and away from some of the observations in the larger group. 
+
+
+\end{column}
+
+\begin{column}{0.5\textwidth}
+
+```{r, echo=F, message=F, warning=F, out.height="100%",fig.align='center'}
+set.seed(238)
+
+n <- c(50, 25, 78, 55, 70, 150)
+m <- c(12, -4, 7, -19, 0, 40)
+xr <- list(0.3, c(2), 1.42,
+	runif(4,1.45,1.55), 5.78, -0.6)
+yr <- list(-4, c(-8), 19,
+	c(-17,-20,-21,-19), 12, -23.2)
+i = 4
+x <- runif(n[i])
+y <- m[i]*x + rnorm(n[i])
+x <- c(x,xr[[i]])
+y <- c(y,yr[[i]])
+par(mar=c(4,4,1,1), las=1, mgp=c(2.5,0.5,0), cex.lab = 1.25, cex.axis = 2, mfrow = c(2,1))
+lmPlot(x, y, col = COL[1,2], lCol = COL[4], lwd = 3, cex = 2)
+
+```
+
+\end{column}
+
+\end{columns}
+
+
+## Types of outliers
+
+\begin{columns}
+
+\begin{column}{0.5\textwidth}
+
+\alert{How do outliers influence the least squares in this plot?}
+
+\end{column}
+
+\begin{column}{0.5\textwidth}
+
+```{r, echo=F, message=F, warning=F, out.height="100%",fig.align='center'}
+set.seed(238)
+
+n <- c(50, 25, 78, 55, 70, 150)
+m <- c(12, -4, 7, -19, 0, 40)
+xr <- list(0.3, c(2), 1.42,
+	runif(4,1.45,1.55), 5.78, -0.6)
+yr <- list(-4, c(-8), 19,
+	c(-17,-20,-21,-19), 12, -23.2)
+i = 5
+x <- runif(n[i])
+y <- m[i]*x + rnorm(n[i])
+x <- c(x,xr[[i]])
+y <- c(y,yr[[i]])
+par(mar=c(4,4,1,1), las=1, mgp=c(2.5,0.5,0), cex.lab = 1.25, cex.axis = 2, mfrow = c(2,1))
+lmPlot(x, y, col = COL[1,2], lCol = COL[4], lwd = 3, cex = 2)
+
+```
+
+\end{column}
+
+\end{columns}
+
+
+## Types of outliers
+
+\begin{columns}
+
+\begin{column}{0.5\textwidth}
+
+\alert{How do outliers influence the least squares in this plot?}
+
+Without the outlier there is no evident relationship between $x$ and $y$.
+
+\end{column}
+
+\begin{column}{0.5\textwidth}
+
+```{r, echo=F, message=F, warning=F, out.height="100%",fig.align='center'}
+set.seed(238)
+
+n <- c(50, 25, 78, 55, 70, 150)
+m <- c(12, -4, 7, -19, 0, 40)
+xr <- list(0.3, c(2), 1.42,
+	runif(4,1.45,1.55), 5.78, -0.6)
+yr <- list(-4, c(-8), 19,
+	c(-17,-20,-21,-19), 12, -23.2)
+i = 5
+x <- runif(n[i])
+y <- m[i]*x + rnorm(n[i])
+x <- c(x,xr[[i]])
+y <- c(y,yr[[i]])
+par(mar=c(4,4,1,1), las=1, mgp=c(2.5,0.5,0), cex.lab = 1.25, cex.axis = 2, mfrow = c(2,1))
+lmPlot(x, y, col = COL[1,2], lCol = COL[4], lwd = 3, cex = 2)
+
+```
+
+\end{column}
+
+\end{columns}
+
+## Some terminology
+
+- **Outliers** are points that lie away from the cloud of points.
+
+\pause
+
+- Outliers that lie horizontally away from the center of the cloud are called **high leverage** points.
+
+\pause
+
+- High leverage points that actually influence the \underline{slope} of the regression line are called **influential** points.
+
+\pause
+
+- In order to determine if a point is influential, visualize the regression line with and without the point. Does the slope of the line change considerably? If so, then the point is influential. If not, then it's not an influential point. 
+
+## Influential points
+
+Data are available on the log of the surface temperature and the log of the light intensity of 47 stars in the star cluster CYG OB1.
+
+\begin{columns}
+
+\begin{column}{0.7\textwidth}
+
+```{r, echo=F, message=F, warning=F, out.height="100%",fig.align='center'}
+data(star)
+
+par(mar=c(4,4,2,1), las=1, mgp=c(2.5,0.7,0), cex.lab = 2, cex.axis = 2)
+
+plot(light ~ temp, data = star, pch=19, cex = 2, col=COL[1,2], xlab = "log(temp)", ylab = "log(light intensity)")
+
+abline(lm(light[temp>4]~temp[temp>4], data = star), col = COL[4], lwd = 3)
+abline(lm(light~temp, data = star), col = COL[2], lwd = 3, lty = 2)
+
+legend("top", inset = 0.05, c("w/ outliers","w/o outliers"), lty = c(2,1), lwd = c(2,3), col = c(COL[2],COL[4]), cex = 2)
+
+```
+
+\end{column}
+
+\begin{column}{0.3\textwidth}
+
+\includegraphics[width=1\columnwidth]{cyg.pdf}
+
+\end{column}
+
+\end{columns}
+
+
+## Types of outliers
+
+\begin{columns}
+
+\begin{column}{0.3\textwidth}
+
+\alert{Which of the below best describes the outlier?}
+
+A) Influential
+
+B) High Leverage
+
+C) None of the above
+
+D) There are no outliers
+
+\end{column}
+
+\begin{column}{0.7\textwidth}
+
+```{r, echo=F, message=F, warning=F, out.height="100%",fig.align='center'}
+set.seed(238)
+
+n <- c(50, 25, 78, 55, 70, 150)
+m <- c(12, -4, 7, -19, 0, 40)
+xr <- list(0.3, c(2), 1.42,
+	runif(4,1.45,1.55), 5.78, -0.6)
+yr <- list(-4, c(-8), 19,
+	c(-17,-20,-21,-19), 12, -23.2)
+i = 6
+x <- runif(n[i])
+y <- m[i]*x + rnorm(n[i])
+x <- c(x,xr[[i]])
+y <- c(y,yr[[i]])
+par(mar=c(4,4,1,1), las=1, mgp=c(2.5,0.5,0), cex.lab = 1.25, cex.axis = 2, mfrow = c(2,1))
+lmPlot(x, y, col = COL[1,2], lCol = COL[4], lwd = 3, cex = 2)
+```
+
+\end{column}
+
+\end{columns}
+
+
+## Types of outliers
+
+\begin{columns}
+
+\begin{column}{0.3\textwidth}
+
+\alert{Which of the below best describes the outlier?}
+
+A) Influential
+
+B) \alert{High Leverage}
+
+C) None of the above
+
+D) There are no outliers
+
+\end{column}
+
+\begin{column}{0.7\textwidth}
+
+```{r, echo=F, message=F, warning=F, out.height="100%",fig.align='center'}
+set.seed(238)
+
+n <- c(50, 25, 78, 55, 70, 150)
+m <- c(12, -4, 7, -19, 0, 40)
+xr <- list(0.3, c(2), 1.42,
+	runif(4,1.45,1.55), 5.78, -0.6)
+yr <- list(-4, c(-8), 19,
+	c(-17,-20,-21,-19), 12, -23.2)
+i = 6
+x <- runif(n[i])
+y <- m[i]*x + rnorm(n[i])
+x <- c(x,xr[[i]])
+y <- c(y,yr[[i]])
+par(mar=c(4,4,1,1), las=1, mgp=c(2.5,0.5,0), cex.lab = 1.25, cex.axis = 2, mfrow = c(2,1))
+lmPlot(x, y, col = COL[1,2], lCol = COL[4], lwd = 3, cex = 2)
+```
+
+\end{column}
+
+\end{columns}
+
+
+## Types of outliers
+
+\begin{columns}
+
+\begin{column}{0.3\textwidth}
+
+\alert{Does this outlier influence the slope of the regression line?}
+
+\end{column}
+
+\begin{column}{0.7\textwidth}
+
+```{r, echo=F, message=F, warning=F, out.height="100%",fig.align='center'}
+set.seed(238)
+
+n <- c(50, 25, 78, 55, 70, 150)
+m <- c(12, -4, 7, -19, 0, 40)
+xr <- list(0.3, c(2), 1.42,
+	runif(4,1.45,1.55), 5.78, -0.6)
+yr <- list(-4, c(-8), 19,
+	c(-17,-20,-21,-19), 12, -23.2)
+i = 1
+x <- runif(n[i])
+y <- m[i]*x + rnorm(n[i])
+#temp = lm(y~x)
+x <- c(x,xr[[i]])
+y <- c(y,yr[[i]])
+par(mar=c(4,4,1,1), las=1, mgp=c(2.5,0.5,0), cex.lab = 2, cex.axis = 2, mfrow = c(2,1))
+lmPlot(x, y, col = COL[1,2], lCol = COL[4], lwd = 3, cex = 2)
+#abline(temp, lty = 3)
+```
+
+\end{column}
+
+\end{columns}
+
+
+## Types of outliers
+
+\begin{columns}
+
+\begin{column}{0.3\textwidth}
+
+\alert{Does this outlier influence the slope of the regression line?}
+
+Not much...
+
+\end{column}
+
+\begin{column}{0.7\textwidth}
+
+```{r, echo=F, message=F, warning=F, out.height="100%",fig.align='center'}
+set.seed(238)
+
+n <- c(50, 25, 78, 55, 70, 150)
+m <- c(12, -4, 7, -19, 0, 40)
+xr <- list(0.3, c(2), 1.42,
+	runif(4,1.45,1.55), 5.78, -0.6)
+yr <- list(-4, c(-8), 19,
+	c(-17,-20,-21,-19), 12, -23.2)
+i = 1
+x <- runif(n[i])
+y <- m[i]*x + rnorm(n[i])
+#temp = lm(y~x)
+x <- c(x,xr[[i]])
+y <- c(y,yr[[i]])
+par(mar=c(4,4,1,1), las=1, mgp=c(2.5,0.5,0), cex.lab = 2, cex.axis = 2, mfrow = c(2,1))
+lmPlot(x, y, col = COL[1,2], lCol = COL[4], lwd = 3, cex = 2)
+#abline(temp, lty = 3)
+```
+
+\end{column}
+
+\end{columns}
+
+
+## Recap
+
+\alert{Which of following is \underline{true}?}
+
+A) Influential points always change the intercept of the regression line.
+
+B) Influential points always reduce $R^2$.
+
+C) It is much more likely for a low leverage point to be influential, than a high leverage point.
+
+D) When the data set includes an influential point, the relationship between the explanatory variable and the response variable is always nonlinear.
+
+E) None of the above.
+
+
+## Recap
+
+\alert{Which of following is \underline{true}?}
+
+A) Influential points always change the intercept of the regression line.
+
+B) Influential points always reduce $R^2$.
+
+C) It is much more likely for a low leverage point to be influential, than a high leverage point.
+
+D) When the data set includes an influential point, the relationship between the explanatory variable and the response variable is always nonlinear.
+
+E) \alert{None of the above.}
+
+
+## Recap
+
+\begin{columns}
+
+\begin{column}{0.5\textwidth}
+
+\centering{$R = 0.08, R^2 = 0.0064$}
+
+```{r, echo=F, message=F, warning=F, out.height="100%",fig.align='center'}
+set.seed(238)
+
+n <- c(50, 25, 78, 55, 70, 150)
+m <- c(12, -4, 7, -19, 0, 40)
+xr <- list(0.3, c(2), 1.42,
+	runif(4,1.45,1.55), 5.78, -0.6)
+yr <- list(-4, c(-8), 19,
+	c(-17,-20,-21,-19), 12, -23.2)
+i = 5
+x <- runif(n[i])
+y <- m[i]*x + rnorm(n[i])
+x <- c(x,xr[[i]])
+y <- c(y,yr[[i]])
+par(mar=c(4,4,1,1), las=1, mgp=c(2.5,0.5,0), cex.lab = 2, cex.axis = 2, mfrow = c(2,1))
+lmPlot(x, y, col = COL[1,2], lCol = COL[4], lwd = 3, cex = 2)
+
+```
+
+
+\end{column}
+
+\begin{column}{0.5\textwidth}
+
+\centering{$R = 0.79, R^2 = 0.6241$}
+
+```{r, echo=F, message=F, warning=F, out.height="100%",fig.align='center'}
+set.seed(238)
+
+n <- c(50, 25, 78, 55, 70, 150)
+m <- c(12, -4, 7, -19, 0, 40)
+xr <- list(0.3, c(2), 1.42,
+	runif(4,1.45,1.55), 5.78, -0.6)
+yr <- list(-4, c(-8), 19,
+	c(-17,-20,-21,-19), 12, -23.2)
+i = 5
+x <- runif(n[i])
+y <- m[i]*x + rnorm(n[i])
+x <- c(x,xr[[i]])
+y <- c(y,yr[[i]])
+par(mar=c(4,4,1,1), las=1, mgp=c(2.5,0.5,0), cex.lab = 2, cex.axis = 2, mfrow = c(2,1))
+lmPlot(x[1:70], y[1:70], col = COL[1,2], lCol = COL[4], cex = 2,lwd = 3, xlim = range(x), ylim = range(y))
+#abline(temp, lty = 3)
+```
+
+\end{column}
+
+\end{columns}
+
+# Inference for linear regression
+
+## Nature or nurture?
+
+In 1966 Cyril Burt published a paper called "The genetic determination of differences in intelligence: A study of monozygotic twins reared together and apart". The data consist of IQ scores for [an assumed random sample of] 27 identical twins, one raised by foster parents, the other by the biological parents.
+
+```{r, echo=F, message=F, warning=F, fig.width=6, fig.height=3,fig.align='center'}
+data(twins)
+
+r = cor(twins$Foster, twins$Biological)
+m1 = lm(twins$Foster ~ twins$Biological)
+
+par(mar=c(4.5,4.5,0.5,0.5))
+plot(twins$Foster ~ twins$Biological, xlab = "biological IQ", ylab = "foster IQ", pch = 20, col = COL[1,2], cex = 2, las = 1, cex.axis = 1.5, cex.lab = 1.5)
+abline(m1, col = COL[4], lwd = 2)
+text(paste("R = ", round(r,3)), x = 75, y = 125, cex = 1.5)
+```
+
+##
+
+\alert{Which of the following is \underline{false}?}
+
+\tiny
+```{r}
+summary(m1)
+```
+\normalsize
+
+
+A) Additional 10 points in the biological twin's IQ is associated with additional 9 points in the foster twin's IQ, on average.
+
+B) Roughly 78% of the foster twins' IQs can be accurately predicted by the model.
+
+C) The linear model is $\widehat{fosterIQ} = 9.2 + 0.9 \times bioIQ$.
+
+D) Foster twins with IQs higher than average IQs tend to have biological twins with higher than average IQs as well.
+
+
+##
+
+\alert{Which of the following is \underline{false}?}
+
+\tiny
+```{r}
+summary(m1)
+```
+\normalsize
+
+A) Additional 10 points in the biological twin's IQ is associated with additional 9 points in the foster twin's IQ, on average.
+
+B) \alert{Roughly 78\% of the foster twins' IQs can be accurately predicted by the model.}
+
+C) The linear model is $\widehat{fosterIQ} = 9.2 + 0.9 \times bioIQ$.
+
+D) Foster twins with IQs higher than average IQs tend to have biological twins with higher than average IQs as well.
+
+
+## Testing for the slope
+
+\alert{Assuming that these 27 twins comprise a representative sample of all twins separated at birth, we would like to test if these data provide convincing evidence that the IQ of the biological twin is a significant predictor of IQ of the foster twin. What are the appropriate hypotheses?}
+
+\begin{enumerate}[A)]
+\item $H_0: b_0 = 0; H_A: b_0 \ne 0$ 
+\item $H_0: \beta_0 = 0; H_A: \beta_0 \ne 0$ 
+\item $H_0: b_1 = 0; H_A: b_1 \ne 0$ 
+\item $H_0: \beta_1 = 0; H_A: \beta_1 \ne 0$
+\end{enumerate}
+
+
+## Testing for the slope
+
+\alert{Assuming that these 27 twins comprise a representative sample of all twins separated at birth, we would like to test if these data provide convincing evidence that the IQ of the biological twin is a significant predictor of IQ of the foster twin. What are the appropriate hypotheses?}
+
+\begin{enumerate}[A)]
+\item $H_0: b_0 = 0; H_A: b_0 \ne 0$ 
+\item $H_0: \beta_0 = 0; H_A: \beta_0 \ne 0$ 
+\item $H_0: b_1 = 0; H_A: b_1 \ne 0$ 
+\item \textcolor{red}{$H_0: \beta_1 = 0; H_A: \beta_1 \ne 0$}
+\end{enumerate}
+
+
+## Testing for the slope
+
+\footnotesize
+\begin{center}
+\begin{tabular}{rrrrr}
+  \hline
+ & Estimate & Std. Error & t value & Pr($>$$|$t$|$) \\ 
+  \hline
+(Intercept) & 9.2076 & 9.2999 & 0.99 & 0.3316 \\ 
+  bioIQ & 0.9014 & 0.0963 & 9.36 & 0.0000 \\ 
+   \hline
+\end{tabular}
+\end{center}
+
+\normalsize
+
+\pause
+
+\begin{itemize}
+
+\item We always use a $t$-test in inference for regression. $\:$ \\
+
+\pause
+
+\alert{Remember:} Test statistic, $T = \frac{point~estimate - null~value}{SE}$
+
+\pause
+
+\item Point estimate = $b_1$ is the observed slope.
+
+\pause
+
+\item $SE_{b_1}$ is the standard error associated with the slope.
+
+\pause
+
+\item Degrees of freedom associated with the slope is $df = n - 2$, where $n$ is the sample size.
+
+\pause
+
+\alert{Remember:} We lose 1 degree of freedom for each parameter we estimate, and in simple linear regression we estimate 2 parameters, $\beta_0$ and $\beta_1$.
+
+\end{itemize}
+
+## Testing for the slope
+
+\small
+\begin{center}
+\begin{tabular}{rrrrr}
+  \hline
+ & Estimate & Std. Error & t value & Pr($>$$|$t$|$) \\ 
+  \hline
+(Intercept) &  9.2076 & 9.2999 & 0.99 & 0.3316 \\ 
+  bioIQ & \textcolor{orange}{0.9014}  &   \textcolor{green}{0.0963} & \textcolor{orange}{9.36} & \textcolor{blue}{0.0000} \\ 
+   \hline
+\end{tabular}
+\end{center}
+
+\normalsize
+
+\pause
+
+\begin{eqnarray*}
+T &=& \frac{\textcolor{orange}{0.9014} - 0}{\textcolor{green}{0.0963}} = \textcolor{orange}{9.36} \\
+\pause
+df &=& 27 - 2 = 25 \\
+\pause
+p-value &=& P(|T| > \textcolor{orange}{9.36}) < \textcolor{blue}{0.01}
+\end{eqnarray*}
+
+## % College graduate vs. % Hispanic in LA
+
+\alert{What can you say about the relationship between \% college graduate and \% Hispanic in a sample of 100 zip code areas in LA?}
+
+\begin{columns}
+
+\begin{column}{0.5\textwidth}
+
+\includegraphics[width=1\columnwidth]{Prop_EduHigherThan16th.pdf}
+
+\end{column}
+
+\begin{column}{0.5\textwidth}
+
+\includegraphics[width=1\columnwidth]{Prop_RaceEthHispanic.pdf}
+
+\end{column}
+
+\end{columns}
+
+
+## % College graduate vs. % Hispanic in LA - another look
+
+\alert{What can you say about the relationship between of \% college graduate and \% Hispanic in a sample of 100 zip code areas in LA?}
+
+![](la.pdf){width="90%"}
+
+## % College graduate vs. % Hispanic in LA - linear model
+
+\alert{Which of the below is the best interpretation of the slope?}
+
+\centering
+\begin{tabular}{rrrrr}
+  \hline
+ & Estimate & Std. Error & t value & Pr($>$$|$t$|$) \\ 
+  \hline
+(Intercept) & 0.7290 & 0.0308 & 23.68 & 0.0000 \\ 
+ \%Hispanic & -0.7527 & 0.0501 & -15.01 & 0.0000 \\ 
+   \hline
+\end{tabular}
+
+\begin{enumerate}[A)]
+\item A 1\% increase in Hispanic residents in a zip code area in LA is associated with a 75\% decrease in \% of college grads.
+\item A 1\% increase in Hispanic residents in a zip code area in LA is associated with a 0.75\% decrease in \% of college grads.
+\item An additional 1\% of Hispanic residents decreases the \% of college graduates in a zip code area in LA by 0.75\%.
+\item In zip code areas with no Hispanic residents, \% of college graduates is expected to be 75\%.
+\end{enumerate}
+
+## % College graduate vs. % Hispanic in LA - linear model
+
+\alert{Which of the below is the best interpretation of the slope?}
+
+\centering
+\begin{tabular}{rrrrr}
+  \hline
+ & Estimate & Std. Error & t value & Pr($>$$|$t$|$) \\ 
+  \hline
+(Intercept) & 0.7290 & 0.0308 & 23.68 & 0.0000 \\ 
+ \%Hispanic & -0.7527 & 0.0501 & -15.01 & 0.0000 \\ 
+   \hline
+\end{tabular}
+
+\begin{enumerate}[A)]
+\item A 1\% increase in Hispanic residents in a zip code area in LA is associated with a 75\% decrease in \% of college grads.
+\item \alert{A 1\% increase in Hispanic residents in a zip code area in LA is associated with a 0.75\% decrease in \% of college grads.}
+\item An additional 1\% of Hispanic residents decreases the \% of college graduates in a zip code area in LA by 0.75\%.
+\item In zip code areas with no Hispanic residents, \% of college graduates is expected to be 75\%.
+\end{enumerate}
+
+
+## % College graduate vs. % Hispanic in LA - linear model
+
+\alert{Do these data provide convincing evidence that there is a statistically significant relationship between \% Hispanic and \% college graduates in zip code areas in LA?}
+
+\small
+\begin{center}
+\begin{tabular}{rrrrr}
+  \hline
+ & Estimate & Std. Error & t value & Pr($>$$|$t$|$) \\ 
+  \hline
+(Intercept) & 0.7290 & 0.0308 & 23.68 & 0.0000 \\ 
+  hispanic & -0.7527 & 0.0501 & -15.01 & 0.0000 \\ 
+   \hline
+\end{tabular}
+\end{center}
+
+\pause
+
+Yes, the p-value for % Hispanic is low, indicating that the data provide convincing evidence that the slope parameter is different than 0.
+
+\pause
+
+\alert{How reliable is this p-value if these zip code areas are not randomly selected?}
+
+\pause
+
+Not very...
+
+
+## Confidence interval for the slope
+
+\alert{ Remember that a confidence interval is calculated as $point~estimate \pm ME$ and the degrees of freedom associated with the slope in a simple linear regression is $n - 2$. Which of the below is the correct 95\% confidence interval for the slope parameter? Note that the model is based on observations from 27 twins.}
+
+\footnotesize
+\begin{center}
+\begin{tabular}{rrrrr}
+  \hline
+ & Estimate & Std. Error & t value & Pr($>$$|$t$|$) \\ 
+  \hline
+(Intercept) & 9.2076 & 9.2999 & 0.99 & 0.3316 \\ 
+  bioIQ & 0.9014 & 0.0963 & 9.36 & 0.0000 \\ 
+   \hline
+\end{tabular}
+\end{center}
+
+\begin{columns}
+
+\begin{column}{0.5\textwidth}
+\begin{enumerate}[A)]
+\item $9.2076 \pm 1.65 \times 9.2999$
+\item $0.9014 \pm 2.06 \times 0.0963$
+\item $0.9014 \pm 1.96 \times 0.0963$
+\item $9.2076 \pm 1.96 \times 0.0963$
+\end{enumerate}
+
+\end{column}
+
+\begin{column}{0.5\textwidth}
+
+\end{column}
+
+\end{columns}
+
+## Confidence interval for the slope
+
+\alert{ Remember that a confidence interval is calculated as $point~estimate \pm ME$ and the degrees of freedom associated with the slope in a simple linear regression is $n - 2$. Which of the below is the correct 95\% confidence interval for the slope parameter? Note that the model is based on observations from 27 twins.}
+
+\footnotesize
+\begin{center}
+\begin{tabular}{rrrrr}
+  \hline
+ & Estimate & Std. Error & t value & Pr($>$$|$t$|$) \\ 
+  \hline
+(Intercept) & 9.2076 & 9.2999 & 0.99 & 0.3316 \\ 
+  bioIQ & 0.9014 & 0.0963 & 9.36 & 0.0000 \\ 
+   \hline
+\end{tabular}
+\end{center}
+
+\begin{columns}
+
+\begin{column}{0.5\textwidth}
+\begin{enumerate}[A)]
+\item $9.2076 \pm 1.65 \times 9.2999$
+\item \alert{$0.9014 \pm 2.06 \times 0.0963$}
+\item $0.9014 \pm 1.96 \times 0.0963$
+\item $9.2076 \pm 1.96 \times 0.0963$
+\end{enumerate}
+
+\end{column}
+
+\begin{column}{0.5\textwidth}
+
+
+\begin{eqnarray*}
+\pause
+n &=& 27 \qquad df = 27 - 2 = 25 \\
+\pause
+95\%:~t^\star_{25} &=& 2.06 \\
+\pause
+0.9014 &\pm& 2.06 \times 0.0963 \\
+\pause
+(0.7 &,& 1.1)
+\end{eqnarray*}
+
+\end{column}
+
+\end{columns}
+
+
+## Recap
+
+\begin{itemize}
+
+\item Inference for the slope for a single-predictor linear regression model:
+\pause
+\begin{itemize}
+\item Hypothesis test:
+\[ T = \frac{b_1 - null~value}{SE_{b_1}} \qquad df = n - 2 \]
+\pause
+\item Confidence interval:
+\[ b_1 \pm t^\star_{df = n - 2} SE_{b_1} \]
+\end{itemize}
+
+\pause
+
+\item The null value is often 0 since we are usually checking for \textbf{any} relationship between the explanatory and the response variable.
+
+\pause
+
+\item The regression output gives $b_1$, $SE_{b_1}$, and \textbf{two-tailed} p-value for the $t$-test for the slope where the null value is 0.
+
+\pause
+
+\item We rarely do inference on the intercept, so we'll be focusing on the estimates and inference for the slope.
+
+\end{itemize}
+
+## Caution
+
+\begin{itemize}
+
+\item Always be aware of the type of data you're working with: random sample, non-random sample, or population.
+
+\pause
+
+\item Statistical inference, and the resulting p-values, are meaningless when you already have population data.
+
+\pause
+
+\item If you have a sample that is non-random (biased), inference on the results will be unreliable.
+
+\pause
+
+\item The ultimate goal is to have independent observations.
+
+\end{itemize}

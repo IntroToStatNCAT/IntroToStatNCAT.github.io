@@ -1,0 +1,5 @@
+"0","radius  <- 20000"
+"0","cex     <- 1.4"
+"0","seed    <- 2"
+"0","stacks  <- dotPlotStack(house_income, radius=radius, addDots=FALSE, pch=19, col=COL[1], cex=0.8, seed=seed)"
+"0","plot(0, type=""n"", xlab=""Annual Household Income"", axes=FALSE, ylab="""", xlim=range(house_income), ylim=c(0, quantile(stacks[[3]], 0.999)),  cex.lab=1.5)"

@@ -1,0 +1,7 @@
+"0","d = read.csv(""study_hours.csv"")"
+"0",""
+"0","study_hours = d$study_hours[!is.na(d$study_hours)]"
+"0",""
+"0","# box"
+"0",""
+"0","boxPlot(study_hours, col = COL[1,3], ylab = ""# of study hours / week"")"

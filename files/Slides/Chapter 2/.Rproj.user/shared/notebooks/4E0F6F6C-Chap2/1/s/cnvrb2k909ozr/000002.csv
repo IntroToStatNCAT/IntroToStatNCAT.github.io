@@ -1,0 +1,1 @@
+"0","histPlot(log(basket_games), col = COL[1], xlab = ""# of basketball games attended"", ylab = """", cex.lab=2, cex.axis=2)"

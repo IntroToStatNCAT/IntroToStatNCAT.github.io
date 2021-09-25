@@ -1,0 +1,894 @@
+---
+title: "Chapter 1"
+subtitle: "Introduction to data^[These notes use content from OpenIntro Statistics Slides by Mine Cetinkaya-Rundel.]"
+author: |
+  | (Author Name)
+  | Department of Mathematics & Statistics
+  | North Carolina A\&T State University
+#date: "8/19/2020"
+header-includes:
+    \usepackage{multirow}
+    \usepackage{graphicx}
+    \usepackage{subfigure}
+    \usepackage{multicol}
+output: 
+  beamer_presentation:
+    fig_caption: true
+    latex_engine: xelatex
+    
+    
+---
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+```{r, echo=F, message=F, warning=F}
+library(readr)
+library(openintro)
+data(COL)
+data(possum)
+```
+
+# Case Study
+
+## Treating Chronic Fatigue Syndrome
+
+- Objective: Evaluate the effectiveness of cognitive-behavior therapy for chronic fatigue syndrome.
+
+- Participant pool: 142 patients who were recruited from referrals by primary care physicians and consultants to a hospital clinic specializing in chronic fatigue syndrome.
+
+- Actual participants: Only 60 of the 142 referred patients entered the study. Some were excluded because they didn’t meet the diagnostic criteria, some had other health issues,and some refused to be a part of the study.
+
+
+## Study Design
+
+- Patients randomly assigned to treatment and control groups, 30 patients in each group:
+  - **Treatment**: Cognitive behavior therapy - collaborative, educative, and with a behavioral emphasis. Patients were shown on how activity could be increased steadily and safely without exacerbating symptoms.
+  - **Control**: Relaxation - No advice was given about how activity could be increased. Instead progressive muscle relaxation, visualization, and rapid relaxation skills were taught.
+  
+## Results
+
+The table below shows the distribution of patients with good outcomes at 6-month follow-up. Note that 7 patients dropped out of the study: 3 from the treatment and 4 from the control group.
+
+\begin{table}[]
+\begin{tabular}{lllll}
+                       &           & \multicolumn{2}{l}{Good Outcome} &       \\ \cline{3-4}
+                       &           & Yes             & No             & Total \\ \cline{2-5} 
+\multirow{2}{*}{Group} & Treatment & 19              & 8              & 27    \\
+                       & Control   & 5               & 21             & 26    \\ \cline{2-5} 
+                       & Total     & 24              & 29             & 53   
+\end{tabular}
+\end{table}
+
+## Results
+
+The table below shows the distribution of patients with good outcomes at 6-month follow-up. Note that 7 patients dropped out of the study: 3 from the treatment and 4 from the control group.
+
+\begin{table}[]
+\begin{tabular}{lllll}
+                       &           & \multicolumn{2}{l}{Good Outcome} &       \\ \cline{3-4}
+                       &           & Yes             & No             & Total \\ \cline{2-5} 
+\multirow{2}{*}{Group} & Treatment & 19              & 8              & 27    \\
+                       & Control   & 5               & 21             & 26    \\ \cline{2-5} 
+                       & Total     & 24              & 29             & 53   
+\end{tabular}
+\end{table}
+
+- Proportion with good outcomes in treatment group:
+
+\begin{center}
+$19/27 \approx 0.70 \rightarrow 70\%$ 
+\end{center}
+
+## Results
+
+The table below shows the distribution of patients with good outcomes at 6-month follow-up. Note that 7 patients dropped out of the study: 3 from the treatment and 4 from the control group.
+
+\begin{table}[]
+\begin{tabular}{lllll}
+                       &           & \multicolumn{2}{l}{Good Outcome} &       \\ \cline{3-4}
+                       &           & Yes             & No             & Total \\ \cline{2-5} 
+\multirow{2}{*}{Group} & Treatment & 19              & 8              & 27    \\
+                       & Control   & 5               & 21             & 26    \\ \cline{2-5} 
+                       & Total     & 24              & 29             & 53   
+\end{tabular}
+\end{table}
+
+- Proportion with good outcomes in treatment group:
+
+\begin{center}
+$19/27 \approx 0.70 \rightarrow 70\%$ 
+\end{center}
+
+- Proportion with good outcomes in control group:
+
+\begin{center}
+$5/26 \approx 0.19 \rightarrow 19\%$ 
+\end{center}
+
+
+## Understanding the results
+
+\alert{Do the data show a "real" difference between the groups?}
+
+## Understanding the results
+
+\alert{Do the data show a "real" difference between the groups?}
+
+- Suppose you flip a coin 100 times. While the chance a coin lands heads in any given coin flip is 50%, we probably wont observe exactly 50 heads. This type of fluctuation is part of almost any type of data generating process.
+
+- The observed difference between the two group ($70\% - 19\% = 51\%$) may be real, or may be due to natural variation.
+
+- Since the difference is quite large, it is more believale that the difference is real.
+
+- We need statistical tools to determine if the difference is so large that we should reject the notion that it was due to chance.
+
+## Generalizing the results
+
+\alert{Are the results of this study generalizable to all patients with chronic fatigue syndrome?}
+
+## Generalizing the results
+
+\alert{Are the results of this study generalizable to all patients with chronic fatigue syndrome?}
+
+These patients had specific characteristics and volunteered to be a part of this study, therefore they may not be representative of all patients with chronic fatigue syndrome. While we cannot immediately generalize the results to all patients, this first study is encouraging. The method works for patients with some narrow set of characteristics, and that gives hope that it will work, at least to some degree, with other patients.
+
+## Data Basics
+
+**Classroom survey**
+
+A survey was conducted on students in an Intro to Stat course. Below are a few of the questions on the survey, and the corresponding variables the data from the responses were stored in:
+
+  - *gender*: What is your gender?
+  - *intro_extro*: Do you consider yourself introverted or extroverted?
+  - *sleep*: How many hours do you sleep at night, on average?
+  - *bedtime*: What time do you usually go to bed?
+  - *countries*: How many countries have you visited?
+  - *dread*: On a scale of $1-5$, how much do you dread being here?
+  
+## Data Basics
+
+**Data Matrix**
+
+Data collected on students in a statistics class on a variety of variables:
+
+
+
+\begin{table}[]
+\begin{tabular}{cccccl}
+                      & \alert{variable}          &                       &        &                       &                           \\
+                      & \alert{\downarrow}        &                       &        &                       &                           \\ \cline{1-5}
+Student               & gender                    & intro\_extro          & \dots  & dread                 &                           \\ \cline{1-5}
+1                     & male                      & extrovert             & \dots  & 3                     &                           \\
+2                     & female                    & extrovert             & \dots  & 2                     &                           \\
+3                     & female                    & introvert             & \dots  & 4                     & \alert{\leftarrow}        \\
+4                     & female                    & extrovert             & \dots  & 2                     & \alert{observation}       \\
+$\vdots$              & $\vdots$                  & $\vdots$              & $\vdots$& $\vdots$             &                           \\
+86                    & male                      & extrovert             & \dots  & 3                     &                           \\ \cline{1-5}
+\end{tabular}
+\end{table}
+
+## Types of variables
+
+```{r, echo=F, message=F, warning=F, out.width="100%",fig.align='center'}
+plot(c(-0.15,1.3),0:1,type='n',axes=FALSE,xlab = "", ylab = "")
+
+text(0.6, 0.9, 'all variables', cex = 2)
+rect(0.4,0.8,0.8,1)
+
+text(0.25, 0.5, 'numerical', cex = 2)
+rect(0.1,0.4, 0.4, 0.6)
+arrows(0.45, 0.78, 0.34, 0.62, length=0.08)
+
+text(0.9, 0.5, 'categorical', cex = 2)
+rect(0.73,0.4, 1.07, 0.6)
+arrows(0.76, 0.78, 0.85, 0.62, length=0.08)
+
+text(0, 0.1, 'continuous', cex = 2)
+rect(-0.17, 0, 0.17, 0.2)
+arrows(0.13, 0.38, 0.05, 0.22, length=0.08)
+
+text(0.39, 0.1, 'discrete', cex = 2)
+rect(0.25, 0, 0.53, 0.2)
+arrows(0.35, 0.38, 0.4, 0.22, length=0.08)
+
+text(0.77, 0.105, 'regular\ncategorical', col=COL[6], cex=1.5)
+rect(0.64, 0, 0.9, 0.2, border=COL[6])
+arrows(0.82, 0.38, 0.77, 0.22, length=0.08, col=COL[6])
+
+text(1.12, 0.1, 'ordinal', col=COL[6], cex = 2)
+rect(0.99, 0, 1.25, 0.2, border=COL[6])
+arrows(1.02, 0.38, 1.1, 0.22, length=0.08, col=COL[6])
+```
+
+## Types of variables
+
+\begin{table}[]
+\begin{tabular}{llllll}
+Student & gender & sleep & bedtime & countries & dread \\ \cline{1-5}
+1       & male   & 5     & 12-2    & 13        & 3     \\
+2       & female & 7     & 10-12   & 7         & 2     \\
+3       & female & 5.5   & 12-2    & 1         & 4     \\
+4       & female & 7     & 12-2    &           & 2     \\
+5       & female & 3     & 12-2    & 1         & 3     \\
+6       & female & 3     & 12-2    & 9         & 4     \\ \cline{1-5}
+\end{tabular}
+\end{table}
+
+- gender: \alert{Type?}
+
+## Types of variables
+
+\begin{table}[]
+\begin{tabular}{llllll}
+Student & gender & sleep & bedtime & countries & dread \\ \cline{1-5}
+1       & male   & 5     & 12-2    & 13        & 3     \\
+2       & female & 7     & 10-12   & 7         & 2     \\
+3       & female & 5.5   & 12-2    & 1         & 4     \\
+4       & female & 7     & 12-2    &           & 2     \\
+5       & female & 3     & 12-2    & 1         & 3     \\
+6       & female & 3     & 12-2    & 9         & 4     \\ \cline{1-5}
+\end{tabular}
+\end{table}
+
+- gender: **Categorical**
+
+## Types of variables
+
+\begin{table}[]
+\begin{tabular}{llllll}
+Student & gender & sleep & bedtime & countries & dread \\ \cline{1-5}
+1       & male   & 5     & 12-2    & 13        & 3     \\
+2       & female & 7     & 10-12   & 7         & 2     \\
+3       & female & 5.5   & 12-2    & 1         & 4     \\
+4       & female & 7     & 12-2    &           & 2     \\
+5       & female & 3     & 12-2    & 1         & 3     \\
+6       & female & 3     & 12-2    & 9         & 4     \\ \cline{1-5}
+\end{tabular}
+\end{table}
+
+- gender: **Categorical**
+- sleep: \alert{Type?}
+
+## Types of variables
+
+\begin{table}[]
+\begin{tabular}{llllll}
+Student & gender & sleep & bedtime & countries & dread \\ \cline{1-5}
+1       & male   & 5     & 12-2    & 13        & 3     \\
+2       & female & 7     & 10-12   & 7         & 2     \\
+3       & female & 5.5   & 12-2    & 1         & 4     \\
+4       & female & 7     & 12-2    &           & 2     \\
+5       & female & 3     & 12-2    & 1         & 3     \\
+6       & female & 3     & 12-2    & 9         & 4     \\ \cline{1-5}
+\end{tabular}
+\end{table}
+
+- gender: **Categorical**
+- sleep: **Numerical, Continuous**
+
+## Types of variables
+
+\begin{table}[]
+\begin{tabular}{llllll}
+Student & gender & sleep & bedtime & countries & dread \\ \cline{1-5}
+1       & male   & 5     & 12-2    & 13        & 3     \\
+2       & female & 7     & 10-12   & 7         & 2     \\
+3       & female & 5.5   & 12-2    & 1         & 4     \\
+4       & female & 7     & 12-2    &           & 2     \\
+5       & female & 3     & 12-2    & 1         & 3     \\
+6       & female & 3     & 12-2    & 9         & 4     \\ \cline{1-5}
+\end{tabular}
+\end{table}
+
+- gender: **Categorical**
+- sleep: **Numerical, Continuous**
+- bedtime: \alert{Type?}
+
+## Types of variables
+
+\begin{table}[]
+\begin{tabular}{llllll}
+Student & gender & sleep & bedtime & countries & dread \\ \cline{1-5}
+1       & male   & 5     & 12-2    & 13        & 3     \\
+2       & female & 7     & 10-12   & 7         & 2     \\
+3       & female & 5.5   & 12-2    & 1         & 4     \\
+4       & female & 7     & 12-2    &           & 2     \\
+5       & female & 3     & 12-2    & 1         & 3     \\
+6       & female & 3     & 12-2    & 9         & 4     \\ \cline{1-5}
+\end{tabular}
+\end{table}
+
+- gender: **Categorical**
+- sleep: **Numerical, Continuous**
+- bedtime: **Categorical, Ordinal**
+
+## Types of variables
+
+\begin{table}[]
+\begin{tabular}{llllll}
+Student & gender & sleep & bedtime & countries & dread \\ \cline{1-5}
+1       & male   & 5     & 12-2    & 13        & 3     \\
+2       & female & 7     & 10-12   & 7         & 2     \\
+3       & female & 5.5   & 12-2    & 1         & 4     \\
+4       & female & 7     & 12-2    &           & 2     \\
+5       & female & 3     & 12-2    & 1         & 3     \\
+6       & female & 3     & 12-2    & 9         & 4     \\ \cline{1-5}
+\end{tabular}
+\end{table}
+
+- gender: **Categorical**
+- sleep: **Numerical, Continuous**
+- bedtime: **Categorical, Ordinal**
+- countries: \alert{Type?}
+
+## Types of variables
+
+\begin{table}[]
+\begin{tabular}{llllll}
+Student & gender & sleep & bedtime & countries & dread \\ \cline{1-5}
+1       & male   & 5     & 12-2    & 13        & 3     \\
+2       & female & 7     & 10-12   & 7         & 2     \\
+3       & female & 5.5   & 12-2    & 1         & 4     \\
+4       & female & 7     & 12-2    &           & 2     \\
+5       & female & 3     & 12-2    & 1         & 3     \\
+6       & female & 3     & 12-2    & 9         & 4     \\ \cline{1-5}
+\end{tabular}
+\end{table}
+
+- gender: **Categorical**
+- sleep: **Numerical, Continuous**
+- bedtime: **Categorical, Ordinal**
+- countries: **Numerical, Discrete**
+
+## Types of variables
+
+\begin{table}[]
+\begin{tabular}{llllll}
+Student & gender & sleep & bedtime & countries & dread \\ \cline{1-5}
+1       & male   & 5     & 12-2    & 13        & 3     \\
+2       & female & 7     & 10-12   & 7         & 2     \\
+3       & female & 5.5   & 12-2    & 1         & 4     \\
+4       & female & 7     & 12-2    &           & 2     \\
+5       & female & 3     & 12-2    & 1         & 3     \\
+6       & female & 3     & 12-2    & 9         & 4     \\ \cline{1-5}
+\end{tabular}
+\end{table}
+
+- gender: **Categorical**
+- sleep: **Numerical, Continuous**
+- bedtime: **Categorical, Ordinal**
+- countries: **Numerical, Discrete**
+- dread: \alert{Type?}
+
+## Types of variables
+
+\begin{table}[]
+\begin{tabular}{llllll}
+Student & gender & sleep & bedtime & countries & dread \\ \cline{1-5}
+1       & male   & 5     & 12-2    & 13        & 3     \\
+2       & female & 7     & 10-12   & 7         & 2     \\
+3       & female & 5.5   & 12-2    & 1         & 4     \\
+4       & female & 7     & 12-2    &           & 2     \\
+5       & female & 3     & 12-2    & 1         & 3     \\
+6       & female & 3     & 12-2    & 9         & 4     \\ \cline{1-5}
+\end{tabular}
+\end{table}
+
+- gender: **Categorical**
+- sleep: **Numerical, Continuous**
+- bedtime: **Categorical, Ordinal**
+- countries: **Numerical, Discrete**
+- dread: **Categorical, Ordinal** 
+  - Could also be used as **Numerical**
+
+## Practice
+
+\alert{What type of variable is a telephone area code?}
+
+A) Numerical, Continuous
+B) Numerical, Discrete
+C) Categorical
+D) Categorical, Ordinal
+
+## Practice
+
+\alert{What type of variable is a telephone area code?}
+
+A) Numerical, Continuous
+B) Numerical, Discrete
+C) **Categorical**
+D) Categorical, Ordinal
+
+## Relationships among variables
+
+```{r, echo=F, message=F, warning=F}
+d = read.csv("gpa_study_hours.csv")
+```
+
+\alert{Does there appear to be a relationship between GPA and number of hours students study per week?}
+
+```{r, echo=F, message=F, warning=F, out.width="75%",fig.align='center'}
+plot(d$gpa ~ d$study_hours, pch = 19, col = COL[1,3], xlab = "Hours of study / week", ylab = "GPA", cex.lab = 3, cex.axis = 2)
+```
+
+## Relationships among variables
+
+\alert{Does there appear to be a relationship between GPA and number of hours students study per week?}
+
+```{r, echo=F, message=F, warning=F, out.width="75%",fig.align='center'}
+plot(d$gpa ~ d$study_hours, pch = 19, col = COL[1,3], xlab = "Hours of study / week", ylab = "GPA", cex.lab = 3, cex.axis = 2, cex = 3)
+```
+
+\alert{Can you spot anything unusual about any of the data points?}
+
+## Relationships among variables
+
+\alert{Does there appear to be a relationship between GPA and number of hours students study per week?}
+
+```{r, echo=F, message=F, warning=F, out.width="75%",fig.align='center'}
+plot(d$gpa ~ d$study_hours, pch = 19, col = COL[1,3], xlab = "Hours of study / week", ylab = "GPA", cex.lab = 3, cex.axis = 2, cex = 3)
+```
+
+\alert{Can you spot anything unusual about any of the data points?}
+
+There is one with GPA > 4.0, this is likely a data error.
+
+## Explanatory and reponse variables
+
+- To identify the explanatory variable in a pair of variables, identify which of the two is suspected of affecting the other:
+
+\begin{align}
+\text{explanatory variable} \xrightarrow{\text{might affect}} \text{response variable}
+\end{align}
+
+- Labeling variables as explanatory and response does not guarantee the relationship between the two is actually causal, even if there is an association identified between the two variables. We use these labels only to keep track of which variable we suspect affects the other.
+
+## Two primary types of data collection
+
+- **Observational studies**: Collect data in a way that does not directly interfere with how the data arise (e.g. surveys).
+  - Can provide evidence of a naturally occurring association between variables, but they cannot by themselves show a causal connection.
+  
+- **Experiment**: Researchers randomly assign subjects to various treatments in order to establish causal connections between the explanatory and response variables.
+
+## Association vs. Causation
+
+- When two variables show some connection with one another, they are called **associated** variables.
+  - Associated variables can also be called **dependent** variables and vice-versa.
+  
+- If two variables are not associated, i.e. there is no evident connection between the two, then they are said to be **independent**.
+
+- In general, association does not imply causation, and causation can only be inferred from a randomized experiment.
+
+\centering ![](xkcd_correlation.png){width=80%}
+
+## Practice
+
+\begin{multicols}{2}
+
+\alert{Based on the scatterplot on the right, which of the following statements is correct about the head and skull lengths of possums?}
+
+\columnbreak
+
+```{r, echo=F, message=F, warning=F, out.width="90%"}
+plot(possum$head_l, possum$skull_w, pch=20, col= COL[1], xlab = "head length (mm)", ylab = "skull width (mm)", cex.lab = 1.7, cex = 3)
+```
+
+\end{multicols}
+
+A) There is no relationships between head length and skull width, i.e. the variables are independent.
+B) Head length and skull width are positively associated.
+C) Skull width and head length are negatively associated.
+D) A longer head causes the skull to be wider.
+E) A wider skull causes the head to be longer.
+
+## Practice
+
+\begin{multicols*}{2}
+
+\alert{Based on the scatterplot on the right, which of the following statements is correct about the head and skull lengths of possums?}
+
+\columnbreak
+
+```{r, echo=F, message=F, warning=F, out.width="100%"}
+plot(possum$head_l, possum$skull_w, pch=20, col= COL[1], xlab = "head length (mm)", ylab = "skull width (mm)", cex.lab = 1.7, cex = 3)
+```
+
+\end{multicols*}
+
+A) There is no relationships between head length and skull width, i.e. the variables are independent.
+B) **Head length and skull width are positively associated.**
+C) Skull width and head length are negatively associated.
+D) A longer head causes the skull to be wider.
+E) A wider skull causes the head to be longer.
+
+
+# Sampling principles and strategies
+
+## Populations and samples
+
+\begin{multicols}{2}
+
+\includegraphics{running.png}
+
+\columnbreak
+
+\textbf{Research question:} Can people become better, more efficient runners on their own, merely by running?
+
+\end{multicols}
+
+## Populations and samples
+
+\begin{multicols}{2}
+
+\includegraphics{running.png}
+
+\columnbreak
+
+\textbf{Research question:} Can people become better, more efficient runners on their own, merely by running?
+
+\textbf{Population of interest:}
+
+\end{multicols}
+
+## Populations and samples
+
+\begin{multicols}{2}
+
+\includegraphics{running.png}
+
+\columnbreak
+
+\textbf{Research question:} Can people become better, more efficient runners on their own, merely by running?
+
+\textbf{Population of interest:} All people.
+
+\end{multicols}
+
+## Populations and samples
+
+\begin{multicols}{2}
+
+\includegraphics{running.png}
+
+\columnbreak
+
+\textbf{Research question:} Can people become better, more efficient runners on their own, merely by running?
+
+\textbf{Population of interest:} All people.
+
+\end{multicols}
+
+**Sample:** Group of adult women who recently joined a running group.
+
+## Populations and samples
+
+\begin{multicols}{2}
+
+\includegraphics{running.png}
+
+\columnbreak
+
+\textbf{Research question:} Can people become better, more efficient runners on their own, merely by running?
+
+\textbf{Population of interest:} All people.
+
+\end{multicols}
+
+**Sample:** Group of adult women who recently joined a running group.
+
+**Population to which results can be generalized:**
+
+## Populations and samples
+
+\begin{multicols}{2}
+
+\includegraphics{running.png}
+
+\columnbreak
+
+\textbf{Research question:} Can people become better, more efficient runners on their own, merely by running?
+
+\textbf{Population of interest:} All people.
+
+\end{multicols}
+
+**Sample:** Group of adult women who recently joined a running group.
+
+**Population to which results can be generalized:** Adult women, if the data are randomly sampled.
+
+## Anecdotal evidence and early smoking research
+
+- Anti-smoking research started in the 1930s and 1940s when cigarette smoking became increasingly popular. While some smokers seemed to be sensitive to cigarette smoke, others were completely unaafected.
+
+- Anti-smoking research was faced with resistance based on **anecdotal evidence** such as "Mu uncle smokes three packs a day and he's in perfectly good health", evidence based on a limited sample size that might not be representative of the population.
+
+- It was concluded that "smoking is a complex human behavior, by its nature difficult to study, confounded by human variability."
+
+- In time researchers were able to examine larger samples of cases (smokers), and trends showing that smoking had negative health impacts became much clearer.
+
+## Census
+
+- Wouldn't it be better to just include everyone and "sample" the entire population?
+  - This is called a **census**.
+  
+## Census
+
+- Wouldn't it be better to just include everyone and "sample" the entire population?
+  - This is called a **census**.
+  
+- There are problems with taking a census:
+  - It can be difficult to complete a census: there always seem to be some individuals who are hard to locate or hard to measure. And these difficult-to-find people may have certain characteristics that distinguish them from the rest of the population.
+  
+  - Populations rarely stand still. Even if you could take a census, the population changes constantly, so it's never possible to get a perfect measure.
+  
+  - Taking a census may be more complex than sampling.
+  
+## Census
+
+![](census_illegal_immig.png)
+
+## Exploratory analysis to inference
+
+- Sampling is natural.
+
+- Think about sampling something you are cooking - you taste (examine) a small part of what you're cooking to get an idea about the dish as a whole.
+
+- When you taste a spoonful of soup and decide the spoonful you tasted isn't salty enough, that's **exploratory analysis**.
+
+- If you generalize and conclude that your entire soup needs salt, that's an **inference**.
+
+- For your inference to be valid, the spoonful you tasted (the sample) needs to be **representative** of the entire pot (the population).
+  - If your spoonful comes only from the surface and the salt is collected at the bottom of the pot, what you tasted is probably not representative of the whole pot.
+  - If you first stir the soup thoroughly before you taste, your spoonful will more likely be representative of the whole pot.
+
+## Sampling bias
+
+- **Non-response:** If only a small fraction of the randomly sampled people choose to respond to a survey, the sample may no longer be representative of the population.
+
+- **Voluntary response:** Occurs when the sample consists of people who volunteer to respond because they had strong opinions on the issue. Such a sample will also not be representative of the population.
+
+
+\begin{multicols}{2}
+
+\includegraphics[width=0.6\columnwidth]{vol_resp_bias_q.png}
+
+\columnbreak
+
+\includegraphics[width=0.6\columnwidth]{vol_resp_bias_res.png}
+
+\end{multicols}
+
+- **Convenience sample:** Individuals who are easily accessible are more likely to be included in the sample.
+
+## Sampling bias example: Landon vs FDR
+
+A historical example of a biased sample yielding misleading results:
+
+\begin{multicols}{3}
+
+\includegraphics{landon.jpg}
+
+\columnbreak
+
+In 1936, Landon sough the Republican presidential nomination opposing the re-election of FDR.
+
+\columnbreak
+
+\includegraphics{fdr.png}
+
+\end{multicols}
+
+## The Literary Digest Poll
+
+\begin{multicols}{2}
+
+\begin{itemize}
+\item The Literary Digest polled about 10 million Americans, and got responses from about 2.4 million.
+
+\item The poll showed that Landon would likely be the overwhelming winner and FDR would get only 43\% of the votes.
+
+\item Election result: FDR won, with 62\% of the votes.
+\end{itemize}
+
+\columnbreak
+
+\includegraphics[width=0.8\columnwidth]{literaryDigest.png}
+\end{multicols}
+
+  - The magazine was completely discredited because of the poll, and was soon discontinued.
+  
+## The Literary Digest Poll \- what went wrong?
+
+- The magazine had surveyed
+  - Its own readers,
+  - Registered automobile owners, and
+  - Registered telephone users.
+
+- These groups had incomes well above the national average of the day (remember, this is Great Depression era) which resulted in lists of voters far more likely to support Republicans than a truly **typical** voter of the time, i.e. the sample was not representative of the American population at the time.
+
+## Large sample are preferable, but... 
+
+- The Literary Digest election poll was based on a sample size of 2.4 million, which is huge, but since the sample was **biased**, the sample did not yield an accurate prediction.
+
+- Back to the soup analogy: If the soup is not well stirred, it doesn't matter how large a spoon you have, it will still not taste right. If the soup is well stirred, a small spoon will suffice to test the soup.
+
+## Practice
+
+\alert{A school district is considering whether it will no longer allow high school students to part at school after two recent accidents where students were serverly injures. As a first step, they survey parents by mail, asking them whether or not the parents would object to this policy change. Of 6,000 surveys that go out, 1,200 are returned. Of these 1,200 surveys that were completed, 960 agreed with the policy change and 240 disagreed. Which of the following statements are true?}
+
+\begin{enumerate}[I]
+\item Some of the mailings may have never reached the parents.
+\item The school district has strong support from parents to move forward with the policy approval.
+\item It is possible that majority of the parents of high school students disagree with the policy change.
+\item The survey results are unlikely to be biased because all parents were mailed a survey.
+\end{enumerate}
+
+A) Only I   B) I and II   C) I and III  D) III and IV  E) Only IV
+
+## Practice
+
+\alert{A school district is considering whether it will no longer allow high school students to part at school after two recent accidents where students were serverly injures. As a first step, they survey parents by mail, asking them whether or not the parents would object to this policy change. Of 6,000 surveys that go out, 1,200 are returned. Of these 1,200 surveys that were completed, 960 agreed with the policy change and 240 disagreed. Which of the following statements are true?}
+
+\begin{enumerate}[I]
+\item Some of the mailings may have never reached the parents.
+\item The school district has strong support from parents to move forward with the policy approval.
+\item It is possible that majority of the parents of high school students disagree with the policy change.
+\item The survey results are unlikely to be biased because all parents were mailed a survey.
+\end{enumerate}
+
+A) Only I   B) I and II   C) I and III  D) **III and IV**  E) Only IV
+
+
+## Observational studies
+
+- Researchers collect data in a way that does not directly interfere with how the data arise.
+
+- Results of an observational study can generally be used to establish an association between the explanatory and response variables.
+
+## Obtaining good samples
+
+- Almost all statistical methods are based on the notion of implied randomness.
+
+- If observational data are not collected in a random framework from a population, these statistical methods \- the estimates and errors associated with the estimated \- are not reliable.
+
+- Most commonly used random sampling techniques are **simple**, **stratified** and **cluster** sampling.
+
+## Simple random sampling
+
+Randomly select cases from the population, where there is no implied connection between the points that are selected.
+
+![](simple.pdf)
+
+## Stratified sample
+
+**Strata** are made up of similar observations. We take a simple random sample from \underline{each} stratum.
+
+![](stratified.pdf)
+
+## Cluster sample
+
+**Clusters** are usually not made up on homogeneous observations. We take a simple random sample of clusters, and then sample \underline{all} observations in that cluster. Usually preferred for economical reasons.
+
+![](cluster.pdf)
+
+## Multistage sample
+
+**Clusters** are usually not made up of homogeneous observations. We take a simple random sample of clusters, and then take a simple random sample of observations from the sampled clusters.
+
+![](multistage.pdf)
+
+## Practice
+
+\alert{A city council has requested a household survey be conducted in a suburban area of their city. The area is broken into many distinct and unique neighborhoods, some including large homes, some with only apartments. Which approach would likely be the \underline{least} effective?}
+
+A) Simple random sampling
+B) Cluster sampling
+C) Stratified sampling
+D) Blocked sampling
+
+## Practice
+
+\alert{A city council has requested a household survey be conducted in a suburban area of their city. The area is broken into many distinct and unique neighborhoods, some including large homes, some with only apartments. Which approach would likely be the \underline{least} effective?}
+
+A) Simple random sampling
+B) **Cluster sampling**
+C) Stratified sampling
+D) Blocked sampling
+
+# Experiments
+
+## Principles of experimental design
+
+\begin{enumerate}
+
+\item \textbf{Control:} Control for the (potential) effect of variables other than the ones directly being studied.
+
+\item \textbf{Randomize:} Randomly assign subjects to treatments, and randomly sample sample from  the population whenever possible.
+
+\item \textbf{Replicate:} Within a study, replicate by collecting a sufficiently large sample. Or replicate the entire study.
+
+\item \textbf{Block:} If there are variables that are known or suspected to affect the response variable, first group subjects into \textbf{blocks} based on these variables, and then randomize cases within each block to treatment groups.
+
+\end{enumerate}
+
+## More on blocking
+
+\begin{itemize}
+
+\item We would like to design an experiment to investigate if energy gels makes you run faster:
+
+  \begin{itemize}
+  \item Treatment: energy gel
+  \item Control: no energy gel
+  \end{itemize}
+
+\item It is suspected that energy gels might affect pro and amateur athletes differently, therefore we block for pro status:
+
+  \begin{itemize}
+  \item Divide the sample to pro and amateur.
+  \item Randomly assign pro athletes to treatment and control groups.
+  \item Randomly assign amateur athletes to treatment and control groups.
+  \item Pro/amateur status is equally represented in the resulting treatment and control 
+  groups.
+  \end{itemize}
+
+\end{itemize}
+
+## Practice
+
+\alert{A study is designed to test the effect of light level and noise level on exam performance of students. The researcher also believes that light and noise levels might have different effects on males and females, so wants to make sure both genders are equally represented in each group. Which of the following is correct?}
+
+A) There are 3 explanatory variables (light, noise, gender) and 1 response variable (exam performance)
+B) There are 2 explanatory variables (light and noise), 1 blocking variable (gender), and 1 response variable (exam performance)
+C) There is 1 explanatory variable (gender) and 3 response variables (light, noise, exam performance)
+D) There are 2 blocking variables (light and noise), 1 explanatory variable (gender), and 1 response variable (exam performance)
+
+## Practice
+
+\alert{A study is designed to test the effect of light level and noise level on exam performance of students. The researcher also believes that light and noise levels might have different effects on males and females, so wants to make sure both genders are equally represented in each group. Which of the following is correct?}
+
+A) There are 3 explanatory variables (light, noise, gender) and 1 response variable (exam performance)
+B) **There are 2 explanatory variables (light and noise), 1 blocking variable (gender), and 1 response variable (exam performance)**
+C) There is 1 explanatory variable (gender) and 3 response variables (light, noise, exam performance)
+D) There are 2 blocking variables (light and noise), 1 explanatory variable (gender), and 1 response variable (exam performance)
+
+## Difference between blocking and explanatory variables
+
+- Factors are conditions we can impose on the experimental units.
+
+- Blocking variables are characteristics that the experimental units come with, that we would like to control for.
+
+- Blocking is like stratifying, expect used in experimental settings when randomly assigning, as opposed to when sampling.
+
+## More experimental design terminology...
+
+- **Placebo:** Fake treatment, often used as the control group for medical studies.
+
+- **Placebo effect:** Experimental units showing improvement simply because they believe they are receiving a special treatment.
+
+- **Blinding:** When experimental units do not know whether they are in the control or treatment group.
+
+- **Double-blind:** When both the experimental units and the researchers who interact with the patients do not know who is in the control and who is in the treatment group.
+
+## Practice
+
+\alert{What is the main difference between observational studies and experiments?}
+
+A) Experiments take place in a lab while observational studies do not need to.
+B) In an observational study we only look at what happened in the past.
+C) Most experiments use random assignment while observational studies do not.
+D) Observational studies are completely useless isnce no casual inference can be made based on their findings.
+
+## Practice
+
+\alert{What is the main difference between observational studies and experiments?}
+
+A) Experiments take place in a lab while observational studies do not need to.
+B) In an observational study we only look at what happened in the past.
+C) **Most experiments use random assignment while observational studies do not.**
+D) Observational studies are completely useless isnce no casual inference can be made based on their findings.
+
+## Random assignment vs. Random sampling
+
+![](random_sample_assignment.pdf)

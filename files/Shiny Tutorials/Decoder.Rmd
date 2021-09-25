@@ -1,0 +1,32 @@
+---
+title: "Decoder"
+tutorial:
+  id: "Decoder"
+  version: 1.0
+output: 
+  learnr::tutorial:
+    progressive: TRUE
+    
+runtime: shiny_prerendered
+---
+
+```{r global-options, include=FALSE}
+#knitr::opts_chunk$set(eval = FALSE)
+library(dplyr)
+library(ggplot2)
+library(learnr)
+library(gradethis)
+library(openintro)
+
+#knitr::opts_chunk$set(exercise.checker = gradethis::grade_learnr)
+```
+
+## Decode
+
+```{r context="server"}
+learnrhash::decoder_logic()
+```
+
+```{r encode, echo=FALSE}
+learnrhash::decoder_ui()
+```

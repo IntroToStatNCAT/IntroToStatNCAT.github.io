@@ -1,0 +1,2001 @@
+---
+title: "Chapter 3"
+subtitle: "Probability^[These notes use content from OpenIntro Statistics Slides by Mine Cetinkaya-Rundel.]"
+author: |
+  | (Author Name)
+  | Department of Mathematics & Statistics
+  | North Carolina A\&T State University
+#date: "8/19/2020"
+urlcolor: blue
+header-includes:
+    \usepackage{multirow}
+    \usepackage{graphicx}
+    \usepackage{subfigure}
+    \usepackage{multicol}
+    \usepackage[utf8]{inputenc}
+    \usepackage[english]{babel}
+    \usepackage{bm}
+    \usepackage{amsmath}
+    \usepackage{tikz}
+    \usepackage{mathtools}
+    \usepackage{textcomp}
+    \usepackage{fdsymbol}
+output: 
+  beamer_presentation:
+    fig_caption: true
+    latex_engine: xelatex
+    
+    
+---
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+```{r, echo=F, message=F, warning=F}
+library(readr)
+library(openintro)
+data(COL)
+```
+
+# Defining Probability
+
+## Random processes
+
+\begin{multicols}{2}
+
+\begin{itemize}
+
+\item A \textbf{random process} is a situation in which we know what outcomes could happen, but we don't know which particular outcome will happen.
+
+\item Examples: coin tosses, die rolls, iTunes shuffle, whether the stock market goes up or down tomorrow, etc.
+
+\item{It can be helpful to model a process as random even if it is not truly random.}
+
+\end{itemize}
+
+\columnbreak
+
+\includegraphics[width=1\columnwidth]{iTunes.png}
+
+\end{multicols}
+
+## Probability
+
+- There are several possible interpretations of probability but they (almost) completely agree on the mathematical rules probability must follow.
+
+  \begin{itemize}
+  \item $P(A) = $ Probability of event A
+  \item$0 \leq P(A) \leq 1$
+  \end{itemize}
+
+## Probability
+
+- There are several possible interpretations of probability but they (almost) completely agree on the mathematical rules probability must follow.
+
+  \begin{itemize}
+  \item $P(A) = $ Probability of event A
+  \item$0 \leq P(A) \leq 1$
+  \end{itemize}
+  
+- **Frequentist interpretation:**
+
+  - The probability of an outcome is the proportion of times the outcome would occur if we observed the random process an infinite number of times.
+  
+## Probability
+
+- There are several possible interpretations of probability but they (almost) completely agree on the mathematical rules probability must follow.
+
+  \begin{itemize}
+  \item $P(A) = $ Probability of event A
+  \item$0 \leq P(A) \leq 1$
+  \end{itemize}
+  
+- **Frequentist interpretation:**
+
+  - The probability of an outcome is the proportion of times the outcome would occur if we observed the random process an infinite number of times.
+  
+- **Bayesian interpretation:**
+
+  - A Bayesian interprets probability as a subjective degree of belief: For the same even, two separate people could have different viewpoints and so assign different probabilities.
+  
+  - Largely popularized by revolutionary advance in computational technology and methods during the last twenty years.
+  
+## Practice
+
+\alert{Which of the following events would you be most surprised by?}
+
+A) Exactly 3 heads in 10 coin flips.
+B) Exactly 3 heads in 100 coin flips.
+C) Exactly 3 heads in 1000 coin flips.
+
+## Practice
+
+\alert{Which of the following events would you be most surprised by?}
+
+A) Exactly 3 heads in 10 coin flips.
+B) Exactly 3 heads in 100 coin flips.
+C) **Exactly 3 heads in 1000 coin flips**.
+
+## Law of large numbers
+
+**Law of large numbers** states that as more observations are collected, the proportion of occurrences with a particular outcome, \textbf{$\hat{p}_n$}, converges to the probability of that outcome, **p**.
+
+## Law of large numbers
+
+\alert{When tossing a fair coin, if heads comes up on each of the 10 tosses, what do you think the chance is that another head will come  up on the next toss? 0.5, less than 0.5, or more than 0.5?}
+
+\centering{\underline{H} \underline{H} \underline{H} \underline{H} \underline{H} \underline{H} \underline{H} \underline{H} \underline{H} \underline{H} \underline{?}}
+
+## Law of large numbers
+
+\alert{When tossing a fair coin, if heads comes up on each of the 10 tosses, what do you think the chance is that another head will come  up on the next toss? 0.5, less than 0.5, or more than 0.5?}
+
+\centering{\underline{H} \underline{H} \underline{H} \underline{H} \underline{H} \underline{H} \underline{H} \underline{H} \underline{H} \underline{H} \underline{?}}
+
+- The probability is still 0.5, or there is still a 50% chance that another head will come up on the next toss.
+
+\centering{$P(H \text{ } on \text{ } 11^{th} \text{ } toss) = P(T \text{ } on \text{ } 11^{th} \text{ } toss) = 0.5$}
+
+## Law of large numbers
+
+\alert{When tossing a fair coin, if heads comes up on each of the 10 tosses, what do you think the chance is that another head will come  up on the next toss? 0.5, less than 0.5, or more than 0.5?}
+
+\centering{\underline{H} \underline{H} \underline{H} \underline{H} \underline{H} \underline{H} \underline{H} \underline{H} \underline{H} \underline{H} \underline{?}}
+
+- The probability is still 0.5, or there is still a 50% chance that another head will come up on the next toss.
+
+\centering{$P(H \text{ } on \text{ } 11^{th} \text{ } toss) = P(T \text{ } on \text{ } 11^{th} \text{ } toss) = 0.5$}
+
+- The coin is not "due" for a tail.
+
+## Law of large numbers
+
+\alert{When tossing a fair coin, if heads comes up on each of the 10 tosses, what do you think the chance is that another head will come  up on the next toss? 0.5, less than 0.5, or more than 0.5?}
+
+\centering{\underline{H} \underline{H} \underline{H} \underline{H} \underline{H} \underline{H} \underline{H} \underline{H} \underline{H} \underline{H} \underline{?}}
+
+- The probability is still 0.5, or there is still a 50% chance that another head will come up on the next toss.
+
+\centering{$P(H \text{ } on \text{ } 11^{th} \text{ } toss) = P(T \text{ } on \text{ } 11^{th} \text{ } toss) = 0.5$}
+
+- The coin is not "due" for a tail.
+
+- The common misunderstanding of the LLN is that random processes are supposed to compensate for whatever happened in the past; this is just not true and is also called **gambler's fallacy** (or **law of averages**).
+
+  
+## Disjoint and non-disjoint outcomes
+
+**Disjoint (mutually exclusive) outcomes:** Cannot happen at the same time.
+
+- The outcome of a single coint toss cannot be a head and a tail.
+
+- A student both cannot fail and pass a class.
+
+- A single card drawn from a deck cannot be an ace and a queen.
+
+## Disjoint and non-disjoint outcomes
+
+**Disjoint (mutually exclusive) outcomes:** Cannot happen at the same time.
+
+- The outcome of a single coin toss cannot be a head and a tail.
+
+- A student both cannot fail and pass a class.
+
+- A single card drawn from a deck cannot be an ace and a queen.
+
+**Non-disjoint outcomes:** Can happen at the same time.
+
+- A student can get an A in Stats and A in Econ in the same semester.
+
+## Union of non-disjoint events
+
+\alert{What is the probability of drawing a jack or a red card from a well shuffled full deck?}
+
+\includegraphics[width=1\columnwidth]{cards.png}
+
+## Union of non-disjoint events
+
+\alert{What is the probability of drawing a jack or a red card from a well shuffled full deck?}
+
+\includegraphics[width=1\columnwidth]{cards.png}
+
+\centering{$P(jack \text{ } or \text{ } red) = P(jack) + P(red) - \textcolor{red}{P(jack \text{ } and \text{ } red)}$}
+
+\centering{$= \frac{4}{52} + \frac{26}{52} - \frac{2}{52} = \frac{28}{52}$}
+
+## Practice
+
+\alert{What is the probability that a randomly sampled student thinks marijuana should be legalized \underline{or} they agree with their parents' political views?}
+
+\begin{table}[]
+\begin{tabular}{cccc}
+            & \multicolumn{2}{c}{Share Parents' Politics} &       \\ \cline{2-3}
+Legalize MJ & No                   & Yes                  & Total \\ \hline
+No          & 11                   & 40                   & 51    \\
+Yes         & 36                   & 78                   & 114   \\ \hline
+Total       & 47                   & 118                  & 165  
+\end{tabular}
+\end{table}
+
+A) $\frac{40+36-78}{165}$
+B) $\frac{114+118-78}{165}$
+C) $\frac{78}{165}$
+D) $\frac{78}{188}$
+E) $\frac{11}{47}$
+
+## Practice
+
+\alert{What is the probability that a randomly sampled student thinks marijuana should be legalized \underline{or} they agree with their parents' political views?}
+
+\begin{table}[]
+\begin{tabular}{cccc}
+            & \multicolumn{2}{c}{Share Parents' Politics} &       \\ \cline{2-3}
+Legalize MJ & No                   & Yes                  & Total \\ \hline
+No          & 11                   & 40                   & 51    \\
+Yes         & 36                   & 78                   & 114   \\ \hline
+Total       & 47                   & 118                  & 165  
+\end{tabular}
+\end{table}
+
+A) $\frac{40+36-78}{165}$
+B) $\textcolor{red}{\frac{114+118-78}{165}}$
+C) $\frac{78}{165}$
+D) $\frac{78}{188}$
+E) $\frac{11}{47}$
+
+## Recap
+
+General addition rule
+
+\centering{P(A \emph{or} B) = P(A) + P(B) - P(A \emph{and} B)}
+
+\noindent\rule{4cm}{0.4pt}
+
+\alert{Note:} For disjoint events P(A _and_ B) = 0, so the above formula simplifies to P(A _or_ B) = P(A) + P(B).
+
+## Probability distributions
+
+A **probability distribution** list all possible events and the probabilities with which they occur.
+
+   - The probability distribution for the gender of one kid:
+
+\begin{table}[]
+\begin{tabular}{c|c|c}
+Event       & Male & Female \\ \hline
+Probability & 0.5  & 0.5   
+\end{tabular}
+\end{table}
+
+## Probability distributions
+
+A **probability distribution** list all possible events and the probabilities with which they occur.
+
+   - The probability distribution for the gender of one kid:
+
+\begin{table}[]
+\begin{tabular}{c|c|c}
+Event       & Male & Female \\ \hline
+Probability & 0.5  & 0.5   
+\end{tabular}
+\end{table}
+
+   - Rules for probability distributions:
+   
+     \begin{enumerate}
+        \item The events listed must be disjoint.
+        \item Each probability must be between 0 and 1.
+        \item The probabilities must total 1.
+      \end{enumerate}
+    
+## Probability distributions
+
+A **probability distribution** list all possible events and the probabilities with which they occur.
+
+   - The probability distribution for the gender of one kid:
+
+\begin{table}[]
+\begin{tabular}{c|c|c}
+Event       & Male & Female \\ \hline
+Probability & 0.5  & 0.5   
+\end{tabular}
+\end{table}
+
+   - Rules for probability distributions:
+   
+      \begin{enumerate}
+        \item The events listed must be disjoint.
+        \item Each probability must be between 0 and 1.
+        \item The probabilities must total 1.
+      \end{enumerate}
+  
+  - The probability distribution for the genders of two kids:
+  
+\begin{table}[]
+\begin{tabular}{c|c|c|c|c}
+Event       & MM    & FF    & MF    & FM \\ \hline
+Probability & 0.25  & 0.25  & 0.25  & 0.25
+\end{tabular}
+\end{table}
+  
+## Practice
+
+\alert{In a survey, 52\% of respondents said they are Democrats. What is the probability that a randomly selected respondent from this sample is a Republican?}
+
+A) 0.48
+B) More than 0.48
+C) Less than 0.48
+D) Cannot calculate using only the information given
+
+## Practice
+
+\alert{In a survey, 52\% of respondents said they are Democrats. What is the probability that a randomly selected respondent from this sample is a Republican?}
+
+A) 0.48
+B) More than 0.48
+C) Less than 0.48
+D) **Cannot calculate using only the information given**
+
+If the only two political parties are Republican and Democrat, then A) is possible. However it is also possible that some people do not affiliate with a political party or affiliate with a party other than these two. Then C) is also possible. However B) is definitely not possible since it would result in the total probability for the sample space being above 1.
+
+## Sample space and complements
+
+**Sample space** is the collection of all possible outcomes of a trial.
+
+- A couple has one kid, what is the sample space for the gender of this kid? $S = \{M,F\}$
+
+- A couple has two kids, what is the sample space for the gender of these kids?
+
+## Sample space and complements
+
+**Sample space** is the collection of all possible outcomes of a trial.
+
+- A couple has one kid, what is the sample space for the gender of this kid? $S = \{M,F\}$
+
+- A couple has two kids, what is the sample space for the gender of these kids? $S = \{MM,FF,FM,MF\}$
+
+## Sample space and complements
+
+**Sample space** is the collection of all possible outcomes of a trial.
+
+- A couple has one kid, what is the sample space for the gender of this kid? $S = \{M,F\}$
+
+- A couple has two kids, what is the sample space for the gender of these kids? $S = \{MM,FF,FM,MF\}$
+
+**Complementary events** are two mutually exclusive events whose probabilities that add up to 1.
+
+- A couple has one kid. If we know that the kid is not a boy, what is the gender of this kid? {~~M~~, \alert{F}} $\rightarrow$ Boy and girl are **complementary** outcomes. 
+
+- A couple has two kids, if we know that they are not both girls, what are the possible gender combinations for these kids?
+
+## Sample space and complements
+
+**Sample space** is the collection of all possible outcomes of a trial.
+
+- A couple has one kid, what is the sample space for the gender of this kid? $S = \{M,F\}$
+
+- A couple has two kids, what is the sample space for the gender of these kids? $S = \{MM,FF,FM,MF\}$
+
+**Complementary events** are two mutually exclusive events whose probabilities that add up to 1.
+
+- A couple has one kid. If we know that the kid is not a boy, what is the gender of this kid? {~~M~~, \alert{F}} $\rightarrow$ Boy and girl are **complementary** outcomes. 
+
+- A couple has two kids, if we know that they are not both girls, what are the possible gender combinations for these kids? {\alert{MM}, ~~FF~~, \alert{FM, MF}}.
+
+## Independence
+
+Two processes are **independent** if knowing the outcome of one provides no useful information about the outcome of the other.
+
+## Independence
+
+Two processes are **independent** if knowing the outcome of one provides no useful information about the outcome of the other.
+
+- Knowing that the coin landed on a head on the first toss \underline{does not} provide any useful information for determining what the coin will land on in the second toss. $\rightarrow$ Outcomes of two tosses of a coin are independent.
+
+## Independence
+
+Two processes are **independent** if knowing the outcome of one provides no useful information about the outcome of the other.
+
+- Knowing that the coin landed on a head on the first toss \underline{does not} provide any useful information for determining what the coin will land on in the second toss. $\rightarrow$ Outcomes of two tosses of a coin are independent.
+
+- Knowing that the first card drawn from a deck is an ace \underline{does} provide useful information for determining the probability of drawing an ace in the second draw. $\rightarrow$ Outcomes of two draws from a deck of cards (without replacement) are dependent.
+
+## Practice
+
+\alert{Between January 9\-12, 2013, SurveyUSA interviewd a random sample of 500 NC residents asking them whether they think widespread gun ownership protects law abiding citizens from crime, or makes society more dangerous. 58\% of all respondents said it protects citizens. 67\% of White respondents, 28\% of Black respondents, and 64\% of Hispanic respondents shared this view. Which of the below is true?}
+
+Opinion on gun ownership and race ethnicity are most likely
+
+A) Complementary
+B) Mutually Exclusive
+C) Independent
+D) Dependent
+E) Disjoint
+
+## Practice
+
+\alert{Between January 9\-12, 2013, SurveyUSA interviewd a random sample of 500 NC residents asking them whether they think widespread gun ownership protects law abiding citizens from crime, or makes society more dangerous. 58\% of all respondents said it protects citizens. 67\% of White respondents, 28\% of Black respondents, and 64\% of Hispanic respondents shared this view. Which of the below is true?}
+
+Opinion on gun ownership and race ethnicity are most likely
+
+A) Complementary
+B) Mutually Exclusive
+C) Independent
+D) **Dependent**
+E) Disjoint
+
+## Checking for independence
+
+If P(A occurs, given that B is true) = P(A | B) = P(A), then A and B are independent.
+
+## Checking for independence
+
+If P(A occurs, given that B is true) = P(A|B) = P(A), then A and B are independent.
+
+P(protects citizens) = 0.58
+
+## Checking for independence
+
+If P(A occurs, given that B is true) = P(A|B) = P(A), then A and B are independent.
+
+P(protects citizens) = 0.58
+
+P(randomly selected NC resident says gun ownership protects citizens given the resident is white) = 
+
+P(protects citizens | White) = 0.67
+
+P(protects citizens | Black) = 0.28
+
+P(protects citizens | Hispanic) = 0.64
+
+## Checking for independence
+
+If P(A occurs, given that B is true) = P(A|B) = P(A), then A and B are independent.
+
+P(protects citizens) = 0.58
+
+P(randomly selected NC resident says gun ownership protects citizens given the resident is white) = 
+
+P(protects citizens | White) = 0.67
+
+P(protects citizens | Black) = 0.28
+
+P(protects citizens | Hispanic) = 0.64
+
+P(protects citizens) varies by race/ethnicity, therefore opinion on gun ownership and race ethnicity are most likely dependent.
+
+## Determining dependence based on sample data
+
+- If conditional probabilities calculated based on sample data suggest dependence between two variables, the next step is to conduct a hypothesis test to determine if the observed difference between the probabilities if likely or unlikely to have by chance.
+
+- If the observed difference between the conditional probabilities is large, then there is stronger evidence that the difference is real.
+
+- If a sample is large, then even a small difference can provide strong evidence of a real difference.
+
+## Determining dependence based on sample data
+
+- If conditional probabilities calculated based on sample data suggest dependence between two variables, the next step is to conduct a hypothesis test to determine if the observed difference between the probabilities if likely or unlikely to have by chance.
+
+- If the observed difference between the conditional probabilities is large, then there is stronger evidence that the difference is real.
+
+- If a sample is large, then even a small difference can provide strong evidence of a real difference.
+
+\alert{We saw that P(protects citizens | White) = 0.67 and P(protects citizens | Hispanic) = 0.64. Under which condition would you be more convinced of a real difference between the proportions of Whites and Hispanics who think gun widespread fun owneship protects citizens? n = 500 or n = 50,000}
+
+
+## Product rule for independent events
+
+\centering{P(A and B) = P(A) \times P(B)}
+
+Or more generally, $P(A_1 \text{ }and \dots and \text{ }A_k) = P(A_1) \times \dots \times P(A_k)$
+
+## Product rule for independent events
+
+\centering{P(A and B) = P(A) \times P(B)}
+
+Or more generally, $P(A_1 \text{ }and \dots and \text{ }A_k) = P(A_1) \times \dots \times P(A_k)$
+
+\raggedright\alert{You toss a coin twice, what is the probability of getting two tails in a row?}
+
+## Product rule for independent events
+
+\centering{P(A and B) = P(A) \times P(B)}
+
+Or more generally, $P(A_1 \text{ }and \dots and \text{ }A_k) = P(A_1) \times \dots \times P(A_k)$
+
+\raggedright\alert{You toss a coin twice, what is the probability of getting two tails in a row?}
+
+$P(\text{T on the first toss}) \times P(\text{T on the second toss}) = \frac{1}{2} \times \frac{1}{2} = \frac{1}{4}$
+
+## Practice
+
+\alert{A recent Gallup poll suggests that 25.5\% of Texans do not have health insurance as of June 2012. Assuming that the uninsured rate stayed constant, what is the probability that two randomly selected Texans are both uninsured?}
+
+\begin{multicols}{2}
+
+A) $25.5^2$ \\
+B) $0.255^2$ \\
+C) $0.255 \times 2$ \\
+D) $(1-0.255)^2$ 
+
+\columnbreak
+
+\includegraphics[width=1\columnwidth]{uninsured.jpg}
+
+\end{multicols}
+
+## Practice
+
+\alert{A recent Gallup poll suggests that 25.5\% of Texans do not have health insurance as of June 2012. Assuming that the uninsured rate stayed constant, what is the probability that two randomly selected Texans are both uninsured?}
+
+\begin{multicols}{2}
+
+A) $25.5^2$ \\
+B) $\textcolor{red}{0.255^2}$ \\
+C) $0.255 \times 2$ \\
+D) $(1-0.255)^2$
+
+\columnbreak
+
+\includegraphics[width=1\columnwidth]{uninsured.jpg}
+
+\end{multicols}
+
+## Disjoint vs. Complementary
+
+\alert{Do the sum of probabilities of two disjoint events always add up to 1?}
+
+## Disjoint vs. Complementary
+
+\alert{Do the sum of probabilities of two disjoint events always add up to 1?}
+
+Not necessarily, there may be more than 2 events in the sample space, e.g. Party affiliation.
+
+## Disjoint vs. Complementary
+
+\alert{Do the sum of probabilities of two disjoint events always add up to 1?}
+
+Not necessarily, there may be more than 2 events in the sample space, e.g. Party affiliation.
+
+\alert{Do the sum of probabilities of two complementary events always add up to 1?}
+
+## Disjoint vs. Complementary
+
+\alert{Do the sum of probabilities of two disjoint events always add up to 1?}
+
+Not necessarily, there may be more than 2 events in the sample space, e.g. Party affiliation.
+
+\alert{Do the sum of probabilities of two complementary events always add up to 1?}
+
+Yes, that's the definition of complementary, e.g. Heads and Tails.
+
+## Putting everything together...
+
+\alert{If we were to randomly select 5 Texans, what is the probability that at least one is uninsured?}
+
+- If we were to randomly select 5 Texans, the sample space for the number of Texans who are uninsured would be: 
+
+\centering{$S = \{0,1,2,3,4,5\}$}
+
+- We are interested in instances where at least one person is uninsured:
+
+\centering{$S = \{0,\textcolor{red}{1,2,3,4,5}\}$}
+
+- So we can divide up the sample space into two categories:
+
+\centering{$S = \{0, \textcolor{red}{\text{at least one}}\}$}
+
+## Putting everything together...
+
+Since the probability of the sample space must add up to 1:
+
+\begin{align*}
+\text{Prob(at least 1 uninsured)} &= 1 - \text{Prob(none insured)}\\
+\end{align*}
+
+## Putting everything together...
+
+Since the probability of the sample space must add up to 1:
+
+\begin{align*}
+\text{Prob(at least 1 uninsured)} &= 1 - \text{Prob(none insured)}\\
+&= 1 - [(1-0.255)^5]
+\end{align*}
+
+## Putting everything together...
+
+Since the probability of the sample space must add up to 1:
+
+\begin{align*}
+\text{Prob(at least 1 uninsured)} &= 1 - \text{Prob(none insured)}\\
+&= 1 - [(1-0.255)^5]\\
+&= 1 - 0.745^5
+\end{align*}
+
+## Putting everything together...
+
+Since the probability of the sample space must add up to 1:
+
+\begin{align*}
+\text{Prob(at least 1 uninsured)} &= 1 - \text{Prob(none insured)}\\
+&= 1 - [(1-0.255)^5] \\
+&= 1 - 0.745^5 \\
+&= 1 - 0.23
+\end{align*}
+
+## Putting everything together...
+
+Since the probability of the sample space must add up to 1:
+
+\begin{align*}
+\text{Prob(at least 1 uninsured)} &= 1 - \text{Prob(none insured)}\\
+&= 1 - [(1-0.255)^5] \\
+&= 1 - 0.745^5 \\
+&= 1 - 0.23 \\
+&= 0.77
+\end{align*}
+
+## Practice
+
+\alert{Roughly 20\% of undergraduates at a university are vegetarian or vegan. What is the porbability that, among a random sample of 3 undergraduates, at least one is vegetarian or vegan?}
+
+A) $1-0.2 \times 3$
+B) $1-0.2^3$
+C) $0.8^3$
+D) $1-0.8 \times 3$
+E) $1-0.8^3$
+
+## Practice
+
+\alert{Roughly 20\% of undergraduates at a university are vegetarian or vegan. What is the porbability that, among a random sample of 3 undergraduates, at least one is vegetarian or vegan?}
+
+\begin{multicols}{2}
+
+A) $1-0.2 \times 3$ \\
+B) $1-0.2^3$ \\
+C) $0.8^3$ \\
+D) $1-0.8 \times 3$ \\
+E) $\textcolor{red}{1-0.8^3}$ \\
+
+\columnbreak
+
+$\text{P(at least 1 from veg)}$\\
+$= 1 - \text{P(none veg)}$ \\
+$= 1 - (1 - 0.2)^3$ \\
+$= 1 - 0.8^3$ \\
+$= 1 - 0.512$ \\
+$= 0.488$
+
+\end{multicols}
+
+# Conditional Probability
+
+## Relapse
+
+Researchers randomly assigned 72 chronic users of cocaine into three groups: desipramine (antidepressant), lithium (standard treatment for cocaine) and placebo. Results of the study are summarized below.
+
+\begin{table}[]
+\begin{tabular}{c|cc|c}
+            & relapse & no relapse & total \\ \hline
+desipramine & 10      & 14         & 24    \\
+lithium     & 18      & 6          & 24    \\
+placebo     & 20      & 4          & 24    \\ \hline
+total       & 48      & 24         & 72   
+\end{tabular}
+\end{table}
+
+
+## Marginal probability
+
+\alert{What is the probability that a patient relapsed?}
+
+\begin{table}[]
+\begin{tabular}{c|cc|c}
+            & relapse & no relapse & total \\ \hline
+desipramine & 10      & 14         & 24    \\
+lithium     & 18      & 6          & 24    \\
+placebo     & 20      & 4          & 24    \\ \hline
+total       & 48      & 24         & 72   
+\end{tabular}
+\end{table}
+
+## Marginal probability
+
+\alert{What is the probability that a patient relapsed?}
+
+\begin{table}[]
+\begin{tabular}{c|cc|c}
+            & relapse & no relapse & total \\ \hline
+desipramine & 10      & 14         & 24    \\
+lithium     & 18      & 6          & 24    \\
+placebo     & 20      & 4          & 24    \\ \hline
+total       & \textcolor{red}{48}      & 24         & \textcolor{red}{72}   
+\end{tabular}
+\end{table}
+
+$P(relapsed) = \frac{48}{72} \approx 0.67$
+
+## Joint probability
+
+\alert{What is the probability that a patient received the antidepressant (desipramine) \underline{and} relapsed?}
+
+\begin{table}[]
+\begin{tabular}{c|cc|c}
+            & relapse & no relapse & total \\ \hline
+desipramine & 10      & 14         & 24    \\
+lithium     & 18      & 6          & 24    \\
+placebo     & 20      & 4          & 24    \\ \hline
+total       & 48      & 24         & 72   
+\end{tabular}
+\end{table}
+
+## Joint probability
+
+\alert{What is the probability that a patient received the antidepressant (desipramine) \underline{and} relapsed?}
+
+\begin{table}[]
+\begin{tabular}{c|cc|c}
+            & relapse & no relapse & total \\ \hline
+desipramine & \textcolor{red}{10}      & 14         & 24    \\
+lithium     & 18      & 6          & 24    \\
+placebo     & 20      & 4          & 24    \\ \hline
+total       & 48      & 24         & \textcolor{red}{72}   
+\end{tabular}
+\end{table}
+
+$\text{P(relapsed and desipramine)} = \frac{10}{72} \approx 0.14$
+
+## Conditonal probability
+
+The conditional probability of the outcome of interest A given condition B is calculated as
+
+\centering{$P(A|B) = \frac{P(A \text{ and }B)}{P(B)}$}
+
+## Conditonal probability
+
+The conditional probability of the outcome of interest A given condition B is calculated as
+
+\centering{$P(A|B) = \frac{P(A \text{ and }B)}{P(B)}$}
+
+\begin{align*}
+P(relapse|desipramine) &= \frac{P(relapse \text{ }and \text{ }desipramine)}{P(desipramine)}
+\end{align*}
+
+## Conditonal probability
+
+The conditional probability of the outcome of interest A given condition B is calculated as
+
+\centering{$P(A|B) = \frac{P(A \text{ and }B)}{P(B)}$}
+
+\begin{align*}
+P(relapse|desipramine) &= \frac{P(relapse \text{ } and \text{ }desipramine)}{P(desipramine)} \\
+&= \frac{10/72}{24/72}
+\end{align*}
+
+## Conditonal probability
+
+The conditional probability of the outcome of interest A given condition B is calculated as
+
+\centering{$P(A|B) = \frac{P(A \text{ and }B)}{P(B)}$}
+
+\begin{align*}
+P(relapse|desipramine) &= \frac{P(relapse \text{ }and \text{ }desipramine)}{P(desipramine)} \\
+&= \frac{10/72}{24/72} \\
+&= \frac{10}{24}
+\end{align*}
+
+## Conditonal probability
+
+The conditional probability of the outcome of interest A given condition B is calculated as
+
+\centering{$P(A|B) = \frac{P(A \text{ and }B)}{P(B)}$}
+
+\begin{align*}
+P(relapse|desipramine) &= \frac{P(relapse \text{ }and \text{ }desipramine)}{P(desipramine)}\\
+&= \frac{10/72}{24/72} \\
+&= \frac{10}{24} \\
+&= 0.42
+\end{align*}
+
+## Conditional probability
+
+\alert{If we know that a patient received the antidepressant (desipramine), what is the probability that they relapsed?}
+
+\begin{table}[]
+\begin{tabular}{c|cc|c}
+            & relapse & no relapse & total \\ \hline
+desipramine & 10      & 14         & 24    \\
+lithium     & 18      & 6          & 24    \\
+placebo     & 20      & 4          & 24    \\ \hline
+total       & 48      & 24         & 72   
+\end{tabular}
+\end{table}
+
+## Conditional probability
+
+\alert{If we know that a patient received the antidepressant (desipramine), what is the probability that they relapsed?}
+
+\begin{table}[]
+\begin{tabular}{c|cc|c}
+            & relapse & no relapse & total \\ \hline
+desipramine & \textcolor{red}{10}      & 14         & \textcolor{red}{24}    \\
+lithium     & 18      & 6          & 24    \\
+placebo     & 20      & 4          & 24    \\ \hline
+total       & 48      & 24         & 72   
+\end{tabular}
+\end{table}
+
+P(relapse | desipramine) $= \frac{10}{24} \approx 0.42$ 
+
+## Conditional probability
+
+\alert{If we know that a patient received the antidepressant (desipramine), what is the probability that they relapsed?}
+
+\begin{table}[]
+\begin{tabular}{c|cc|c}
+            & relapse & no relapse & total \\ \hline
+desipramine & \textcolor{red}{10}      & 14         & \textcolor{red}{24}    \\
+lithium     & 18      & 6          & 24    \\
+placebo     & 20      & 4          & 24    \\ \hline
+total       & 48      & 24         & 72   
+\end{tabular}
+\end{table}
+
+P(relapse | desipramine) $= \frac{10}{24} \approx 0.42$ 
+
+P(relapse | lithium) $= \frac{18}{24} \approx 0.75$
+
+P(relapse | placebo) $= \frac{20}{24} \approx 0.83$
+
+
+## Conditional probability
+
+\alert{If we know that a patient relapsed, what is the probability that they received the antidepressant (desipramine)?}
+
+\begin{table}[]
+\begin{tabular}{c|cc|c}
+            & relapse & no relapse & total \\ \hline
+desipramine & 10      & 14         & 24    \\
+lithium     & 18      & 6          & 24    \\
+placebo     & 20      & 4          & 24    \\ \hline
+total       & 48      & 24         & 72   
+\end{tabular}
+\end{table}
+
+## Conditional probability
+
+\alert{If we know that a patient relapsed, what is the probability that they received the antidepressant (desipramine)?}
+
+\begin{table}[]
+\begin{tabular}{c|cc|c}
+            & relapse & no relapse & total \\ \hline
+desipramine & \textcolor{red}{10}      & 14         & 24    \\
+lithium     & 18      & 6          & 24    \\
+placebo     & 20      & 4          & 24    \\ \hline
+total       & \textcolor{red}{48}      & 24         & 72   
+\end{tabular}
+\end{table}
+
+P(desipramine | relapse) $= \frac{10}{48} \approx 0.21$
+
+## Conditional probability
+
+\alert{If we know that a patient relapsed, what is the probability that they received the antidepressant (desipramine)?}
+
+\begin{table}[]
+\begin{tabular}{c|cc|c}
+            & relapse & no relapse & total \\ \hline
+desipramine & \textcolor{red}{10}      & 14         & 24    \\
+lithium     & 18      & 6          & 24    \\
+placebo     & 20      & 4          & 24    \\ \hline
+total       & \textcolor{red}{48}      & 24         & 72   
+\end{tabular}
+\end{table}
+
+P(desipramine | relapse) $= \frac{10}{48} \approx 0.21$
+
+P(lithium | relapse) $= \frac{18}{48} \approx 0.375$
+
+P(placebo | relapse) $= \frac{20}{48} \approx 0.42$
+
+## General multiplication rule
+
+- Earlier we saw that if two events are independent, their joint probability is simply the product of their probabilities. If the events are not believed to be independent, the joint probability is calculated slightly differently.
+
+## General multiplication rule
+
+- Earlier we saw that if two events are independent, their joint probability is simply the product of their probabilities. If the events are not believed to be independent, the joint probability is calculated slightly differently.
+
+- If A and B represent two outcomes or events, then 
+
+\centering{P(A and B) = P(A | B) \times P(B)}
+
+  \raggedright{Note that this formula is simply the conditional probability formula, rearranged.}
+  
+## General multiplication rule
+
+- Earlier we saw that if two events are independent, their joint probability is simply the product of their probabilities. If the events are not believed to be independent, the joint probability is calculated slightly differently.
+
+- If A and B represent two outcomes or events, then 
+
+\centering{P(A and B) = P(A | B) \times P(B)}
+
+  \raggedright{Note that this formula is simply the conditional probability formula, rearranged.}
+  
+- It is useful to think of A as the outcome of interest and B as the condition.
+
+## Independence and conditional probabilities
+
+Consider the following (hypothetical) distribution of gender and major of students in an introductory statistics class:
+
+\begin{table}[]
+\begin{tabular}{c|cc|c}
+       & social science & non-social science & total \\ \hline
+female & 30             & 20                 & 50    \\
+male   & 30             & 20                 & 50    \\ \hline
+total  & 60             & 40                 & 100  
+\end{tabular}
+\end{table}
+
+## Independence and conditional probabilities
+
+Consider the following (hypothetical) distribution of gender and major of students in an introductory statistics class:
+
+\begin{table}[]
+\begin{tabular}{c|cc|c}
+       & social science & non-social science & total \\ \hline
+female & 30             & 20                 & 50    \\
+male   & 30             & 20                 & 50    \\ \hline
+total  & 60             & 40                 & 100  
+\end{tabular}
+\end{table}
+
+- The probability that a randomly selected student is a social science major is
+
+## Independence and conditional probabilities
+
+Consider the following (hypothetical) distribution of gender and major of students in an introductory statistics class:
+
+\begin{table}[]
+\begin{tabular}{c|cc|c}
+       & social science & non-social science & total \\ \hline
+female & 30             & 20                 & 50    \\
+male   & 30             & 20                 & 50    \\ \hline
+total  & 60             & 40                 & 100  
+\end{tabular}
+\end{table}
+
+- The probability that a randomly selected student is a social science major is $\frac{60}{100} = 0.6.$
+
+## Independence and conditional probabilities
+
+Consider the following (hypothetical) distribution of gender and major of students in an introductory statistics class:
+
+\begin{table}[]
+\begin{tabular}{c|cc|c}
+       & social science & non-social science & total \\ \hline
+female & 30             & 20                 & 50    \\
+male   & 30             & 20                 & 50    \\ \hline
+total  & 60             & 40                 & 100  
+\end{tabular}
+\end{table}
+
+- The probability that a randomly selected student is a social science major is $\frac{60}{100} = 0.6.$
+
+- The probability that a randomly selected student is a social science major given that they are female is 
+
+## Independence and conditional probabilities
+
+Consider the following (hypothetical) distribution of gender and major of students in an introductory statistics class:
+
+\begin{table}[]
+\begin{tabular}{c|cc|c}
+       & social science & non-social science & total \\ \hline
+female & 30             & 20                 & 50    \\
+male   & 30             & 20                 & 50    \\ \hline
+total  & 60             & 40                 & 100  
+\end{tabular}
+\end{table}
+
+- The probability that a randomly selected student is a social science major is $\frac{60}{100} = 0.6.$
+
+- The probability that a randomly selected student is a social science major given that they are female is $\frac{30}{50} = 0.6.$
+
+## Independence and conditional probabilities
+
+Consider the following (hypothetical) distribution of gender and major of students in an introductory statistics class:
+
+\begin{table}[]
+\begin{tabular}{c|cc|c}
+       & social science & non-social science & total \\ \hline
+female & 30             & 20                 & 50    \\
+male   & 30             & 20                 & 50    \\ \hline
+total  & 60             & 40                 & 100  
+\end{tabular}
+\end{table}
+
+- The probability that a randomly selected student is a social science major is $\frac{60}{100} = 0.6.$
+
+- The probability that a randomly selected student is a social science major given that they are female is $\frac{30}{50} = 0.6.$
+
+- Since P(SS | M) also equals 0.6, major of students in this class does not depend on their gender: P(SS | F) = P(SS).
+
+## Independence and conditional probabilities
+
+Generically, if P(A | B) = P(A) then the events A and B are said to be independent.
+
+## Independence and conditional probabilities
+
+Generically, if P(A | B) = P(A) then the events A and B are said to be independent.
+  
+  - Conceptually: Giving B doesn't tell us anything about A.
+  
+## Independence and conditional probabilities
+
+Generically, if P(A | B) = P(A) then the events A and B are said to be independent.
+  
+  - Conceptually: Giving B doesn't tell us anything about A.
+  
+  - Mathematically: We know that if events A and B are independent, P(A and B) = P(A) $\times$ P(B). Then,
+  
+  \centering{$P(A|B) = \frac{P(A \text{ }and \text{ }B)}{P(B)} = \frac{P(A) \times P(B)}{P(B)} = P(A)$}
+  
+## Breast cancer screening
+
+- American Cancer Society estimates that about 1.7% of women have breast cancer.
+
+  [https://www.cancer.org/cancer/cancer-basics/cancer-prevalence.html](https://www.cancer.org/cancer/cancer-basics/cancer-prevalence.html)
+  
+- Susan G. Komen For The Cure Foundation states that mammography correctly identifies about 78% of women who truly have breast cancer.
+
+  [https://www.komen.org/breast-cancer/screening/mammography/accuracy/](https://www.komen.org/breast-cancer/screening/mammography/accuracy/)
+  
+- An article published in 2003 suggests that up to 10% of all mammograms result in false positives for patients who do not have cancer.
+
+  [https://www.ncbi.nlm.nih.gov/pmc/articles/PMC1360940/](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC1360940/)
+  
+## Inverting probabilities
+
+\alert{When a patient goes through breast cancer screening there are two competing claims: patient had cancer and patient doesn't have cancer. If a mammogram yields a positive result, what is the probability that patient actually has cancer?}
+
+## Inverting probabilities
+
+\alert{When a patient goes through breast cancer screening there are two competing claims: patient had cancer and patient doesn't have cancer. If a mammogram yields a positive result, what is the probability that patient actually has cancer?}
+
+\begin{multicols}{2}
+
+```{r, echo=F, message=F, warning=F, out.width="100%",fig.align='center'}
+treeDiag(c('Cancer status', 'Test result'), out1 = c("cancer","no cancer"), out2 = c("positive","negative"), c(0.017, 0.983), list(c(0.78, 0.22), c(0.1, 0.9)), showWork = TRUE, solwd=0.23, cex = 1.5)
+
+```
+
+\columnbreak
+
+\end{multicols}
+
+## Inverting probabilities
+
+\alert{When a patient goes through breast cancer screening there are two competing claims: patient had cancer and patient doesn't have cancer. If a mammogram yields a positive result, what is the probability that patient actually has cancer?}
+
+\begin{multicols}{2}
+
+```{r, echo=F, message=F, warning=F, out.width="100%",fig.align='center'}
+treeDiag(c('Cancer status', 'Test result'), out1 = c("cancer","no cancer"), out2 = c("positive","negative"), c(0.017, 0.983), list(c(0.78, 0.22), c(0.1, 0.9)), showWork = TRUE, solwd=0.23, cex = 1.5)
+
+```
+
+\columnbreak
+
+$P(C|+)$
+
+\end{multicols}
+
+## Inverting probabilities
+
+\alert{When a patient goes through breast cancer screening there are two competing claims: patient had cancer and patient doesn't have cancer. If a mammogram yields a positive result, what is the probability that patient actually has cancer?}
+
+\begin{multicols}{2}
+
+```{r, echo=F, message=F, warning=F, out.width="100%",fig.align='center'}
+treeDiag(c('Cancer status', 'Test result'), out1 = c("cancer","no cancer"), out2 = c("positive","negative"), c(0.017, 0.983), list(c(0.78, 0.22), c(0.1, 0.9)), showWork = TRUE, solwd=0.23, cex = 1.5)
+
+```
+
+\columnbreak
+
+$P(C|+)$ \\
+
+$=\frac{P(C \text{ }and \text{}+)}{P(+)}$
+
+\end{multicols}
+
+## Inverting probabilities
+
+\alert{When a patient goes through breast cancer screening there are two competing claims: patient had cancer and patient doesn't have cancer. If a mammogram yields a positive result, what is the probability that patient actually has cancer?}
+
+\begin{multicols}{2}
+
+```{r, echo=F, message=F, warning=F, out.width="100%",fig.align='center'}
+treeDiag(c('Cancer status', 'Test result'), out1 = c("cancer","no cancer"), out2 = c("positive","negative"), c(0.017, 0.983), list(c(0.78, 0.22), c(0.1, 0.9)), showWork = TRUE, solwd=0.23, cex = 1.5)
+
+```
+
+\columnbreak
+
+$P(C|+)$ \\
+
+$=\frac{P(C \text{ }and \text{}+)}{P(+)}$ \\
+
+$=\frac{0.0133}{0.0133+0.0983}$
+
+\end{multicols}
+
+## Inverting probabilities
+
+\alert{When a patient goes through breast cancer screening there are two competing claims: patient had cancer and patient doesn't have cancer. If a mammogram yields a positive result, what is the probability that patient actually has cancer?}
+
+\begin{multicols}{2}
+
+```{r, echo=F, message=F, warning=F, out.width="100%",fig.align='center'}
+treeDiag(c('Cancer status', 'Test result'), out1 = c("cancer","no cancer"), out2 = c("positive","negative"), c(0.017, 0.983), list(c(0.78, 0.22), c(0.1, 0.9)), showWork = TRUE, solwd=0.23, cex = 1.5)
+
+```
+
+\columnbreak
+
+$P(C|+)$ \\
+
+$=\frac{P(C \text{ }and \text{}+)}{P(+)}$ \\
+
+$=\frac{0.0133}{0.0133+0.0983}$ \\
+
+$=0.12$
+
+\end{multicols}
+
+## Inverting probabilities
+
+\alert{When a patient goes through breast cancer screening there are two competing claims: patient had cancer and patient doesn't have cancer. If a mammogram yields a positive result, what is the probability that patient actually has cancer?}
+
+\begin{multicols}{2}
+
+```{r, echo=F, message=F, warning=F, out.width="100%",fig.align='center'}
+treeDiag(c('Cancer status', 'Test result'), out1 = c("cancer","no cancer"), out2 = c("positive","negative"), c(0.017, 0.983), list(c(0.78, 0.22), c(0.1, 0.9)), showWork = TRUE, solwd=0.23, cex = 1.5)
+
+```
+
+\columnbreak
+
+$P(C|+)$ \\
+
+$=\frac{P(C \text{ }and \text{}+)}{P(+)}$ \\
+
+$=\frac{0.0133}{0.0133+0.0983}$ \\
+
+$=0.12$
+
+\end{multicols}
+
+\noindent\rule{4cm}{0.4pt}
+
+\alert{Note:} Tree diagrams are useful for inverting probabilities: we are given P(+|C) and asked for P(C|+)
+
+## Practice
+
+\alert{Suppose a woman who gets tested once and obtains a positive result wants to get tested again. In the second test, what should we assume to be the probability of this specific woman having cancer?}
+
+A) 0.017
+B) 0.12
+C) 0.0133
+D) 0.88
+
+## Practice
+
+\alert{Suppose a woman who gets tested once and obtains a positive result wants to get tested again. In the second test, what should we assume to be the probability of this specific woman having cancer?}
+
+A) 0.017
+B) **0.12**
+C) 0.0133
+D) 0.88
+
+## Practice
+
+\alert{What is the probability that this woman has cancer if this second mammogram also yielded a positive result?}
+
+A) 0.0936
+B) 0.088
+C) 0.48
+D) 0.52
+
+## Practice
+
+\alert{What is the probability that this woman has cancer if this second mammogram also yielded a positive result?}
+
+\begin{multicols}{2}
+
+A) 0.0936 \\
+B) 0.088 \\
+C) 0.48 \\
+D) \textbf{0.52}
+
+\columnbreak
+
+```{r, echo=F, message=F, warning=F, out.width="120%",fig.align='center'}
+treeDiag(c('Cancer status', 'Test result'), out1 = c("cancer","no cancer"), out2 = c("positive","negative"), c(0.12, 0.88), list(c(0.78, 0.22), c(0.1, 0.9)), showWork = TRUE, solwd=0.23)
+
+```
+
+\end{multicols}
+
+## Practice
+
+\alert{What is the probability that this woman has cancer if this second mammogram also yielded a positive result?}
+
+\begin{multicols}{2}
+
+A) 0.0936 \\
+B) 0.088 \\
+C) 0.48 \\
+D) \textbf{0.52}
+
+\columnbreak
+
+```{r, echo=F, message=F, warning=F, out.width="120%",fig.align='center'}
+treeDiag(c('Cancer status', 'Test result'), out1 = c("cancer","no cancer"), out2 = c("positive","negative"), c(0.12, 0.88), list(c(0.78, 0.22), c(0.1, 0.9)), showWork = TRUE, solwd=0.23)
+
+```
+
+\end{multicols}
+
+\centering{$P(C|+) = \frac{P(C \text{ }and \text{ }+)}{P(+)}= \frac{0.0936}{0.0936+0.088}=0.52$}
+
+## Bayes' Theorem
+
+- The conditional probability formula we have seen so far is a special case of the Bayes' Theorem, which is applicable even when events have more than just two outcomes.
+
+
+## Bayes' Theorem
+
+- The conditional probability formula we have seen so far is a special case of the Bayes' Theorem, which is applicable even when events have more than just two outcomes.
+
+- **Bayes' Theorem"**
+
+\centering{$P(outcome\text{ }A_1\text{ }of\text{ }variable\text{ }1\text{ }|\text{ }outcome\text{ }B\text{ }of\text{ }variable\text{ }2)$}
+
+\centering{$=\frac{P(B|A_1)P(A_1)}{P(B|A_1)P(A_1)+P(B|A_2)P(A_2)+ \dots + P(B|A_k)P(A_k)}$}
+
+\raggedright
+  where $A_2, \dots, A_k$ represent all other possible outcomes of variable 1.
+  
+  
+## Application activity: Inverting probabilities
+
+A common epidemiological model for the spread of diseases is the SIR model, where the population is partitioned into three groups: Susceptible, Infected, and Recovered. This is a reasonable model for diseases like chickenpox where a single infection usually provides immunity to subsequent infections. Sometimes these diseases can also be difficult to detect.
+
+Imagine a population in the midst of an epidemic where 60% of the population is considered susceptible, 10% is infected, and 30% is recovered. The only test for the disease is accurate 95% of the time for susceptible individuals, 99% for infected individuals, but 65% for recovered individuals. (Note: In this case accurate means returning a negative result for susceptible and recovered individuals and positive result for infected individuals).
+
+Draw a probability tree to reflect the information given above, If the individual has tested positive, what is the probability that they are actually infected?
+
+## Application activity: Inverting probabilities
+
+```{r, echo=F, message=F, warning=F, out.width="100%",fig.align='center'}
+treeDiag(c('Group', 'Test result'), 
+	out1 = c("susceptible","infected","recovered"), 
+	out2 = c("positive","negative"), 
+	c(0.6, 0.1, 0.3), 
+	list(c(0.05, 0.95), c(0.99, 0.01), c(0.35,0.65)),
+	textwd=0.20,solwd = 0.05)
+```
+
+## Application activity: Inverting probabilities
+
+```{r, echo=F, message=F, warning=F, out.width="100%",fig.align='center'}
+treeDiag(c('Group', 'Test result'), 
+	out1 = c("susceptible","infected","recovered"), 
+	out2 = c("positive","negative"), 
+	c(0.6, 0.1, 0.3), 
+	list(c(0.05, 0.95), c(0.99, 0.01), c(0.35,0.65)),
+	textwd=0.20,solwd = 0.05)
+```
+
+\centering{$P(inf|+) = \frac{P(inf \text{ }and \text{ }+)}{P(+)}= \frac{0.099}{0.03+0.099+0.105} \approx 0.423$}
+
+# Sampling from a small population
+
+## Sampling with replacement
+
+When sampling **with replacement**, you put back what you just drew.
+
+## Sampling with replacement
+
+When sampling **with replacement**, you put back what you just drew.
+
+  - Imagine you have a bag with 5 red, 3 blue and 2 orange chips in it. What is the probability that the first chip you draw is blue?
+  
+\centering{5 \tikz\draw[red,fill=red] (0,0) circle (.5ex);, 3 \tikz\draw[blue,fill=blue] (0,0) circle (.5ex);, 2 \tikz\draw[orange,fill=orange] (0,0) circle (.5ex); }
+
+## Sampling with replacement
+
+When sampling **with replacement**, you put back what you just drew.
+
+  - Imagine you have a bag with 5 red, 3 blue and 2 orange chips in it. What is the probability that the first chip you draw is blue?
+  
+\centering{5 \tikz\draw[red,fill=red] (0,0) circle (.5ex);, 3 \tikz\draw[blue,fill=blue] (0,0) circle (.5ex);, 2 \tikz\draw[orange,fill=orange] (0,0) circle (.5ex); }
+
+\centering{$Prob(1^{st} \text{ }chip \text{ }B) = \frac{3}{5+3+2} = \frac{3}{10}=0.3$}
+
+## Sampling with replacement
+
+When sampling **with replacement**, you put back what you just drew.
+
+  - Imagine you have a bag with 5 red, 3 blue and 2 orange chips in it. What is the probability that the first chip you draw is blue?
+  
+\centering{5 \tikz\draw[red,fill=red] (0,0) circle (.5ex);, 3 \tikz\draw[blue,fill=blue] (0,0) circle (.5ex);, 2 \tikz\draw[orange,fill=orange] (0,0) circle (.5ex); }
+
+\centering{$Prob(1^{st} \text{ }chip \text{ }B) = \frac{3}{5+3+2} = \frac{3}{10}=0.3$}
+
+  - Suppose you did indeed pull a blue chip in the first draw. If drawing with replacement, what is the probability of drawing a blue chip in the second draw?
+  
+## Sampling with replacement
+
+When sampling **with replacement**, you put back what you just drew.
+
+  - Imagine you have a bag with 5 red, 3 blue and 2 orange chips in it. What is the probability that the first chip you draw is blue?
+  
+\centering{5 \tikz\draw[red,fill=red] (0,0) circle (.5ex);, 3 \tikz\draw[blue,fill=blue] (0,0) circle (.5ex);, 2 \tikz\draw[orange,fill=orange] (0,0) circle (.5ex); }
+
+\centering{$Prob(1^{st} \text{ }chip \text{ }B) = \frac{3}{5+3+2} = \frac{3}{10}=0.3$}
+
+  - Suppose you did indeed pull a blue chip in the first draw. If drawing with replacement, what is the probability of drawing a blue chip in the second draw?
+  
+\centering{$1^{st}$ draw: 5 \tikz\draw[red,fill=red] (0,0) circle (.5ex);, 3 \tikz\draw[blue,fill=blue] (0,0) circle (.5ex);, 2 \tikz\draw[orange,fill=orange] (0,0) circle (.5ex); }
+
+\centering{$2^{nd}$ draw: 5 \tikz\draw[red,fill=red] (0,0) circle (.5ex);, 3 \tikz\draw[blue,fill=blue] (0,0) circle (.5ex);, 2 \tikz\draw[orange,fill=orange] (0,0) circle (.5ex); }
+
+## Sampling with replacement
+
+When sampling **with replacement**, you put back what you just drew.
+
+  - Imagine you have a bag with 5 red, 3 blue and 2 orange chips in it. What is the probability that the first chip you draw is blue?
+  
+\centering{5 \tikz\draw[red,fill=red] (0,0) circle (.5ex);, 3 \tikz\draw[blue,fill=blue] (0,0) circle (.5ex);, 2 \tikz\draw[orange,fill=orange] (0,0) circle (.5ex); }
+
+\centering{$Prob(1^{st} \text{ }chip \text{ }B) = \frac{3}{5+3+2} = \frac{3}{10}=0.3$}
+
+  - Suppose you did indeed pull a blue chip in the first draw. If drawing with replacement, what is the probability of drawing a blue chip in the second draw?
+  
+\centering{$1^{st}$ draw: 5 \tikz\draw[red,fill=red] (0,0) circle (.5ex);, 3 \tikz\draw[blue,fill=blue] (0,0) circle (.5ex);, 2 \tikz\draw[orange,fill=orange] (0,0) circle (.5ex); }
+
+\centering{$2^{nd}$ draw: 5 \tikz\draw[red,fill=red] (0,0) circle (.5ex);, 3 \tikz\draw[blue,fill=blue] (0,0) circle (.5ex);, 2 \tikz\draw[orange,fill=orange] (0,0) circle (.5ex); }
+
+\centering{$Prob(2^{nd} \text{ }chip \text{ }B | 1^{st} \text{ }chip \text{ }B) = \frac{3}{10}=0.3$}
+
+## Sampling with replacement
+
+- Suppose you actually pulled an orange chip in the first draw. If drawing with replacement, what is the probability of drawing a blue chip in the second draw?
+
+\centering{$1^{st}$ draw: 5 \tikz\draw[red,fill=red] (0,0) circle (.5ex);, 3 \tikz\draw[blue,fill=blue] (0,0) circle (.5ex);, 2 \tikz\draw[orange,fill=orange] (0,0) circle (.5ex); }
+
+\centering{$2^{nd}$ draw: 5 \tikz\draw[red,fill=red] (0,0) circle (.5ex);, 3 \tikz\draw[blue,fill=blue] (0,0) circle (.5ex);, 2 \tikz\draw[orange,fill=orange] (0,0) circle (.5ex); }
+
+## Sampling with replacement
+
+- Suppose you actually pulled an orange chip in the first draw. If drawing with replacement, what is the probability of drawing a blue chip in the second draw?
+
+\centering{$1^{st}$ draw: 5 \tikz\draw[red,fill=red] (0,0) circle (.5ex);, 3 \tikz\draw[blue,fill=blue] (0,0) circle (.5ex);, 2 \tikz\draw[orange,fill=orange] (0,0) circle (.5ex); }
+
+\centering{$2^{nd}$ draw: 5 \tikz\draw[red,fill=red] (0,0) circle (.5ex);, 3 \tikz\draw[blue,fill=blue] (0,0) circle (.5ex);, 2 \tikz\draw[orange,fill=orange] (0,0) circle (.5ex); }
+
+\centering{$Prob(2^{nd} \text{ }chip \text{ }B | 1^{st} \text{ }chip \text{ }O) = \frac{3}{10}=0.3$}
+
+## Sampling with replacement
+
+- Suppose you actually pulled an orange chip in the first draw. If drawing with replacement, what is the probability of drawing a blue chip in the second draw?
+
+\centering{$1^{st}$ draw: 5 \tikz\draw[red,fill=red] (0,0) circle (.5ex);, 3 \tikz\draw[blue,fill=blue] (0,0) circle (.5ex);, 2 \tikz\draw[orange,fill=orange] (0,0) circle (.5ex); }
+
+\centering{$2^{nd}$ draw: 5 \tikz\draw[red,fill=red] (0,0) circle (.5ex);, 3 \tikz\draw[blue,fill=blue] (0,0) circle (.5ex);, 2 \tikz\draw[orange,fill=orange] (0,0) circle (.5ex); }
+
+\centering{$Prob(2^{nd} \text{ }chip \text{ }B | 1^{st} \text{ }chip \text{ }O) = \frac{3}{10}=0.3$}
+
+- If drawing with replacement, what is the probability of drawing two blue chips in a row?
+
+## Sampling with replacement
+
+- Suppose you actually pulled an orange chip in the first draw. If drawing with replacement, what is the probability of drawing a blue chip in the second draw?
+
+\centering{$1^{st}$ draw: 5 \tikz\draw[red,fill=red] (0,0) circle (.5ex);, 3 \tikz\draw[blue,fill=blue] (0,0) circle (.5ex);, 2 \tikz\draw[orange,fill=orange] (0,0) circle (.5ex); }
+
+\centering{$2^{nd}$ draw: 5 \tikz\draw[red,fill=red] (0,0) circle (.5ex);, 3 \tikz\draw[blue,fill=blue] (0,0) circle (.5ex);, 2 \tikz\draw[orange,fill=orange] (0,0) circle (.5ex); }
+
+\centering{$Prob(2^{nd} \text{ }chip \text{ }B | 1^{st} \text{ }chip \text{ }O) = \frac{3}{10}=0.3$}
+
+- If drawing with replacement, what is the probability of drawing two blue chips in a row?
+
+\centering{$1^{st}$ draw: 5 \tikz\draw[red,fill=red] (0,0) circle (.5ex);, 3 \tikz\draw[blue,fill=blue] (0,0) circle (.5ex);, 2 \tikz\draw[orange,fill=orange] (0,0) circle (.5ex); }
+
+\centering{$2^{nd}$ draw: 5 \tikz\draw[red,fill=red] (0,0) circle (.5ex);, 3 \tikz\draw[blue,fill=blue] (0,0) circle (.5ex);, 2 \tikz\draw[orange,fill=orange] (0,0) circle (.5ex); }
+
+## Sampling with replacement
+
+- Suppose you actually pulled an orange chip in the first draw. If drawing with replacement, what is the probability of drawing a blue chip in the second draw?
+
+\centering{$1^{st}$ draw: 5 \tikz\draw[red,fill=red] (0,0) circle (.5ex);, 3 \tikz\draw[blue,fill=blue] (0,0) circle (.5ex);, 2 \tikz\draw[orange,fill=orange] (0,0) circle (.5ex); }
+
+\centering{$2^{nd}$ draw: 5 \tikz\draw[red,fill=red] (0,0) circle (.5ex);, 3 \tikz\draw[blue,fill=blue] (0,0) circle (.5ex);, 2 \tikz\draw[orange,fill=orange] (0,0) circle (.5ex); }
+
+\centering{$Prob(2^{nd} \text{ }chip \text{ }B | 1^{st} \text{ }chip \text{ }O) = \frac{3}{10}=0.3$}
+
+- If drawing with replacement, what is the probability of drawing two blue chips in a row?
+
+\centering{$1^{st}$ draw: 5 \tikz\draw[red,fill=red] (0,0) circle (.5ex);, 3 \tikz\draw[blue,fill=blue] (0,0) circle (.5ex);, 2 \tikz\draw[orange,fill=orange] (0,0) circle (.5ex); }
+
+\centering{$2^{nd}$ draw: 5 \tikz\draw[red,fill=red] (0,0) circle (.5ex);, 3 \tikz\draw[blue,fill=blue] (0,0) circle (.5ex);, 2 \tikz\draw[orange,fill=orange] (0,0) circle (.5ex); }
+
+\centering{$Prob(1^{st} \text{ }chip \text{ }B) \cdot Prob(2^{nd} \text{ }chip \text{ }B | 1^{st} \text{ }chip \text{ }B) = 0.3 \times 0.3 = 0.3^2 = 0.09$}
+
+## Sampling with replacement
+
+- When drawing with replacement, probability of the second chip being blue does not depend on the color of the first chip since whatever we draw in the first draw gets put back in the bag.
+
+\centering{$Prob(B|B) = Prob(B|O)$}
+
+- In addition, this probability is equal to the probability of drawing a blue chip in the first draw, since the composition of the bag never changes when sampling with replacement.
+
+\centering{$Prob(B|B) = Prob(B)$}
+
+- **When drawing with replacement, draws are independent.**
+
+## Sampling without replacement
+
+When drawing **without replacement** you do not put back what you just drew.
+
+## Sampling without replacement
+
+When drawing **without replacement** you do not put back what you just drew.
+
+  - Supposed you pulled a blue chip in the first draw. If drawing without replacement, what is the probability of drawing a blue chip in the second draw?
+  
+\centering{$1^{st}$ draw: 5 \tikz\draw[red,fill=red] (0,0) circle (.5ex);, 3 \tikz\draw[blue,fill=blue] (0,0) circle (.5ex);, 2 \tikz\draw[orange,fill=orange] (0,0) circle (.5ex); }
+
+## Sampling without replacement
+
+When drawing **without replacement** you do not put back what you just drew.
+
+  - Supposed you pulled a blue chip in the first draw. If drawing without replacement, what is the probability of drawing a blue chip in the second draw?
+  
+\centering{$1^{st}$ draw: 5 \tikz\draw[red,fill=red] (0,0) circle (.5ex);, 3 \tikz\draw[blue,fill=blue] (0,0) circle (.5ex);, 2 \tikz\draw[orange,fill=orange] (0,0) circle (.5ex); }
+
+\centering{$2^{nd}$ draw: 5 \tikz\draw[red,fill=red] (0,0) circle (.5ex);, 2 \tikz\draw[blue,fill=blue] (0,0) circle (.5ex);, 2 \tikz\draw[orange,fill=orange] (0,0) circle (.5ex); }
+
+## Sampling without replacement
+
+When drawing **without replacement** you do not put back what you just drew.
+
+  - Supposed you pulled a blue chip in the first draw. If drawing without replacement, what is the probability of drawing a blue chip in the second draw?
+  
+\centering{$1^{st}$ draw: 5 \tikz\draw[red,fill=red] (0,0) circle (.5ex);, 3 \tikz\draw[blue,fill=blue] (0,0) circle (.5ex);, 2 \tikz\draw[orange,fill=orange] (0,0) circle (.5ex); }
+
+\centering{$2^{nd}$ draw: 5 \tikz\draw[red,fill=red] (0,0) circle (.5ex);, 2 \tikz\draw[blue,fill=blue] (0,0) circle (.5ex);, 2 \tikz\draw[orange,fill=orange] (0,0) circle (.5ex); }
+
+\centering{$Prob(2^{nd} \text{ }chip \text{ }B \text{ }|\text{ }1^{st} \text{ }chip \text{ }B = \frac{2}{9} = 0.22$}
+
+## Sampling without replacement
+
+When drawing **without replacement** you do not put back what you just drew.
+
+  - Supposed you pulled a blue chip in the first draw. If drawing without replacement, what is the probability of drawing a blue chip in the second draw?
+  
+\centering{$1^{st}$ draw: 5 \tikz\draw[red,fill=red] (0,0) circle (.5ex);, 3 \tikz\draw[blue,fill=blue] (0,0) circle (.5ex);, 2 \tikz\draw[orange,fill=orange] (0,0) circle (.5ex); }
+
+\centering{$2^{nd}$ draw: 5 \tikz\draw[red,fill=red] (0,0) circle (.5ex);, 2 \tikz\draw[blue,fill=blue] (0,0) circle (.5ex);, 2 \tikz\draw[orange,fill=orange] (0,0) circle (.5ex); }
+
+\centering{$Prob(2^{nd} \text{ }chip \text{ }B \text{ }|\text{ }1^{st} \text{ }chip \text{ }B = \frac{2}{9} = 0.22$}
+
+  - If drawing without replacement what is the probability of drawing two blue chips in a row?
+  
+\centering{$Prob(1^{st}\text{ }chipB) \cdot Prob(2^{nd} \text{ }chip \text{ }B \text{ }|\text{ }1^{st} \text{ }chip \text{ }B = 0.3 \times 0.22 = 0.066$}
+
+## Sampling without replacement
+
+- When drawing without replacement, the probability of the second chip being blue given the first was blue is not equal to the probability of drawing a blue chip in the first draw since the composition of the bag changes with the outcome of the first draw.
+
+\centering{$Prob(B|B) \neq Prob(B)$}
+
+## Sampling without replacement
+
+- When drawing without replacement, the probability of the second chip being blue given the first was blue is not equal to the probability of drawing a blue chip in the first draw since the composition of the bag changes with the outcome of the first draw.
+
+\centering{$Prob(B|B) \neq Prob(B)$}
+
+- **When drawing without replacement, drwas are not independent.**
+
+## Sampling without replacement
+
+- When drawing without replacement, the probability of the second chip being blue given the first was blue is not equal to the probability of drawing a blue chip in the first draw since the composition of the bag changes with the outcome of the first draw.
+
+\centering{$Prob(B|B) \neq Prob(B)$}
+
+- **When drawing without replacement, drwas are not independent.**
+
+- This is especially important to take not of when the sample sizes are small. If we were dealing with, say, 10,000 chips in a (giant) bag, taking out one chip of any color would not have as big an impact on the probabilities in the second draw.
+
+## Practice
+
+\alert{In most card games, cards are dealth without replacement. What is the probability of being dealth an ace and then a 3? Choose the closet answer.}
+
+A) 0.0045
+B) 0.0059
+C) 0.0060
+D) 0.1553
+
+## Practice
+
+\alert{In most card games, cards are dealth without replacement. What is the probability of being dealth an ace and then a 3? Choose the closet answer.}
+
+\begin{multicols}{2}
+
+A) 0.0045 \\
+B) 0.0059 \\
+C) \textbf{0.0060} \\
+D) 0.1553
+
+\columnbreak
+
+$P(ace \text{ }then \text{ }3)$ \\
+$= \frac{4}{42} \times \frac{4}{41}$ \\
+$\approx 0.0060$
+
+\end{multicols}
+
+# Random variables
+
+## Random variables
+
+- A **random variable** is a numeric quantity whose value depends on the outcome of a random event.
+
+  - We use a capital letter, like $X$, to denote a random variable.
+  - The values of a random variable are denoted with a lowercase letter, in this case $x$.
+
+- There are two types of random variables:
+
+  - **Discrete random variables** often take only integer values.
+    - Example: Number of credit hours, Difference in number of credit hours this term vs last.
+    
+  - **Continuous random variables** take real (decimal) values.
+    - Example: Cost of books this term, Difference in cost of books this term vs last.
+    
+
+## Expectation
+
+- We are often interested in the average outcome of a random variable.
+
+- We call this the **expected value** (mean), and it is a weighted average of the possible outcomes
+
+\centering{$\mu = E(X) = \sum_{i=1}^{k} x_iP(X=x_i)$}
+
+## Expected value of a discrete random variable
+
+\alert{In a game of cards you win \$1 if you draw a heart, \$5 if you draw an ace (including the ace of hearts), \$10 if you draw the king of spades and nothing for any other card you draw. Write the probability model for your winnings, and calculate your expected winning.}
+
+
+## Expected value of a discrete random variable
+
+\alert{In a game of cards you win \$1 if you draw a heart, \$5 if you draw an ace (including the ace of hearts), \$10 if you draw the king of spades and nothing for any other card you draw. Write the probability model for your winnings, and calculate your expected winning.}
+
+\renewcommand{\arraystretch}{1.5}    
+\begin{table}[]
+\begin{tabular}{l|c|c|c}
+Event           & $X$  & $P(X)$         & $X \cdot P(X)$  \\ \hline
+Heart (not ace) & 1    & $\frac{12}{52}$& $\frac{12}{52}$ \\
+Ace             & 5    & $\frac{4}{52}$ & $\frac{20}{52}$ \\
+King of spades  & 10   & $\frac{1}{52}$ & $\frac{10}{52}$ \\
+All else        & 0    & $\frac{35}{52}$& 0             \\ \hline
+Total           &      &                & $E(X) = \frac{42}{52} \approx 0.81$  
+\end{tabular}
+\end{table}
+\renewcommand{\arraystretch}{1}
+
+## Expected value of a discrete random variable
+
+Below is a visual representation of the probability distribution of winnings from this game:
+
+```{r, echo=F, message=F, warning=F, out.width="100%",fig.align='center'}
+win = c(rep(1, 12), rep(5, 4), rep(10, 1), rep(0, 35))
+win = factor(win, levels = c(0:10))
+
+barplot(table(win)/52, col = COL[1], las = 1)
+```
+
+## Variability
+
+We are also often interested in the variability in the values of a random variable.
+
+\centering{$\sigma^2 = Var(X) = \sum_{i=1}^{k}(x_i-E(X))^2P(X=x_i)$}
+
+\centering{$\sigma = SD(X) = \sqrt{Var(X)}$}
+
+## Variability of a discrete random variable
+
+\alert{For the previous card game example, how much would you expect the winnings to vary from game to game?}
+
+## Variability of a discrete random variable
+
+\alert{For the previous card game example, how much would you expect the winnings to vary from game to game?}
+
+\renewcommand{\arraystretch}{1.5}    
+\begin{table}[]
+\resizebox{11cm}{!}{
+\begin{tabular}{l|c|c|c|c}
+$X$ & $P(X)$  & $X \cdot P(X)$ & $(X - E(X))^2$  & $P(X) \cdot (X - E(X))^2$\\ \hline
+
+1 & $\frac{12}{52}$ & $1 \times \frac{12}{52} = \frac{12}{52}$ & $(1-0.81)^2 = 0.0361$ & $\frac{12}{52} \times 0.0361 = 0.0083$ \\ \hline
+
+5 & $\frac{4}{52}$ & $5 \times \frac{4}{52} = \frac{20}{52}$ & $(5-0.81)^2 = 17.5561$ & $\frac{4}{52} \times 17.5561 = 1.3505$ \\ \hline
+
+10 & $\frac{1}{52}$ & $10 \times \frac{1}{52} = \frac{10}{52}$ & $(10-0.81)^2 = 84.4561$ & $\frac{1}{52} \times 84.4561 = 1.6242$ \\ \hline
+
+0 & $\frac{35}{52}$ & $0 \times \frac{35}{52} = 0$ & $(0-0.81)^2 = 0.6561$ & $\frac{35}{52} \times 0.6561 = 0.4416$ \\ \hline
+
+ & & $E(X) = 0.81$ & & \\
+
+\end{tabular}
+}
+\end{table}
+\renewcommand{\arraystretch}{1}
+
+## Variability of a discrete random variable
+
+\alert{For the previous card game example, how much would you expect the winnings to vary from game to game?}
+
+\renewcommand{\arraystretch}{1.5}    
+\begin{table}[]
+\resizebox{11cm}{!}{
+\begin{tabular}{l|c|c|c|c}
+$X$ & $P(X)$  & $X \cdot P(X)$ & $(X - E(X))^2$  & $P(X) \cdot (X - E(X))^2$\\ \hline
+
+1 & $\frac{12}{52}$ & $1 \times \frac{12}{52} = \frac{12}{52}$ & $(1-0.81)^2 = 0.0361$ & $\frac{12}{52} \times 0.0361 = 0.0083$ \\ \hline
+
+5 & $\frac{4}{52}$ & $5 \times \frac{4}{52} = \frac{20}{52}$ & $(5-0.81)^2 = 17.5561$ & $\frac{4}{52} \times 17.5561 = 1.3505$ \\ \hline
+
+10 & $\frac{1}{52}$ & $10 \times \frac{1}{52} = \frac{10}{52}$ & $(10-0.81)^2 = 84.4561$ & $\frac{1}{52} \times 84.4561 = 1.6242$ \\ \hline
+
+0 & $\frac{35}{52}$ & $0 \times \frac{35}{52} = 0$ & $(0-0.81)^2 = 0.6561$ & $\frac{35}{52} \times 0.6561 = 0.4416$ \\ \hline
+
+ & & $E(X) = 0.81$ & & $V(X) = 3.4246$ \\
+
+\end{tabular}
+}
+\end{table}
+\renewcommand{\arraystretch}{1}
+
+## Variability of a discrete random variable
+
+\alert{For the previous card game example, how much would you expect the winnings to vary from game to game?}
+
+\renewcommand{\arraystretch}{1.5}    
+\begin{table}[]
+\resizebox{11cm}{!}{
+\begin{tabular}{l|c|c|c|c}
+$X$ & $P(X)$  & $X \cdot P(X)$ & $(X - E(X))^2$  & $P(X) \cdot (X - E(X))^2$\\ \hline
+
+1 & $\frac{12}{52}$ & $1 \times \frac{12}{52} = \frac{12}{52}$ & $(1-0.81)^2 = 0.0361$ & $\frac{12}{52} \times 0.0361 = 0.0083$ \\ \hline
+
+5 & $\frac{4}{52}$ & $5 \times \frac{4}{52} = \frac{20}{52}$ & $(5-0.81)^2 = 17.5561$ & $\frac{4}{52} \times 17.5561 = 1.3505$ \\ \hline
+
+10 & $\frac{1}{52}$ & $10 \times \frac{1}{52} = \frac{10}{52}$ & $(10-0.81)^2 = 84.4561$ & $\frac{1}{52} \times 84.4561 = 1.6242$ \\ \hline
+
+0 & $\frac{35}{52}$ & $0 \times \frac{35}{52} = 0$ & $(0-0.81)^2 = 0.6561$ & $\frac{35}{52} \times 0.6561 = 0.4416$ \\ \hline
+
+ & & $E(X) = 0.81$ & & $\begin{multlined} V(X) = 3.4246 \\SD(X) = \sqrt{3.4246} = 1.85\end{multlined}$ \\
+
+\end{tabular}
+}
+\end{table}
+\renewcommand{\arraystretch}{1}
+
+## Linear combinations
+
+- A **linear combination** of random variables $X$ and $Y$ is given by 
+
+\centering{$aX+bY$}
+
+\raggedright{where $a$, and $b$ are some fixed numbers.}
+
+## Linear combinations
+
+- A **linear combination** of random variables $X$ and $Y$ is given by 
+
+\centering{$aX+bY$}
+
+\raggedright{where $a$, and $b$ are some fixed numbers.}
+
+- The average value of a linear combination of random variables is given by 
+
+\centering{$E(aX+bY) = a \times E(X) + b \times E(Y)$}
+
+## Calculating the expectation of a linear combination
+
+\alert{On average you take 10 minutes for each statistics homework problem and 15 minutes for each chemistry homework problem. This week you have 5 statistics and 4 chemistry homework problems assigned. What is the total time you expect to spend on statistics and chemistry homework for the week?}
+
+## Calculating the expectation of a linear combination
+
+\alert{On average you take 10 minutes for each statistics homework problem and 15 minutes for each chemistry homework problem. This week you have 5 statistics and 4 chemistry homework problems assigned. What is the total time you expect to spend on statistics and chemistry homework for the week?}
+
+
+$E(S+S+S+S+S+C+C+C+C+C)$
+
+$= 5 \times E(S) + 4 \times E(C)$
+
+$= 5 \times 10 + 4 \times 15$
+
+$= 50 + 60$
+
+$= 110 \text{ } min$
+
+## Linear combinations
+
+- The variability of a linear combination of two independent random variables is calculated as
+
+\centering{$V(aX+bY) = a^2 \times V(X) + b^2 \times V(Y)$}
+
+## Linear combinations
+
+- The variability of a linear combination of two independent random variables is calculated as
+
+\centering{$V(aX+bY) = a^2 \times V(X) + b^2 \times V(Y)$}
+
+- The standard deviation of the linear combination is the square root of the variance.
+
+## Linear combinations
+
+- The variability of a linear combination of two independent random variables is calculated as
+
+\centering{$V(aX+bY) = a^2 \times V(X) + b^2 \times V(Y)$}
+
+- The standard deviation of the linear combination is the square root of the variance.
+
+\raggedright
+\noindent\rule{4cm}{0.4pt}
+
+\alert{Note:} If the random variables are not independent, the variance calculation gets a little more complicated and is beyond the scope of this course.
+
+## Calculating the variance of a linear combination
+
+\alert{The standard deviation of the time you take for each statistics homework problem is 1.5 minutes, and it is 2 minutes for each chemistry problem. What is the standard deviation of the time you expect to spend on statistics and physics homework for the week if you have 5 statistics and 4 chemistry homework problems assigned? Suppose that the time it takes to complete each problem is independent of another.}
+
+## Calculating the variance of a linear combination
+
+\alert{The standard deviation of the time you take for each statistics homework problem is 1.5 minutes, and it is 2 minutes for each chemistry problem. What is the standard deviation of the time you expect to spend on statistics and physics homework for the week if you have 5 statistics and 4 chemistry homework problems assigned? Suppose that the time it takes to complete each problem is independent of another.}
+
+$V(S+S+S+S+S+C+C+C+C)$ 
+
+$= V(S)+V(S)+V(S)+V(S)+V(S)+V(S)+V(C)+V(C)+V(C)+V(C)$
+
+$= 5 \times V(S) + 4 \times V(C)$
+
+$= 5 \times 1.5^2+4 \times 2^2$
+
+$= 27.25$
+
+## Practice
+
+\alert{A casino game costs \$5 to play. If the first card you draw is red, then you get to draw a second card (without replacement). If the second card is the ace of clubs, you win \$500. If not, you don't win anything, i.e. lose your \$5. What is your expected profits/losses frin playing this game? Remember: profit/loss = winnings - cost.}
+
+A) A profit of 5$\textcent$     C) A loss of 25$\textcent$
+B) A loss of 10$\textcent$      D) A loss of 30$\textcent$
+
+## Practice
+
+\alert{A casino game costs \$5 to play. If the first card you draw is red, then you get to draw a second card (without replacement). If the second card is the ace of clubs, you win \$500. If not, you don't win anything, i.e. lose your \$5. What is your expected profits/losses frin playing this game? Remember: profit/loss = winnings - cost.}
+
+A) A profit of 5$\textcent$     C) A loss of 25$\textcent$
+B) **A loss of 10**$\textbf{\textcent}$      D) A loss of 30$\textcent$
+
+\renewcommand{\arraystretch}{1.5}    
+\begin{table}[]
+\resizebox{11cm}{!}{
+\begin{tabular}{l|c|c|c|c}
+Event & Win  & Profit: $X$ & $P(X)$  & $X \times P(X)$\\ \hline
+
+\textcolor{red}{Red}, A$\clubsuit$ & 500 & $500-5=495$ & $\frac{26}{52} \times \frac{1}{51} = 0.0098$ & $495 \times 0.0098 = 4.851$ \\
+
+Other & 0 & $0-5=-5$ & $1-0.0098=0.9902$ & $-5 \times 0.9902 = -4.951$ \\ \hline
+
+ & & & & $E(X) = -0.1$ \\
+
+\end{tabular}
+}
+\end{table}
+\renewcommand{\arraystretch}{1}
+
+## Fair game
+
+A **fair** game is defined as a game that costs as much as its expected payout, i.e. expected profit is 0.
+
+## Fair game
+
+A **fair** game is defined as a game that costs as much as its expected payout, i.e. expected profit is 0.
+
+\alert{Do you think casino games in Vegas cost more or less than their expected payouts?}
+
+## Fair game
+
+A **fair** game is defined as a game that costs as much as its expected payout, i.e. expected profit is 0.
+
+\alert{Do you think casino games in Vegas cost more or less than their expected payouts?}
+
+\begin{multicols}{2}
+
+If those games cost less than their expected payouts, it would mean that the casinos would be losing money on average, and hence they wouldn't be able to pat for all this:
+
+\columnbreak
+
+\includegraphics[width=1\columnwidth]{bellagio.jpg}
+
+\end{multicols}
+
+## Simplifying random variables
+
+Random variables do not work like normal algebraic variables:
+
+\centering{$X+X \neq 2X$}
+
+## Simplifying random variables
+
+Random variables do not work like normal algebraic variables:
+
+\centering{$X+X \neq 2X$}
+
+\begin{multicols}{2}
+
+\begin{align*}
+E(X+X) &= E(X)+E(X) \\
+&= 2 E(X)
+\end{align*}
+
+$E(2X) = 2E(X)$
+
+\columnbreak
+
+\begin{align*}
+Var(X+X) &= Var(X)+Var(X) \\
+&\text{(assuming independence)} \\
+&= 2 Var(X)
+\end{align*}
+
+\begin{align*}
+Var(2X) &= 2^2 Var(X) \\
+&= 4 Var(X)
+\end{align*}
+
+\end{multicols}
+
+## Simplifying random variables
+
+Random variables do not work like normal algebraic variables:
+
+\centering{$X+X \neq 2X$}
+
+\begin{multicols}{2}
+
+\begin{align*}
+E(X+X) &= E(X)+E(X) \\
+&= 2 E(X)
+\end{align*}
+
+$E(2X) = 2E(X)$
+
+\columnbreak
+
+\begin{align*}
+Var(X+X) &= Var(X)+Var(X)\\
+&\text{(assuming independence)} \\
+&= 2 Var(X)
+\end{align*}
+
+\begin{align*}
+Var(2X) &= 2^2 Var(X) \\
+&= 4 Var(X)
+\end{align*}
+
+\end{multicols}
+
+\alert{$E(X+X)=E(2X)$, but $Var(X+X) \neq Var(2X)$}
+
+## Adding or Multiplying?
+
+\alert{A company has 5 Lincoln Town Cars in its fleet. Historical data show that annual maintaenance cost for each car is on average \$2,154 with a standard deviation of \$132. What is the mean and the standard deviation of the total annual maintenance cost for this fleet?}
+
+## Adding or Multiplying?
+
+\alert{A company has 5 Lincoln Town Cars in its fleet. Historical data show that annual maintaenance cost for each car is on average \$2,154 with a standard deviation of \$132. What is the mean and the standard deviation of the total annual maintenance cost for this fleet?}
+
+Note that we have 5 cars each with the given annual maintenance cost ($X_1+X_2+X_3+X_4+X_5$), not one car that had 5 times the given annual maintenance cost ($5X$).
+
+## Adding or Multiplying?
+
+\alert{A company has 5 Lincoln Town Cars in its fleet. Historical data show that annual maintaenance cost for each car is on average \$2,154 with a standard deviation of \$132. What is the mean and the standard deviation of the total annual maintenance cost for this fleet?}
+
+Note that we have 5 cars each with the given annual maintenance cost ($X_1+X_2+X_3+X_4+X_5$), not one car that had 5 times the given annual maintenance cost ($5X$).
+
+$E(X_1+X_2+X_3+X_4+X_5) = E(X_1)+E(X_2)+E(X_3)+E(X_4)+E(X_5)$
+
+## Adding or Multiplying?
+
+\alert{A company has 5 Lincoln Town Cars in its fleet. Historical data show that annual maintaenance cost for each car is on average \$2,154 with a standard deviation of \$132. What is the mean and the standard deviation of the total annual maintenance cost for this fleet?}
+
+Note that we have 5 cars each with the given annual maintenance cost ($X_1+X_2+X_3+X_4+X_5$), not one car that had 5 times the given annual maintenance cost ($5X$).
+
+$E(X_1+X_2+X_3+X_4+X_5) = E(X_1)+E(X_2)+E(X_3)+E(X_4)+E(X_5)$
+
+$= 5 \times E(X) = 5 \times 2,154 = \$10,770$
+
+## Adding or Multiplying?
+
+\alert{A company has 5 Lincoln Town Cars in its fleet. Historical data show that annual maintaenance cost for each car is on average \$2,154 with a standard deviation of \$132. What is the mean and the standard deviation of the total annual maintenance cost for this fleet?}
+
+Note that we have 5 cars each with the given annual maintenance cost ($X_1+X_2+X_3+X_4+X_5$), not one car that had 5 times the given annual maintenance cost ($5X$).
+
+$E(X_1+X_2+X_3+X_4+X_5) = E(X_1)+E(X_2)+E(X_3)+E(X_4)+E(X_5)$
+
+$= 5 \times E(X) = 5 \times 2,154 = \$10,770$
+
+$Var(X_1+X_2+X_3+X_4+X_5) = Var(X_1)+Var(X_2) + Var(X_3) + Var(X_4) +Var(X_5)$
+
+## Adding or Multiplying?
+
+\alert{A company has 5 Lincoln Town Cars in its fleet. Historical data show that annual maintaenance cost for each car is on average \$2,154 with a standard deviation of \$132. What is the mean and the standard deviation of the total annual maintenance cost for this fleet?}
+
+Note that we have 5 cars each with the given annual maintenance cost ($X_1+X_2+X_3+X_4+X_5$), not one car that had 5 times the given annual maintenance cost ($5X$).
+
+$E(X_1+X_2+X_3+X_4+X_5) = E(X_1)+E(X_2)+E(X_3)+E(X_4)+E(X_5)$
+
+$= 5 \times E(X) = 5 \times 2,154 = \$10,770$
+
+$Var(X_1+X_2+X_3+X_4+X_5) = Var(X_1)+Var(X_2) + Var(X_3) + Var(X_4) + Var(X_5)$
+
+$= 5 \times Var(X) = 5 \times 132^2 = \$87,120$
+
+## Adding or Multiplying?
+
+\alert{A company has 5 Lincoln Town Cars in its fleet. Historical data show that annual maintaenance cost for each car is on average \$2,154 with a standard deviation of \$132. What is the mean and the standard deviation of the total annual maintenance cost for this fleet?}
+
+Note that we have 5 cars each with the given annual maintenance cost ($X_1+X_2+X_3+X_4+X_5$), not one car that had 5 times the given annual maintenance cost ($5X$).
+
+$E(X_1+X_2+X_3+X_4+X_5) = E(X_1)+E(X_2)+E(X_3)+E(X_4)+E(X_5)$
+
+$= 5 \times E(X) = 5 \times 2,154 = \$10,770$
+
+$Var(X_1+X_2+X_3+X_4+X_5) = Var(X_1)+Var(X_2) + Var(X_3) + Var(X_4) + Var(X_5)$
+
+$= 5 \times Var(X) = 5 \times 132^2 = \$87,120$
+
+$SD(X_1+X_2+X_3+X_4+X_5) = \sqrt{87,120} = 295.16$
+
+# Continuous distributions
+
+## Continuous distributions
+
+- Below is a histogram of the distribution of heights of US adults.
+
+- The proportion of data that falls in the shaded bins gives the probability that a randomly sample US adult is between 180 cm and 185 cm (about 5'11" to 6'1")
+
+![](usHeightsHist180185.pdf)
+
+## From histogram to continuous distributions
+
+Since height is a continuous numerical variable, its **probability density function** is a smooth curve.
+
+![](fdicHeightContDist.pdf)
+
+## Probabilities from continuous distributions
+
+Therefore, the probability that a randomly samples US adult is between 180 cm and 185 cm can also be estimated as the shaded area under the curve.
+
+![](fdicHeightContDistFilled.pdf)
+
+## By definition...
+
+Since continuous probabilities are estimated as "the area under the curve", the probability of a being exactly 180 cm (or any exact value) is defined as **0**.
+
+![](fdicHeightContDist180.png)

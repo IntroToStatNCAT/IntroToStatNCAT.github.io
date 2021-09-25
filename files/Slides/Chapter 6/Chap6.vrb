@@ -1,0 +1,32 @@
+\frametitle{Finding aread under the chi-square curve}
+\protect\hypertarget{finding-aread-under-the-chi-square-curve-4}{}
+\alert{Estimate the shaded area (above 30) under the $\chi^2$ curve with $df = 10$.}
+
+\begin{multicols}{2}
+
+
+\begin{center}\includegraphics[width=1\linewidth]{Chap6_files/figure-beamer/unnamed-chunk-9-1} \end{center}
+
+\columnbreak
+
+A) greater than 0.3
+
+B) between 0.005 and 0.001
+
+C) \textbf{less than 0.001}
+
+D) greater than 0.001
+
+E) cannot tell using this table
+
+\end{multicols}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{pchisq}\NormalTok{(}\AttributeTok{q =} \DecValTok{30}\NormalTok{, }\AttributeTok{df =} \DecValTok{10}\NormalTok{, }\AttributeTok{lower.tail =} \ConstantTok{FALSE}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.0008566412
+\end{verbatim}

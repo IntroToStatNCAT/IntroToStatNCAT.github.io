@@ -1,0 +1,313 @@
+---
+title: "Chapter 6 - Part I"
+subtitle: "Probability Distributions^[These notes use content from Statistics: The Art and Science of Learning from Data (4th Ed) by Agresti, Franklin & Klingenburg (Pearson).]"
+author: |
+  | Sayed A. Mostafa
+  | Department of Mathematics & Statistics
+  | North Carolina A\&T State University
+#date: "8/19/2020"
+output: 
+  beamer_presentation:
+    fig_caption: true
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, fig.align="center")
+```
+
+## Review: Randomness and Probability Models
+
+- A **random phenomenon** has outcomes that we cannot predict in the short run but that nonetheless has a regular distribution in very many repetitions. (e.g., tossing a fair coin twice)
+
+- The **sample space S** is the set of all possible outcomes of the random phenomenon.
+
+	 (e.g., flip a coin twice, $S=\{HH, HT, TH, TT\}$)
+
+- A **probability model** for a random phenomenon consists of a sample space S and a way to assign probabilities to the outcomes. 
+
+- **An event** is an outcome or a set of outcomes of a random phenomenon. That is, an event is a subset of the sample space.
+
+- The **probability** of an event is the proportion of times the event occurs in many repeated trials of a random phenomenon.
+
+## Review: Probability Rules
+
+- The probability of any event $A$ satisfies $0 \le P(A) \le 1$. 
+
+- If $S$ is the sample space in a probability model, then $P(S) = 1$.
+
+- The **complement** of event A, denoted by A$^c$, consists of exactly the outcomes that are not in A. The	complement rule states that
+	$$P(A^c)=1-P(A)$$
+
+- Two events $A$ and $B$ are **disjoint** (mutually exclusive) if they have no outcomes in common, and so they can never occur together. If $A$ and $B$ are disjoint,
+	$$P(A\ \text{or}\ B)=P(A\cup B)=P(A)+P(B)$$
+- Events A and B are **independent** if the probability of one event occuring is not affected by whether or not the other event occurs.
+	$$P(A \ \text{and} \ B)=P(A\cap B)=P(A)\times P(B)$$
+	
+## Review: Disjoint Events and Independent Events
+
+- \alert{Question: Any two disjoint events are independent?} 
+
+- **Answer:** **FALSE**. In fact, any two disjoint events are NOT independent because if one event occurs, the other event will never occur, by the definition of disjointness.
+
+![Disjoint Events (dependent)](Ch6-Vis1.png){height=20%}
+
+![Non-disjoint Events (can be dependent or independent)](Ch6-Vis2.png){height=20%}
+
+## Random Variables
+
+**Example 1**: Consider flipping a fair coin twice and let $X$ be the number of heads observed.
+	\[
+	S=\{TT, HT, TH, HH\}\implies
+	X=0,1 \ \text{or}\ 2
+	\]
+
+**Example 2**: Consider choosing a number at	random between 0 and 1, allowing any number between 0 and 1 as the outcome, and let $X$ be the chosen number. 
+	\[
+	S= \{\text{all numbers} \ x \ \text{such that}\ 0\le x\le 1\}\implies X\in [0,1]
+	\]
+	
+## Random Variables
+
+- A random variable is a numerical measurement of the outcome of a random phenomenon.
+
+- A random variable is a function that assigns real numbers to outcomes in sample space.
+
+- Random variables are used for modeling unknown quantities in statistical analyses.
+
+- Prior to the trial or observation, the random variable $X$, can take on any value $x$ in the sample space.
+
+- Random variables will be denoted by the uppercase $X$ or $Y$ letters, whereas the particular values that the random variable takes will be denoted by the lowercase $x$ or $y$ letters.
+
+## Types of Random Variables
+
+- A **discrete random variable** $X$ takes a set of separate values that can be given in an ordered list. It can take only a finite number $k$ of different values $x_1, \dots, x_k$ or an infinite (countable) sequence of different values $x_1, x_2, \dots$.
+
+- Examples:
+
+  - the number of heads in four tosses of a coin
+  - number of household members
+  - number of tosses of a coin until we get a head
+
+- A **continuous random variable** $X$ takes all values in an interval of numbers.
+
+- Examples:
+
+  - waiting time for a credit card authorization
+  - interest rate charged on a business loan
+
+## Types of Random Variables
+
+Identify the following random variables as either discrete or continuous:
+
+1) Number of defectives if three parts are tested.
+	
+	- Discrete
+	- Continuous
+
+2) Heights of adult female customers who shop at a clothing store.
+
+   - Discrete
+	- Continuous
+
+## Types of Random Variables
+
+Identify the following random variables as either discrete or continuous:
+
+1) Number of defectives if three parts are tested.
+	
+	- **Discrete**
+	- Continuous
+
+2) Heights of adult female customers who shop at a clothing store.
+
+   - Discrete
+	- **Continuous**
+  
+## Probability Distributions of Discrete Random Variables
+
+The **probability distribution of a discrete random variable** $X$ lists all the values that $X$ can take and their probabilities:
+
+![](Ch6-Vis3.png){height=20%}
+
+- The probabilities $p(x_i)$ must satisfy two requirements:
+	
+	 - Every probability $p_i$ is a number between 0 and 1.
+	 - The sum of all probabilities must be 1: $p(x_1)+p(x_2)+\cdots=1$
+
+- The probability distribution of $X$ describes the behavior of $X$ in the long run. 
+
+- Find the probability of any event by adding the probabilities $p(x_i)$ of the particular values $x_i$ that make up the event.
+
+## Probability Distributions of Discrete Random Variables
+
+The **probability distribution of a discrete random variable** $X$ lists all the values that $X$ can take and their probabilities.
+
+- The probability distribution of a discrete random variable can be represented by a table, graph or formula.
+
+- **Example**: a fair coin is tossed twice and $X$ is the number of heads observed.
+
+![](Ch6-Vis4.png){height=50%}
+
+## Probability Distributions of Discrete Random Variables
+
+**Example**: Spell-checking software catches "nonword errors", which are strings of letters that are not words, as when "the" is typed as "eth". When undergraduates are asked to write a 250-word essay (without spell-checking), the number $X$ of nonword errors has the following distribution:
+
+![](Ch6-Vis5.png)
+
+- Find the missing probability.
+
+- Write the event "at least one nonword error" in terms of $X$. What is the probability of this event?
+
+## Probability Distributions of Discrete Random Variables
+
+**Answer**: Spell-checking software catches "nonword errors", which are strings of letters that are not words, as when "the" is typed as "eth". When undergraduates are asked to write a 250-word essay (without spell-checking), the number $X$ of nonword errors has the following distribution:
+
+![](Ch6-Vis5.png)
+
+- Find the missing probability. (**?=0.2**)
+
+- Write the event "at least one nonword error" in terms of $X$. What is the probability of this event? $\mathbf{P(X\ge 1)=0.9}$
+
+- What is the mean of the number of nonword errors in these essays?
+
+## The Mean of a Discrete Probability Distribution
+
+Suppose we have the scores on the first exam in an introductory statistics course for 10 students:
+$$85\ \ 75\ \ 93\ \ 85\ \ 75\ \ 90\ \ 93\ \ 55\ \ 90\ \ 90 $$
+Recall from Chapter 1: the mean of these scores is
+\begin{align*}
+\frac{85+75+93+85+75+90+93+55+90+90}{10}\\
+=\frac{(85)(2)+(75)(2)+(93)(2)+(90)(3)+(55)(1)}{10}\\
+=(85)\frac{2}{10}+(75)\frac{2}{10}+(93)\frac{2}{10}+(90)\frac{3}{10}+(55)\frac{1}{10}
+\end{align*}
+
+## The Mean of a Discrete Probability Distribution
+
+Suppose we have the scores on the first exam in an introductory statistics course for 10 students:
+$$85\ \ 75\ \ 93\ \ 85\ \ 75\ \ 90\ \ 93\ \ 55\ \ 90\ \ 90 $$
+Recall from Chapter 1: the mean of these scores is
+\begin{align*}
+\frac{85+75+93+85+75+90+93+55+90+90}{10}\\
+=\frac{(85)(2)+(75)(2)+(93)(2)+(90)(3)+(55)(1)}{10}\\
+=(85)\frac{2}{10}+(75)\frac{2}{10}+(93)\frac{2}{10}+(90)\frac{3}{10}+(55)\frac{1}{10}
+\end{align*}
+
+- How would you compute the mean if you have the probability distribution?
+![](Ch6-Vis6.png)
+
+## The Mean of a Discrete Probability Distribution
+
+The **mean**, denoted by $\mu$, or **expected value**, denoted by $E(X)$, of a discrete probability distribution is the probability-weighted average of the possible values of $X$.
+
+![](Ch6-Vis6.png)
+\[\mu=x_1p(x_1)+x_2p(x_2)+\cdots+x_kp(x_k)=\sum_{i=1}^{k}  x_{i}p(x_i)\]  
+- The mean $\mu$ is a measure of the central tendency, and it describes the long run average outcome. It may not match one of the possible outcomes.
+
+## The Mean of a Discrete Probability Distribution
+
+**Example**: Spell-checking software catches "nonword errors", which are strings of letters that are not words, as when "the" is typed as "eth". When undergraduates are asked to write a 250-word essay (without spell-checking), the number $X$ of nonword errors has the following distribution:
+
+![](Ch6-Vis7.png)
+- What is the **mean of the number of nonword errors** in these essays? Or, equivalently, what is the expected number of nonword errors in such essays?
+\begin{align*}\mu&=\sum_{i=1}^{k}x_{i}p(x_i)\\
+	&=(0\times 0.1)+(1\times 0.3)+(2\times 0.3)+(3\times 0.2)+(4\times 0.1)\\
+	&=1.9
+\end{align*}
+
+## Measuring Variability of a Discrete Probability Distribution
+
+The **variance**, denoted by $\sigma^2$, of a discrete probability distribution is the probability-weighted average of the squared deviations of $X$ from its mean $\mu$.
+
+![](Ch6-Vis6.png)
+\begin{align*}\sigma^2&=(x_1-\mu)^2p(x_1)+(x_2-\mu)^2p(x_2)+\cdots+(x_k-\mu)^2p(x_k)\\
+	&=\sum_{i=1}^{k} {(x_{i}-\mu)}^2p(x_i)=\sum_{i=1}^{k} x^2_ip(x_i)-\mu^2
+\end{align*}
+where $\mu=x_1p(x_1)+x_2p(x_2)+\cdots+x_kp(x_k)=\sum_{i=1}^{k}  x_{i}p(x_i)$.
+
+- The **standard deviation** of $X$ is $\sigma=\sqrt{\sigma^2}$.
+- $\sigma$ measures the variability of the distribution about the mean.
+
+## Measuring Variability of a Discrete Probability Distribution
+
+**Example**: Spell-checking software catches "nonword errors", which are strings of letters that are not words. When undergraduates are asked to write a 250-word essay, the number $X$ of nonword errors has the following distribution:
+
+![](Ch6-Vis7.png)
+- What is the **variance and standard deviation** of the number of nonword errors in these essays? (recall that $\mu=1.9$)
+\begin{align*}\sigma^2&=\sum {(x_{i}-\mu)}^2p(x_i)\\
+		&=(0-1.9)^2\times 0.1+(1-1.9)^2\times 0.3+(2-1.9)^2\times 0.3\\
+		&+(3-1.9)^2\times 0.2+(4-1.9)^2\times 0.1\\
+		&=1.29
+\end{align*}
+$$\sigma=\sqrt{\sigma^2}=\sqrt{1.29}=1.14$$
+
+## Mean and Variance of Discrete Probability Distributions
+
+**Example**: An investment in a particular oil well results in a profit of \$70,000 if much oil is found in the well, a profit of \$10,000 if just some oil is found in the well and a loss of \$40,000 if no oil is found in the well. The respective probabilities of finding much oil, some oil and no oil in the well are 0.25, 0.70 and 0.05. Find the mean and variance of the profit from this investment.
+
+## Mean and Variance of Discrete Probability Distributions
+
+**Example**: An investment in a particular oil well results in a profit of \$70,000 if much oil is found in the well, a profit of \$10,000 if just some oil is found in the well and a loss of \$40,000 if no oil is found in the well. The respective probabilities of finding much oil, some oil and no oil in the well are 0.25, 0.70 and 0.05. Find the mean and variance of the profit from this investment.
+
+**Answer**: Let $X$ represent the profit from this investment. 
+![](Ch6-Vis8.png)
+
+- The mean (expected profit) is $\mu=\$22.5$K.
+
+- The variance of the profit is $\sigma^2=\$^2 868.75$K.
+
+## Rules for Means and Variances of Linear Transformations, Sums, and Differences
+
+Let $a$ and $b$ be two constants. 
+
+1. Adding or subtracting a constant from a random variable $X$ shifts the mean of $X$ ($\mu_{_X}$) by the same constant but does not change the variance:
+	\[
+	\mu_{_{X\pm a}}=\mu_{_X}\pm a
+	\]
+	\[
+	\sigma^2_{_{X\pm a}}=\sigma^2_{_X}
+	\]
+2. Multiplying a random variable $X$ by a constant $b$ multiplies the mean of $X$ by the same constant and multiplies the variance of $X$ by the constant squared:
+	\[
+	\mu_{_{bX}}=b\mu_{_X}
+	\]
+	\[
+	\sigma^2_{_{bX}}=b^2\sigma^2_{_X}
+	\]
+	From (1) and (2):
+	\[
+	\mu_{_{bX\pm a}}=b\mu_{_X}\pm a \ \ \text{and}\ \ 
+	\sigma^2_{_{bX\pm a}}=b^2\sigma^2_{_X}
+	\]	
+	
+## Rules for Means and Variances of Linear Transformations, Sums, and Differences
+
+- The mean of the sum (or difference) of two random variables $X$ and $Y$ is the sum (or difference) of their individual means:
+\[\mu_{_{X \pm Y}} = \mu_{_X}\pm \mu_{_Y}\]
+
+- The variance of the sum (or difference) of two \alert{independent} random variables is the sum (or difference) of their individual variances:
+\[\sigma^2_{_{X \pm Y}} = \sigma^2_{_X}+\sigma^2_{_Y}\]
+
+**Note**: These rules hold true for both discrete and continuous random variables.
+
+## Rules for Means and Variances of Linear Transformations, Sums, and Differences
+
+**Example**: The probability distribution of the number of courses taken in the fall by students at a small liberal arts college is given by:
+![](Ch6-Vis9.png)
+For the spring semester, the distribution is a little different:
+![](Ch6-Vis10.png)
+For a randomly selected student, let $X$ be the number of courses taken in the fall semester, and let $Y$ be the number of courses taken in the spring semester. 
+
+- Find the means of these two random variables.
+- Find the mean of the total number of courses taken for the academic year.
+
+## Rules for Means and Variances of Linear Transformations, Sums, and Differences
+
+**Example**: The probability distribution of the number of courses taken in the fall by students at a small liberal arts college is given by:
+![](Ch6-Vis9.png)
+For the spring semester, the distribution is a little different:
+![](Ch6-Vis10.png)
+**Answer**: Let $X$ be the number of courses taken in the fall semester, and let $Y$ be the number of courses taken in the spring semester. 
+
+- Find the means of these two random variables. $\mathbf{\mu_{_X}=4.28 \ \ \& \ \ \mu_{_Y}=4.09}$
+
+- Find the mean of the total number of courses taken for the academic year. $\mathbf{\mu_{_{X+Y}}=\mu_{_X}+\mu_{_Y}=4.28+4.09=8.37}$
