@@ -31,3 +31,5 @@ The following labs are derived from OpenIntro Statistics.
 [Lab 10 - Simple Linear Regression]()
 
 [Lab 11 - Multiple Linear Regression]()
+
+[Lab Solutions](https://github.com/IntroToStatNCAT/IntroToStatNCAT.github.io/tree/main/files/Labs/Lab%20solutions)
