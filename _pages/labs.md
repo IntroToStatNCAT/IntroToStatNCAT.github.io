@@ -8,6 +8,8 @@ title: "Labs"
 
 ## Labs for MATH 224
 
+The following labs are derived from OpenIntro Statistics.
+
 [Lab 1 - Intro to R](https://github.com/IntroToStatNCAT/IntroToStatNCAT.github.io/tree/main/files/Labs/01_intro_to_r)
 
 [Lab 2 - Exploratory Data Analysis Part 1](https://github.com/IntroToStatNCAT/IntroToStatNCAT.github.io/tree/main/files/Labs/02a_Exploratory_Data_Analysis_PartI)
