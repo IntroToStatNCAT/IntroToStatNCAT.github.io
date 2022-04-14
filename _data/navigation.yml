@@ -7,8 +7,22 @@ main:
   - title: "Slides"
     url: /slides/
 
-  - title: "Labs"
+  - title: "Statistical Computing Labs"
     url: /labs/
 
-  - title: "Tutorials"
+  - title: "R Tutorials"
     url: /tutorials/
+
+  - title: "Data Analysis Project"
+    url: /dap/
+
+  - title: "Faculty Workshop"
+    url: /workshop/
+
+  - title: "Implementation Manual"
+    url: /tutorials/
+
+  - title: "Research/Talks"
+    url: /research/
+
+   
