@@ -1,0 +1,88 @@
+---
+title: "Lab 2 - Exploratory Data Analysis Part I Solution"
+author: "MATH224 - Intro to Stat"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(openintro)
+```
+
+## Exercise 1
+
+```{r, message=F, warning=F}
+#8 Points
+ggplot(data = arbuthnot, aes(x = year, y = girls)) +
+  geom_line()
+```
+
+In general, there seems to be an increasing trend throughout the years. We see the least number of girls being born around the year of 1650 followed by 1660. We can also notice that before 1670 the number of girls being born stayed below 6000 and after 1670 it stayed well above 6000.
+
+## Exercise 2
+
+```{r, message=F, warning=F}
+# 12 Points
+arbuthnot <- arbuthnot %>%
+  mutate(total = boys + girls)
+
+arbuthnot <- arbuthnot %>%
+  mutate(boy_ratio = boys / total)
+
+ggplot(data = arbuthnot, aes(x = year, y = boy_ratio)) +
+  geom_line()
+```
+
+The plot doesn't seems to have apparent trend like the previous exercise. The proportions are all over the place throughout the years but the proportion stays over 0.50 which means that boys were born more than girls in all years.
+
+## More Practice
+
+## Exercise 3
+
+```{r, message=F, warning=F}
+fivenum(present$year)
+```
+
+The dataset includes years from 1940 to 2002.
+
+```{r, message=F, warning=F}
+dim(present)
+```
+
+The dataset has 63 rows (observations) and 3 columns (variables).
+
+```{r, message=F, warning=F}
+names(present)
+```
+
+
+## Exercise 4
+
+```{r, message=F, warning=F}
+glimpse(arbuthnot)
+
+glimpse(present)
+```
+
+From the output above, we can see that both datasets have differing counts for boys and girls. This could be possibly because of data collection startegies. As we are considering two different countries and two different time periods.
+
+## Exercie 5
+
+```{r, message=F, warning=F}
+present = present %>%
+  mutate(total = boys + girls,
+         boy_ratio = boys/total)
+
+ggplot(data = present, aes(x = year, y = boy_ratio))+
+  geom_line()
+```
+This plot is completely different from the plot we obtained in exercise 2. Here, we see a clear downward trend in the boys ratio as year increases. But the boy ratio is still above 0.5 meaning that there are more boys than girls being born.
+
+```{r, message=F, warning=F}
+present %>%
+  arrange(desc(total))%>%
+  head(5)
+```
+
+We see that the most total number of births in the U.S. happened in the year if 1961, followed by 1960.

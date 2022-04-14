@@ -1,6 +1,5 @@
 ---
 title: "Foundations for statistical inference - Sampling distributions"
-runtime: shiny
 output:
   html_document:
     css: lab.css
@@ -101,9 +100,9 @@ This command collects a simple random sample of size 50 from the `global_monitor
 This is similar to randomly drawing names from a hat that contains the names of all in the population.
 Working with these 50 names is considerably simpler than working with all 100,000 people in the population.
 
-1.  Describe the distribution of responses in this sample. How does it compare to the distribution of responses in the population. **Hint:** Although the `sample_n` function takes a random sample of observations (i.e. rows) from the dataset, you can still refer to the variables in the dataset with the same names. Code you presented earlier for visualizing and summarising the population data will still be useful for the sample, however be careful to not label your proportion `p` since you're now calculating a sample statistic, not a population parameters. You can customize the label of the statistics to indicate that it comes from the sample.
+1.  Describe the distribution of responses in this sample. How does it compare to the distribution of responses in the population. **Hint:** Although the `sample_n` function takes a random sample of observations (i.e. rows) from the dataset, you can still refer to the variables in the dataset with the same names. Code you presented earlier for visualizing and summarising the population data will still be useful for the sample, however be careful to not label your proportion `p` since you're now calculating a sample statistic, not a population parameter. You can customize the label of the statistics to indicate that it comes from the sample.
 
-If you're interested in estimating the proportion of all people who do not believe that the work scientists do benefits them, but you do not have access to the population data, your best single guess is the sample proportion.
+If you're interested in estimating the proportion of all people who do not believe that the work scientists benefit them, but you do not have access to the population data, your best single guess is the sample proportion.
 
 ```{r phat-samp1}
 samp1 %>%
@@ -165,38 +164,13 @@ Next, you will review how this set of code works.
 
 1.  How many elements are there in `sample_props50`? Describe the sampling distribution, and be sure to specifically note its center. Make sure to include a plot of the distribution in your answer.
 
-## Interlude: Sampling distributions
-
-The idea behind the `rep_sample_n` function is *repetition*.
-Earlier, you took a single sample of size `n` (50) from the population of all people in the population.
-With this new function, you can repeat this sampling procedure `rep` times in order to build a distribution of a series of sample statistics, which is called the **sampling distribution**.
-
-Note that in practice one rarely gets to build true sampling distributions, because one rarely has access to data from the entire population.
-
-Without the `rep_sample_n` function, this would be painful.
-We would have to manually run the following code 15,000 times
-
-```{r sample-code}
-global_monitor %>%
-  sample_n(size = 50, replace = TRUE) %>%
-  count(scientist_work) %>%
-  mutate(p_hat = n /sum(n)) %>%
-  filter(scientist_work == "Doesn't benefit")
-```
-
-as well as store the resulting sample proportions each time in a separate vector.
-
-Note that for each of the 15,000 times we computed a proportion, we did so from a **different** sample!
-
-1.  To make sure you understand how sampling distributions are built, and exactly what the `rep_sample_n` function does, try modifying the code to create a sampling distribution of **25 sample proportions** from **samples of size 10**, and put them in a data frame named `sample_props_small`. Print the output. How many observations are there in this object called `sample_props_small`? What does each observation represent?
-
 ## Sample size and the sampling distribution
 
 Mechanics aside, let's return to the reason we used the `rep_sample_n` function: to compute a sampling distribution, specifically, the sampling distribution of the proportions from samples of 50 people.
 
-```{r hist, fig.show='hide'}
+```{r hist}
 ggplot(data = sample_props50, aes(x = p_hat)) +
-  geom_histogram(binwidth = 0.02)
+  geom_histogram(binwidth = 0.02, col="black")
 ```
 
 The sampling distribution that you computed tells you much about estimating the true proportion of people who think that the work scientists do doesn't benefit them.
@@ -204,99 +178,7 @@ Because the sample proportion is an unbiased estimator, the sampling distributio
 
 In the remainder of this section, you will work on getting a sense of the effect that sample size has on your sampling distribution.
 
-1.  Use the app below to create sampling distributions of proportions of *Doesn't benefit* from samples of size 10, 50, and 100. Use 5,000 simulations. What does each observation in the sampling distribution represent? How does the mean, standard error, and shape of the sampling distribution change as the sample size increases? How (if at all) do these values change if you increase the number of simulations? (You do not need to include plots in your answer.)
-
-```{r shiny, echo=FALSE, eval=TRUE, results = TRUE}
-shinyApp(
-  ui <- fluidPage(
-    
-    # Sidebar with a slider input for number of bins 
-    sidebarLayout(
-      sidebarPanel(
-        
-        selectInput("outcome",
-                    "Outcome of interest:",
-                    choices = c("Benefits", "Doesn't benefit"),
-                    selected = "Doesn't benefit"),
-        
-        numericInput("n_samp",
-                     "Sample size:",
-                     min = 1,
-                     max = nrow(global_monitor),
-                     value = 30),
-        
-        numericInput("n_rep",
-                     "Number of samples:",
-                     min = 1,
-                     max = 30000,
-                     value = 15000),
-        
-        hr(),
-        
-        sliderInput("binwidth",
-                    "Binwidth:",
-                    min = 0, max = 0.5,
-                    value = 0.02,
-                    step = 0.005)
-        
-      ),
-      
-      # Show a plot of the generated distribution
-      mainPanel(
-        plotOutput("sampling_plot"),
-        textOutput("sampling_mean"),
-        textOutput("sampling_se")
-      )
-    )
-  ),
-  
-  server <- function(input, output) {
-    
-    # create sampling distribution
-    sampling_dist <- reactive({
-      global_monitor %>%
-        rep_sample_n(size = input$n_samp, reps = input$n_rep, replace = TRUE) %>%
-        count(scientist_work) %>%
-        mutate(p_hat = n /sum(n)) %>%
-        filter(scientist_work == input$outcome)
-    })
-    
-    # plot sampling distribution
-    output$sampling_plot <- renderPlot({
-      
-      ggplot(sampling_dist(), aes(x = p_hat)) +
-        geom_histogram(binwidth = input$binwidth) +
-        xlim(0, 1) +
-        labs(
-          x = paste0("p_hat (", input$outcome, ")"),
-          title = "Sampling distribution of p_hat",
-          subtitle = paste0("Sample size = ", input$n_samp, " Number of samples = ", input$n_rep)
-        ) +
-        theme(plot.title = element_text(face = "bold", size = 16))
-    })
-    
-    ggplot(data = sample_props50, aes(x = p_hat)) +
-      geom_histogram(binwidth = 0.02) +
-      labs(
-        x = "p_hat (Doesn't benefit)",
-        title = "Sampling distribution of p_hat",
-        subtitle = "Sample size = 50, Number of samples = 15000"
-      )
-    
-    # mean of sampling distribution
-    output$sampling_mean <- renderText({
-      paste0("Mean of sampling distribution = ", round(mean(sampling_dist()$p_hat), 2))
-    })
-    
-    # mean of sampling distribution
-    output$sampling_se <- renderText({
-      paste0("SE of sampling distribution = ", round(sd(sampling_dist()$p_hat), 2))
-    })
-  },
-  
-  options = list(height = 900) 
-)
-```
+1.  Use the app in this <a href="https://introtostatncat.shinyapps.io/05a_sampling_distribution/" target="_blank">link</a> to create sampling distributions of proportions of *Doesn't benefit* from samples of size 10, 50, and 100. Use 5,000 simulations. What does each observation in the sampling distribution represent? How does the mean, standard error, and shape of the sampling distribution change as the sample size increases? How (if at all) do these values change if you increase the number of simulations? (You do not need to include plots in your answer.)
 
 ------------------------------------------------------------------------
 

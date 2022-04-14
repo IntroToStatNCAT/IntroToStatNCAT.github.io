@@ -1,8 +1,5 @@
 ---
-title: "Topic 3: Descriptive Statistics for Numerical and Categorical Data"
-tutorial:
-  id: "DescriptiveNumCat.Topic3.AppliedStats"
-  version: 1.1
+title: "Tutorial 3: Descriptive Statistics for Numerical and Categorical Data"
 output: 
   learnr::tutorial:
     progressive: TRUE
@@ -31,40 +28,41 @@ samples <- data.frame(Sample_One = diamonds$carat[sample(1:nrow(diamonds), 8, re
 cut.samples <- data.frame(Sample_One = diamonds$cut[sample(1:nrow(diamonds), 8, replace = FALSE)], Sample_Two = diamonds$cut[sample(1:nrow(diamonds), 8, replace = FALSE)], Sample_Three = diamonds$cut[sample(1:nrow(diamonds), 8, replace = FALSE)])
 ```
 
-If you've never coded before (or even if you have), type `print("Your Name")` in the interactive R chunk below and run it by hitting `crtl+Enter` or `cmd+Enter` for MAC users.
+
+
+## Objective
+
+If you've never coded before (or even if you have), type `"Your Name"` in the interactive R chunk below and run it by hitting `crtl+Enter` or `cmd+Enter` for MAC users.
 
 ```{r Student-Name, exercise = TRUE}
 
 ```
 
-## Descriptive Statistics for Numerical and Categorical Data
-
-###
-
-**Workbook Objectives:** This workbook covers the following objectives.
+**Tutorial Objectives:** This tutorial covers the following objectives.
 
   * Compute and discuss appropriate summaries for both numerical and categorical data
   * Regarding numerical variables, discuss the difference between mean and median as well as standard deviation and inter-quartile range. Identify when each measure is appropriate.
   * Compute summary statistics both by hand and with the use of $\tt{R}$
   
-**Important Reminders:** The following previously mastered material is necessary for success through this workbook
+**Important Reminders:** The following previously mastered material is necessary for success through this tutorial
 
 + A variable is *numerical* if a summary statistic such as the mean has a meaningful interpretation.
 + A variable is *categorical* if it serves to sort observations into different groups (categories).
 + The unique values which a variable takes are called the *levels* of that variable.
 
-### Summarizing Numerical (Quantitative) Data
+## Summarizing Numerical (Quantitative) Data
 
 **Recall**: Variables for which computation of measures like the mean (average) or standard deviation are meaningful are numerical variables.
 
-###
 
 ### Measuring Central Tendancy
 
 **Measures of Central Tendency (Averages)**: The mean and median both attempt to measure the *center* of a dataset. 
 
+###
+
   * The **mean** of a set of observations is the traditional *average*. We typically denote the mean by $\bar{x}$ (or $\mu$ in the case of population-level data) and it is computed as follows:
-  $$\bar{x} = \frac{\displaystyle{\sum_{i=1}^{n}{x_i}}}{n} = \frac{x_1+x_2+x_3+...+x_n}{n}$$
+  $\bar{x} = \frac{\displaystyle{\sum_{i=1}^{n}{x_i}}}{n} = \frac{x_1+x_2+x_3+...+x_n}{n}$
 
 ###
 
@@ -73,12 +71,14 @@ If you've never coded before (or even if you have), type `print("Your Name")` in
 ###
 
 **Example**: The following are three random samples of carat values from the *diamonds* dataset.
-```{r printSamplesDf, echo = FALSE, eval = TRUE}
+```{r printSamplesDf, eval = TRUE}
 samples
 ```
 
+###
+
 1. Use the code block below to compute the mean of `Sample_One`
-```{r meanSampleOne, exercise = TRUE}
+```{r meanSampleOne, exercise = TRUE, exercise.eval = TRUE}
 
 ```
 
@@ -90,10 +90,10 @@ grade_result(
 
 ###
 
-In `R` we can easily compute the means and medians for our samples or for the entire dataset! Remember from our most recent workbook that the `$` operator can be used to access an entire column of a data frame. I've stored the samples in a data frame called *samples*. `R` includes a function `mean()` for computing the mean of a list of numbers and a function `median()` for computing the median. This means that we could compute the mean of `Sample_Two` using `mean(samples$Sample_Two)`.
+In `R` we can easily compute the means and medians for our samples or for the entire dataset! Remember from our most recent tutorial that the `$` operator can be used to access an entire column of a data frame. I've stored the samples in a data frame called *samples*. `R` includes a function `mean()` for computing the mean of a list of numbers and a function `median()` for computing the median. This means that we could compute the mean of `Sample_Two` using `mean(samples$Sample_Two)`.
 
 2. Use the code block below so that it computes the mean of `Sample_Three` using the `$` operator to access the `Sample_Three` column of the `samples` data frame.
-```{r meanSampThree, exercise = TRUE}
+```{r meanSampThree, exercise = TRUE, exercise.eval = TRUE}
 
 ```
 
@@ -126,7 +126,7 @@ question(
 
 ###
 
-4. In our first workbook we saw that we can use sample data to make generalizations about populations for which the sample is representative. Answer the following questions with this in mind.
+4. In our first tutorial we saw that we can use sample data to make generalizations about populations for which the sample is representative. Answer the following questions with this in mind.
 ```{r samplesToEstimatePop, echo = FALSE}
 quiz(
 question(
@@ -188,9 +188,11 @@ question_checkbox(
 )
 ```
 
-### Measuring Spread
+## Measuring Spread
 
 **Measures of Variability**: Clearly, the center of a dataset doesn't tell the entire story. Our two political pollsters obviously have very different door-knocking strategies but both have a mean (and median) of $25$ doors per day. We should also measure the *spread* of data.
+
+###
 
 ###
 
@@ -257,7 +259,7 @@ ggplot(data = diamonds) + geom_boxplot(mapping = aes(y = carat)) + geom_hline(yi
 
 ###
 
-In `R` we can easily compute the standard deviation with the function `sd()`, and IQR with the function `quantiles()` or `IQR()`, for our samples or for the entire dataset! Recall that our diamond samples are stored in a data frame called `samples`. The code block below is preset to compute the standard deviation, Q1, Q3, and IQR for `Sample_One`. Note that in the `quantiles()` function the `0.25` identifies the 25th percentile ($Q1$) and the `0.75` identifies the 75th percentile ($Q3$). Run the code to find the standard deviation, Q1, Q3, and the interquartile range for `Sample_One`. Once you've done that, edit the existing code to compute these metrics for the other two samples.
+In `R` we can easily compute the standard deviation with the function `sd()`, and IQR with the function `quantile()` or `IQR()`, for our samples or for the entire dataset! Recall that our diamond samples are stored in a data frame called `samples`. The code block below is preset to compute the standard deviation, Q1, Q3, and IQR for `Sample_One`. Note that in the `quantile()` function the `0.25` identifies the 25th percentile ($Q1$) and the `0.75` identifies the 75th percentile ($Q3$). Run the code to find the standard deviation, Q1, Q3, and the interquartile range for `Sample_One`. Once you've done that, edit the existing code to compute these metrics for the other two samples.
 
 ```{r computeSdIqr, exercise = TRUE, exercise.eval = FALSE}
 sd(samples$Sample_One)
@@ -279,14 +281,17 @@ Use the code blocks below to find the standard deviation and IQR for the doors v
 
 ```
 
-### Summarizing Categorical (Qualitative, Factor) Data
+## Summarizing Categorical (Qualitative, Factor) Data
   
-###
 
 Categorical data is best summarized using a frequency table. That is, we use a table that lists how *frequent* each observation occured in the dataset. For example, consider the samples of diamond *cuts* below:
 ```{r sampleCuts, echo = FALSE, eval = TRUE}
 cut.samples
 ```
+
+###
+
+###
 
 We can use `R`'s `table()` function to construct frequency and relative frequency tables for a sample or our entire set of observations. The following code chunk is preset to compute a frequency and relative frequency table for `Sample_One`. Adapt the code to provide summaries for `Sample_Two` and `Sample_Three`.
 ```{r summarizeCut, exercise = TRUE, exercise.eval = FALSE}
@@ -296,7 +301,7 @@ table(cut.samples$Sample_One)/nrow(cut.samples)
 
 ###
 
-Below, we can see the distributions of diamond `cut` from `Sample_Two` (left) and from our entire population (right) below. Even with a sample of 8 diamonds, we gain "some" insight as to the most and least common diamond cuts. You may also notice that the frequency and relative frequency plots look identical aside from the scale on the vertical axis -- this will be the case in general.
+Below, we can see the distributions of diamond `cut` from `Sample_Three` (left) and from our entire population (right) below. Even with a sample of 8 diamonds, we gain "some" insight as to the most and least common diamond cuts. You may also notice that the frequency and relative frequency plots look identical aside from the scale on the vertical axis -- this will be the case in general.
   
 ```{r printCutPlots, echo = FALSE, eval = TRUE, fig.width = 4, fig.height = 2.5, warning = FALSE, message = FALSE, results = FALSE}
 ggplot(data = cut.samples) + geom_bar(mapping = aes(x = Sample_Three)) + labs(title = "Distribution of cut type in Diamonds (samp)", x = "Cut Type")
@@ -305,7 +310,7 @@ ggplot(data = cut.samples) + geom_bar(mapping = aes(x = Sample_Three, y = (..cou
 ggplot(data = diamonds) + geom_bar(mapping = aes(x = cut, y = (..count..)/sum(..count..))) + ylab("proportion") + labs(title = "Distribution of cut type in Diamonds (pop)", x = "Cut Type")
 ```
 
-### Submit
+## Submit
 
 ```{r context="server"}
 learnrhash::encoder_logic(strip_output = TRUE)
@@ -323,9 +328,9 @@ learnrhash::encoder_ui(
 )
 ```
 
-### Summary
+## Summary
     
-**Summary**: Here's a quick summary of the most important ideas from this workbook.
+**Summary**: Here's a quick summary of the most important ideas from this tutorial.
 
 * We can summarize numerical data using measures of central tendency and measures of spread (or variability)
 * The *mean* ($\bar{x}$ for samples, $\mu$ for populations) and *median* measure the center of a set of numerical data.

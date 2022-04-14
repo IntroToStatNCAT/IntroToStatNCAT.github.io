@@ -1,0 +1,14 @@
+name: 10_InferenceNumericalData
+title: 10_InferenceNumericalData
+username:
+account: introtostatncat
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 5923643
+bundleId: 5720503
+url: https://introtostatncat.shinyapps.io/10_InferenceNumericalData/
+when: 1648093150.30848
+lastSyncTime: 1648093150.30848
+asMultiple: FALSE
+asStatic: FALSE
+ignoredFiles: 15_HTandCInum.html|15_HTandCInum.Rmd

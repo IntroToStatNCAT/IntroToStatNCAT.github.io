@@ -11,9 +11,9 @@
 
 
 <meta name="progressive" content="true" />
-<meta name="allow-skip" content="false" />
+<meta name="allow-skip" content="true" />
 
-<title>Topic 3: Descriptive Statistics for Numerical and Categorical Data</title>
+<title>Tutorial 3: Descriptive Statistics for Numerical and Categorical Data</title>
 
 
 <!-- highlightjs -->
@@ -106,48 +106,45 @@ if (window.hljs) {
 
 <div class="topics">
 
+<div id="section-objective" class="section level2">
+<h2>Objective</h2>
 <p>If you’ve never coded before (or even if you have), type <code>print("Your Name")</code> in the interactive R chunk below and run it by hitting <code>crtl+Enter</code> or <code>cmd+Enter</code> for MAC users.</p>
 <div class="tutorial-exercise" data-label="Student-Name" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
 <script type="application/json" data-ui-opts="1">{"engine":"r","has_checker":false,"caption":"<span data-i18n=\"text.enginecap\" data-i18n-opts=\"{&quot;engine&quot;:&quot;R&quot;}\">R Code<\/span>"}</script>
 </div>
-<div id="section-descriptive-statistics-for-numerical-and-categorical-data" class="section level2">
-<h2>Descriptive Statistics for Numerical and Categorical Data</h2>
-<div id="section-section" class="section level3">
-<h3></h3>
-<p><strong>Workbook Objectives:</strong> This workbook covers the following objectives.</p>
+<p><strong>Tutorial Objectives:</strong> This tutorial covers the following objectives.</p>
 <ul>
 <li>Compute and discuss appropriate summaries for both numerical and categorical data</li>
 <li>Regarding numerical variables, discuss the difference between mean and median as well as standard deviation and inter-quartile range. Identify when each measure is appropriate.</li>
 <li>Compute summary statistics both by hand and with the use of <span class="math inline">\(\tt{R}\)</span></li>
 </ul>
-<p><strong>Important Reminders:</strong> The following previously mastered material is necessary for success through this workbook</p>
+<p><strong>Important Reminders:</strong> The following previously mastered material is necessary for success through this tutorial</p>
 <ul>
 <li>A variable is <em>numerical</em> if a summary statistic such as the mean has a meaningful interpretation.</li>
 <li>A variable is <em>categorical</em> if it serves to sort observations into different groups (categories).</li>
 <li>The unique values which a variable takes are called the <em>levels</em> of that variable.</li>
 </ul>
 </div>
-<div id="section-summarizing-numerical-quantitative-data" class="section level3">
-<h3>Summarizing Numerical (Quantitative) Data</h3>
+<div id="section-summarizing-numerical-quantitative-data" class="section level2">
+<h2>Summarizing Numerical (Quantitative) Data</h2>
 <p><strong>Recall</strong>: Variables for which computation of measures like the mean (average) or standard deviation are meaningful are numerical variables.</p>
-</div>
-<div id="section-section-1" class="section level3">
-<h3></h3>
-</div>
 <div id="section-measuring-central-tendancy" class="section level3">
 <h3>Measuring Central Tendancy</h3>
 <p><strong>Measures of Central Tendency (Averages)</strong>: The mean and median both attempt to measure the <em>center</em> of a dataset.</p>
+</div>
+<div id="section-section" class="section level3">
+<h3></h3>
 <ul>
-<li>The <strong>mean</strong> of a set of observations is the traditional <em>average</em>. We typically denote the mean by <span class="math inline">\(\bar{x}\)</span> (or <span class="math inline">\(\mu\)</span> in the case of population-level data) and it is computed as follows: <span class="math display">\[\bar{x} = \frac{\displaystyle{\sum_{i=1}^{n}{x_i}}}{n} = \frac{x_1+x_2+x_3+...+x_n}{n}\]</span></li>
+<li>The <strong>mean</strong> of a set of observations is the traditional <em>average</em>. We typically denote the mean by <span class="math inline">\(\bar{x}\)</span> (or <span class="math inline">\(\mu\)</span> in the case of population-level data) and it is computed as follows: <span class="math inline">\(\bar{x} = \frac{\displaystyle{\sum_{i=1}^{n}{x_i}}}{n} = \frac{x_1+x_2+x_3+...+x_n}{n}\)</span></li>
 </ul>
 </div>
-<div id="section-section-2" class="section level3">
+<div id="section-section-1" class="section level3">
 <h3></h3>
 <ul>
 <li>The <strong>median</strong> is the <em>middle value</em> for a set of observations. To compute the median, list the numbers in ascending order and find the number or number(s) in the middle of the list. In the case that there is a single middle number, that is the median. In the case where there are two middle numbers, we take the <em>mean</em> of those two.</li>
 </ul>
 </div>
-<div id="section-section-3" class="section level3">
+<div id="section-section-2" class="section level3">
 <h3></h3>
 <strong>Example</strong>: The following are three random samples of carat values from the <em>diamonds</em> dataset.
 <div data-pagedtable="false">
@@ -155,6 +152,9 @@ if (window.hljs) {
 {"columns":[{"label":["Sample_One"],"name":[1],"type":["dbl"],"align":["right"]},{"label":["Sample_Two"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["Sample_Three"],"name":[3],"type":["dbl"],"align":["right"]}],"data":[{"1":"0.41","2":"2.68","3":"1.05"},{"1":"1.01","2":"1.01","3":"0.31"},{"1":"1.22","2":"0.26","3":"0.31"},{"1":"1.02","2":"0.90","3":"0.30"},{"1":"0.30","2":"0.43","3":"0.40"},{"1":"0.30","2":"0.53","3":"1.50"},{"1":"1.00","2":"2.00","3":"2.27"},{"1":"1.17","2":"0.33","3":"5.00"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
   </script>
 </div>
+</div>
+<div id="section-section-3" class="section level3">
+<h3></h3>
 <ol style="list-style-type: decimal">
 <li>Use the code block below to compute the mean of <code>Sample_One</code>
 <div class="tutorial-exercise" data-label="meanSampleOne" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
@@ -164,7 +164,7 @@ if (window.hljs) {
 </div>
 <div id="section-section-4" class="section level3">
 <h3></h3>
-<p>In <code>R</code> we can easily compute the means and medians for our samples or for the entire dataset! Remember from our most recent workbook that the <code>$</code> operator can be used to access an entire column of a data frame. I’ve stored the samples in a data frame called <em>samples</em>. <code>R</code> includes a function <code>mean()</code> for computing the mean of a list of numbers and a function <code>median()</code> for computing the median. This means that we could compute the mean of <code>Sample_Two</code> using <code>mean(samples$Sample_Two)</code>.</p>
+<p>In <code>R</code> we can easily compute the means and medians for our samples or for the entire dataset! Remember from our most recent tutorial that the <code>$</code> operator can be used to access an entire column of a data frame. I’ve stored the samples in a data frame called <em>samples</em>. <code>R</code> includes a function <code>mean()</code> for computing the mean of a list of numbers and a function <code>median()</code> for computing the median. This means that we could compute the mean of <code>Sample_Two</code> using <code>mean(samples$Sample_Two)</code>.</p>
 <ol start="2" style="list-style-type: decimal">
 <li>Use the code block below so that it computes the mean of <code>Sample_Three</code> using the <code>$</code> operator to access the <code>Sample_Three</code> column of the <code>samples</code> data frame.
 <div class="tutorial-exercise" data-label="meanSampThree" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
@@ -195,7 +195,7 @@ if (window.hljs) {
 <div id="section-section-6" class="section level3">
 <h3></h3>
 <ol start="4" style="list-style-type: decimal">
-<li>In our first workbook we saw that we can use sample data to make generalizations about populations for which the sample is representative. Answer the following questions with this in mind. <div class="panel-heading tutorial-quiz-title"><span data-i18n="text.quiz">Quiz</span></div></li>
+<li>In our first tutorial we saw that we can use sample data to make generalizations about populations for which the sample is representative. Answer the following questions with this in mind. <div class="panel-heading tutorial-quiz-title"><span data-i18n="text.quiz">Quiz</span></div></li>
 </ol>
 <div class="panel panel-default">
 <div data-label="samplesToEstimatePop-1" class="tutorial-question panel-body">
@@ -244,16 +244,19 @@ median(c(0, 15, 25, 35, 50))</code></pre>
 </div>
 </div>
 </div>
-<div id="section-measuring-spread" class="section level3">
-<h3>Measuring Spread</h3>
-<p><strong>Measures of Variability</strong>: Clearly, the center of a dataset doesn’t tell the entire story. Our two political pollsters obviously have very different door-knocking strategies but both have a mean (and median) of <span class="math inline">\(25\)</span> doors per day. We should also measure the <em>spread</em> of data.</p>
 </div>
+<div id="section-measuring-spread" class="section level2">
+<h2>Measuring Spread</h2>
+<p><strong>Measures of Variability</strong>: Clearly, the center of a dataset doesn’t tell the entire story. Our two political pollsters obviously have very different door-knocking strategies but both have a mean (and median) of <span class="math inline">\(25\)</span> doors per day. We should also measure the <em>spread</em> of data.</p>
 <div id="section-section-8" class="section level3">
+<h3></h3>
+</div>
+<div id="section-section-9" class="section level3">
 <h3></h3>
 <p>The <em>standard deviation</em> of a set of observations is denoted by <span class="math inline">\(s\)</span> (or <span class="math inline">\(\sigma\)</span> in the case of population-level data) and is computed as follows: <span class="math display">\[s = \sqrt{\frac{\displaystyle{\sum_{i=1}^{n}{\left(x_i-\bar{x}\right)^2}}}{n-1}}\]</span></p>
 <p>We should also note that if you are certain that you are working with population-level data, then the denominator used to compute the standard deviation should be changed to <span class="math inline">\(N\)</span> (the population size). We can do this because there is no uncertainty in estimating the population standard deviation if we have records from every element of the population.</p>
 </div>
-<div id="section-section-9" class="section level3">
+<div id="section-section-10" class="section level3">
 <h3></h3>
 <p><strong>Explaining the Standard Deviation Formula</strong>: The standard deviation seeks to measure an “average deviation” from the mean.</p>
 <ul>
@@ -265,7 +268,7 @@ median(c(0, 15, 25, 35, 50))</code></pre>
 <li>Since we squared the deviations before computing the “average”, the units of measure are no longer comparable to the original units that the variable was measured in – the units are square units now. This is why we see the large square root as the last piece of the formula – taking the square root brings us back to the original units.</li>
 </ul>
 </div>
-<div id="section-section-10" class="section level3">
+<div id="section-section-11" class="section level3">
 <h3></h3>
 <p>The <em>inter-quartile range</em> (IQR) of a set of observations measures the spread of the “middle-50-percent” of the observations. The IQR is the distance between <span class="math inline">\(Q1\)</span> (the 25th percentile) and <span class="math inline">\(Q3\)</span> (the 75th percentile).<br />
 * The median of a set of observations splits the set into two halves: an upper half and a lower half. The median of the lower half is called the <em>first quartile</em> (<span class="math inline">\(Q_1\)</span>) while the median of the upper half is called the <em>third quartile</em> (<span class="math inline">\(Q_3\)</span>). The interquartile range is the distance between <span class="math inline">\(Q_1\)</span> and <span class="math inline">\(Q_3\)</span>. That is, <span class="math display">\[IQR = Q_3-Q_1\]</span></p>
@@ -289,7 +292,7 @@ median(c(0, 15, 25, 35, 50))</code></pre>
 </div>
 </div>
 </div>
-<div id="section-section-11" class="section level3">
+<div id="section-section-12" class="section level3">
 <h3></h3>
 <p>The two plots below are a histogram (left) and a boxplot (right), each showing the distribution of <code>carat</code>-weights for the diamonds in our population.</p>
 <p><img src="3_DescriptiveNumCat_files/figure-html/printPlots-1.png" width="432" /><img src="3_DescriptiveNumCat_files/figure-html/printPlots-2.png" width="432" /></p>
@@ -304,11 +307,11 @@ median(c(0, 15, 25, 35, 50))</code></pre>
 </ul></li>
 </ul>
 </div>
-<div id="section-section-12" class="section level3">
+<div id="section-section-13" class="section level3">
 <h3></h3>
 <p><strong>A Note on Skew:</strong> It is common to refer to data as <em>skewed</em> if the presence of outliers cause the mean and median to disagree with one another on the location of the “center” of our data. In this case, we say that the data is <em>skewed in the direction that those outliers have pulled the mean</em>. For example, we would say that the <code>carat</code> weight data (from above) is <em>skewed right</em>.</p>
 </div>
-<div id="section-section-13" class="section level3">
+<div id="section-section-14" class="section level3">
 <h3></h3>
 <p>In <code>R</code> we can easily compute the standard deviation with the function <code>sd()</code>, and IQR with the function <code>quantiles()</code> or <code>IQR()</code>, for our samples or for the entire dataset! Recall that our diamond samples are stored in a data frame called <code>samples</code>. The code block below is preset to compute the standard deviation, Q1, Q3, and IQR for <code>Sample_One</code>. Note that in the <code>quantiles()</code> function the <code>0.25</code> identifies the 25th percentile (<span class="math inline">\(Q1\)</span>) and the <code>0.75</code> identifies the 75th percentile (<span class="math inline">\(Q3\)</span>). Run the code to find the standard deviation, Q1, Q3, and the interquartile range for <code>Sample_One</code>. Once you’ve done that, edit the existing code to compute these metrics for the other two samples.</p>
 <div class="tutorial-exercise" data-label="computeSdIqr" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
@@ -318,11 +321,11 @@ IQR(samples$Sample_One)</code></pre>
 <script type="application/json" data-ui-opts="1">{"engine":"r","has_checker":false,"caption":"<span data-i18n=\"text.enginecap\" data-i18n-opts=\"{&quot;engine&quot;:&quot;R&quot;}\">R Code<\/span>"}</script>
 </div>
 </div>
-<div id="section-section-14" class="section level3">
+<div id="section-section-15" class="section level3">
 <h3></h3>
 <p><strong>Remark</strong>: Our third sample of diamond carat sizes contained an outlier. The presence of this outlier drastically impacted the computed mean and standard deviation, but didn’t have much (if any) effect on the median or <span class="math inline">\(IQR\)</span>. Because of this, we say that the median and <span class="math inline">\(IQR\)</span> are <em>robust</em> statistics in the presence of outliers.</p>
 </div>
-<div id="section-section-15" class="section level3">
+<div id="section-section-16" class="section level3">
 <h3></h3>
 <p>In <code>R</code> we can also easily explore these measures of spread for our campaign workers from earlier. Recall their door-knocking data: <span class="math inline">\(\begin{array}{lcl} \text{Worker A} &amp; : &amp; 23,~24,~25,~26,~27\\ \text{Worker B:} &amp; : &amp; 0,~15,~25,~35,~50\end{array}\)</span></p>
 <p>Use the code blocks below to find the standard deviation and IQR for the doors visited by the campaign workers.</p>
@@ -330,17 +333,20 @@ IQR(samples$Sample_One)</code></pre>
 <script type="application/json" data-ui-opts="1">{"engine":"r","has_checker":false,"caption":"<span data-i18n=\"text.enginecap\" data-i18n-opts=\"{&quot;engine&quot;:&quot;R&quot;}\">R Code<\/span>"}</script>
 </div>
 </div>
-<div id="section-summarizing-categorical-qualitative-factor-data" class="section level3">
-<h3>Summarizing Categorical (Qualitative, Factor) Data</h3>
 </div>
-<div id="section-section-16" class="section level3">
-<h3></h3>
+<div id="section-summarizing-categorical-qualitative-factor-data" class="section level2">
+<h2>Summarizing Categorical (Qualitative, Factor) Data</h2>
 Categorical data is best summarized using a frequency table. That is, we use a table that lists how <em>frequent</em> each observation occured in the dataset. For example, consider the samples of diamond <em>cuts</em> below:
 <div data-pagedtable="false">
 <script data-pagedtable-source type="application/json">
 {"columns":[{"label":["Sample_One"],"name":[1],"type":["ord"],"align":["right"]},{"label":["Sample_Two"],"name":[2],"type":["ord"],"align":["right"]},{"label":["Sample_Three"],"name":[3],"type":["ord"],"align":["right"]}],"data":[{"1":"Good","2":"Ideal","3":"Fair"},{"1":"Very Good","2":"Good","3":"Good"},{"1":"Ideal","2":"Premium","3":"Premium"},{"1":"Premium","2":"Very Good","3":"Premium"},{"1":"Premium","2":"Premium","3":"Ideal"},{"1":"Ideal","2":"Premium","3":"Good"},{"1":"Premium","2":"Ideal","3":"Very Good"},{"1":"Ideal","2":"Premium","3":"Ideal"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
   </script>
 </div>
+<div id="section-section-17" class="section level3">
+<h3></h3>
+</div>
+<div id="section-section-18" class="section level3">
+<h3></h3>
 We can use <code>R</code>’s <code>table()</code> function to construct frequency and relative frequency tables for a sample or our entire set of observations. The following code chunk is preset to compute a frequency and relative frequency table for <code>Sample_One</code>. Adapt the code to provide summaries for <code>Sample_Two</code> and <code>Sample_Three</code>.
 <div class="tutorial-exercise" data-label="summarizeCut" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
 <pre class="text"><code>table(cut.samples$Sample_One)
@@ -348,13 +354,14 @@ table(cut.samples$Sample_One)/nrow(cut.samples)</code></pre>
 <script type="application/json" data-ui-opts="1">{"engine":"r","has_checker":false,"caption":"<span data-i18n=\"text.enginecap\" data-i18n-opts=\"{&quot;engine&quot;:&quot;R&quot;}\">R Code<\/span>"}</script>
 </div>
 </div>
-<div id="section-section-17" class="section level3">
+<div id="section-section-19" class="section level3">
 <h3></h3>
 <p>Below, we can see the distributions of diamond <code>cut</code> from <code>Sample_Two</code> (left) and from our entire population (right) below. Even with a sample of 8 diamonds, we gain “some” insight as to the most and least common diamond cuts. You may also notice that the frequency and relative frequency plots look identical aside from the scale on the vertical axis – this will be the case in general.</p>
 <p><img src="3_DescriptiveNumCat_files/figure-html/printCutPlots-1.png" width="384" /><img src="3_DescriptiveNumCat_files/figure-html/printCutPlots-2.png" width="384" /><img src="3_DescriptiveNumCat_files/figure-html/printCutPlots-3.png" width="384" /><img src="3_DescriptiveNumCat_files/figure-html/printCutPlots-4.png" width="384" /></p>
 </div>
-<div id="section-submit" class="section level3">
-<h3>Submit</h3>
+</div>
+<div id="section-submit" class="section level2">
+<h2>Submit</h2>
 <div class="encoder_ui">
 <div>
 If you have completed this tutorial and are happy with all of your
@@ -424,9 +431,9 @@ submit it using the corresponding tutorial assignment tab on Blackboard
       });</script>
 </div>
 </div>
-<div id="section-summary" class="section level3">
-<h3>Summary</h3>
-<p><strong>Summary</strong>: Here’s a quick summary of the most important ideas from this workbook.</p>
+<div id="section-summary" class="section level2">
+<h2>Summary</h2>
+<p><strong>Summary</strong>: Here’s a quick summary of the most important ideas from this tutorial.</p>
 <ul>
 <li>We can summarize numerical data using measures of central tendency and measures of spread (or variability)</li>
 <li>The <em>mean</em> (<span class="math inline">\(\bar{x}\)</span> for samples, <span class="math inline">\(\mu\)</span> for populations) and <em>median</em> measure the center of a set of numerical data.</li>
@@ -466,7 +473,7 @@ cut.samples <- data.frame(Sample_One = diamonds$cut[sample(1:nrow(diamonds), 8, 
 </script>
  
 <script type="application/shiny-prerendered" data-context="server">
-learnr:::register_http_handlers(session, metadata = list(id = "DescriptiveNumCat.Topic3.AppliedStats", version = 1.1))
+learnr:::register_http_handlers(session, metadata = NULL)
 </script>
  
 <script type="application/shiny-prerendered" data-context="server">
@@ -1040,7 +1047,6 @@ learnrhash::encoder_logic(strip_output = TRUE)
 <!--/html_preserve--></li>
 </ul>
 </div>
-</div>
 
 </div> <!-- topics -->
 
@@ -1051,7 +1057,7 @@ learnrhash::encoder_logic(strip_output = TRUE)
 
 <!-- begin doc-metadata -->
 <div id="doc-metadata">
-<h2 class="title toc-ignore" style="display:none;">Topic 3: Descriptive Statistics for Numerical and Categorical Data</h2>
+<h2 class="title toc-ignore" style="display:none;">Tutorial 3: Descriptive Statistics for Numerical and Categorical Data</h2>
 </div>
 <!-- end doc-metadata -->
 

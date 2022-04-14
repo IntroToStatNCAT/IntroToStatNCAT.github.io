@@ -1,0 +1,65 @@
+---
+title: "Inference for categorical data"
+runtime: shiny
+output:
+  html_document:
+    css: lab.css
+    highlight: pygments
+    theme: cerulean
+    toc: true
+    toc_float: true
+---
+
+```{r global_options, include=FALSE}
+knitr::opts_chunk$set(eval = TRUE, results = FALSE, fig.show = "hide", message = FALSE)
+library(tidyverse)
+library(openintro)
+library(infer)
+no_helmet <- yrbss %>%
+  filter(helmet_12m == "never")
+no_helmet <- no_helmet %>%
+  mutate(text_ind = ifelse(text_while_driving_30d == "30", "yes", "no"))
+n <- 1000
+p <- seq(from = 0, to = 1, by = 0.01)
+me <- 2 * sqrt(p * (1 - p)/n)
+dd <- data.frame(p = p, me = me)
+```
+
+
+```{r sf-app, echo=FALSE, eval=TRUE, results=TRUE}
+inputPanel(
+  numericInput("n", label = "Sample size:", value = 300),
+  
+  sliderInput("p", label = "Population proportion:",
+              min = 0, max = 1, value = 0.1, step = 0.01),
+  
+  numericInput("x_min", label = "Min for x-axis:", value = 0, min = 0, max = 1),
+  numericInput("x_max", label = "Max for x-axis:", value = 1, min = 0, max = 1)
+)
+
+renderPlot({
+  pp <- data.frame(p_hat = rep(0, 5000))
+  for(i in 1:5000){
+    samp <- sample(c(TRUE, FALSE), input$n, replace = TRUE, 
+                   prob = c(input$p, 1 - input$p))
+    pp$p_hat[i] <- sum(samp == TRUE) / input$n
+  }
+  bw <- diff(range(pp$p_hat)) / 30
+  ggplot(data = pp, aes(x = p_hat)) +
+    geom_histogram(binwidth = bw) +
+    xlim(input$x_min, input$x_max) +
+    ggtitle(paste0("Distribution of p_hats, drawn from p = ", input$p, ", n = ", input$n))
+})
+```
+
+Answer the following question with the use of the app above.
+
+1.  Describe the sampling distribution of sample proportions at $n = 300$ and $p = 0.1$.
+    Be sure to note the center, spread, and shape.
+
+2.  Keep $n$ constant and change $p$.
+    How does the shape, center, and spread of the sampling distribution vary as $p$ changes.
+    You might want to adjust min and max for the $x$-axis for a better view of the distribution.
+
+3.  Now also change $n$.
+    How does $n$ appear to affect the distribution of $\hat{p}$?

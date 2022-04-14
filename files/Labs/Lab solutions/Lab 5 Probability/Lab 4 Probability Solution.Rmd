@@ -1,0 +1,57 @@
+---
+title: "Lab 4 - Probability Solution"
+author: "MATH224 - Intro to Stat"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(openintro)
+```
+
+
+## Exercise 1 (4 Points)
+
+```{r, message=F, warning=F}
+set.seed(12345) #1 Point Any seed is fine
+
+coin_outcomes <- c("heads", "tails") #1 Point
+
+sim_unfair_coin <- sample(coin_outcomes, size = 100, replace = TRUE, 
+                          prob = c(0.2, 0.8)) #1 Point
+
+table(sim_unfair_coin) #1 Point
+
+```
+
+## Exercise 2 (4 Points)
+
+```{r, warning=F, message=F}
+pbinom(25, 35, 0.25)
+# 1 Point for using pbinom
+# 1 Point each for the right answers. There are 3 in pbinom.
+```
+
+
+
+## Exercise 3 (5 Points)
+
+```{r, warning=F, message=F}
+1 - pbinom(9, 35, 0.25)
+
+# 1 Point for using pbinom
+# 1 Point for subtracting from 1
+# 1 Point each for the right answers. There are 3 in pbinom.
+```
+
+
+## Exercise 4 (7 Points)
+
+```{r, warning=F, message=F}
+pbinom(31, 35, 0.25) - pbinom(18, 35, 0.25)
+
+# 1 Point for using pbinom
+# 1 Point each for the right numbers. There are 6.
+```
+
