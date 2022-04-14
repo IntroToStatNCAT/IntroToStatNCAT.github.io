@@ -4,7 +4,6 @@ title: "Tutorials"
 ---
 
 {% include base_path %}
-{% include toc %}
 
 ## Tutorials for MATH 224
 

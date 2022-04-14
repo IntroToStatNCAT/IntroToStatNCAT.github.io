@@ -20,7 +20,7 @@ main:
     url: /workshop/
 
   - title: "Implementation Manual"
-    url: /tutorials/
+    url: /manual/
 
   - title: "Research/Talks"
     url: /research/

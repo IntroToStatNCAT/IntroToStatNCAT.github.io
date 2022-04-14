@@ -4,7 +4,6 @@ title: "Slides"
 ---
 
 {% include base_path %}
-{% include toc %}
 
 ## Slides for MATH 224 by chapter
 

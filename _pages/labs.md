@@ -4,7 +4,6 @@ title: "Labs"
 ---
 
 {% include base_path %}
-{% include toc %}
 
 ## Labs for MATH 224
 

@@ -4,7 +4,6 @@ title: "Syllabus"
 ---
 
 {% include base_path %}
-{% include toc %}
 
 ## Book required for the class
 

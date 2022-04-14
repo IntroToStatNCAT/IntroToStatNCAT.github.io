@@ -4,7 +4,6 @@ title: "Data Analysis Project"
 ---
   
 {% include base_path %}
-{% include toc %}
 
 ## Data Analysis Project for MATH 224
 
