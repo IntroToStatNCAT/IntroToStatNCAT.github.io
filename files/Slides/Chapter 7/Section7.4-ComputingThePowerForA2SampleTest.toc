@@ -1,2 +1,0 @@
-\babel@toc {english}{}\relax 
-\beamer@sectionintoc {1}{Computing the power for a 2-sample test}{2}{0}{1}
