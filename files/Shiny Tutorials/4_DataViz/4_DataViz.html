@@ -11,9 +11,9 @@
 
 
 <meta name="progressive" content="true" />
-<meta name="allow-skip" content="true" />
+<meta name="allow-skip" content="false" />
 
-<title>Tutorial 4: Data Visualization and a Grammar of Graphics</title>
+<title>Topic 4: Data Visualization and a Grammar of Graphics</title>
 
 
 <!-- highlightjs -->
@@ -106,14 +106,19 @@ if (window.hljs) {
 
 <div class="topics">
 
-<div id="section-objective" class="section level2">
-<h2>Objective</h2>
 <p>If you’ve never coded before (or even if you have), type <code>print("Your Name")</code> in the interactive R chunk below and run it by hitting <code>crtl+Enter</code> or <code>cmd+Enter</code> for MAC users.</p>
 <div class="tutorial-exercise" data-label="Student-Name" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
 <script type="application/json" data-ui-opts="1">{"engine":"r","has_checker":false,"caption":"<span data-i18n=\"text.enginecap\" data-i18n-opts=\"{&quot;engine&quot;:&quot;R&quot;}\">R Code<\/span>"}</script>
 </div>
-<p>Through this tutorial you’ll learn techniques for data visualization. You’ll think about how the type of plot chosen impacts what information is conveyed (or lost). Choosing the wrong plot type can result in a useless plot (at best) or even a plot which is misleading. Think about the <em>types</em> (numerical, categorical) of variables you are working with and how they dictate which plot type should be utilized – for example, a scatterplot is not appropriate in every scenario!</p>
-<p><strong>Tutorial Objectives:</strong> After completing this tutorial you should be able to:</p>
+<div id="section-topic-4-data-visualization" class="section level2">
+<h2>Topic 4: Data Visualization</h2>
+<p>Through this workbook you’ll learn techniques for data visualization. You’ll think about how the type of plot chosen impacts what information is conveyed (or lost). Choosing the wrong plot type can result in a useless plot (at best) or even a plot which is misleading. Think about the <em>types</em> (numerical, categorical) of variables you are working with and how they dictate which plot type should be utilized – for example, a scatterplot is not appropriate in every scenario!</p>
+<div id="section-section" class="section level3">
+<h3></h3>
+</div>
+<div id="section-objectives" class="section level3">
+<h3>Objectives</h3>
+<p><strong>Workbook Objectives:</strong> After completing this workbook you should be able to:</p>
 <ul>
 <li>Read a plot, describe any interesting features, and accurately convey the <em>story</em> being told by the plot.</li>
 <li>Identify and utilize the most appropriate plot types for your scenario by identifying the types of variables you are working with.</li>
@@ -121,8 +126,14 @@ if (window.hljs) {
 <li>Use your newfound knowledge of data visualization to generate informative plots which uncover a compelling (and truthful) story about the relationships that exist between variables.</li>
 </ul>
 </div>
-<div id="section-the-grammar-of-graphics" class="section level2">
-<h2>The Grammar of Graphics</h2>
+<div id="section-section-1" class="section level3">
+<h3></h3>
+</div>
+<div id="section-the-grammar-of-graphics" class="section level3">
+<h3>The Grammar of Graphics</h3>
+</div>
+<div id="section-section-2" class="section level3">
+<h3></h3>
 <p><strong>Grammar of Graphics:</strong> Jeffrey Gitomer said “Your grammar is a reflection of your image”. Here, we take the converse literally. Your image is a reflection of your grammar. Just like a well-written sentence follows the rules of grammar, so does an informative statistical graphic.</p>
 <ul>
 <li>Graphics need a subject (an underlying dataset)</li>
@@ -130,16 +141,14 @@ if (window.hljs) {
 <li>Graphics need adjectives (attributes attached to the visualized data, called <code>aesthetics</code>)</li>
 <li>Graphics need context (a title, scales, axes, legends, etc.)</li>
 </ul>
-<p>In this tutorial we explore <code>ggplot2</code> and think about graphics in terms of their layered grammar.</p>
-<div id="section-section" class="section level3">
-<h3></h3>
+<p>In this workbook we explore <code>ggplot2</code> and think about graphics in terms of their layered grammar.</p>
 </div>
-<div id="section-section-1" class="section level3">
+<div id="section-section-3" class="section level3">
 <h3></h3>
 <p><strong>A Note on Plots:</strong> Choosing an appropriate plot is extremely important in data visualization. Some plots don’t make sense for certain variable types. For example, a scatterplot in the case of two-categorical predictors is quite a silly choice – the only thing this plot tells us is that every combination of fuel type and engine brand exists in our dataset. We have no idea which combinations are most or least popular.</p>
 <p><img src="4_DataViz_files/figure-html/unnamed-chunk-1-1.png" width="216" /></p>
 </div>
-<div id="section-section-2" class="section level3">
+<div id="section-section-4" class="section level3">
 <h3></h3>
 <p>The following are some recommended [basic] plots types under certain scenarios:</p>
 <ul>
@@ -158,10 +167,9 @@ if (window.hljs) {
 </div>
 </div>
 </div>
-</div>
-<div id="section-getting-started-exploring-data" class="section level2">
-<h2>Getting Started: Exploring Data</h2>
-<p>Throughout this tutorial, we will explore fuel efficiencies of multiple classes of vehicles using the <code>mpg</code> data frame.</p>
+<div id="section-getting-started-exploring-data" class="section level3">
+<h3>Getting Started: Exploring Data</h3>
+<p>Throughout this workbook, we will explore fuel efficiencies of multiple classes of vehicles using the <code>mpg</code> data frame.</p>
 <ol style="list-style-type: decimal">
 <li>Remember that a <em>data frame</em> is like an Excel spreadsheet. Explore the <code>mpg</code> data frame by typing <code>mpg</code> in the following code block and running it.</li>
 </ol>
@@ -171,14 +179,12 @@ if (window.hljs) {
 <div class="tutorial-exercise-support" data-label="print-mpg-dataframe-solution" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
 <pre class="text"><code>mpg</code></pre>
 </div>
-<div id="section-section-3" class="section level3">
-<h3></h3>
 </div>
-<div id="section-section-4" class="section level3">
+<div id="section-section-5" class="section level3">
 <h3></h3>
 <p>Notice that when you execute a line of code which just calls the name of a data frame, a snippet of that data frame is printed out. This is true for other objects (variables, vectors, functions, etc) in R as well.</p>
 </div>
-<div id="section-section-5" class="section level3">
+<div id="section-section-6" class="section level3">
 <h3></h3>
 <p><strong>Some Basic Exploratory Functions:</strong> It is useful to know more about your dataset when you first start working with data. R has a few exploratory functions which you should know about: <code>names(mpg)</code> prints out a list of names of your data frame’s columns, <code>head(mpg)</code> will show you the first six rows of the <code>mpg</code> dataset, <code>dim(mpg)</code> will show you the number of rows and columns in the dataset, and <code>glimpse(mpg)</code> will show you information about how R is treating the columns (<code>int</code> and <code>num</code> denote numerical values while <code>chr</code> and <code>fct</code> represent character strings and categorical variables respectively). Use the code block below to try each of these functions and use the output to answer the following questions:</p>
 <div class="tutorial-exercise" data-label="explore-mpg-dataframe" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
@@ -210,7 +216,7 @@ if (window.hljs) {
 </div>
 </div>
 </div>
-<div id="section-section-6" class="section level3">
+<div id="section-section-7" class="section level3">
 <h3></h3>
 <p>The <code>diamonds</code> data frame is also available to you. See if you can get your basic exploratory functions to help you answer the same questions about the <code>diamonds</code> dataset using the code block below.</p>
 <div class="tutorial-exercise" data-label="explore-diamonds" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
@@ -218,9 +224,8 @@ if (window.hljs) {
 </div>
 <p>Were you able to obtain the information you were looking for? Be sure to ask a question if not!</p>
 </div>
-</div>
-<div id="section-building-and-interpreting-plots" class="section level2">
-<h2>Building and interpreting plots</h2>
+<div id="section-building-and-interpreting-plots" class="section level3">
+<h3>Building and interpreting plots</h3>
 <p>The code below creates a plot of highway miles per gallon (<code>hwy</code>) against engine displacement <code>displ</code> (a measure of the size of an engine).</p>
 <pre class="r"><code>ggplot(data = mpg) + geom_point(mapping = aes(x = displ, y = hwy))</code></pre>
 <p><img src="4_DataViz_files/figure-html/unnamed-chunk-2-1.png" width="624" /></p>
@@ -250,8 +255,6 @@ if (window.hljs) {
 <script>if (Tutorial.triggerMathJax) Tutorial.triggerMathJax()</script>
 </div>
 </div>
-<div id="section-section-7" class="section level3">
-<h3></h3>
 </div>
 <div id="section-section-8" class="section level3">
 <h3></h3>
@@ -321,12 +324,11 @@ if (window.hljs) {
 </div>
 <div id="section-section-13" class="section level3">
 <h3></h3>
-<p><strong>Note:</strong> There are many different geom types, and different aesthetic properties which can be passed to geoms. We will see examples throughout the rest of this tutorial, but reading the entirety of Chapter 3 in Hadley Wickham’s <a href="http://r4ds.had.co.nz/data-visualisation.html">R for Data Science</a> would be a great start for those of you who are more interested in data visualization.</p>
+<p><strong>Note:</strong> There are many different geom types, and different aesthetic properties which can be passed to geoms. We will see examples throughout the rest of this workbook, but reading the entirety of Chapter 3 in Hadley Wickham’s <a href="http://r4ds.had.co.nz/data-visualisation.html">R for Data Science</a> would be a great start for those of you who are more interested in data visualization.</p>
 </div>
-</div>
-<div id="section-plotting-more-than-two-variables-at-once" class="section level2">
-<h2>Plotting more than two variables at once</h2>
-<p>Let’s go back to our original plot of <code>hwy</code> versus <code>displ</code>. Maybe we want to color the points in the scatterplot according to the class of the vehicle. Add a third aesthetic, <code>color = class</code> to the code below and re-run the plot.</p>
+<div id="section-plotting-more-than-two-variables-at-once" class="section level3">
+<h3>Plotting more than two variables at once</h3>
+<p>Let’s go back to our original plot of <code>hwy</code> versus <code>displ</code>. Maybe we want to color the points in the scatterplot according to the class of the vehicle. Add a third asthetic, <code>color = class</code> to the code below and re-run the plot.</p>
 <div class="tutorial-exercise" data-label="hwy-displ-class-plot" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
 <pre class="text"><code>ggplot(data = mpg) + geom_point(mapping = aes(x = displ, y = hwy))</code></pre>
 <img src="4_DataViz_files/figure-html/hwy-displ-class-plot-1.png" width="624" />
@@ -335,10 +337,8 @@ if (window.hljs) {
 <div class="tutorial-exercise-support" data-label="hwy-displ-class-plot-solution" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
 <pre class="text"><code>ggplot(data = mpg) + geom_point(mapping = aes(x = displ, y = hwy, color = class))</code></pre>
 </div>
-<div id="section-section-14" class="section level3">
-<h3></h3>
 </div>
-<div id="section-section-15" class="section level3">
+<div id="section-section-14" class="section level3">
 <h3></h3>
 <p>There’s a lot going on here, and it is hard to read. Try copying the above plotting command, but appending <code>facet_wrap(~ class, nrow = 2)</code> as a new layer to the plot – notice that plot layers are added with the <code>+</code> symbol. Again, think about the resulting plot and how it compares to your previous colored plot.</p>
 <div class="tutorial-exercise" data-label="facet-wrapped-plot" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
@@ -349,7 +349,7 @@ if (window.hljs) {
 <pre class="text"><code>ggplot(data = mpg) + geom_point(mapping = aes(x = displ, y = hwy, color = class)) + facet_wrap(~ class, nrow = 2)</code></pre>
 </div>
 </div>
-<div id="section-section-16" class="section level3">
+<div id="section-section-15" class="section level3">
 <h3></h3>
 <div class="panel panel-default">
 <div data-label="understand-nrow-arg" class="tutorial-question panel-body">
@@ -360,17 +360,14 @@ if (window.hljs) {
 </div>
 </div>
 </div>
-</div>
-<div id="section-categorical-variables" class="section level2">
-<h2>Categorical Variables</h2>
-<p>We’ve seen plots for categorical variables earlier in this tutorial. Let’s revisit a barplot with fill, similar to the one we constructed between <code>class</code> and <code>drv</code> earlier and check two alternative plots which give different insights. We’ll explore the transmission variable (I’ve stored a more usable version of the <code>trans</code> variable as <code>trans2</code>) and the drive variable (<code>drv</code>).</p>
+<div id="section-categorical-variables" class="section level3">
+<h3>Categorical Variables</h3>
+<p>We’ve seen plots for categorical variables earlier in this workbook. Let’s revisit a barplot with fill, similar to the one we constructed between <code>class</code> and <code>drv</code> earlier and check two alternative plots which give different insights. We’ll explore the transmission variable (I’ve stored a more usable version of the <code>trans</code> variable as <code>trans2</code>) and the drive variable (<code>drv</code>).</p>
 <pre class="r"><code>mpg_with_trans &lt;- mpg
 mpg_with_trans$trans2 &lt;- str_sub(mpg_with_trans$trans, 1, -5)</code></pre>
 <p>We’ll switch to using the <code>mpg_with_trans</code> data frame for the rest of this notebook.</p>
-<div id="section-section-17" class="section level3">
-<h3></h3>
 </div>
-<div id="section-section-18" class="section level3">
+<div id="section-section-16" class="section level3">
 <h3></h3>
 <p>From the plot below we can tell that there are about twice as many vehicles in our dataset with automatic transmissions as there are with manual transmissions. The problem is that it is difficult to compare the proportions of drive types within each of these classes. We can fix this by using the position argument. Outside of <code>aes()</code> but still within <code>mapping()</code> add an argument <code>position = "fill"</code> to the pre-built plot – you’ll need to include a comma after <code>aes()</code> since commas separate arguments. Think about what is gained and lost in this new plot.</p>
 <div class="tutorial-exercise" data-label="trans-drv-plot" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
@@ -382,16 +379,15 @@ mpg_with_trans$trans2 &lt;- str_sub(mpg_with_trans$trans, 1, -5)</code></pre>
 <pre class="text"><code>ggplot(data = mpg_with_trans) + geom_bar(mapping = aes(x = trans2, fill = drv), position = &quot;fill&quot;)</code></pre>
 </div>
 </div>
-<div id="section-section-19" class="section level3">
+<div id="section-section-17" class="section level3">
 <h3></h3>
 <p>Great! But the problem now is that we’ve lost the idea that there are more automatic vehicles than there are manual vehicles in this dataset. As a third option, we can consider a mosaic plot.</p>
 <pre class="r"><code>mosaicplot(mpg_with_trans$trans2 ~ mpg_with_trans$drv, main = &quot;Transmission and Drive Types&quot;)</code></pre>
 <p><img src="4_DataViz_files/figure-html/unnamed-chunk-3-1.png" width="624" /></p>
-<p>The advantage to the mosaic plot is that it contains all of the information from the two separate plots above, but it is all combined into one plot! We’ve built a visualization that manages to convey that the proportion of manual vehicles in our dataset outweighs the proportion of automatics, and we can also compare the distribution of drive types within each of these two classes. Notice, however, that the syntax for the mosaic plot is not like the <code>ggplot()</code> syntax we’ve been experimenting with throughout this tutorial.</p>
+<p>The advantage to the mosaic plot is that it contains all of the information from the two separate plots above, but it is all combined into one plot! We’ve built a visualization that manages to convey that the proportion of manual vehicles in our dataset outweighs the proportion of automatics, and we can also compare the distribution of drive types within each of these two classes. Notice, however, that the syntax for the mosaic plot is not like the <code>ggplot()</code> syntax we’ve been experimenting with throughout this workbook.</p>
 </div>
-</div>
-<div id="section-submit" class="section level2">
-<h2>Submit</h2>
+<div id="section-submit" class="section level3">
+<h3>Submit</h3>
 <div class="encoder_ui">
 <div>
 If you have completed this tutorial and are happy with all of your
@@ -461,10 +457,16 @@ submit it using the corresponding tutorial assignment tab on Blackboard
       });</script>
 </div>
 </div>
-<div id="section-summary" class="section level2">
-<h2>Summary</h2>
+<div id="section-summary" class="section level3">
+<h3>Summary</h3>
+</div>
+<div id="section-section-18" class="section level3">
+<h3></h3>
 <p>Congratulations! You made it through a first discussion on data visualization. You should know, however, that this is just the “tip of the iceberg” – there’s much more to learn. I’ve already suggested the Data Visualization chapter of Hadley Wickham’s <em>R for Data Science</em>, but he also has an entire book devoted to the <code>ggplot2</code> package in R – check it out if you are interested in learning more!</p>
-<p>In this tutorial you learned the following:</p>
+</div>
+<div id="section-section-19" class="section level3">
+<h3></h3>
+<p>In this workbook you learned the following:</p>
 <ul>
 <li>Variable types dictate the kinds of plots which can be used to create effective visuals. Always consider your variable types!</li>
 <li>Plotting with <code>ggplot()</code> follows a <em>grammar of graphics</em> and layered plotting structure, with “<code>+</code>” separating each plot layer. The structure of a <code>ggplot</code> is as follows:
@@ -473,7 +475,10 @@ submit it using the corresponding tutorial assignment tab on Blackboard
 </center></li>
 <li>There are entire courses devoted to data visualization. You’ve had a crash course here but there is much more to be learned. Check out the two Wickham books, use the <code>ggplot2</code> <a href="https://ggplot2.tidyverse.org/reference/">documentation</a>, or check out <a href="https://rstudio.com/wp-content/uploads/2015/03/ggplot2-cheatsheet.pdf">this cheatsheet</a> for more inspiration!</li>
 </ul>
-<strong>A final note:</strong> These interactive tutorials allow me to hide some of the setup requirements from you so that we can focus on the task at hand – in this tutorial, plotting. When you make the switch to using a standalone R instance you’ll need to install and load libraries to expand R’s functionality. You can do this with the <code>install.packages()</code> and <code>library()</code> functions. You would need the <code>ggplot2</code> or <code>tidyverse</code> libraries to run the code for this tutorial in a local R session. 
+</div>
+<div id="section-section-20" class="section level3">
+<h3></h3>
+<strong>A final note:</strong> These interactive workbooks allow me to hide some of the setup requirements from you so that we can focus on the task at hand – in this workbook, plotting. When you make the switch to using a standalone R instance you’ll need to install and load libraries to expand R’s functionality. You can do this with the <code>install.packages()</code> and <code>library()</code> functions. You would need the <code>ggplot2</code> or <code>tidyverse</code> libraries to run the code for this workbook in a local R session. 
 <script type="application/shiny-prerendered" data-context="server-start">
 #knitr::opts_chunk$set(eval = FALSE)
 #library(tidyverse)
@@ -490,7 +495,7 @@ data <- data.frame("FuelType" = c("F1", "F1", "F1", "F2", "F2", "F2"), "EngineBr
 </script>
  
 <script type="application/shiny-prerendered" data-context="server">
-learnr:::register_http_handlers(session, metadata = NULL)
+learnr:::register_http_handlers(session, metadata = list(id = "DataViz.Topic4.AppliedStats", version = 1))
 </script>
  
 <script type="application/shiny-prerendered" data-context="server">
@@ -551,20 +556,20 @@ learnr:::store_exercise_cache(structure(list(global_setup = structure(c("#knitr:
 <script type="application/shiny-prerendered" data-context="server">
 learnr:::question_prerendered_chunk(structure(list(type = "learnr_checkbox", label = "need-for-spread", 
     question = structure("Which of the following plot types would have been a better choice to display the engine brand and fuel type data?", html = TRUE, class = c("html", 
-    "character")), answers = list(structure(list(id = "lnr_ans_76ff8e0", 
+    "character")), answers = list(structure(list(id = "lnr_ans_1d2be37", 
         option = "A histogram", value = "A histogram", label = structure("A histogram", html = TRUE, class = c("html", 
         "character")), correct = FALSE, message = NULL), class = c("tutorial_question_answer", 
-    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_dfb54aa", 
+    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_f3cfef5", 
         option = "A barplot with fill color", value = "A barplot with fill color", 
         label = structure("A barplot with fill color", html = TRUE, class = c("html", 
         "character")), correct = TRUE, message = NULL), class = c("tutorial_question_answer", 
-    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_50f97dc", 
+    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_1e7f614", 
         option = "A heatmap", value = "A heatmap", label = structure("A heatmap", html = TRUE, class = c("html", 
         "character")), correct = TRUE, message = NULL), class = c("tutorial_question_answer", 
-    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_8700789", 
+    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_1834ce7", 
         option = "A dotplot", value = "A dotplot", label = structure("A dotplot", html = TRUE, class = c("html", 
         "character")), correct = FALSE, message = NULL), class = c("tutorial_question_answer", 
-    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_744b950", 
+    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_d907f88", 
         option = "Side-by-side boxplots", value = "Side-by-side boxplots", 
         label = structure("Side-by-side boxplots", html = TRUE, class = c("html", 
         "character")), correct = FALSE, message = NULL), class = c("tutorial_question_answer", 
@@ -577,7 +582,7 @@ learnr:::question_prerendered_chunk(structure(list(type = "learnr_checkbox", lab
         answer = "need-for-spread-answer", question = "need-for-spread"), 
     loading = structure("<strong>Loading:<\u002fstrong> \nWhich of the following plot types would have been a better choice to display the engine brand and fuel type data?\n<br/><br/><br/>", html = TRUE, class = c("html", 
     "character")), random_answer_order = FALSE, allow_retry = TRUE, 
-    seed = 600489763.220375, options = list()), class = c("learnr_checkbox", 
+    seed = 883282921.588689, options = list()), class = c("learnr_checkbox", 
 "tutorial_question")), session = session)
 </script>
  
@@ -669,19 +674,19 @@ learnr:::store_exercise_cache(structure(list(global_setup = structure(c("#knitr:
 <script type="application/shiny-prerendered" data-context="server">
 learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label = "mpg-basic-description-1", 
     question = structure("How many variables are contained in the mpg dataset?", html = TRUE, class = c("html", 
-    "character")), answers = list(structure(list(id = "lnr_ans_7ab2732", 
+    "character")), answers = list(structure(list(id = "lnr_ans_3cea93f", 
         option = "1", value = "1", label = structure("1", html = TRUE, class = c("html", 
         "character")), correct = FALSE, message = NULL), class = c("tutorial_question_answer", 
-    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_3f190b", 
+    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_2e39e96", 
         option = "11", value = "11", label = structure("11", html = TRUE, class = c("html", 
         "character")), correct = TRUE, message = NULL), class = c("tutorial_question_answer", 
-    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_ef2bb17", 
+    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_3449c99", 
         option = "234", value = "234", label = structure("234", html = TRUE, class = c("html", 
         "character")), correct = FALSE, message = NULL), class = c("tutorial_question_answer", 
-    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_a4e4ea7", 
+    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_445bf19", 
         option = "245", value = "245", label = structure("245", html = TRUE, class = c("html", 
         "character")), correct = FALSE, message = NULL), class = c("tutorial_question_answer", 
-    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_d66e108", 
+    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_e13c008", 
         option = "2574", value = "2574", label = structure("2574", html = TRUE, class = c("html", 
         "character")), correct = FALSE, message = NULL), class = c("tutorial_question_answer", 
     "tutorial_quiz_answer"))), button_labels = list(submit = structure("<span data-i18n=\"button.questionsubmit\">Submit Answer<\u002fspan>", html = TRUE, class = c("html", 
@@ -693,26 +698,26 @@ learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label 
         answer = "mpg-basic-description-1-answer", question = "mpg-basic-description-1"), 
     loading = structure("<strong>Loading:<\u002fstrong> \nHow many variables are contained in the mpg dataset?\n<br/><br/><br/>", html = TRUE, class = c("html", 
     "character")), random_answer_order = FALSE, allow_retry = TRUE, 
-    seed = 191335757.910902, options = list()), class = c("learnr_radio", 
+    seed = 288127723.86583, options = list()), class = c("learnr_radio", 
 "tutorial_question")), session = session)
 </script>
  
 <script type="application/shiny-prerendered" data-context="server">
 learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label = "mpg-basic-description-2", 
     question = structure("How many observations (records) are contained in the mpg dataset?", html = TRUE, class = c("html", 
-    "character")), answers = list(structure(list(id = "lnr_ans_e3aa1f2", 
+    "character")), answers = list(structure(list(id = "lnr_ans_d0a3e25", 
         option = "1", value = "1", label = structure("1", html = TRUE, class = c("html", 
         "character")), correct = FALSE, message = NULL), class = c("tutorial_question_answer", 
-    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_e552166", 
+    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_dae2028", 
         option = "11", value = "11", label = structure("11", html = TRUE, class = c("html", 
         "character")), correct = FALSE, message = NULL), class = c("tutorial_question_answer", 
-    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_bc10435", 
+    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_1f21c9f", 
         option = "234", value = "234", label = structure("234", html = TRUE, class = c("html", 
         "character")), correct = TRUE, message = NULL), class = c("tutorial_question_answer", 
-    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_f6405ef", 
+    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_a317674", 
         option = "245", value = "245", label = structure("245", html = TRUE, class = c("html", 
         "character")), correct = FALSE, message = NULL), class = c("tutorial_question_answer", 
-    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_ec60157", 
+    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_c5a1cef", 
         option = "2574", value = "2574", label = structure("2574", html = TRUE, class = c("html", 
         "character")), correct = FALSE, message = NULL), class = c("tutorial_question_answer", 
     "tutorial_quiz_answer"))), button_labels = list(submit = structure("<span data-i18n=\"button.questionsubmit\">Submit Answer<\u002fspan>", html = TRUE, class = c("html", 
@@ -724,41 +729,41 @@ learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label 
         answer = "mpg-basic-description-2-answer", question = "mpg-basic-description-2"), 
     loading = structure("<strong>Loading:<\u002fstrong> \nHow many observations (records) are contained in the mpg dataset?\n<br/><br/><br/>", html = TRUE, class = c("html", 
     "character")), random_answer_order = FALSE, allow_retry = TRUE, 
-    seed = 1070603642.50146, options = list()), class = c("learnr_radio", 
+    seed = 1057264569.00767, options = list()), class = c("learnr_radio", 
 "tutorial_question")), session = session)
 </script>
  
 <script type="application/shiny-prerendered" data-context="server">
 learnr:::question_prerendered_chunk(structure(list(type = "learnr_checkbox", label = "mpg-basic-description-3", 
     question = structure("Which of the variables is R interpreting as numerical?", html = TRUE, class = c("html", 
-    "character")), answers = list(structure(list(id = "lnr_ans_b38ec1f", 
+    "character")), answers = list(structure(list(id = "lnr_ans_96b908", 
         option = "manufacturer", value = "manufacturer", label = structure("manufacturer", html = TRUE, class = c("html", 
         "character")), correct = FALSE, message = NULL), class = c("tutorial_question_answer", 
-    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_f8854ac", 
+    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_197980f", 
         option = "model", value = "model", label = structure("model", html = TRUE, class = c("html", 
         "character")), correct = FALSE, message = NULL), class = c("tutorial_question_answer", 
-    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_abc9492", 
+    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_a1b4be", 
         option = "displ", value = "displ", label = structure("displ", html = TRUE, class = c("html", 
         "character")), correct = TRUE, message = NULL), class = c("tutorial_question_answer", 
-    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_194d92", 
+    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_2a2cb29", 
         option = "cyl", value = "cyl", label = structure("cyl", html = TRUE, class = c("html", 
         "character")), correct = TRUE, message = NULL), class = c("tutorial_question_answer", 
-    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_af4c642", 
+    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_571a56e", 
         option = "trans", value = "trans", label = structure("trans", html = TRUE, class = c("html", 
         "character")), correct = FALSE, message = NULL), class = c("tutorial_question_answer", 
-    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_c6fea14", 
+    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_8c19be", 
         option = "drv", value = "drv", label = structure("drv", html = TRUE, class = c("html", 
         "character")), correct = FALSE, message = NULL), class = c("tutorial_question_answer", 
-    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_764f917", 
+    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_6c75533", 
         option = "cty", value = "cty", label = structure("cty", html = TRUE, class = c("html", 
         "character")), correct = TRUE, message = NULL), class = c("tutorial_question_answer", 
-    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_80ad181", 
+    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_c90578e", 
         option = "hwy", value = "hwy", label = structure("hwy", html = TRUE, class = c("html", 
         "character")), correct = TRUE, message = NULL), class = c("tutorial_question_answer", 
-    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_4488faf", 
+    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_a85155c", 
         option = "fl", value = "fl", label = structure("fl", html = TRUE, class = c("html", 
         "character")), correct = FALSE, message = NULL), class = c("tutorial_question_answer", 
-    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_3c27947", 
+    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_7232c4b", 
         option = "class", value = "class", label = structure("class", html = TRUE, class = c("html", 
         "character")), correct = FALSE, message = NULL), class = c("tutorial_question_answer", 
     "tutorial_quiz_answer"))), button_labels = list(submit = structure("<span data-i18n=\"button.questionsubmit\">Submit Answer<\u002fspan>", html = TRUE, class = c("html", 
@@ -770,7 +775,7 @@ learnr:::question_prerendered_chunk(structure(list(type = "learnr_checkbox", lab
         answer = "mpg-basic-description-3-answer", question = "mpg-basic-description-3"), 
     loading = structure("<strong>Loading:<\u002fstrong> \nWhich of the variables is R interpreting as numerical?\n<br/><br/><br/>", html = TRUE, class = c("html", 
     "character")), random_answer_order = FALSE, allow_retry = TRUE, 
-    seed = 1017210163.52632, options = list()), class = c("learnr_checkbox", 
+    seed = 1817979536.65344, options = list()), class = c("learnr_checkbox", 
 "tutorial_question")), session = session)
 </script>
  
@@ -818,22 +823,22 @@ learnr:::store_exercise_cache(structure(list(global_setup = structure(c("#knitr:
 <script type="application/shiny-prerendered" data-context="server">
 learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label = "interpret-displ-hwy-plot-1", 
     question = structure("Which of the following is true?", html = TRUE, class = c("html", 
-    "character")), answers = list(structure(list(id = "lnr_ans_7038c46", 
+    "character")), answers = list(structure(list(id = "lnr_ans_6902a13", 
         option = "Highway miles per gallon and engine displacement are independent", 
         value = "Highway miles per gallon and engine displacement are independent", 
         label = structure("Highway miles per gallon and engine displacement are independent", html = TRUE, class = c("html", 
         "character")), correct = FALSE, message = NULL), class = c("tutorial_question_answer", 
-    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_b46d322", 
+    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_930bb4", 
         option = "Highway miles per gallon and engine displacement are associated", 
         value = "Highway miles per gallon and engine displacement are associated", 
         label = structure("Highway miles per gallon and engine displacement are associated", html = TRUE, class = c("html", 
         "character")), correct = TRUE, message = NULL), class = c("tutorial_question_answer", 
-    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_39b581", 
+    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_1022a39", 
         option = "It is impossible to tell whenther the variables are associated or independent", 
         value = "It is impossible to tell whenther the variables are associated or independent", 
         label = structure("It is impossible to tell whenther the variables are associated or independent", html = TRUE, class = c("html", 
         "character")), correct = FALSE, message = NULL), class = c("tutorial_question_answer", 
-    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_298f4e3", 
+    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_e5aeaf8", 
         option = "Highway miles per gallon and engine displacement are both independent and associated", 
         value = "Highway miles per gallon and engine displacement are both independent and associated", 
         label = structure("Highway miles per gallon and engine displacement are both independent and associated", html = TRUE, class = c("html", 
@@ -848,29 +853,29 @@ learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label 
         answer = "interpret-displ-hwy-plot-1-answer", question = "interpret-displ-hwy-plot-1"), 
     loading = structure("<strong>Loading:<\u002fstrong> \nWhich of the following is true?\n<br/><br/><br/>", html = TRUE, class = c("html", 
     "character")), random_answer_order = FALSE, allow_retry = TRUE, 
-    seed = 1583217276.26276, options = list()), class = c("learnr_radio", 
+    seed = 445915704.792354, options = list()), class = c("learnr_radio", 
 "tutorial_question")), session = session)
 </script>
  
 <script type="application/shiny-prerendered" data-context="server">
 learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label = "interpret-displ-hwy-plot-2", 
     question = structure("Describe the relationship between highway miles per gallon and engine displacement", html = TRUE, class = c("html", 
-    "character")), answers = list(structure(list(id = "lnr_ans_baf6001", 
+    "character")), answers = list(structure(list(id = "lnr_ans_a047b05", 
         option = "Engine displacement and highway miles per gallon share a negative, linear relationship", 
         value = "Engine displacement and highway miles per gallon share a negative, linear relationship", 
         label = structure("Engine displacement and highway miles per gallon share a negative, linear relationship", html = TRUE, class = c("html", 
         "character")), correct = FALSE, message = NULL), class = c("tutorial_question_answer", 
-    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_8f95585", 
+    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_1b568f7", 
         option = "Engine displacement and highway miles per gallon share a positive, linear relationship", 
         value = "Engine displacement and highway miles per gallon share a positive, linear relationship", 
         label = structure("Engine displacement and highway miles per gallon share a positive, linear relationship", html = TRUE, class = c("html", 
         "character")), correct = FALSE, message = NULL), class = c("tutorial_question_answer", 
-    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_ace281f", 
+    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_2a3d7fa", 
         option = "Engine displacement and highway miles per gallon share a negative, non-linear relationship", 
         value = "Engine displacement and highway miles per gallon share a negative, non-linear relationship", 
         label = structure("Engine displacement and highway miles per gallon share a negative, non-linear relationship", html = TRUE, class = c("html", 
         "character")), correct = TRUE, message = NULL), class = c("tutorial_question_answer", 
-    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_5b364dc", 
+    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_7cd0761", 
         option = "Engine displacement and highway miles per gallon share a positive, non-linear relationship", 
         value = "Engine displacement and highway miles per gallon share a positive, non-linear relationship", 
         label = structure("Engine displacement and highway miles per gallon share a positive, non-linear relationship", html = TRUE, class = c("html", 
@@ -884,30 +889,30 @@ learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label 
         answer = "interpret-displ-hwy-plot-2-answer", question = "interpret-displ-hwy-plot-2"), 
     loading = structure("<strong>Loading:<\u002fstrong> \nDescribe the relationship between highway miles per gallon and engine displacement\n<br/><br/><br/>", html = TRUE, class = c("html", 
     "character")), random_answer_order = FALSE, allow_retry = TRUE, 
-    seed = 1931096181.10076, options = list()), class = c("learnr_radio", 
+    seed = 2086600390.02835, options = list()), class = c("learnr_radio", 
 "tutorial_question")), session = session)
 </script>
  
 <script type="application/shiny-prerendered" data-context="server">
 learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label = "interpret-displ-hwy-plot-3", 
     question = structure("Which is the best practical interpretation of the plot?", html = TRUE, class = c("html", 
-    "character")), answers = list(structure(list(id = "lnr_ans_c1774e", 
+    "character")), answers = list(structure(list(id = "lnr_ans_4251a3c", 
         option = "Generally, engines with higher displacement are associated with lower average highway miles per gallon ratings", 
         value = "Generally, engines with higher displacement are associated with lower average highway miles per gallon ratings", 
         label = structure("Generally, engines with higher displacement are associated with lower average highway miles per gallon ratings", html = TRUE, class = c("html", 
         "character")), correct = TRUE, message = NULL), class = c("tutorial_question_answer", 
-    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_e7ea086", 
+    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_4fbb926", 
         option = "Generally, engines with higher displacement are associated with higher average highway miles per gallon ratings", 
         value = "Generally, engines with higher displacement are associated with higher average highway miles per gallon ratings", 
         label = structure("Generally, engines with higher displacement are associated with higher average highway miles per gallon ratings", html = TRUE, class = c("html", 
         "character")), correct = FALSE, message = NULL), class = c("tutorial_question_answer", 
-    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_734def3", 
+    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_5edb664", 
         option = "Higher engine displacement causes lower average highway miles per gallon ratings", 
         value = "Higher engine displacement causes lower average highway miles per gallon ratings", 
         label = structure("Higher engine displacement causes lower average highway miles per gallon ratings", html = TRUE, class = c("html", 
         "character")), correct = FALSE, message = structure("Be careful. Can you find a pair of vehicles in the plot where the one with a larger level of displacement has higher fuel economy? In general, we need to be very careful about statements of cause and effect -- they can only be made if very strict requirements are satisfied.", html = TRUE, class = c("html", 
         "character"))), class = c("tutorial_question_answer", 
-    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_3d47247", 
+    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_530301b", 
         option = "Engine displacement causes higher average highway miles per gallon ratings", 
         value = "Engine displacement causes higher average highway miles per gallon ratings", 
         label = structure("Engine displacement causes higher average highway miles per gallon ratings", html = TRUE, class = c("html", 
@@ -921,7 +926,7 @@ learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label 
         answer = "interpret-displ-hwy-plot-3-answer", question = "interpret-displ-hwy-plot-3"), 
     loading = structure("<strong>Loading:<\u002fstrong> \nWhich is the best practical interpretation of the plot?\n<br/><br/><br/>", html = TRUE, class = c("html", 
     "character")), random_answer_order = FALSE, allow_retry = TRUE, 
-    seed = 419652914.304584, options = list()), class = c("learnr_radio", 
+    seed = 1625455165.24309, options = list()), class = c("learnr_radio", 
 "tutorial_question")), session = session)
 </script>
  
@@ -1054,22 +1059,22 @@ learnr:::store_exercise_cache(structure(list(global_setup = structure(c("#knitr:
 <script type="application/shiny-prerendered" data-context="server">
 learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label = "plot-class-drv-basics-1", 
     question = structure("Why would a scatterplot not be an appropriate visual to use with these two variables?", html = TRUE, class = c("html", 
-    "character")), answers = list(structure(list(id = "lnr_ans_fabb427", 
+    "character")), answers = list(structure(list(id = "lnr_ans_843c5f9", 
         option = "Trick question -- a scatterplot is always appropriate", 
         value = "Trick question -- a scatterplot is always appropriate", 
         label = structure("Trick question -- a scatterplot is always appropriate", html = TRUE, class = c("html", 
         "character")), correct = FALSE, message = NULL), class = c("tutorial_question_answer", 
-    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_6b1ba98", 
+    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_a6e9fc3", 
         option = "At least one of the two variables is not numerical", 
         value = "At least one of the two variables is not numerical", 
         label = structure("At least one of the two variables is not numerical", html = TRUE, class = c("html", 
         "character")), correct = TRUE, message = NULL), class = c("tutorial_question_answer", 
-    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_5d5a33a", 
+    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_73b6d89", 
         option = "A scatterplot would be okay but there are better options", 
         value = "A scatterplot would be okay but there are better options", 
         label = structure("A scatterplot would be okay but there are better options", html = TRUE, class = c("html", 
         "character")), correct = FALSE, message = NULL), class = c("tutorial_question_answer", 
-    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_5baf00", 
+    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_65e088e", 
         option = "There isn't enough data for a scatterplot", 
         value = "There isn't enough data for a scatterplot", 
         label = structure("There isn&#39;t enough data for a scatterplot", html = TRUE, class = c("html", 
@@ -1083,28 +1088,28 @@ learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label 
         answer = "plot-class-drv-basics-1-answer", question = "plot-class-drv-basics-1"), 
     loading = structure("<strong>Loading:<\u002fstrong> \nWhy would a scatterplot not be an appropriate visual to use with these two variables?\n<br/><br/><br/>", html = TRUE, class = c("html", 
     "character")), random_answer_order = FALSE, allow_retry = TRUE, 
-    seed = 1606036476.25213, options = list()), class = c("learnr_radio", 
+    seed = 1639362579.23661, options = list()), class = c("learnr_radio", 
 "tutorial_question")), session = session)
 </script>
  
 <script type="application/shiny-prerendered" data-context="server">
 learnr:::question_prerendered_chunk(structure(list(type = "learnr_checkbox", label = "plot-class-drv-basics-2", 
     question = structure("Which of the following plot types would be appropriate for building a visual with the class and drive type variables?", html = TRUE, class = c("html", 
-    "character")), answers = list(structure(list(id = "lnr_ans_989e07a", 
+    "character")), answers = list(structure(list(id = "lnr_ans_1602732", 
         option = "A histogram", value = "A histogram", label = structure("A histogram", html = TRUE, class = c("html", 
         "character")), correct = FALSE, message = NULL), class = c("tutorial_question_answer", 
-    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_6e66f91", 
+    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_a8fb1ce", 
         option = "A side-by-side boxplot", value = "A side-by-side boxplot", 
         label = structure("A side-by-side boxplot", html = TRUE, class = c("html", 
         "character")), correct = FALSE, message = NULL), class = c("tutorial_question_answer", 
-    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_4df9d2c", 
+    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_15db43", 
         option = "A bar graph with fill color", value = "A bar graph with fill color", 
         label = structure("A bar graph with fill color", html = TRUE, class = c("html", 
         "character")), correct = TRUE, message = NULL), class = c("tutorial_question_answer", 
-    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_6f72119", 
+    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_10393c2", 
         option = "A heatmap", value = "A heatmap", label = structure("A heatmap", html = TRUE, class = c("html", 
         "character")), correct = TRUE, message = NULL), class = c("tutorial_question_answer", 
-    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_e296dff", 
+    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_4a145", 
         option = "A mosaicplot", value = "A mosaicplot", label = structure("A mosaicplot", html = TRUE, class = c("html", 
         "character")), correct = TRUE, message = NULL), class = c("tutorial_question_answer", 
     "tutorial_quiz_answer"))), button_labels = list(submit = structure("<span data-i18n=\"button.questionsubmit\">Submit Answer<\u002fspan>", html = TRUE, class = c("html", 
@@ -1116,7 +1121,7 @@ learnr:::question_prerendered_chunk(structure(list(type = "learnr_checkbox", lab
         answer = "plot-class-drv-basics-2-answer", question = "plot-class-drv-basics-2"), 
     loading = structure("<strong>Loading:<\u002fstrong> \nWhich of the following plot types would be appropriate for building a visual with the class and drive type variables?\n<br/><br/><br/>", html = TRUE, class = c("html", 
     "character")), random_answer_order = TRUE, allow_retry = TRUE, 
-    seed = 1610937033.74985, options = list()), class = c("learnr_checkbox", 
+    seed = 841570649.108113, options = list()), class = c("learnr_checkbox", 
 "tutorial_question")), session = session)
 </script>
  
@@ -1254,25 +1259,25 @@ learnr:::store_exercise_cache(structure(list(global_setup = structure(c("#knitr:
 <script type="application/shiny-prerendered" data-context="server">
 learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label = "understand-nrow-arg", 
     question = structure("What does setting the argument <code>nrow = 2<\u002fcode> do? Don&#39;t guess -- think about how you can determine what the nrow argument here does.", html = TRUE, class = c("html", 
-    "character")), answers = list(structure(list(id = "lnr_ans_71c82f6", 
+    "character")), answers = list(structure(list(id = "lnr_ans_55477af", 
         option = "It is impossible to tell", value = "It is impossible to tell", 
         label = structure("It is impossible to tell", html = TRUE, class = c("html", 
         "character")), correct = FALSE, message = NULL), class = c("tutorial_question_answer", 
-    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_bdd0d8c", 
+    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_e21e8df", 
         option = "It tells the ggplot to only use half the data so that plots are less cluttered", 
         value = "It tells the ggplot to only use half the data so that plots are less cluttered", 
         label = structure("It tells the ggplot to only use half the data so that plots are less cluttered", html = TRUE, class = c("html", 
         "character")), correct = FALSE, message = NULL), class = c("tutorial_question_answer", 
-    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_431bf13", 
+    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_d8e6ca7", 
         option = "It tells R to try arranging the plots into two rows", 
         value = "It tells R to try arranging the plots into two rows", 
         label = structure("It tells R to try arranging the plots into two rows", html = TRUE, class = c("html", 
         "character")), correct = TRUE, message = NULL), class = c("tutorial_question_answer", 
-    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_47dc384", 
+    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_9b41353", 
         option = "It tells R to include two plots per row", value = "It tells R to include two plots per row", 
         label = structure("It tells R to include two plots per row", html = TRUE, class = c("html", 
         "character")), correct = FALSE, message = NULL), class = c("tutorial_question_answer", 
-    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_84ac6ce", 
+    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_d6d9aa0", 
         option = "Nothing -- it is irrelevant and ignored", value = "Nothing -- it is irrelevant and ignored", 
         label = structure("Nothing -- it is irrelevant and ignored", html = TRUE, class = c("html", 
         "character")), correct = FALSE, message = NULL), class = c("tutorial_question_answer", 
@@ -1285,7 +1290,7 @@ learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label 
         answer = "understand-nrow-arg-answer", question = "understand-nrow-arg"), 
     loading = structure("<strong>Loading:<\u002fstrong> \nWhat does setting the argument <code>nrow = 2<\u002fcode> do? Don&#39;t guess -- think about how you can determine what the nrow argument here does.\n<br/><br/><br/>", html = TRUE, class = c("html", 
     "character")), random_answer_order = FALSE, allow_retry = TRUE, 
-    seed = 1138090864.97004, options = list()), class = c("learnr_radio", 
+    seed = 443799288.79334, options = list()), class = c("learnr_radio", 
 "tutorial_question")), session = session)
 </script>
  
@@ -1348,6 +1353,7 @@ learnrhash::encoder_logic(strip_output = TRUE)
 </script>
 <!--/html_preserve-->
 </div>
+</div>
 
 </div> <!-- topics -->
 
@@ -1358,7 +1364,7 @@ learnrhash::encoder_logic(strip_output = TRUE)
 
 <!-- begin doc-metadata -->
 <div id="doc-metadata">
-<h2 class="title toc-ignore" style="display:none;">Tutorial 4: Data Visualization and a Grammar of Graphics</h2>
+<h2 class="title toc-ignore" style="display:none;">Topic 4: Data Visualization and a Grammar of Graphics</h2>
 </div>
 <!-- end doc-metadata -->
 

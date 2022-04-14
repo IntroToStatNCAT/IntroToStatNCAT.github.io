@@ -1,5 +1,8 @@
 ---
-title: "Tutorial 1: An Introduction to Data and Sampling"
+title: "Topic 1: An Introduction to Data and Sampling"
+tutorial:
+  id: "IntroData.Topic1.AppliedStats"
+  version: 1.0
 output: 
   learnr::tutorial:
     progressive: TRUE
@@ -16,13 +19,10 @@ library(gradethis)
 library(gradethis) #remotes::install_github("rstudio/gradethis")
 library(learnrhash) #devtools::install_github("rundel/learnrhash")
 library(openintro)
-library(gapminder)
-library(emo) #devtools::install_github("hadley/emo")
 
 set.seed(42)
-#https://raw.githubusercontent.com/NikhilKumarMutyala/Linear-Regression-from-scartch-on-KC-House-Dataset/master/kc_house_data.csv
 
-houses <- read.csv("https://raw.githubusercontent.com/IntroToStatNCAT/RA_IntroToData/main/houses.csv")
+houses <- read.csv("https://raw.githubusercontent.com/NikhilKumarMutyala/Linear-Regression-from-scartch-on-KC-House-Dataset/master/kc_house_data.csv")
 houses$exterior <- sample(c("brick", "vinyl siding", "shingles", "NA"), size = nrow(houses), prob = c(0.15, 0.7, 0.12, 0.03), replace = TRUE)
 houses$month <- sample(1:12, size = nrow(houses), replace = TRUE)
 housesSubset <- houses[ , c(1, 23, 3, 6, 7, 9, 22)]
@@ -30,23 +30,21 @@ housesSubset <- houses[ , c(1, 23, 3, 6, 7, 9, 22)]
 #knitr::opts_chunk$set(exercise.checker = gradethis::grade_learnr)
 ```
 
-
-## Data and Sampling
-
-If you've never coded before (or even if you have), type `"Your Name"` in the interactive R chunk below and run it by hitting `crtl+Enter` or `cmd+Enter` for MAC users.
+If you've never coded before (or even if you have), type `print("Your Name")` in the interactive R chunk below and run it by hitting `crtl+Enter` or `cmd+Enter` for MAC users.
 
 ```{r Student-Name, exercise = TRUE}
 
 ```
 
-This is the first of a series of interactive tutorials you'll use to engage content from introductory statistics. This tutorial covers an introduction to data, including some background on experimental design and data collection.
+## Data and Sampling
 
-###
+This is the first of a series of interactive workbooks you'll use to engage content from introductory statistics. This workbook covers an introduction to data, including some background on experimental design and data collection.
 
 ### An Introduction to Data
 
+###
 
-In this tutorial you'll encounter two datasets -- one concerning real estate from King County, WA (`houses`) and another containing prices and attributes of almost 54,000 diamonds (`diamonds`). A few rows of the `houses` data is shown below in a convenient form where the rows of data represent *records* (sometimes called **observations**), and the columns represent **variables** (sometimes called **features**). We'll see later in our course that such data is called *tidy*.
+In this workbook you'll encounter two datasets -- one concerning real estate from King County, WA (`houses`) and another containing prices and attributes of almost 54,000 diamonds (`diamonds`). A few rows of the `houses` data is shown below in a convenient form where the rows of data represent *records* (sometimes called **observations**), and the columns represent **variables** (sometimes called **features**). We'll see later in our course that such data is called *tidy*.
 
 ###
 
@@ -67,37 +65,11 @@ You can see the first six rows of the dataset above. A simplified *data dictiona
 + `exterior` provides a description of the exterior covering of the home.
 
 
-## Variable Types
-
-
-In this section, we will delve deeper into the categorization of variables as **numerical and categorical**. This is an important step, as the type of variable helps us determine what summary statistics to calculate, what type of visualizations to make, and what statistical method will be appropriate to answer the research questions we're exploring.
-
-There are two types of variables: numerical and categorical.
-
-- **Numerical**, in other words, quantitative, variables take on numerical values. It is sensible to add, subtract, take averages, and so on, with these values.
-
-- **Categorical**, or qualitative, variables, take on a limited number of distinct categories. These categories can be identified with numbers, for example, it is customary to see likert variables (strongly agree to strongly disagree) coded as 1 through 5, but it wouldn't be sensible to do arithmetic operations with these values. They are merely placeholders for the levels of the categorical variable.
+### Variable Types
 
 ###
 
-### Numerical data
-
-Numerical variables can be further categorized as **continuous or discrete**.
-
-- **Continuous numerical** variables are usually measured, such as height. These variables can take on an infinite number of values within a given range.
-
-- **Discrete numerical** variables are those that take on one of a specific set of numeric values where we are able to count or enumerate all of the possibilities. One example of a discrete variable is number of pets in a household. In general, count data are an example of discrete variables.
-
-When determining whether a numerical variable is continuous or discrete, it is important to think about the nature of the variable and not just the observed value, as rounding of continuous variables can make them appear to be discrete. For example, height is a continuous variable, however we tend to report our height rounded to the nearest unit of measure, like inches or centimeters.
-
-
-### Categorical data
-
-Categorical variables that have ordered levels are called **ordinal**.
-
-Think about a survey question where you're asked how satisfied you are with the customer service you received and the options are very unsatisfied, unsatisfied, neutral, satisfied, and very satisfied. These levels have an inherent ordering, hence the variable would be called ordinal.
-
-If the levels of a categorical variable do not have an inherent ordering to them, then the variable is simply called categorical. For example, do you consume caffeine or not?
+Variables which take on numerical values <u>and</u> for which measures such as the mean, median, or standard deviation are meaningful are referred to as **numerical**. Variables which serve to group data into categories are called **categorical** --  examples include the color of a car or an area code prefix for a telephone number. Note that a telephone area code looks numeric, but since taking their average is meaningless, we consider it to be categorical. It is possible for data to be neither numerical nor categorical -- for example, a **unique identifier** is a non-numeric variable which is unique to each record. A timestamp may be an example of a unique identifier -- all is not lost, however, with a bit of pre-processing we can sometimes extract useful information from these columns.
 
 ###
 
@@ -151,30 +123,18 @@ try_again = "There's just one here!"
 
 The **levels** of a variable are the different (unique) values that the variable takes on. For example, a dataset on students might include a variable called `ClassYear` with the levels *Freshman*, *Sophomore*, *Junior*, *Senior*. Numerical variables also have levels -- usually there are lots of levels corresponding to a numerical variable, but if there are too few, we may be better off considering the corresponding variable to be categorical. For example, if we had a dataset that included a `Year` variable, but the only observed levels in the dataset are 2008 and 2017, we may be better off thinking about `Year` as a categorical variable than as a numerical one.
 
+### Relationships between variables
 
-## Relationships between variables
-
+###
 
 **Association, Independence, Correlation:** Two variables are *associated* with one another if a change in levels of one is generally accompanied by change in the other. That is, larger values of one variable are accompanied by larger (or smaller) values in the other. Think – does knowing something about one of the variables give me any information about the other? If two variables are not associated, then we might say that they are *independent* of one another. Lastly, *correlation* is a way to formally measure the strength of a <u>LINEAR</u> association between two variables. Look at the plots considering characteristics of various diamonds below.
 
 ###
 
-```{r plots-associations-num1, echo = FALSE, eval = TRUE, message = FALSE, warning = FALSE, results = FALSE}
-ggplot(data=diamonds) + geom_point(mapping = aes(x = carat, y = price, col = clarity), alpha = .5, show.legend = F) + labs(title = "Price by Carat", x = "Carat", y = "Price")
-```
-
-
-```{r plots-associations-num2, echo = FALSE, eval = TRUE, message = FALSE, warning = FALSE, results = FALSE}
-ggplot(data=diamonds) + geom_point(mapping = aes(x = carat, y = depth, col = clarity), alpha = .5, show.legend = F) + labs(title = "Carat by Depth", x = "Depth", y = "Carat")
-```
-
-```{r plots-associations-num3, echo = FALSE, eval = TRUE, message = FALSE, warning = FALSE, results = FALSE}
-ggplot(data=diamonds) + geom_point(mapping = aes(x = x, y = y, col = clarity), alpha = .5, show.legend = F) + labs(title = "Length by Width", x = "Length (mm)", y = "Width (mm)")
-```
-
-
-```{r plots-associations-num4, echo = FALSE, eval = TRUE, message = FALSE, warning = FALSE, results = FALSE}
-ggplot(data=diamonds) + geom_point(mapping = aes(x = log(x), y = log(y), col = clarity), alpha = .5, show.legend = F) + labs(title = "Length by Width - Log transformed", x = "Length (mm)", y = "Width (mm)")
+```{r plots-associations-num, echo = FALSE, eval = TRUE, message = FALSE, warning = FALSE, results = FALSE, fig.width = 3, fig.height = 3}
+ggplot(data=diamonds) + geom_point(mapping = aes(x = carat, y = price), color = "blue", alpha = .15) + labs(title = "Price by Carat", x = "Carat", y = "Price")
+ggplot(data=diamonds) + geom_point(mapping = aes(x = carat, y = depth), color = "blue", alpha = .15) + labs(title = "Carat by Depth", x = "Depth", y = "Carat")
+ggplot(data=diamonds) + geom_point(mapping = aes(x = x, y = y), color = "blue", alpha = .15) + labs(title = "Length by Width", x = "Length (mm)", y = "Width (mm)")
 ```
 
 ###
@@ -238,7 +198,7 @@ allow_retry = TRUE
 
 ###
 
-Did you get the previous question right on the first try? Think about why the answer is as this tutorial indicates and ask a question if you need more clarification.
+Did you get the previous question right on the first try? Think about why the answer is as this workbook indicates and ask a question if you need more clarification.
 
 ###
 
@@ -248,231 +208,82 @@ Did you get the previous question right on the first try? Think about why the an
 
 We'll find that we can't just answer these questions by looking at plots involving some sample data. Why not?
 
+### Data collection principles
 
-## Data collection principles
+###
 
-
-**Population versus Sample**: In statistics, we almost always want to apply generalizations from a small sample to a large population -- you might think of this as a sort of *stereotyping*. The trick here is that for our assertions (generalizations) to be valid, our sample must be *representative of* our population.
+**Population vesus Sample**: In statistics, we almost always want to apply generalizations from a small sample to a large population -- you might think of this as a sort of *stereotyping*. The trick here is that for our assertions (generalizations) to be valid, our sample must be *representative of* our population.
 
 ###
 
 <center> **The following takeaway is critical:** *Results based off of a sample may only be generalized to a population for which that sample is representative.* </center>
 <br/>
 
+###
 
-### Why not take a census?
-
-First, taking a census requires a lot more resources than collecting data from a sample of the population.
-
-Second, certain individuals in your population might be hard to locate or collect data from. If these individuals that are missed in the census are different from those in the rest of the population, the census data will be biased. For example, in the US census, undocumented immigrants are often not recorded properly since they tend to be reluctant to fill out census forms with the concern that this information could be shared with immigration. However, these individuals might have characteristics different than the rest of the population and hence, not getting information from them might result in unreliable data from geographical regions with high concentrations of undocumented immigrants.
-
-Lastly, populations are constantly changing. Even if you do have the required resources and manage to collect data from everyone in the population, tomorrow your population will be different and so the hard work required to collect such data may not pay off.
-
-If you think about it, sampling is actually quite natural.
-
-
-### Sampling is natural
-
-Think about something you are cooking we taste or in other words examine a small part of what we're cooking to get an idea about the dish as a whole. After all, we would never eat a whole pot of soup just to check its taste.
-
-When you taste a spoonful of soup and decide the spoonful you tasted isn't salty enough, what you're doing is simply exploratory analysis for the sample at hand.
-
-If you then generalize and conclude that your entire soup needs salt, that's making an inference.
-
-For your inference to be valid, the spoonful you tasted, your sample, needs to be representative of the entire pot, your population.
-
-If your spoonful comes only from the surface and the salt is collected at the bottom of the pot, what you tasted is probably not going to be representative of the whole pot.
-
-On the other hand, if you first stir the soup thoroughly before you taste, your spoonful will more likely be representative of the whole pot.
-
-Sampling data is a bit different than sampling soup though. So next, we'll introduce a few commonly used sampling methods: simple random sampling, stratified sampling, cluster sampling, and multistage sampling.
-
-
-### Sampling strategies
-
-Here we discuss some of the different ways to draw a sample from a population.
-
-
-### Simple random sample
-
-In *simple random* sampling, we randomly select cases from the population, such that each case is equally likely to be selected. This is similar to randomly drawing names from a hat.
-<center> ![](images/random-sample.png) </center>
-
-
-### Stratified sample
-
-In *stratified sampling*, we first divide the population into homogeneous groups, called strata, and then we randomly sample from within each stratum. For example, if we wanted to make sure that people from low, medium, and high socioeconomic status are equally represented in a study, we would first divide our population into three groups as such and then sample from within each group.
-<center> ![](images/stratified-sample.png) </center>
-
-
-### Cluster sample
-
-In cluster sampling, we divide the population into clusters, randomly sample a few clusters, and then sample all observations within these clusters. The clusters, unlike strata in stratified sampling, are heterogeneous within themselves and each cluster is similar to the others, such that we can get away with sampling from just a few of the clusters.
-<center> ![](images/cluster-sample.png) </center>
-
-
-### Multistage sample
-
-Multistage sampling adds another step to cluster sampling. Just like in cluster sampling, we divide the population into clusters, randomly sample a few clusters, and then we randomly sample observations from within those clusters.
-<center> ![](images/multistage-sample.png) </center>
+**Sampling Strategies**: There are many sampling techniques. We will focus on census, simple random sample, stratified sample, and convenience sample. 
 
 ###
 
-Note: Cluster and multistage sampling are often used for economical reasons. For example, one might divide a city into geographic regions that are on average similar to each other and then sample randomly from a few randomly picked regions in order to avoid traveling to all regions.
+  * If we could sample every object in a population we would be taking a *census*. While census would give us certainty in an answer to a statistical question, it is infeasible to conduct a census due to non-response and fluid populations.
 
-
-### Convenience sample
-
-The *convenience sample* is the most commonly used sampling method. Unfortunately, it is also the worst. When researchers sample from individuals they have "easy access" to, they are conducting a convenience sample. There are always hidden biases in these samples. Do a quick Google search for "FDR versus Alf Landon Sampling Error" to see a very famous example here. In addition, much of the error in predicting the results of the 2016 presidential election may be attributable to convenience sampling.
-
-
-### Sampling strategies, determine which
-
-A consulting company is planning a pilot study on marketing in Boston. They identify the zip codes that make up the greater Boston area, then sample 50 randomly selected addresses from each zip code and mail a coupon to these addresses. They then track whether the coupon was used in the following month.
-
-```{r quiz-sampling-strategies-determine-which, echo = FALSE}
-quiz(
-  question("What sampling strategy has this company used?", correct = "Nice! Let's continue to the next exercise.", allow_retry = TRUE,
-    answer("Simple random sample", message = "Try again. The company is dividing the Boston area by zip code."),
-    answer("Stratified sample", correct = TRUE),
-    answer("Cluster sample", message = "Hmm, not quite. The company isn't sampling all the houses in each zip code."), 
-    answer("Multistage sample", message = "Not quite! The company is sampling 50 addresses from each zip code.") ), 
-  caption = "")
+<center>
+```{r echo = FALSE, eval = TRUE, fig.width=3.5, fig.height=2.75}
+#set.seed(21)
+pop <- data.frame(x = sample(1:100, 100, replace = TRUE), y = sample(1:100, 100, replace = TRUE))
+ggplot(data = pop) + geom_point(mapping = aes(x = x, y = y), size = 2, color = "orange", alpha = 0.8) + labs(title = "Census", x = "Entire Population Sampled (orange)")
 ```
+</center>
 
-### Sampling strategies, choose worst
+  <center> **Please Listen** to [this NPR story](http://www.npr.org/templates/story/story.php?storyId=125380052){target="_blank"}  which aired prior to the 2010 Census
+</center>
+<br/>
 
-A school district has requested a survey be conducted on the socioeconomic status of their students. Their budget only allows them to conduct the survey in some of the schools, hence they need to first sample a few schools. 
+###
 
-Students living in this district generally attend a school in their neighborhood. The district is broken into many distinct and unique neighborhoods, some including large single-family homes and others with only low-income housing. 
-
-```{r quiz-sampling-strategies-choose-worst, echo = FALSE}
-quiz(
-  question("Which approach would likely be the **least effective** for selecting the schools where the survey will be conducted?", correct = "Nice job! This sampling strategy would be a bad idea because each neighborhood has a unique socioeconomic status. A good study would collect information about every neighborhood.", allow_retry = TRUE,
-    answer("Simple random sample", message = "Incorrect!"),
-    answer("Stratified sampling, where each stratum is a neighborhood", message = "Try again. Remember, the socioeconomic status of each neighborhood is unique."), 
-    answer("Cluster sampling, where each cluster is a neighborhood", correct = TRUE) ), 
-  caption = "")
+  * The *simple random sample* is the GOLD STANDARD in statistics. We randomly select some "large enough" number of individuals from the entire population and record variables from them. The advantage here is that we are likely to attain a sample of results that are representative of the entire population.
+<center>
+```{r echo = FALSE, eval = TRUE, fig.width=3.5, fig.height=2.75}
+pop$samp <- sample(0:1, 100, prob = c(0.9,0.10), replace = TRUE)
+pop$samp <- as.factor(pop$samp)
+ggplot(data = pop) + geom_point(mapping = aes(x = x, y = y, color = samp), size = 2, alpha = 0.8) + scale_color_manual(values = c("blue", "orange")) + guides(color = FALSE) + labs(title = "Simple Random Sample")
 ```
+</center>
 
-## Experimental Design
+###
 
+  * The *stratified sample* is used to ensure that we include representatives of all groups within our sample. Stratified sampling is particularly useful in cases where the population is segmented (that is, there are clear groups which may potentially have different responses)
+  <center>![](images/Stratified.png)</center>
+
+###
+
+  * The *cluster sample* is used when we can argue that there are many small "populations" that are truly representative of the larger population. The clustering method is typically used to reduce costs (financial or otherwise). From the collection of *clusters*, a random sample is selected and as many observations as possible are collected from within each of those chosen clusters.
+  
+###
+
+  * A variation on clustering is called *two-stage* or *multi-stage* sampling. With this method, observations are first clustered and clusters are chosen at random. Second, within each of the chosen clusters a simple random sample is taken. Notice that this method occurs in two stages, as the name suggests.
+  <center> ![](images/cluster.png)</center>
+
+###
+
+  * The *convenience sample* is the most commonly used sampling method. Unfortunately, it is also the worst. When researchers sample from individuals they have "easy access" to, they are conducting a convenience sample. There are always hidden biases in these samples. Do a quick Google search for "FDR versus Alf Landon Sampling Error" to see a very famous example here. In addition, much of the error in predicting the results of the 2016 presidential election may be attributable to convenience sampling.
+
+### Experimental Design
+
+###
 
 **Experiment versus Observational Study**: Beyond just sampling, there are multiple methods for collecting data. We can just *observe* what happens naturally (without manipulating any conditions) or we can run an *experiment*. In experiments we manipulate one or more conditions, utilizing a control and treatment group(s). The advantage to an experiment is that we can infer cause and effect relationships (this is extremely important in medical studies), but in observational studies we can only discuss an association between variables.
 
+###
+
+**Predictor versus Response Variables**: Typically in statistics we will identify a question (whose answer corresponds to a response variable) with respect to a population. We will take a representative sample of that population. From that sample we will collect observed responses as well as observations on other variables (maybe age, level of formal education, political affiliation, etc). 
+The non-response variables are called *predictor variables*. In general, predictor variables are quantities which we expect *may be associated with* the response variable.
+
+###
 
 There's lots more to learn about experimental design, but it is beyond the scope of our course. You should read pages 32 through 35 of [OpenIntro Statistics, 4Ed](https://www.openintro.org/book/os/) as a starting point.
 
-
-## Explanatory and response variables
-
-Often when one mentions "a relationship between variables" we think of a relationship between just two variables, say a so called explanatory variable, x, and response variable, y. However, truly understanding the relationship between two variables might require considering other potentially related variables as well. If we don't, we might find ourselves in a *Simpson's paradox*. So, what is Simpson's paradox?
-
-First, let's clarify what we mean when we say explanatory and response variables. Labeling variables as explanatory and response does not guarantee the relationship between the two is actually causal, even if there is an association identified. We use these labels only to keep track of which variable we suspect affects the other.
-
-### Explanatory and response
-
-![](images/explanatory-single.png){width="30%"}
-
-And these definitions can be expanded to more than just two variables. For example, we could study the relationship between three explanatory variables and a single response variable.
-
-### Multivariate relationships
-
-![](images/explanatory-multivariate.png){width="50%"}
-
-This is often a more realistic scenario since most real world relationships are multivariable. For example, if we're interested in the relationship between calories consumed daily and heart health, we would probably also want to consider information on variables like age and fitness level of the person as well.
-
-![](images/explanatory-multivariate-example.png){width="50%"}
-
-Not considering an important variable when studying a relationship can result in what we call a **Simpson's paradox**. This paradox illustrates the effect the omission of an explanatory variable can have on the measure of association between another explanatory variable and the response variable. In other words, the inclusion of a third variable in the analysis can change the apparent relationship between the other two variables. 
-
-Consider the eight dots in the scatter plot below (the points happen to fall on the orange and blue lines). The trend describing the points when only considering `x1` and `y`, illustrated by the black dashed line, is reversed when `x2`, the grouping variable, is also considered. If we don't consider `x2`, the relationship between `x1` and `y` is positive. If we do consider `x2`, we see that within each group the relationship between `x1` and `y` is actually negative.
-
-![](images/simpson-paradox-plot.png){width="50%"}
-
-We'll explore Simpson's paradox further with another dataset, which comes from a study carried out by the graduate Division of the University of California, Berkeley in the early 70’s to evaluate whether there was a sex bias in graduate admissions. The data come from six departments. For confidentiality we'll call them A through F. The dataset contains information on whether the applicant identified as male or female, recorded as `Gender`, and whether they were admitted or rejected, recorded as `Admit`. 
-
-### Berkeley admission data
-
-   .   | Admitted | Rejected  
--------| ---------|---------
-Male   | 1198     | 1493
-Female | 557      | 1278
-
-> Note: At the time of this study, gender and sexual identities were not given distinct names. Instead, it
-> was common for a survey to ask for your "gender" and then provide you with the options of "male" and 
-> "female." Today, we better understand how an individual's gender and sexual identities are different 
-> pieces of who they are. To learn more about inclusive language surrounding gender and sexual identities 
-> see the [gender unicorn](https://transstudent.org/gender/). 
-
-First, we will evaluate whether the percentage of males admitted is indeed higher than females, overall.
-
-```{r gender-male-admission, echo=FALSE}
-load("data/ucb_admit.RData")
-ucb_admit %>% 
-  group_by(Gender) %>% 
-  count(Admit)%>%
-  ungroup()%>%
-  # Group by gender
-  group_by(Gender) %>%
-  # Create new variable
-  mutate(prop = n / sum(n)) %>%
-  # Filter for admitted
-  filter(Admit == "Admitted")
-```
-
-Next, we will calculate the same percentage for each individual department.
-
-### Admission rates for males across departments
-
-```{r prepare-gender3, echo=FALSE}
-
-ucb_admit %>%
-  # Group by department, then gender
-  group_by(Dept, Gender) %>%
-  # Table of counts of admission status and gender and department
-  count(Admit) %>%
-  # Create new variable
-  mutate(prop = n / sum(n)) %>%
-  # Filter for male and admitted
-  filter(Gender == "Male", Admit == "Admitted")
-```
-
-```{r quiz-gender, echo=FALSE}
-quiz(
-  question("Which of the following best describes the relationship between admission status and gender?", correct = "Correct! Let's recap what we've learned in the next section.", allow_retry = TRUE,
-    answer("Within most departments, female applicants are more likely to be admitted.", correct = TRUE),
-    answer("Within most departments, male applicants are more likely to be admitted.", message = "That doesn't seem right."),
-    answer("Within most departments, male and female applicants are equally likely to be admitted.", message = "Try again!")
-), caption = "")
-```
-
-
-## Recap: Simpson's paradox
-
-
-We'll wrap up the lesson with a recap of our findings.
-
-Overall: males were more likely to be admitted
-
-* Within most departments: females were more likely
-* When controlling for department, relationship between gender and admission status was reversed
-* Potential reason:
-  + Women tended to apply to competitive departments with lower admission rates
-  + Men tended to apply to less competitive departments with higher admission rates
-
-We saw that overall males were more likely to be admitted.
-
-But when we consider the department information, within most departments actually females are more likely to be admitted.
-
-So when we control for department, the relationship between gender and admission status was reversed, which is what we call Simpson's paradox.
-
-One potential reason for this paradox is that women tended to apply to competitive departments with lower rates of admission even among qualified applicants, such as in the English Department. Whereas, men tended to apply to less competitive departments with higher rates of admission among the qualified applicants, such as in engineering and chemistry.
-
-Note that we were only able to discover the contradictory finding once we incorporated information about the department of the application. Examples like this highlight the importance of a good study design that considers and collects information on extraneous, but potentially confounding variables in a study.
-
-
-## Submit
+### Submit
 
 ```{r context="server"}
 learnrhash::encoder_logic(strip_output = TRUE)
@@ -490,7 +301,7 @@ learnrhash::encoder_ui(
 )
 ```
 
-## Summary
+### Summary
 
 **Summary**: Here's a quick summary of the most important ideas from this first notebook.
 

@@ -370,7 +370,8 @@ An alternative approach involves constructing a normal probability plot, also ca
 
 ```{r qq}
 ggplot(data = dairy_queen, aes(sample = cal_fat)) + 
-  geom_line(stat = "qq")
+  geom_qq_line(aes(col = "red"), show.legend = F)+
+  geom_qq()
 ```
 
 This time, you can use the `geom_line()` layer, while specifying that you will be creating a Q-Q plot with the `stat` argument.

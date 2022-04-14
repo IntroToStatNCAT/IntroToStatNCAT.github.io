@@ -13,7 +13,7 @@
 <meta name="progressive" content="true" />
 <meta name="allow-skip" content="false" />
 
-<title>Tutorial 1: An Introduction to Data and Sampling</title>
+<title>Topic 1: An Introduction to Data and Sampling</title>
 
 
 <!-- highlightjs -->
@@ -106,19 +106,19 @@ if (window.hljs) {
 
 <div class="topics">
 
-<div id="section-data-and-sampling" class="section level2">
-<h2>Data and Sampling</h2>
-<p>If you’ve never coded before (or even if you have), type <code>"Your Name"</code> in the interactive R chunk below and run it by hitting <code>crtl+Enter</code> or <code>cmd+Enter</code> for MAC users.</p>
+<p>If you’ve never coded before (or even if you have), type <code>print("Your Name")</code> in the interactive R chunk below and run it by hitting <code>crtl+Enter</code> or <code>cmd+Enter</code> for MAC users.</p>
 <div class="tutorial-exercise" data-label="Student-Name" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
 <script type="application/json" data-ui-opts="1">{"engine":"r","has_checker":false,"caption":"<span data-i18n=\"text.enginecap\" data-i18n-opts=\"{&quot;engine&quot;:&quot;R&quot;}\">R Code<\/span>"}</script>
 </div>
-<p>This is the first of a series of interactive tutorials you’ll use to engage content from introductory statistics. This tutorial covers an introduction to data, including some background on experimental design and data collection.</p>
-<div id="section-section" class="section level3">
-<h3></h3>
-</div>
+<div id="section-data-and-sampling" class="section level2">
+<h2>Data and Sampling</h2>
+<p>This is the first of a series of interactive workbooks you’ll use to engage content from introductory statistics. This workbook covers an introduction to data, including some background on experimental design and data collection.</p>
 <div id="section-an-introduction-to-data" class="section level3">
 <h3>An Introduction to Data</h3>
-<p>In this tutorial you’ll encounter two datasets – one concerning real estate from King County, WA (<code>houses</code>) and another containing prices and attributes of almost 54,000 diamonds (<code>diamonds</code>). A few rows of the <code>houses</code> data is shown below in a convenient form where the rows of data represent <em>records</em> (sometimes called <strong>observations</strong>), and the columns represent <strong>variables</strong> (sometimes called <strong>features</strong>). We’ll see later in our course that such data is called <em>tidy</em>.</p>
+</div>
+<div id="section-section" class="section level3">
+<h3></h3>
+<p>In this workbook you’ll encounter two datasets – one concerning real estate from King County, WA (<code>houses</code>) and another containing prices and attributes of almost 54,000 diamonds (<code>diamonds</code>). A few rows of the <code>houses</code> data is shown below in a convenient form where the rows of data represent <em>records</em> (sometimes called <strong>observations</strong>), and the columns represent <strong>variables</strong> (sometimes called <strong>features</strong>). We’ll see later in our course that such data is called <em>tidy</em>.</p>
 </div>
 <div id="section-section-1" class="section level3">
 <h3></h3>
@@ -141,32 +141,12 @@ if (window.hljs) {
 <li><code>exterior</code> provides a description of the exterior covering of the home.</li>
 </ul>
 </div>
+<div id="section-variable-types" class="section level3">
+<h3>Variable Types</h3>
 </div>
-<div id="section-variable-types" class="section level2">
-<h2>Variable Types</h2>
-<p>In this section, we will delve deeper into the categorization of variables as <strong>numerical and categorical</strong>. This is an important step, as the type of variable helps us determine what summary statistics to calculate, what type of visualizations to make, and what statistical method will be appropriate to answer the research questions we’re exploring.</p>
-<p>There are two types of variables: numerical and categorical.</p>
-<ul>
-<li><p><strong>Numerical</strong>, in other words, quantitative, variables take on numerical values. It is sensible to add, subtract, take averages, and so on, with these values.</p></li>
-<li><p><strong>Categorical</strong>, or qualitative, variables, take on a limited number of distinct categories. These categories can be identified with numbers, for example, it is customary to see likert variables (strongly agree to strongly disagree) coded as 1 through 5, but it wouldn’t be sensible to do arithmetic operations with these values. They are merely placeholders for the levels of the categorical variable.</p></li>
-</ul>
 <div id="section-section-3" class="section level3">
 <h3></h3>
-</div>
-<div id="section-numerical-data" class="section level3">
-<h3>Numerical data</h3>
-<p>Numerical variables can be further categorized as <strong>continuous or discrete</strong>.</p>
-<ul>
-<li><p><strong>Continuous numerical</strong> variables are usually measured, such as height. These variables can take on an infinite number of values within a given range.</p></li>
-<li><p><strong>Discrete numerical</strong> variables are those that take on one of a specific set of numeric values where we are able to count or enumerate all of the possibilities. One example of a discrete variable is number of pets in a household. In general, count data are an example of discrete variables.</p></li>
-</ul>
-<p>When determining whether a numerical variable is continuous or discrete, it is important to think about the nature of the variable and not just the observed value, as rounding of continuous variables can make them appear to be discrete. For example, height is a continuous variable, however we tend to report our height rounded to the nearest unit of measure, like inches or centimeters.</p>
-</div>
-<div id="section-categorical-data" class="section level3">
-<h3>Categorical data</h3>
-<p>Categorical variables that have ordered levels are called <strong>ordinal</strong>.</p>
-<p>Think about a survey question where you’re asked how satisfied you are with the customer service you received and the options are very unsatisfied, unsatisfied, neutral, satisfied, and very satisfied. These levels have an inherent ordering, hence the variable would be called ordinal.</p>
-<p>If the levels of a categorical variable do not have an inherent ordering to them, then the variable is simply called categorical. For example, do you consume caffeine or not?</p>
+<p>Variables which take on numerical values <u>and</u> for which measures such as the mean, median, or standard deviation are meaningful are referred to as <strong>numerical</strong>. Variables which serve to group data into categories are called <strong>categorical</strong> – examples include the color of a car or an area code prefix for a telephone number. Note that a telephone area code looks numeric, but since taking their average is meaningless, we consider it to be categorical. It is possible for data to be neither numerical nor categorical – for example, a <strong>unique identifier</strong> is a non-numeric variable which is unique to each record. A timestamp may be an example of a unique identifier – all is not lost, however, with a bit of pre-processing we can sometimes extract useful information from these columns.</p>
 </div>
 <div id="section-section-4" class="section level3">
 <h3></h3>
@@ -201,18 +181,18 @@ if (window.hljs) {
 <h3></h3>
 <p>The <strong>levels</strong> of a variable are the different (unique) values that the variable takes on. For example, a dataset on students might include a variable called <code>ClassYear</code> with the levels <em>Freshman</em>, <em>Sophomore</em>, <em>Junior</em>, <em>Senior</em>. Numerical variables also have levels – usually there are lots of levels corresponding to a numerical variable, but if there are too few, we may be better off considering the corresponding variable to be categorical. For example, if we had a dataset that included a <code>Year</code> variable, but the only observed levels in the dataset are 2008 and 2017, we may be better off thinking about <code>Year</code> as a categorical variable than as a numerical one.</p>
 </div>
+<div id="section-relationships-between-variables" class="section level3">
+<h3>Relationships between variables</h3>
 </div>
-<div id="section-relationships-between-variables" class="section level2">
-<h2>Relationships between variables</h2>
-<p><strong>Association, Independence, Correlation:</strong> Two variables are <em>associated</em> with one another if a change in levels of one is generally accompanied by change in the other. That is, larger values of one variable are accompanied by larger (or smaller) values in the other. Think – does knowing something about one of the variables give me any information about the other? If two variables are not associated, then we might say that they are <em>independent</em> of one another. Lastly, <em>correlation</em> is a way to formally measure the strength of a <u>LINEAR</u> association between two variables. Look at the plots considering characteristics of various diamonds below.</p>
 <div id="section-section-6" class="section level3">
 <h3></h3>
-<p><img src="1_IntroToData_files/figure-html/plots-associations-num1-1.png" width="624" /></p>
-<p><img src="1_IntroToData_files/figure-html/plots-associations-num2-1.png" width="624" /></p>
-<p><img src="1_IntroToData_files/figure-html/plots-associations-num3-1.png" width="624" /></p>
-<p><img src="1_IntroToData_files/figure-html/plots-associations-num4-1.png" width="624" /></p>
+<p><strong>Association, Independence, Correlation:</strong> Two variables are <em>associated</em> with one another if a change in levels of one is generally accompanied by change in the other. That is, larger values of one variable are accompanied by larger (or smaller) values in the other. Think – does knowing something about one of the variables give me any information about the other? If two variables are not associated, then we might say that they are <em>independent</em> of one another. Lastly, <em>correlation</em> is a way to formally measure the strength of a <u>LINEAR</u> association between two variables. Look at the plots considering characteristics of various diamonds below.</p>
 </div>
 <div id="section-section-7" class="section level3">
+<h3></h3>
+<p><img src="1_IntroToData_files/figure-html/plots-associations-num-1.png" width="288" /><img src="1_IntroToData_files/figure-html/plots-associations-num-2.png" width="288" /><img src="1_IntroToData_files/figure-html/plots-associations-num-3.png" width="288" /></p>
+</div>
+<div id="section-section-8" class="section level3">
 <h3></h3>
 <p>Use the plots above to answer the following questions.</p>
 <p><div class="panel-heading tutorial-quiz-title"><span data-i18n="text.quiz">Quiz</span></div></p>
@@ -241,16 +221,16 @@ if (window.hljs) {
 </div>
 </div>
 </div>
-<div id="section-section-8" class="section level3">
+<div id="section-section-9" class="section level3">
 <h3></h3>
 <p>Since both of the variables in each of the plots above are numerical, we can describe the direction of the association. Notice that there is a <em>positive</em> association in both of the plots you identified above, since an increase in one of the variables is generally accompanied by an increase in the other. If two numerical variables are associated but an increase in one is generally accompanied by a decrease in the other, we say that the association is <em>negative</em>. For those familiar with lines and slopes, the direction of the association corresponds to the sign on the slope of a line of “best fit” (which we will discuss at the end of our course).</p>
 </div>
-<div id="section-section-9" class="section level3">
+<div id="section-section-10" class="section level3">
 <h3></h3>
 <p>We can also identify whether an association exists between variables when one or more are categorical. Consider the plots below which refer back to our <code>houses</code> dataset from earlier.</p>
 <p><img src="1_IntroToData_files/figure-html/plots-association-cat-1.png" width="384" /><img src="1_IntroToData_files/figure-html/plots-association-cat-2.png" width="384" /></p>
 </div>
-<div id="section-section-10" class="section level3">
+<div id="section-section-11" class="section level3">
 <h3></h3>
 <div class="panel panel-default">
 <div data-label="plots-associations-questions-cat" class="tutorial-question panel-body">
@@ -261,211 +241,107 @@ if (window.hljs) {
 </div>
 </div>
 </div>
-<div id="section-section-11" class="section level3">
-<h3></h3>
-<p>Did you get the previous question right on the first try? Think about why the answer is as this tutorial indicates and ask a question if you need more clarification.</p>
-</div>
 <div id="section-section-12" class="section level3">
 <h3></h3>
-<p><strong>Major Questions In Statistics</strong>: Given groups with different characteristics (differing levels) regarding variable <em>X</em>, do they differ with respect to variable <em>Y</em>?</p>
+<p>Did you get the previous question right on the first try? Think about why the answer is as this workbook indicates and ask a question if you need more clarification.</p>
 </div>
 <div id="section-section-13" class="section level3">
 <h3></h3>
+<p><strong>Major Questions In Statistics</strong>: Given groups with different characteristics (differing levels) regarding variable <em>X</em>, do they differ with respect to variable <em>Y</em>?</p>
+</div>
+<div id="section-section-14" class="section level3">
+<h3></h3>
 <p>We’ll find that we can’t just answer these questions by looking at plots involving some sample data. Why not?</p>
 </div>
+<div id="section-data-collection-principles" class="section level3">
+<h3>Data collection principles</h3>
 </div>
-<div id="section-data-collection-principles" class="section level2">
-<h2>Data collection principles</h2>
-<p><strong>Population versus Sample</strong>: In statistics, we almost always want to apply generalizations from a small sample to a large population – you might think of this as a sort of <em>stereotyping</em>. The trick here is that for our assertions (generalizations) to be valid, our sample must be <em>representative of</em> our population.</p>
-<div id="section-section-14" class="section level3">
+<div id="section-section-15" class="section level3">
+<h3></h3>
+<p><strong>Population vesus Sample</strong>: In statistics, we almost always want to apply generalizations from a small sample to a large population – you might think of this as a sort of <em>stereotyping</em>. The trick here is that for our assertions (generalizations) to be valid, our sample must be <em>representative of</em> our population.</p>
+</div>
+<div id="section-section-16" class="section level3">
 <h3></h3>
 <center>
 <strong>The following takeaway is critical:</strong> <em>Results based off of a sample may only be generalized to a population for which that sample is representative.</em>
 </center>
 <p><br/></p>
 </div>
-<div id="section-why-not-take-a-census" class="section level3">
-<h3>Why not take a census?</h3>
-<p>First, taking a census requires a lot more resources than collecting data from a sample of the population.</p>
-<p>Second, certain individuals in your population might be hard to locate or collect data from. If these individuals that are missed in the census are different from those in the rest of the population, the census data will be biased. For example, in the US census, undocumented immigrants are often not recorded properly since they tend to be reluctant to fill out census forms with the concern that this information could be shared with immigration. However, these individuals might have characteristics different than the rest of the population and hence, not getting information from them might result in unreliable data from geographical regions with high concentrations of undocumented immigrants.</p>
-<p>Lastly, populations are constantly changing. Even if you do have the required resources and manage to collect data from everyone in the population, tomorrow your population will be different and so the hard work required to collect such data may not pay off.</p>
-<p>If you think about it, sampling is actually quite natural.</p>
-</div>
-<div id="section-sampling-is-natural" class="section level3">
-<h3>Sampling is natural</h3>
-<p>Think about something you are cooking we taste or in other words examine a small part of what we’re cooking to get an idea about the dish as a whole. After all, we would never eat a whole pot of soup just to check its taste.</p>
-<p>When you taste a spoonful of soup and decide the spoonful you tasted isn’t salty enough, what you’re doing is simply exploratory analysis for the sample at hand.</p>
-<p>If you then generalize and conclude that your entire soup needs salt, that’s making an inference.</p>
-<p>For your inference to be valid, the spoonful you tasted, your sample, needs to be representative of the entire pot, your population.</p>
-<p>If your spoonful comes only from the surface and the salt is collected at the bottom of the pot, what you tasted is probably not going to be representative of the whole pot.</p>
-<p>On the other hand, if you first stir the soup thoroughly before you taste, your spoonful will more likely be representative of the whole pot.</p>
-<p>Sampling data is a bit different than sampling soup though. So next, we’ll introduce a few commonly used sampling methods: simple random sampling, stratified sampling, cluster sampling, and multistage sampling.</p>
-</div>
-<div id="section-sampling-strategies" class="section level3">
-<h3>Sampling strategies</h3>
-<p>Here we discuss some of the different ways to draw a sample from a population.</p>
-</div>
-<div id="section-simple-random-sample" class="section level3">
-<h3>Simple random sample</h3>
-In <em>simple random</em> sampling, we randomly select cases from the population, such that each case is equally likely to be selected. This is similar to randomly drawing names from a hat.
-<center>
-<img src="images/random-sample.png" />
-</center>
-</div>
-<div id="section-stratified-sample" class="section level3">
-<h3>Stratified sample</h3>
-In <em>stratified sampling</em>, we first divide the population into homogeneous groups, called strata, and then we randomly sample from within each stratum. For example, if we wanted to make sure that people from low, medium, and high socioeconomic status are equally represented in a study, we would first divide our population into three groups as such and then sample from within each group.
-<center>
-<img src="images/stratified-sample.png" />
-</center>
-</div>
-<div id="section-cluster-sample" class="section level3">
-<h3>Cluster sample</h3>
-In cluster sampling, we divide the population into clusters, randomly sample a few clusters, and then sample all observations within these clusters. The clusters, unlike strata in stratified sampling, are heterogeneous within themselves and each cluster is similar to the others, such that we can get away with sampling from just a few of the clusters.
-<center>
-<img src="images/cluster-sample.png" />
-</center>
-</div>
-<div id="section-multistage-sample" class="section level3">
-<h3>Multistage sample</h3>
-Multistage sampling adds another step to cluster sampling. Just like in cluster sampling, we divide the population into clusters, randomly sample a few clusters, and then we randomly sample observations from within those clusters.
-<center>
-<img src="images/multistage-sample.png" />
-</center>
-</div>
-<div id="section-section-15" class="section level3">
+<div id="section-section-17" class="section level3">
 <h3></h3>
-<p>Note: Cluster and multistage sampling are often used for economical reasons. For example, one might divide a city into geographic regions that are on average similar to each other and then sample randomly from a few randomly picked regions in order to avoid traveling to all regions.</p>
+<p><strong>Sampling Strategies</strong>: There are many sampling techniques. We will focus on census, simple random sample, stratified sample, and convenience sample.</p>
 </div>
-<div id="section-convenience-sample" class="section level3">
-<h3>Convenience sample</h3>
-<p>The <em>convenience sample</em> is the most commonly used sampling method. Unfortunately, it is also the worst. When researchers sample from individuals they have “easy access” to, they are conducting a convenience sample. There are always hidden biases in these samples. Do a quick Google search for “FDR versus Alf Landon Sampling Error” to see a very famous example here. In addition, much of the error in predicting the results of the 2016 presidential election may be attributable to convenience sampling.</p>
+<div id="section-section-18" class="section level3">
+<h3></h3>
+<ul>
+<li>If we could sample every object in a population we would be taking a <em>census</em>. While census would give us certainty in an answer to a statistical question, it is infeasible to conduct a census due to non-response and fluid populations.</li>
+</ul>
+<center>
+<img src="1_IntroToData_files/figure-html/unnamed-chunk-1-1.png" width="336" />
+</center>
+<center>
+<strong>Please Listen</strong> to <a href="http://www.npr.org/templates/story/story.php?storyId=125380052" target="_blank">this NPR story</a> which aired prior to the 2010 Census
+</center>
+<p><br/></p>
 </div>
-<div id="section-sampling-strategies-determine-which" class="section level3">
-<h3>Sampling strategies, determine which</h3>
-<p>A consulting company is planning a pilot study on marketing in Boston. They identify the zip codes that make up the greater Boston area, then sample 50 randomly selected addresses from each zip code and mail a coupon to these addresses. They then track whether the coupon was used in the following month.</p>
-<p><div class="panel-heading tutorial-quiz-title"></div></p>
-<div class="panel panel-default">
-<div data-label="quiz-sampling-strategies-determine-which-1" class="tutorial-question panel-body">
-<div id="quiz-sampling-strategies-determine-which-1-answer_container" class="shiny-html-output"></div>
-<div id="quiz-sampling-strategies-determine-which-1-message_container" class="shiny-html-output"></div>
-<div id="quiz-sampling-strategies-determine-which-1-action_button_container" class="shiny-html-output"></div>
-<script>if (Tutorial.triggerMathJax) Tutorial.triggerMathJax()</script>
+<div id="section-section-19" class="section level3">
+<h3></h3>
+<ul>
+<li>The <em>simple random sample</em> is the GOLD STANDARD in statistics. We randomly select some “large enough” number of individuals from the entire population and record variables from them. The advantage here is that we are likely to attain a sample of results that are representative of the entire population.
+<center></li>
+</ul>
+<pre><code>## Warning: `guides(&lt;scale&gt; = FALSE)` is deprecated. Please use `guides(&lt;scale&gt; =
+## &quot;none&quot;)` instead.</code></pre>
+<img src="1_IntroToData_files/figure-html/unnamed-chunk-2-1.png" width="336" />
+</center>
 </div>
+<div id="section-section-20" class="section level3">
+<h3></h3>
+<ul>
+<li>The <em>stratified sample</em> is used to ensure that we include representatives of all groups within our sample. Stratified sampling is particularly useful in cases where the population is segmented (that is, there are clear groups which may potentially have different responses)
+<center>
+<img src="images/Stratified.png" />
+</center></li>
+</ul>
 </div>
+<div id="section-section-21" class="section level3">
+<h3></h3>
+<ul>
+<li>The <em>cluster sample</em> is used when we can argue that there are many small “populations” that are truly representative of the larger population. The clustering method is typically used to reduce costs (financial or otherwise). From the collection of <em>clusters</em>, a random sample is selected and as many observations as possible are collected from within each of those chosen clusters.</li>
+</ul>
 </div>
-<div id="section-sampling-strategies-choose-worst" class="section level3">
-<h3>Sampling strategies, choose worst</h3>
-<p>A school district has requested a survey be conducted on the socioeconomic status of their students. Their budget only allows them to conduct the survey in some of the schools, hence they need to first sample a few schools.</p>
-<p>Students living in this district generally attend a school in their neighborhood. The district is broken into many distinct and unique neighborhoods, some including large single-family homes and others with only low-income housing.</p>
-<p><div class="panel-heading tutorial-quiz-title"></div></p>
-<div class="panel panel-default">
-<div data-label="quiz-sampling-strategies-choose-worst-1" class="tutorial-question panel-body">
-<div id="quiz-sampling-strategies-choose-worst-1-answer_container" class="shiny-html-output"></div>
-<div id="quiz-sampling-strategies-choose-worst-1-message_container" class="shiny-html-output"></div>
-<div id="quiz-sampling-strategies-choose-worst-1-action_button_container" class="shiny-html-output"></div>
-<script>if (Tutorial.triggerMathJax) Tutorial.triggerMathJax()</script>
+<div id="section-section-22" class="section level3">
+<h3></h3>
+<ul>
+<li>A variation on clustering is called <em>two-stage</em> or <em>multi-stage</em> sampling. With this method, observations are first clustered and clusters are chosen at random. Second, within each of the chosen clusters a simple random sample is taken. Notice that this method occurs in two stages, as the name suggests.
+<center>
+<img src="images/cluster.png" />
+</center></li>
+</ul>
 </div>
+<div id="section-section-23" class="section level3">
+<h3></h3>
+<ul>
+<li>The <em>convenience sample</em> is the most commonly used sampling method. Unfortunately, it is also the worst. When researchers sample from individuals they have “easy access” to, they are conducting a convenience sample. There are always hidden biases in these samples. Do a quick Google search for “FDR versus Alf Landon Sampling Error” to see a very famous example here. In addition, much of the error in predicting the results of the 2016 presidential election may be attributable to convenience sampling.</li>
+</ul>
 </div>
+<div id="section-experimental-design" class="section level3">
+<h3>Experimental Design</h3>
 </div>
-</div>
-<div id="section-experimental-design" class="section level2">
-<h2>Experimental Design</h2>
+<div id="section-section-24" class="section level3">
+<h3></h3>
 <p><strong>Experiment versus Observational Study</strong>: Beyond just sampling, there are multiple methods for collecting data. We can just <em>observe</em> what happens naturally (without manipulating any conditions) or we can run an <em>experiment</em>. In experiments we manipulate one or more conditions, utilizing a control and treatment group(s). The advantage to an experiment is that we can infer cause and effect relationships (this is extremely important in medical studies), but in observational studies we can only discuss an association between variables.</p>
+</div>
+<div id="section-section-25" class="section level3">
+<h3></h3>
+<p><strong>Predictor versus Response Variables</strong>: Typically in statistics we will identify a question (whose answer corresponds to a response variable) with respect to a population. We will take a representative sample of that population. From that sample we will collect observed responses as well as observations on other variables (maybe age, level of formal education, political affiliation, etc). The non-response variables are called <em>predictor variables</em>. In general, predictor variables are quantities which we expect <em>may be associated with</em> the response variable.</p>
+</div>
+<div id="section-section-26" class="section level3">
+<h3></h3>
 <p>There’s lots more to learn about experimental design, but it is beyond the scope of our course. You should read pages 32 through 35 of <a href="https://www.openintro.org/book/os/">OpenIntro Statistics, 4Ed</a> as a starting point.</p>
 </div>
-<div id="section-explanatory-and-response-variables" class="section level2">
-<h2>Explanatory and response variables</h2>
-<p>Often when one mentions “a relationship between variables” we think of a relationship between just two variables, say a so called explanatory variable, x, and response variable, y. However, truly understanding the relationship between two variables might require considering other potentially related variables as well. If we don’t, we might find ourselves in a <em>Simpson’s paradox</em>. So, what is Simpson’s paradox?</p>
-<p>First, let’s clarify what we mean when we say explanatory and response variables. Labeling variables as explanatory and response does not guarantee the relationship between the two is actually causal, even if there is an association identified. We use these labels only to keep track of which variable we suspect affects the other.</p>
-<div id="section-explanatory-and-response" class="section level3">
-<h3>Explanatory and response</h3>
-<p><img src="images/explanatory-single.png" style="width:30.0%" /></p>
-<p>And these definitions can be expanded to more than just two variables. For example, we could study the relationship between three explanatory variables and a single response variable.</p>
-</div>
-<div id="section-multivariate-relationships" class="section level3">
-<h3>Multivariate relationships</h3>
-<p><img src="images/explanatory-multivariate.png" style="width:50.0%" /></p>
-<p>This is often a more realistic scenario since most real world relationships are multivariable. For example, if we’re interested in the relationship between calories consumed daily and heart health, we would probably also want to consider information on variables like age and fitness level of the person as well.</p>
-<p><img src="images/explanatory-multivariate-example.png" style="width:50.0%" /></p>
-<p>Not considering an important variable when studying a relationship can result in what we call a <strong>Simpson’s paradox</strong>. This paradox illustrates the effect the omission of an explanatory variable can have on the measure of association between another explanatory variable and the response variable. In other words, the inclusion of a third variable in the analysis can change the apparent relationship between the other two variables.</p>
-<p>Consider the eight dots in the scatter plot below (the points happen to fall on the orange and blue lines). The trend describing the points when only considering <code>x1</code> and <code>y</code>, illustrated by the black dashed line, is reversed when <code>x2</code>, the grouping variable, is also considered. If we don’t consider <code>x2</code>, the relationship between <code>x1</code> and <code>y</code> is positive. If we do consider <code>x2</code>, we see that within each group the relationship between <code>x1</code> and <code>y</code> is actually negative.</p>
-<p><img src="images/simpson-paradox-plot.png" style="width:50.0%" /></p>
-<p>We’ll explore Simpson’s paradox further with another dataset, which comes from a study carried out by the graduate Division of the University of California, Berkeley in the early 70’s to evaluate whether there was a sex bias in graduate admissions. The data come from six departments. For confidentiality we’ll call them A through F. The dataset contains information on whether the applicant identified as male or female, recorded as <code>Gender</code>, and whether they were admitted or rejected, recorded as <code>Admit</code>.</p>
-</div>
-<div id="section-berkeley-admission-data" class="section level3">
-<h3>Berkeley admission data</h3>
-<table>
-<thead>
-<tr class="header">
-<th>.</th>
-<th>Admitted</th>
-<th>Rejected</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>Male</td>
-<td>1198</td>
-<td>1493</td>
-</tr>
-<tr class="even">
-<td>Female</td>
-<td>557</td>
-<td>1278</td>
-</tr>
-</tbody>
-</table>
-<blockquote>
-<p>Note: At the time of this study, gender and sexual identities were not given distinct names. Instead, it was common for a survey to ask for your “gender” and then provide you with the options of “male” and “female.” Today, we better understand how an individual’s gender and sexual identities are different pieces of who they are. To learn more about inclusive language surrounding gender and sexual identities see the <a href="https://transstudent.org/gender/">gender unicorn</a>.</p>
-</blockquote>
-<p>First, we will evaluate whether the percentage of males admitted is indeed higher than females, overall.</p>
-<div data-pagedtable="false">
-<script data-pagedtable-source type="application/json">
-{"columns":[{"label":["Gender"],"name":[1],"type":["fct"],"align":["left"]},{"label":["Admit"],"name":[2],"type":["fct"],"align":["left"]},{"label":["n"],"name":[3],"type":["int"],"align":["right"]},{"label":["prop"],"name":[4],"type":["dbl"],"align":["right"]}],"data":[{"1":"Male","2":"Admitted","3":"1198","4":"0.4451877"},{"1":"Female","2":"Admitted","3":"557","4":"0.3035422"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
-  </script>
-</div>
-<p>Next, we will calculate the same percentage for each individual department.</p>
-</div>
-<div id="section-admission-rates-for-males-across-departments" class="section level3">
-<h3>Admission rates for males across departments</h3>
-<div data-pagedtable="false">
-<script data-pagedtable-source type="application/json">
-{"columns":[{"label":["Dept"],"name":[1],"type":["chr"],"align":["left"]},{"label":["Gender"],"name":[2],"type":["fct"],"align":["left"]},{"label":["Admit"],"name":[3],"type":["fct"],"align":["left"]},{"label":["n"],"name":[4],"type":["int"],"align":["right"]},{"label":["prop"],"name":[5],"type":["dbl"],"align":["right"]}],"data":[{"1":"A","2":"Male","3":"Admitted","4":"512","5":"0.62060606"},{"1":"B","2":"Male","3":"Admitted","4":"353","5":"0.63035714"},{"1":"C","2":"Male","3":"Admitted","4":"120","5":"0.36923077"},{"1":"D","2":"Male","3":"Admitted","4":"138","5":"0.33093525"},{"1":"E","2":"Male","3":"Admitted","4":"53","5":"0.27748691"},{"1":"F","2":"Male","3":"Admitted","4":"22","5":"0.05898123"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
-  </script>
-</div>
-<p><div class="panel-heading tutorial-quiz-title"></div></p>
-<div class="panel panel-default">
-<div data-label="quiz-gender-1" class="tutorial-question panel-body">
-<div id="quiz-gender-1-answer_container" class="shiny-html-output"></div>
-<div id="quiz-gender-1-message_container" class="shiny-html-output"></div>
-<div id="quiz-gender-1-action_button_container" class="shiny-html-output"></div>
-<script>if (Tutorial.triggerMathJax) Tutorial.triggerMathJax()</script>
-</div>
-</div>
-</div>
-</div>
-<div id="section-recap-simpsons-paradox" class="section level2">
-<h2>Recap: Simpson’s paradox</h2>
-<p>We’ll wrap up the lesson with a recap of our findings.</p>
-<p>Overall: males were more likely to be admitted</p>
-<ul>
-<li>Within most departments: females were more likely</li>
-<li>When controlling for department, relationship between gender and admission status was reversed</li>
-<li>Potential reason:
-<ul>
-<li>Women tended to apply to competitive departments with lower admission rates</li>
-<li>Men tended to apply to less competitive departments with higher admission rates</li>
-</ul></li>
-</ul>
-<p>We saw that overall males were more likely to be admitted.</p>
-<p>But when we consider the department information, within most departments actually females are more likely to be admitted.</p>
-<p>So when we control for department, the relationship between gender and admission status was reversed, which is what we call Simpson’s paradox.</p>
-<p>One potential reason for this paradox is that women tended to apply to competitive departments with lower rates of admission even among qualified applicants, such as in the English Department. Whereas, men tended to apply to less competitive departments with higher rates of admission among the qualified applicants, such as in engineering and chemistry.</p>
-<p>Note that we were only able to discover the contradictory finding once we incorporated information about the department of the application. Examples like this highlight the importance of a good study design that considers and collects information on extraneous, but potentially confounding variables in a study.</p>
-</div>
-<div id="section-submit" class="section level2">
-<h2>Submit</h2>
+<div id="section-submit" class="section level3">
+<h3>Submit</h3>
 <div class="encoder_ui">
 <div>
 If you have completed this tutorial and are happy with all of your
@@ -535,8 +411,8 @@ submit it using the corresponding tutorial assignment tab on Blackboard
       });</script>
 </div>
 </div>
-<div id="section-summary" class="section level2">
-<h2>Summary</h2>
+<div id="section-summary" class="section level3">
+<h3>Summary</h3>
 <p><strong>Summary</strong>: Here’s a quick summary of the most important ideas from this first notebook.</p>
 <ul>
 <li>Data is stored in a table called a data frame. The rows of the data frame are observations and the columns are collected variables.</li>
@@ -545,7 +421,7 @@ submit it using the corresponding tutorial assignment tab on Blackboard
 <li>There are many ways data can be collected, but in order to produce meaningful results we must use random sampling.</li>
 <li>Results from a sample can be generalized only to a population for which that sample is representative. 
 <script type="application/shiny-prerendered" data-context="server">
-learnr:::register_http_handlers(session, metadata = NULL)
+learnr:::register_http_handlers(session, metadata = list(id = "IntroData.Topic1.AppliedStats", version = 1))
 </script>
  
 <script type="application/shiny-prerendered" data-context="server">
@@ -819,108 +695,6 @@ learnr:::question_prerendered_chunk(structure(list(type = "learnr_checkbox", lab
 </script>
  
 <script type="application/shiny-prerendered" data-context="server">
-learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label = "quiz-sampling-strategies-determine-which-1", 
-    question = structure("What sampling strategy has this company used?", html = TRUE, class = c("html", 
-    "character")), answers = list(structure(list(id = "lnr_ans_c2c94e0", 
-        option = "Simple random sample", value = "Simple random sample", 
-        label = structure("Simple random sample", html = TRUE, class = c("html", 
-        "character")), correct = FALSE, message = structure("Try again. The company is dividing the Boston area by zip code.", html = TRUE, class = c("html", 
-        "character"))), class = c("tutorial_question_answer", 
-    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_509b43f", 
-        option = "Stratified sample", value = "Stratified sample", 
-        label = structure("Stratified sample", html = TRUE, class = c("html", 
-        "character")), correct = TRUE, message = NULL), class = c("tutorial_question_answer", 
-    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_f3a9bc6", 
-        option = "Cluster sample", value = "Cluster sample", 
-        label = structure("Cluster sample", html = TRUE, class = c("html", 
-        "character")), correct = FALSE, message = structure("Hmm, not quite. The company isn&#39;t sampling all the houses in each zip code.", html = TRUE, class = c("html", 
-        "character"))), class = c("tutorial_question_answer", 
-    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_e48e1c7", 
-        option = "Multistage sample", value = "Multistage sample", 
-        label = structure("Multistage sample", html = TRUE, class = c("html", 
-        "character")), correct = FALSE, message = structure("Not quite! The company is sampling 50 addresses from each zip code.", html = TRUE, class = c("html", 
-        "character"))), class = c("tutorial_question_answer", 
-    "tutorial_quiz_answer"))), button_labels = list(submit = structure("<span data-i18n=\"button.questionsubmit\">Submit Answer<\u002fspan>", html = TRUE, class = c("html", 
-    "character")), try_again = structure("<span data-i18n=\"button.questiontryagain\">Try Again<\u002fspan>", html = TRUE, class = c("html", 
-    "character"))), messages = list(correct = structure("Nice! Let&#39;s continue to the next exercise.", html = TRUE, class = c("html", 
-    "character")), try_again = structure("Incorrect", html = TRUE, class = c("html", 
-    "character")), incorrect = structure("Incorrect", html = TRUE, class = c("html", 
-    "character")), message = NULL, post_message = NULL), ids = list(
-        answer = "quiz-sampling-strategies-determine-which-1-answer", 
-        question = "quiz-sampling-strategies-determine-which-1"), 
-    loading = structure("<strong>Loading:<\u002fstrong> \nWhat sampling strategy has this company used?\n<br/><br/><br/>", html = TRUE, class = c("html", 
-    "character")), random_answer_order = FALSE, allow_retry = TRUE, 
-    seed = 644704788.199786, options = list()), class = c("learnr_radio", 
-"tutorial_question")), session = session)
-</script>
- 
-<script type="application/shiny-prerendered" data-context="server">
-learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label = "quiz-sampling-strategies-choose-worst-1", 
-    question = structure("Which approach would likely be the <strong>least effective<\u002fstrong> for selecting the schools where the survey will be conducted?", html = TRUE, class = c("html", 
-    "character")), answers = list(structure(list(id = "lnr_ans_6b1504a", 
-        option = "Simple random sample", value = "Simple random sample", 
-        label = structure("Simple random sample", html = TRUE, class = c("html", 
-        "character")), correct = FALSE, message = structure("Incorrect!", html = TRUE, class = c("html", 
-        "character"))), class = c("tutorial_question_answer", 
-    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_2d4eba7", 
-        option = "Stratified sampling, where each stratum is a neighborhood", 
-        value = "Stratified sampling, where each stratum is a neighborhood", 
-        label = structure("Stratified sampling, where each stratum is a neighborhood", html = TRUE, class = c("html", 
-        "character")), correct = FALSE, message = structure("Try again. Remember, the socioeconomic status of each neighborhood is unique.", html = TRUE, class = c("html", 
-        "character"))), class = c("tutorial_question_answer", 
-    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_1832a6f", 
-        option = "Cluster sampling, where each cluster is a neighborhood", 
-        value = "Cluster sampling, where each cluster is a neighborhood", 
-        label = structure("Cluster sampling, where each cluster is a neighborhood", html = TRUE, class = c("html", 
-        "character")), correct = TRUE, message = NULL), class = c("tutorial_question_answer", 
-    "tutorial_quiz_answer"))), button_labels = list(submit = structure("<span data-i18n=\"button.questionsubmit\">Submit Answer<\u002fspan>", html = TRUE, class = c("html", 
-    "character")), try_again = structure("<span data-i18n=\"button.questiontryagain\">Try Again<\u002fspan>", html = TRUE, class = c("html", 
-    "character"))), messages = list(correct = structure("Nice job! This sampling strategy would be a bad idea because each neighborhood has a unique socioeconomic status. A good study would collect information about every neighborhood.", html = TRUE, class = c("html", 
-    "character")), try_again = structure("Incorrect", html = TRUE, class = c("html", 
-    "character")), incorrect = structure("Incorrect", html = TRUE, class = c("html", 
-    "character")), message = NULL, post_message = NULL), ids = list(
-        answer = "quiz-sampling-strategies-choose-worst-1-answer", 
-        question = "quiz-sampling-strategies-choose-worst-1"), 
-    loading = structure("<strong>Loading:<\u002fstrong> \nWhich approach would likely be the <strong>least effective<\u002fstrong> for selecting the schools where the survey will be conducted?\n<br/><br/><br/>", html = TRUE, class = c("html", 
-    "character")), random_answer_order = FALSE, allow_retry = TRUE, 
-    seed = 1362341502.86561, options = list()), class = c("learnr_radio", 
-"tutorial_question")), session = session)
-</script>
- 
-<script type="application/shiny-prerendered" data-context="server">
-learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label = "quiz-gender-1", 
-    question = structure("Which of the following best describes the relationship between admission status and gender?", html = TRUE, class = c("html", 
-    "character")), answers = list(structure(list(id = "lnr_ans_eb4dc9a", 
-        option = "Within most departments, female applicants are more likely to be admitted.", 
-        value = "Within most departments, female applicants are more likely to be admitted.", 
-        label = structure("Within most departments, female applicants are more likely to be admitted.", html = TRUE, class = c("html", 
-        "character")), correct = TRUE, message = NULL), class = c("tutorial_question_answer", 
-    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_4ff7f30", 
-        option = "Within most departments, male applicants are more likely to be admitted.", 
-        value = "Within most departments, male applicants are more likely to be admitted.", 
-        label = structure("Within most departments, male applicants are more likely to be admitted.", html = TRUE, class = c("html", 
-        "character")), correct = FALSE, message = structure("That doesn&#39;t seem right.", html = TRUE, class = c("html", 
-        "character"))), class = c("tutorial_question_answer", 
-    "tutorial_quiz_answer")), structure(list(id = "lnr_ans_3c389f1", 
-        option = "Within most departments, male and female applicants are equally likely to be admitted.", 
-        value = "Within most departments, male and female applicants are equally likely to be admitted.", 
-        label = structure("Within most departments, male and female applicants are equally likely to be admitted.", html = TRUE, class = c("html", 
-        "character")), correct = FALSE, message = structure("Try again!", html = TRUE, class = c("html", 
-        "character"))), class = c("tutorial_question_answer", 
-    "tutorial_quiz_answer"))), button_labels = list(submit = structure("<span data-i18n=\"button.questionsubmit\">Submit Answer<\u002fspan>", html = TRUE, class = c("html", 
-    "character")), try_again = structure("<span data-i18n=\"button.questiontryagain\">Try Again<\u002fspan>", html = TRUE, class = c("html", 
-    "character"))), messages = list(correct = structure("Correct! Let&#39;s recap what we&#39;ve learned in the next section.", html = TRUE, class = c("html", 
-    "character")), try_again = structure("Incorrect", html = TRUE, class = c("html", 
-    "character")), incorrect = structure("Incorrect", html = TRUE, class = c("html", 
-    "character")), message = NULL, post_message = NULL), ids = list(
-        answer = "quiz-gender-1-answer", question = "quiz-gender-1"), 
-    loading = structure("<strong>Loading:<\u002fstrong> \nWhich of the following best describes the relationship between admission status and gender?\n<br/><br/><br/>", html = TRUE, class = c("html", 
-    "character")), random_answer_order = FALSE, allow_retry = TRUE, 
-    seed = 1012748145.5284, options = list()), class = c("learnr_radio", 
-"tutorial_question")), session = session)
-</script>
- 
-<script type="application/shiny-prerendered" data-context="server">
 learnrhash::encoder_logic(strip_output = TRUE)
 </script>
  <!--html_preserve-->
@@ -930,10 +704,11 @@ learnrhash::encoder_logic(strip_output = TRUE)
 <!--/html_preserve-->
 <!--html_preserve-->
 <script type="application/shiny-prerendered" data-context="execution_dependencies">
-{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["packages"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["packages","version"]},"class":{"type":"character","attributes":{},"value":["data.frame"]},"row.names":{"type":"integer","attributes":{},"value":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79]}},"value":[{"type":"character","attributes":{},"value":["airports","assertthat","backports","base","bslib","checkmate","cherryblossom","colorspace","compiler","crayon","curl","datasets","DBI","digest","dplyr","ellipsis","emo","evaluate","fansi","farver","fastmap","gapminder","generics","ggplot2","glue","gradethis","graphics","grDevices","grid","gtable","highr","hms","htmltools","htmlwidgets","httpuv","jquerylib","jsonlite","knitr","labeling","later","learnr","learnrhash","lifecycle","lubridate","magrittr","markdown","methods","mime","munsell","openintro","pillar","pkgconfig","promises","purrr","R6","Rcpp","readr","rlang","rmarkdown","rprojroot","sass","scales","shiny","stats","stringi","stringr","tibble","tidyselect","tools","tzdb","usdata","utf8","utils","vctrs","viridisLite","withr","xfun","xtable","yaml"]},{"type":"character","attributes":{},"value":["0.1.0","0.2.1","1.2.1","4.0.5","0.3.0","2.0.0","0.1.0","2.0-2","4.0.5","1.4.1","4.3","4.0.5","1.1.1","0.6.27","1.0.7","0.3.2","0.0.0.9000","0.14","0.5.0","2.1.0","1.1.0","0.3.0","0.1.0","3.3.5","1.4.2","0.2.3.9001","4.0.5","4.0.5","4.0.5","0.3.0","0.9","1.1.0","0.5.2","1.5.3","1.5.5","0.1.4","1.7.2","1.33","0.4.2","1.1.0.1","0.10.1.9015","0.2.0","1.0.0","1.7.10","2.0.1","1.1","4.0.5","0.10","0.5.0","2.2.0","1.6.2","2.0.3","1.2.0.1","0.3.4","2.5.1","1.0.7","2.0.1","0.4.10","2.10","2.0.2","0.4.0","1.1.1","1.6.0","4.0.5","1.7.4","1.4.0","3.1.4","1.1.1","4.0.5","0.1.2","0.2.0","1.2.2","4.0.5","0.3.8","0.4.0","2.4.2","0.25","1.8-4","2.2.1"]}]}]}
+{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["packages"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["packages","version"]},"class":{"type":"character","attributes":{},"value":["data.frame"]},"row.names":{"type":"integer","attributes":{},"value":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75]}},"value":[{"type":"character","attributes":{},"value":["airports","assertthat","backports","base","bslib","checkmate","cherryblossom","colorspace","compiler","crayon","curl","datasets","DBI","digest","dplyr","ellipsis","evaluate","fansi","farver","fastmap","generics","ggplot2","glue","gradethis","graphics","grDevices","grid","gtable","highr","hms","htmltools","htmlwidgets","httpuv","jquerylib","jsonlite","knitr","labeling","later","learnr","learnrhash","lifecycle","magrittr","markdown","methods","mime","munsell","openintro","pillar","pkgconfig","promises","purrr","R6","Rcpp","readr","rlang","rmarkdown","rprojroot","sass","scales","shiny","stats","stringi","stringr","tibble","tidyselect","tools","tzdb","usdata","utf8","utils","vctrs","withr","xfun","xtable","yaml"]},{"type":"character","attributes":{},"value":["0.1.0","0.2.1","1.2.1","4.0.5","0.3.0","2.0.0","0.1.0","2.0-2","4.0.5","1.4.1","4.3","4.0.5","1.1.1","0.6.27","1.0.7","0.3.2","0.14","0.5.0","2.1.0","1.1.0","0.1.0","3.3.5","1.4.2","0.2.3.9001","4.0.5","4.0.5","4.0.5","0.3.0","0.9","1.1.0","0.5.2","1.5.3","1.5.5","0.1.4","1.7.2","1.33","0.4.2","1.1.0.1","0.10.1.9015","0.2.0","1.0.0","2.0.1","1.1","4.0.5","0.10","0.5.0","2.2.0","1.6.2","2.0.3","1.2.0.1","0.3.4","2.5.1","1.0.7","2.0.1","0.4.10","2.10","2.0.2","0.4.0","1.1.1","1.6.0","4.0.5","1.7.4","1.4.0","3.1.4","1.1.1","4.0.5","0.1.2","0.2.0","1.2.2","4.0.5","0.3.8","2.4.2","0.25","1.8-4","2.2.1"]}]}]}
 </script>
 <!--/html_preserve--></li>
 </ul>
+</div>
 </div>
 
 </div> <!-- topics -->
@@ -945,7 +720,7 @@ learnrhash::encoder_logic(strip_output = TRUE)
 
 <!-- begin doc-metadata -->
 <div id="doc-metadata">
-<h2 class="title toc-ignore" style="display:none;">Tutorial 1: An Introduction to Data and Sampling</h2>
+<h2 class="title toc-ignore" style="display:none;">Topic 1: An Introduction to Data and Sampling</h2>
 </div>
 <!-- end doc-metadata -->
 
