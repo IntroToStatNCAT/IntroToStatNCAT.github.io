@@ -1,0 +1,66 @@
+---
+title: "Chapter 3"
+subtitle: "Probability^[These notes use content from OpenIntro Statistics Slides by Mine Cetinkaya-Rundel.]"
+author: |
+  | Department of Mathematics & Statistics
+  | North Carolina A\&T State University
+#date: "8/19/2020"
+urlcolor: blue
+header-includes:
+    \usepackage{multirow}
+    \usepackage{graphicx}
+    \graphicspath{{images/}}
+    \usepackage{subfigure}
+    \usepackage{multicol}
+    \usepackage[utf8]{inputenc}
+    \usepackage[english]{babel}
+    \usepackage{bm}
+    \usepackage{amsmath}
+    \usepackage{tikz}
+    \usepackage{mathtools}
+    \usepackage{textcomp}
+    \usepackage{fdsymbol}
+output: 
+  beamer_presentation:
+    fig_caption: true
+    latex_engine: xelatex
+    
+    
+---
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+```{r, echo=F, message=F, warning=F}
+library(readr)
+library(openintro)
+data(COL)
+```
+
+# Continuous distributions
+
+## Continuous distributions
+
+- Below is a histogram of the distribution of heights of US adults.
+
+- The proportion of data that falls in the shaded bins gives the probability that a randomly sampled US adult is between 180 cm and 185 cm (about 5'11" to 6'1")
+
+![](images/usHeightsHist180185.pdf)
+
+## From histogram to continuous distributions
+
+Since height is a continuous numerical variable, its **probability density function** is a smooth curve.
+
+![](images/fdicHeightContDist.pdf)
+
+## Probabilities from continuous distributions
+
+Therefore, the probability that a randomly sampled US adult is between 180 cm and 185 cm can also be estimated as the shaded area under the curve.
+
+![](images/fdicHeightContDistFilled.pdf)
+
+## By definition...
+
+Since continuous probabilities are estimated as "the area under the curve", the probability of being exactly 180 cm (or any exact value) is defined as **0**.
+
+![](images/fdicHeightContDist180.png)

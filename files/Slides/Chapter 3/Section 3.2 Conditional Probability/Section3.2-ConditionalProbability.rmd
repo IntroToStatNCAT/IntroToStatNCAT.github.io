@@ -1,0 +1,313 @@
+---
+title: "Chapter 3"
+subtitle: "Probability^[These notes use content from OpenIntro Statistics Slides by Mine Cetinkaya-Rundel.]"
+author: |
+  | Department of Mathematics & Statistics
+  | North Carolina A\&T State University
+#date: "8/19/2020"
+urlcolor: blue
+header-includes:
+    \usepackage{multirow}
+    \usepackage{graphicx}
+    \graphicspath{{images/}}
+    \usepackage{subfigure}
+    \usepackage{multicol}
+    \usepackage[utf8]{inputenc}
+    \usepackage[english]{babel}
+    \usepackage{bm}
+    \usepackage{amsmath}
+    \usepackage{tikz}
+    \usepackage{mathtools}
+    \usepackage{textcomp}
+    \usepackage{fdsymbol}
+output: 
+  beamer_presentation:
+    fig_caption: true
+    latex_engine: xelatex
+    
+    
+---
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+```{r, echo=F, message=F, warning=F}
+library(readr)
+library(openintro)
+data(COL)
+```
+
+
+# Conditional Probability
+
+## Relapse
+
+Researchers randomly assigned 72 chronic users of cocaine into three groups: desipramine (antidepressant), lithium (standard treatment for cocaine) and placebo. Results of the study are summarized below.
+
+\begin{table}[]
+\begin{tabular}{c|cc|c}
+            & relapse & no relapse & total \\ \hline
+desipramine & 10      & 14         & 24    \\
+lithium     & 18      & 6          & 24    \\
+placebo     & 20      & 4          & 24    \\ \hline
+total       & 48      & 24         & 72   
+\end{tabular}
+\end{table}
+
+
+## Marginal probability
+
+\alert{What is the probability that a patient relapsed?}
+
+\begin{table}[]
+\begin{tabular}{c|cc|c}
+            & relapse & no relapse & total \\ \hline
+desipramine & 10      & 14         & 24    \\
+lithium     & 18      & 6          & 24    \\
+placebo     & 20      & 4          & 24    \\ \hline
+total       & \textcolor{red}{48}      & 24         & \textcolor{red}{72}   
+\end{tabular}
+\end{table}
+
+\pause
+
+$P(relapsed) = \frac{48}{72} \approx 0.67$
+
+## Joint probability
+
+\alert{What is the probability that a patient received the antidepressant (desipramine) \underline{and} relapsed?}
+
+\begin{table}[]
+\begin{tabular}{c|cc|c}
+            & relapse & no relapse & total \\ \hline
+desipramine & \textcolor{red}{10}      & 14         & 24    \\
+lithium     & 18      & 6          & 24    \\
+placebo     & 20      & 4          & 24    \\ \hline
+total       & 48      & 24         & \textcolor{red}{72}   
+\end{tabular}
+\end{table}
+
+\pause
+
+$\text{P(relapsed and desipramine)} = \frac{10}{72} \approx 0.14$
+
+## Conditonal probability
+
+The conditional probability of the outcome of interest A given condition B is calculated as
+
+\centering{$P(A|B) = \frac{P(A \text{ and }B)}{P(B)}$}
+
+\pause
+
+\begin{eqnarray*}
+P(relapse|desipramine) &=& \frac{P(relapse \text{ }and \text{ }desipramine)}{P(desipramine)}\\ \pause
+&=& \frac{10/72}{24/72} \\ \pause
+&=& \frac{10}{24} \\ \pause
+&=& 0.42
+\end{eqnarray*}
+
+## Conditional probability
+
+\alert{If we know that a patient received the antidepressant (desipramine), what is the probability that they relapsed?}
+
+\begin{table}[]
+\begin{tabular}{c|cc|c}
+            & relapse & no relapse & total \\ \hline
+desipramine & 10      & 14         & 24    \\
+lithium     & 18      & 6          & 24    \\
+placebo     & 20      & 4          & 24    \\ \hline
+total       & 48      & 24         & 72   
+\end{tabular}
+\end{table}
+
+## Conditional probability
+
+\alert{If we know that a patient received the antidepressant (desipramine), what is the probability that they relapsed?}
+
+\begin{table}[]
+\begin{tabular}{c|cc|c}
+            & relapse & no relapse & total \\ \hline
+desipramine & \textcolor{red}{10}      & 14         & \textcolor{red}{24}    \\
+lithium     & 18      & 6          & 24    \\
+placebo     & 20      & 4          & 24    \\ \hline
+total       & 48      & 24         & 72   
+\end{tabular}
+\end{table}
+
+P(relapse | desipramine) $= \frac{10}{24} \approx 0.42$ 
+
+\pause
+
+P(relapse | lithium) $= \frac{18}{24} \approx 0.75$
+
+P(relapse | placebo) $= \frac{20}{24} \approx 0.83$
+
+
+## Conditional probability
+
+\alert{If we know that a patient relapsed, what is the probability that they received the antidepressant (desipramine)?}
+
+\begin{table}[]
+\begin{tabular}{c|cc|c}
+            & relapse & no relapse & total \\ \hline
+desipramine & 10      & 14         & 24    \\
+lithium     & 18      & 6          & 24    \\
+placebo     & 20      & 4          & 24    \\ \hline
+total       & 48      & 24         & 72   
+\end{tabular}
+\end{table}
+
+## Conditional probability
+
+\alert{If we know that a patient relapsed, what is the probability that they received the antidepressant (desipramine)?}
+
+\begin{table}[]
+\begin{tabular}{c|cc|c}
+            & relapse & no relapse & total \\ \hline
+desipramine & \textcolor{red}{10}      & 14         & 24    \\
+lithium     & 18      & 6          & 24    \\
+placebo     & 20      & 4          & 24    \\ \hline
+total       & \textcolor{red}{48}      & 24         & 72   
+\end{tabular}
+\end{table}
+
+P(desipramine | relapse) $= \frac{10}{48} \approx 0.21$
+
+\pause
+
+P(lithium | relapse) $= \frac{18}{48} \approx 0.375$
+
+P(placebo | relapse) $= \frac{20}{48} \approx 0.42$
+
+## General multiplication rule
+
+- Earlier we saw that if two events are independent, their joint probability is simply the product of their probabilities. If the events are not believed to be independent, the joint probability is calculated slightly differently.
+
+\pause
+
+- If A and B represent two outcomes or events, then 
+
+\centering{P(A and B) = P(A | B) \times P(B)}
+
+  \raggedright{Note that this formula is simply the conditional probability formula, rearranged.}
+  
+\pause
+  
+- It is useful to think of A as the outcome of interest and B as the condition.
+
+## Independence and conditional probabilities
+
+Consider the following (hypothetical) distribution of gender and major of students in an introductory statistics class:
+
+\begin{table}[]
+\begin{tabular}{c|cc|c}
+       & social science & non-social science & total \\ \hline
+female & 30             & 20                 & 50    \\
+male   & 30             & 20                 & 50    \\ \hline
+total  & 60             & 40                 & 100  
+\end{tabular}
+\end{table}
+
+\pause
+
+- The probability that a randomly selected student is a social science major is \pause $\frac{60}{100} = 0.6.$ 
+
+\pause
+
+- The probability that a randomly selected student is a social science major given that they are female is \pause $\frac{30}{50} = 0.6.$
+
+\pause
+
+- Since P(SS | M) also equals 0.6, major of students in this class does not depend on their gender: P(SS | F) = P(SS).
+
+## Independence and conditional probabilities
+
+Generically, if P(A | B) = P(A) then the events A and B are said to be independent.
+
+\pause
+  
+  - Conceptually: Giving B doesn't tell us anything about A.
+  
+\pause
+  
+  - Mathematically: We know that if events A and B are independent, P(A and B) = P(A) $\times$ P(B). Then,
+  
+  \centering{$P(A|B) = \frac{P(A \text{ }and \text{ }B)}{P(B)} = \frac{P(A) \times P(B)}{P(B)} = P(A)$}
+  
+## Bayes' Theorem
+
+- We can get the following by combining the conditional probability formula and the general multiplication rule.
+
+\begin{eqnarray*}
+P(A_1|B) &=& \frac{P(A_1 \cap B)}{P(B)} \pause = \frac{P(B|A_1)P(A_1)}{P(B)}
+\end{eqnarray*}
+
+\pause
+
+- If events $A_1$ and $A_2$ partition a sample space $S$ into mutually exclusive and exhaustive nonempty events, then the **total probability** of an event B can be written as:
+
+
+\[ P(B) = P(A_1 \cap B) + P(A_2 \cap B)\]
+
+## Bayes' Theorem
+
+\begin{eqnarray*}
+P(A_1|B) &=& \frac{P(B|A_1)P(A_1)}{P(B)}\\
+&=& \frac{P(B|A_1)P(A_1)}{P(A_1 \cap B) + P(A_2 \cap B)}\\ \pause
+&=& \frac{P(B|A_1)P(A_1)}{P(B|A_1)P(A_1) + P(B|A_2)P(A_2)}
+\end{eqnarray*}
+
+## Bayes' Theorem
+
+- The conditional probability formula we have seen so far is a special case of the Bayes' Theorem, which is applicable even when events have more than just two outcomes.
+
+
+## Bayes' Theorem
+
+- The conditional probability formula we have seen so far is a special case of the Bayes' Theorem, which is applicable even when events have more than just two outcomes.
+
+- **Bayes' Theorem**
+
+\centering{$P(outcome\text{ }A_1\text{ }of\text{ }variable\text{ }1\text{ }|\text{ }outcome\text{ }B\text{ }of\text{ }variable\text{ }2)$}
+
+\centering{$=\frac{P(B|A_1)P(A_1)}{P(B|A_1)P(A_1)+P(B|A_2)P(A_2)+ ... + P(B|A_k)P(A_k)}$}
+
+\raggedright
+  where $A_2, \dots, A_k$ represent all other possible outcomes of variable 1.
+  
+  
+## Practice
+
+\alert{Joe visits campus every Thursday evening. However, some days the parking garage is full, often due to college events. There are academic events on 35\% of evenings, sporting events on 20\% of evenings, and no events on 45\% of evenings. When there is an academic event, the garage fills up about 25\% of the time, and it fills up 70\% of evenings with sporting events. On evenings when there are no events, it only fills up about 5\% of the time. If Jose comes to campus and finds the garage full, what is the probability that there is a sporting event?}
+
+\pause
+
+The outcome of interest is whether there is a sporting event (call this $A_1$), and the condition is that the lot is full ($B$). Let $A_2$ represent an academic event and $A_3$ represent there being no event on campus. Then the given probabilities can be written as:
+
+\begin{align*}
+P(A_1) &= 0.2 & P(A_2) &= 0.35 & P(A_3) &= 0.45 \\
+P(B|A_1)&=0.7 & P(B|A_2)&=0.25 & P(B|A_3)&=0.05
+\end{align*}
+
+## Practice
+
+\begin{align*}
+P(A_1) &= 0.2 & P(A_2) &= 0.35 & P(A_3) &= 0.45 \\
+P(B|A_1)&=0.7 & P(B|A_2)&=0.25 & P(B|A_3)&=0.05
+\end{align*}
+
+Bayes' Theorem can be used to compute the probability of a sporting event ($A_1$) under the condition that the parking lot is full ($B$):
+
+\pause
+
+\begin{eqnarray*}
+P(A_1|B) &=& \pause \frac{P(B|A_1)P(A_1)}{P(B|A_1)P(A_1)+P(B|A_2)P(A_2)+ P(B|A_3)P(A_3)}\\
+\pause
+&=& \frac{(0.7)(0.2)}{(0.7)(0.2)+(0.25)(0.35)+(0.05)(0.45)}\\
+\pause
+&=& 0.56
+\end{eqnarray*}
+
+\pause
+
+Based on the information that the garage is full, there is a **56%** chance that a sporting event is being held on campus that evening.

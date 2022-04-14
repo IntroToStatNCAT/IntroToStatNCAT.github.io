@@ -1,0 +1,126 @@
+---
+title: "Chapter 1"
+subtitle: "Introduction to data^[These notes use content from OpenIntro Statistics Slides by Mine Cetinkaya-Rundel.]"
+author: |
+  | Department of Mathematics & Statistics
+  | North Carolina A\&T State University
+#date: "8/19/2020"
+header-includes:
+    \usepackage{multirow}
+    \usepackage{graphicx}
+    \graphicspath{{images/}}
+    \usepackage{subfigure}
+    \usepackage{multicol}
+output: 
+  beamer_presentation:
+    fig_caption: true
+    latex_engine: xelatex
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r, echo=F, message=F, warning=F}
+library(readr)
+library(openintro)
+data(COL)
+data(possum)
+```
+
+# Experiments
+
+## Principles of experimental design
+
+\begin{enumerate}
+
+\item \textbf{Control:} Control for the (potential) effect of variables other than the ones directly being studied.
+
+\item \textbf{Randomize:} Randomly assign subjects to treatments, and randomly sample sample from  the population whenever possible.
+
+\item \textbf{Replicate:} Within a study, replicate by collecting a sufficiently large sample. Or replicate the entire study.
+
+\item \textbf{Block:} If there are variables that are known or suspected to affect the response variable, first group subjects into \textbf{blocks} based on these variables, and then randomize cases within each block to treatment groups.
+
+\end{enumerate}
+
+## More on blocking
+
+\begin{itemize}
+
+\item We would like to design an experiment to investigate if energy gels makes you run faster:
+
+  \begin{itemize}
+  \item Treatment: energy gel
+  \item Control: no energy gel
+  \end{itemize}
+
+\item It is suspected that energy gels might affect pro and amateur athletes differently, therefore we block for pro status:
+
+  \begin{itemize}
+  \item Divide the sample to pro and amateur.
+  \item Randomly assign pro athletes to treatment and control groups.
+  \item Randomly assign amateur athletes to treatment and control groups.
+  \item Pro/amateur status is equally represented in the resulting treatment and control 
+  groups.
+  \end{itemize}
+
+\end{itemize}
+
+## Practice
+
+\alert{A study is designed to test the effect of light level and noise level on exam performance of students. The researcher also believes that light and noise levels might have different effects on males and females, so wants to make sure both genders are equally represented in each group. Which of the following is correct?}
+
+A) There are 3 explanatory variables (light, noise, gender) and 1 response variable (exam performance)
+B) There are 2 explanatory variables (light and noise), 1 blocking variable (gender), and 1 response variable (exam performance)
+C) There is 1 explanatory variable (gender) and 3 response variables (light, noise, exam performance)
+D) There are 2 blocking variables (light and noise), 1 explanatory variable (gender), and 1 response variable (exam performance)
+
+## Practice
+
+\alert{A study is designed to test the effect of light level and noise level on exam performance of students. The researcher also believes that light and noise levels might have different effects on males and females, so wants to make sure both genders are equally represented in each group. Which of the following is correct?}
+
+A) There are 3 explanatory variables (light, noise, gender) and 1 response variable (exam performance)
+B) \alert{There are 2 explanatory variables (light and noise), 1 blocking variable (gender), and 1 response variable (exam performance)}
+C) There is 1 explanatory variable (gender) and 3 response variables (light, noise, exam performance)
+D) There are 2 blocking variables (light and noise), 1 explanatory variable (gender), and 1 response variable (exam performance)
+
+## Difference between blocking and explanatory variables
+
+- Factors are conditions we can impose on the experimental units.
+
+- Blocking variables are characteristics that the experimental units come with, that we would like to control for.
+
+- Blocking is like stratifying, expect used in experimental settings when randomly assigning, as opposed to when sampling.
+
+## More experimental design terminology...
+
+- **Placebo:** Fake treatment, often used as the control group for medical studies.
+
+- **Placebo effect:** Experimental units showing improvement simply because they believe they are receiving a special treatment.
+
+- **Blinding:** When experimental units do not know whether they are in the control or treatment group.
+
+- **Double-blind:** When both the experimental units and the researchers who interact with the patients do not know who is in the control and who is in the treatment group.
+
+## Practice
+
+\alert{What is the main difference between observational studies and experiments?}
+
+A) Experiments take place in a lab while observational studies do not need to.
+B) In an observational study we only look at what happened in the past.
+C) Most experiments use random assignment while observational studies do not.
+D) Observational studies are completely useless since no casual inference can be made based on their findings.
+
+## Practice
+
+\alert{What is the main difference between observational studies and experiments?}
+
+A) Experiments take place in a lab while observational studies do not need to.
+B) In an observational study we only look at what happened in the past.
+C) \alert{Most experiments use random assignment while observational studies do not.}
+D) Observational studies are completely useless since no casual inference can be made based on their findings.
+
+## Random assignment vs. Random sampling
+
+![](images/random_sample_assignment.pdf)
