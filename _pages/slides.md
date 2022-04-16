@@ -5,7 +5,7 @@ title: "Slides"
 
 {% include base_path %}
 
-## Slides for MATH 224 by chapter
+## Slides by chapter per section
 
 The following slides are derived from the openintro statistics slides.
 

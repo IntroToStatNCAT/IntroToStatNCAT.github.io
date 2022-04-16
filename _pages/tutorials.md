@@ -5,7 +5,7 @@ title: "Tutorials"
 
 {% include base_path %}
 
-## Tutorials for MATH 224
+## Reading Assignment Tutorials for each week
 
 The R reading assignment tutorials are inspired by by agmath, [AppliedStatsInteractive](https://github.com/agmath/AppliedStatsInteractive)
 

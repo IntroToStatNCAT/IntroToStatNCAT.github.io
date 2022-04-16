@@ -5,7 +5,7 @@ title: "Labs"
 
 {% include base_path %}
 
-## Labs for MATH 224
+## Labs for each week
 
 [Lab 1 - Intro to R](https://github.com/IntroToStatNCAT/IntroToStatNCAT.github.io/tree/main/files/Labs/01_intro_to_r)
 
