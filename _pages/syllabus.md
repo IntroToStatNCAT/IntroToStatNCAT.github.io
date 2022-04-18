@@ -7,8 +7,8 @@ title: "Syllabus"
 
 ## Book required for the class
 
-[OpenIntro Statistics](https://www.openintro.org/book/os/)
+[OpenIntro Statistics](https://www.openintro.org/book/os/){:target="_blank"}
 
 ## Spring 2022
 
-[Section 007]()
+[Section 007](){:target="_blank"}
