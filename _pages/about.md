@@ -17,9 +17,6 @@ This project is a faculty-driven, theory-informed and evidence-generating projec
 
 The intro stats course at NCA&T serves more than 600 students annually (46% STEM majors, 82% African Americans, and 69% females). The redesign of the course includes the structure, content, and pedagogy. The course redesign adds a virtual statistical computing lab to the course in a way that carefully coordinates the lab sessions with the class sessions. The class and lab activities are designed to train students to think structurally with data, become data-savvy, and expose them, early and frequently, to the elements of the DS workflow. The redesigned course incorporates components directed to boosting students' knowledge of DS educational and career opportunities.
 
-Learn more about this project and access project materials and products through the project's website [here](https://github.com/IntroToStatNCAT/IntroToStatNCAT.github.io/tree/main/files){:target="_blank"}. 
-
-
 Funding Source
 =====
 

@@ -7,7 +7,7 @@ title: "Tutorials"
 
 ## Reading Assignment Tutorials for each week
 
-The R reading assignment tutorials are inspired by by agmath, [AppliedStatsInteractive](https://github.com/agmath/AppliedStatsInteractive)
+The R reading assignment tutorials are inspired by by agmath, [AppliedStatsInteractive](https://github.com/agmath/AppliedStatsInteractive){:target="_blank"}
 
 [1 - Intro to data](https://introtostatncat.shinyapps.io/1_IntroToData/){:target="_blank"}
 

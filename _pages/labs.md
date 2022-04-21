@@ -7,7 +7,7 @@ title: "Labs"
 
 ## Labs for each week
 
-These labs are inspired by OpenIntro Statistics. We have modified some of the labs to match the class schedule.
+These labs are inspired by [OpenIntro Statistics](https://www.openintro.org/book/os/){:target="_blank"}. We have modified some of the labs to match the class schedule.
 
 [Lab 1 - Intro to R](https://github.com/IntroToStatNCAT/IntroToStatNCAT.github.io/tree/main/files/Labs/01_intro_to_r){:target="_blank"}
 
@@ -27,6 +27,6 @@ These labs are inspired by OpenIntro Statistics. We have modified some of the la
 
 [Lab 9 - Inference for numerical data](https://github.com/IntroToStatNCAT/IntroToStatNCAT.github.io/tree/main/files/Labs/07_inf_for_numerical_data){:target="_blank"}
 
-[Lab 10 - Simple regression](){:target="_blank"}
+[Lab 10 - Simple linear regression](){:target="_blank"}
 
-[Lab 11 - Multiple regression](){:target="_blank"}
+[Lab 11 - Multiple linear regression](){:target="_blank"}

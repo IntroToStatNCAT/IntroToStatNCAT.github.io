@@ -1,9 +1,9 @@
 ---
 permalink: /research/
-title: "Research/Talks"
+title: "Research/Publication"
 ---
   
 {% include base_path %}
 
-## Research / Talks for MATH 224
+## Research / Publications
 
