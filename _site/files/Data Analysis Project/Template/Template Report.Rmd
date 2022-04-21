@@ -19,7 +19,7 @@
 
 
 
-<title>Data Analysis Project   MATH 224 - Intro to Stat</title>
+<title>Name of the dataset   MATH 224 - Intro to Stat</title>
 
 
 
@@ -29,11 +29,11 @@
 
 <meta property="og:locale" content="en-US">
 <meta property="og:site_name" content="MATH 224 - Intro to Stat">
-<meta property="og:title" content="Data Analysis Project">
+<meta property="og:title" content="Name of the dataset">
 
 
-  <link rel="canonical" href="http://localhost:4000/dap/">
-  <meta property="og:url" content="http://localhost:4000/dap/">
+  <link rel="canonical" href="http://localhost:4000/files/Data%20Analysis%20Project/Template/Template%20Report.Rmd">
+  <meta property="og:url" content="http://localhost:4000/files/Data%20Analysis%20Project/Template/Template%20Report.Rmd">
 
 
 
@@ -252,7 +252,7 @@
 
 
   <article class="page" itemscope itemtype="http://schema.org/CreativeWork">
-    <meta itemprop="headline" content="Data Analysis Project">
+    <meta itemprop="headline" content="Name of the dataset">
     
     
     
@@ -260,7 +260,7 @@
     <div class="page__inner-wrap">
       
         <header>
-          <h1 class="page__title" itemprop="headline">Data Analysis Project
+          <h1 class="page__title" itemprop="headline">Name of the dataset
 </h1>
           
         
@@ -274,22 +274,59 @@
       
 
       <section class="page__content" itemprop="text">
-        
-<h2 id="data-analysis-project-descriptions-by-parts">Data Analysis Project Descriptions by Parts</h2>
+        ```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
 
-<p><a href="https://github.com/IntroToStatNCAT/IntroToStatNCAT.github.io/blob/main/files/Data%20Analysis%20Project/Project%20Descriptions/Part_I.pdf" target="_blank">Part 1 Description</a></p>
+# Introduction
 
-<p><a href="https://github.com/IntroToStatNCAT/IntroToStatNCAT.github.io/blob/main/files/Data%20Analysis%20Project/Project%20Descriptions/Part_II.pdf" target="_blank">Part 2 Description</a></p>
+Text
 
-<p><a href="" target="_blank">Part 3 Description</a></p>
+# Research Question and Hypotheses
 
-<h2 id="data-analysis-project-templates">Data Analysis Project Templates</h2>
+## Research Question
 
-<p><a href="https://github.com/IntroToStatNCAT/IntroToStatNCAT.github.io/blob/main/files/Data%20Analysis%20Project/Template/Template%20Report.pdf" target="_blank">Template Report PDF</a></p>
+Text
 
-<p><a href="https://github.com/IntroToStatNCAT/IntroToStatNCAT.github.io/blob/main/files/Data%20Analysis%20Project/Template/Template%20Report.Rmd" target="_blank">Template Report RMD</a></p>
+## Hypotheses
 
-<p><a href="https://github.com/IntroToStatNCAT/IntroToStatNCAT.github.io/blob/main/files/Data%20Analysis%20Project/Template/Sample%20Final%20Report.pdf" target="_blank">Sample Final Report PDF</a></p>
+Text
+
+# Exploratory Data Analysis
+
+Text & Pictures
+
+## Correlation
+
+Correlation number and interpretation
+
+# Predictive Modeling
+
+## Methodology
+
+Type of model
+
+Pros and Cons of the model
+
+## Results
+
+Output from R
+
+## Interpretation
+
+Explain the results
+
+# Conclusion
+
+Inference of the results
+
+## Discussion
+
+Possible improvement to the project
+
+# Reference
+
+
 
         
       </section>
