@@ -1,9 +1,9 @@
-This is XeTeX, Version 3.141592653-2.6-0.999993 (TeX Live 2021/W32TeX) (preloaded format=xelatex 2022.1.15)  17 MAY 2022 19:05
+This is XeTeX, Version 3.141592653-2.6-0.999993 (TeX Live 2021/W32TeX) (preloaded format=xelatex 2022.1.15)  17 MAY 2022 18:38
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
-**Section9.2-ModelSelection.tex
-(./Section9.2-ModelSelection.tex
+**Section8.3-TypesOfOutliersInLinearRegression.tex
+(./Section8.3-TypesOfOutliersInLinearRegression.tex
 LaTeX2e <2021-11-15> patch level 1
 L3 programming layer <2022-01-12> (c:/Users/arbaa/AppData/Roaming/TinyTeX/texmf
 -dist/tex/latex/beamer/beamer.cls
@@ -1422,8 +1422,8 @@ Package hyperref Warning: Token not allowed in a PDF string (Unicode):
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
 (hyperref)                removing `\footnote' on input line 108.
 
-(./Section9.2-ModelSelection.aux)
-\openout1 = `Section9.2-ModelSelection.aux'.
+(./Section8.3-TypesOfOutliersInLinearRegression.aux)
+\openout1 = `Section8.3-TypesOfOutliersInLinearRegression.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 108.
 LaTeX Font Info:    ... okay on input line 108.
@@ -1498,9 +1498,10 @@ Package: gettitlestring 2019/12/15 v1.6 Cleanup title references (HO)
 LaTeX Info: Redefining \ref on input line 108.
 LaTeX Info: Redefining \pageref on input line 108.
 LaTeX Info: Redefining \nameref on input line 108.
-(./Section9.2-ModelSelection.out) (./Section9.2-ModelSelection.out)
+(./Section8.3-TypesOfOutliersInLinearRegression.out) (./Section8.3-TypesOfOutli
+ersInLinearRegression.out)
 \@outlinefile=\write5
-\openout5 = `Section9.2-ModelSelection.out'.
+\openout5 = `Section8.3-TypesOfOutliersInLinearRegression.out'.
 
 
 (c:/Users/arbaa/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/translator/transla
@@ -1828,7 +1829,7 @@ Package microtype Info: Loading generic protrusion settings for font family
 (microtype)             `lmss' (encoding: TU).
 (microtype)             For optimal results, create family-specific settings.
 (microtype)             See the microtype manual for details.
-(./Section9.2-ModelSelection.nav)
+(./Section8.3-TypesOfOutliersInLinearRegression.nav)
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(1)/m/n' will be
 (Font)              scaled to size 7.8961pt on input line 109.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(1)/m/n' will be
@@ -2013,191 +2014,109 @@ Package microtype Info: Fixing zero fontdimen6 for font `U/FdSymbolF/m/n/5'
 
 ] [2
 
-] [3
+]
+File: Section8.3-TypesOfOutliersInLinearRegression_files/figure-beamer/unnamed-
+chunk-2-1.pdf Graphic file (type pdf)
+<use Section8.3-TypesOfOutliersInLinearRegression_files/figure-beamer/unnamed-c
+hunk-2-1.pdf>
+[3
 
 ]
-File: Section9.2-ModelSelection_files/figure-beamer/unnamed-chunk-2-1.pdf Graph
-ic file (type pdf)
-<use Section9.2-ModelSelection_files/figure-beamer/unnamed-chunk-2-1.pdf>
+File: Section8.3-TypesOfOutliersInLinearRegression_files/figure-beamer/unnamed-
+chunk-3-1.pdf Graphic file (type pdf)
+<use Section8.3-TypesOfOutliersInLinearRegression_files/figure-beamer/unnamed-c
+hunk-3-1.pdf>
 [4
 
-] [5
+]
+File: Section8.3-TypesOfOutliersInLinearRegression_files/figure-beamer/unnamed-
+chunk-4-1.pdf Graphic file (type pdf)
+<use Section8.3-TypesOfOutliersInLinearRegression_files/figure-beamer/unnamed-c
+hunk-4-1.pdf>
+[5
 
 ] [6
 
-]
-File: Section9.2-ModelSelection_files/figure-beamer/unnamed-chunk-3-1.pdf Graph
-ic file (type pdf)
-<use Section9.2-ModelSelection_files/figure-beamer/unnamed-chunk-3-1.pdf>
-[7
+] [7
+
+] [8
+
+] [9
 
 ]
-File: Section9.2-ModelSelection_files/figure-beamer/unnamed-chunk-3-1.pdf Graph
-ic file (type pdf)
-<use Section9.2-ModelSelection_files/figure-beamer/unnamed-chunk-3-1.pdf>
-[8
-
-]
-File: Section9.2-ModelSelection_files/figure-beamer/unnamed-chunk-3-1.pdf Graph
-ic file (type pdf)
-<use Section9.2-ModelSelection_files/figure-beamer/unnamed-chunk-3-1.pdf>
-[9
-
-]
-File: Section9.2-ModelSelection_files/figure-beamer/unnamed-chunk-3-1.pdf Graph
-ic file (type pdf)
-<use Section9.2-ModelSelection_files/figure-beamer/unnamed-chunk-3-1.pdf>
+File: Section8.3-TypesOfOutliersInLinearRegression_files/figure-beamer/unnamed-
+chunk-5-1.pdf Graphic file (type pdf)
+<use Section8.3-TypesOfOutliersInLinearRegression_files/figure-beamer/unnamed-c
+hunk-5-1.pdf>
+File: images//cyg.pdf Graphic file (type pdf)
+<use images//cyg.pdf>
 [10
 
-] [11
-
-] [12
+]
+File: Section8.3-TypesOfOutliersInLinearRegression_files/figure-beamer/unnamed-
+chunk-6-1.pdf Graphic file (type pdf)
+<use Section8.3-TypesOfOutliersInLinearRegression_files/figure-beamer/unnamed-c
+hunk-6-1.pdf>
+[11
 
 ]
-LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(1)/m/n' will be
-(Font)              scaled to size 10.30151pt on input line 287.
-LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(1)/m/n' will be
-(Font)              scaled to size 7.21106pt on input line 287.
-LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(2)/m/n' will be
-(Font)              scaled to size 10.30258pt on input line 287.
-LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(2)/m/n' will be
-(Font)              scaled to size 7.2118pt on input line 287.
-LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(3)/m/n' will be
-(Font)              scaled to size 10.3006pt on input line 287.
-LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(3)/m/n' will be
-(Font)              scaled to size 7.21042pt on input line 287.
-LaTeX Font Info:    Font shape `U/FdSymbolB/m/n' will be
-(Font)              scaled to size 10.0pt on input line 287.
-Package microtype Info: Fixing zero fontdimen6 for font `U/FdSymbolB/m/n/10'
-(microtype)             (new value: 10.0pt) on input line 287.
-LaTeX Font Info:    Font shape `U/FdSymbolB/m/n' will be
-(Font)              scaled to size 7.0pt on input line 287.
-Package microtype Info: Fixing zero fontdimen6 for font `U/FdSymbolB/m/n/7'
-(microtype)             (new value: 7.0pt) on input line 287.
-LaTeX Font Info:    Font shape `U/FdSymbolC/m/n' will be
-(Font)              scaled to size 10.0pt on input line 287.
-Package microtype Info: Fixing zero fontdimen6 for font `U/FdSymbolC/m/n/10'
-(microtype)             (new value: 10.0pt) on input line 287.
-LaTeX Font Info:    Font shape `U/FdSymbolC/m/n' will be
-(Font)              scaled to size 7.0pt on input line 287.
-Package microtype Info: Fixing zero fontdimen6 for font `U/FdSymbolC/m/n/7'
-(microtype)             (new value: 7.0pt) on input line 287.
-LaTeX Font Info:    Font shape `U/FdSymbolD/m/n' will be
-(Font)              scaled to size 10.0pt on input line 287.
-Package microtype Info: Fixing zero fontdimen6 for font `U/FdSymbolD/m/n/10'
-(microtype)             (new value: 10.0pt) on input line 287.
-LaTeX Font Info:    Font shape `U/FdSymbolD/m/n' will be
-(Font)              scaled to size 7.0pt on input line 287.
-Package microtype Info: Fixing zero fontdimen6 for font `U/FdSymbolD/m/n/7'
-(microtype)             (new value: 7.0pt) on input line 287.
-LaTeX Font Info:    Font shape `U/FdSymbolF/m/n' will be
-(Font)              scaled to size 10.0pt on input line 287.
-Package microtype Info: Fixing zero fontdimen6 for font `U/FdSymbolF/m/n/10'
-(microtype)             (new value: 10.0pt) on input line 287.
-LaTeX Font Info:    Font shape `U/FdSymbolF/m/n' will be
-(Font)              scaled to size 7.0pt on input line 287.
-Package microtype Info: Fixing zero fontdimen6 for font `U/FdSymbolF/m/n/7'
-(microtype)             (new value: 7.0pt) on input line 287.
+File: Section8.3-TypesOfOutliersInLinearRegression_files/figure-beamer/unnamed-
+chunk-7-1.pdf Graphic file (type pdf)
+<use Section8.3-TypesOfOutliersInLinearRegression_files/figure-beamer/unnamed-c
+hunk-7-1.pdf>
+[12
+
+]
+File: Section8.3-TypesOfOutliersInLinearRegression_files/figure-beamer/unnamed-
+chunk-8-1.pdf Graphic file (type pdf)
+<use Section8.3-TypesOfOutliersInLinearRegression_files/figure-beamer/unnamed-c
+hunk-8-1.pdf>
 [13
 
-] [14
+]
+File: Section8.3-TypesOfOutliersInLinearRegression_files/figure-beamer/unnamed-
+chunk-9-1.pdf Graphic file (type pdf)
+<use Section8.3-TypesOfOutliersInLinearRegression_files/figure-beamer/unnamed-c
+hunk-9-1.pdf>
+[14
 
 ] [15
 
 ] [16
 
-] [17
-
-] [18
-
-] [19
-
-] [20
-
-] [21
-
-] [22
-
-] [23
-
-] [24
-
-] [25
-
-] [26
-
 ]
-\openout4 = `Section9.2-ModelSelection.vrb'.
-
-(./Section9.2-ModelSelection.vrb) [27
-
-] [28
-
-] [29
-
-]
-LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(1)/m/n' will be
-(Font)              scaled to size 14.83417pt on input line 592.
-LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(2)/m/n' will be
-(Font)              scaled to size 14.83571pt on input line 592.
-LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(3)/m/n' will be
-(Font)              scaled to size 14.83284pt on input line 592.
-LaTeX Font Info:    Font shape `U/FdSymbolB/m/n' will be
-(Font)              scaled to size 14.4pt on input line 592.
-Package microtype Info: Fixing zero fontdimen6 for font `U/FdSymbolB/m/n/14.4'
-(microtype)             (new value: 14.4pt) on input line 592.
-LaTeX Font Info:    Font shape `U/FdSymbolC/m/n' will be
-(Font)              scaled to size 14.4pt on input line 592.
-Package microtype Info: Fixing zero fontdimen6 for font `U/FdSymbolC/m/n/14.4'
-(microtype)             (new value: 14.4pt) on input line 592.
-LaTeX Font Info:    Font shape `U/FdSymbolD/m/n' will be
-(Font)              scaled to size 14.4pt on input line 592.
-Package microtype Info: Fixing zero fontdimen6 for font `U/FdSymbolD/m/n/14.4'
-(microtype)             (new value: 14.4pt) on input line 592.
-LaTeX Font Info:    Font shape `U/FdSymbolF/m/n' will be
-(Font)              scaled to size 14.4pt on input line 592.
-Package microtype Info: Fixing zero fontdimen6 for font `U/FdSymbolF/m/n/14.4'
-(microtype)             (new value: 14.4pt) on input line 592.
-[30
-
-] [31
-
-] [32
-
-] [33
-
-] [34
-
-] [35
-
-] [36
-
-] [37
-
-] [38
+File: Section8.3-TypesOfOutliersInLinearRegression_files/figure-beamer/unnamed-
+chunk-10-1.pdf Graphic file (type pdf)
+<use Section8.3-TypesOfOutliersInLinearRegression_files/figure-beamer/unnamed-c
+hunk-10-1.pdf>
+File: Section8.3-TypesOfOutliersInLinearRegression_files/figure-beamer/unnamed-
+chunk-11-1.pdf Graphic file (type pdf)
+<use Section8.3-TypesOfOutliersInLinearRegression_files/figure-beamer/unnamed-c
+hunk-11-1.pdf>
+[17
 
 ]
 \tf@nav=\write6
-\openout6 = `Section9.2-ModelSelection.nav'.
+\openout6 = `Section8.3-TypesOfOutliersInLinearRegression.nav'.
 
 \tf@toc=\write7
-\openout7 = `Section9.2-ModelSelection.toc'.
+\openout7 = `Section8.3-TypesOfOutliersInLinearRegression.toc'.
 
 \tf@snm=\write8
-\openout8 = `Section9.2-ModelSelection.snm'.
+\openout8 = `Section8.3-TypesOfOutliersInLinearRegression.snm'.
 
-(./Section9.2-ModelSelection.aux)
-Package rerunfilecheck Info: File `Section9.2-ModelSelection.out' has not chang
-ed.
-(rerunfilecheck)             Checksum: 34149790C3973780727F3A32EED3A01B;121.
+(./Section8.3-TypesOfOutliersInLinearRegression.aux)
+Package rerunfilecheck Info: File `Section8.3-TypesOfOutliersInLinearRegression
+.out' has not changed.
+(rerunfilecheck)             Checksum: 683E627E27BB393F98FB11DFDFCFFC13;248.
  ) 
 Here is how much of TeX's memory you used:
- 41353 strings out of 478189
- 880249 string characters out of 5853131
- 1306787 words of memory out of 5000000
- 61193 multiletter control sequences out of 15000+600000
- 523120 words of font info for 166 fonts, out of 8000000 for 9000
+ 41269 strings out of 478189
+ 883940 string characters out of 5853131
+ 1286405 words of memory out of 5000000
+ 61124 multiletter control sequences out of 15000+600000
+ 505561 words of font info for 121 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 99i,15n,121p,1022b,781s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 99i,11n,121p,1041b,781s stack positions out of 5000i,500n,10000p,200000b,80000s
 
-Output written on Section9.2-ModelSelection.pdf (38 pages).
+Output written on Section8.3-TypesOfOutliersInLinearRegression.pdf (17 pages).

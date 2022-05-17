@@ -1,9 +1,9 @@
-This is XeTeX, Version 3.141592653-2.6-0.999993 (TeX Live 2021/W32TeX) (preloaded format=xelatex 2022.1.15)  17 MAY 2022 19:05
+This is XeTeX, Version 3.141592653-2.6-0.999993 (TeX Live 2021/W32TeX) (preloaded format=xelatex 2022.1.15)  17 MAY 2022 18:36
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
-**Section9.2-ModelSelection.tex
-(./Section9.2-ModelSelection.tex
+**Section8.2-FittingALineByLeastSquaresRegression.tex
+(./Section8.2-FittingALineByLeastSquaresRegression.tex
 LaTeX2e <2021-11-15> patch level 1
 L3 programming layer <2022-01-12> (c:/Users/arbaa/AppData/Roaming/TinyTeX/texmf
 -dist/tex/latex/beamer/beamer.cls
@@ -1416,35 +1416,35 @@ Package: ifsym 2000/04/18 I.Kloeckl
 )
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\\' on input line 105.
+(hyperref)                removing `\\' on input line 118.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\footnote' on input line 108.
+(hyperref)                removing `\footnote' on input line 121.
 
-(./Section9.2-ModelSelection.aux)
-\openout1 = `Section9.2-ModelSelection.aux'.
+(./Section8.2-FittingALineByLeastSquaresRegression.aux)
+\openout1 = `Section8.2-FittingALineByLeastSquaresRegression.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 108.
-LaTeX Font Info:    ... okay on input line 108.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 108.
-LaTeX Font Info:    ... okay on input line 108.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 108.
-LaTeX Font Info:    ... okay on input line 108.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 108.
-LaTeX Font Info:    ... okay on input line 108.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 108.
-LaTeX Font Info:    ... okay on input line 108.
-LaTeX Font Info:    Checking defaults for TU/lmr/m/n on input line 108.
-LaTeX Font Info:    ... okay on input line 108.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 108.
-LaTeX Font Info:    ... okay on input line 108.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 108.
-LaTeX Font Info:    ... okay on input line 108.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 108.
-LaTeX Font Info:    ... okay on input line 108.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 108.
-LaTeX Font Info:    ... okay on input line 108.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 121.
+LaTeX Font Info:    ... okay on input line 121.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 121.
+LaTeX Font Info:    ... okay on input line 121.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 121.
+LaTeX Font Info:    ... okay on input line 121.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 121.
+LaTeX Font Info:    ... okay on input line 121.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 121.
+LaTeX Font Info:    ... okay on input line 121.
+LaTeX Font Info:    Checking defaults for TU/lmr/m/n on input line 121.
+LaTeX Font Info:    ... okay on input line 121.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 121.
+LaTeX Font Info:    ... okay on input line 121.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 121.
+LaTeX Font Info:    ... okay on input line 121.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 121.
+LaTeX Font Info:    ... okay on input line 121.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 121.
+LaTeX Font Info:    ... okay on input line 121.
 *geometry* driver: auto-detecting
 *geometry* detected driver: xetex
 *geometry* verbose mode - [ preamble ] result:
@@ -1479,7 +1479,7 @@ LaTeX Font Info:    ... okay on input line 108.
 * \@reversemarginfalse
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
-Package hyperref Info: Link coloring ON on input line 108.
+Package hyperref Info: Link coloring ON on input line 121.
 
 (c:/Users/arbaa/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/hyperref/nameref.s
 ty
@@ -1495,12 +1495,13 @@ Package: gettitlestring 2019/12/15 v1.6 Cleanup title references (HO)
 )
 \c@section@level=\count398
 )
-LaTeX Info: Redefining \ref on input line 108.
-LaTeX Info: Redefining \pageref on input line 108.
-LaTeX Info: Redefining \nameref on input line 108.
-(./Section9.2-ModelSelection.out) (./Section9.2-ModelSelection.out)
+LaTeX Info: Redefining \ref on input line 121.
+LaTeX Info: Redefining \pageref on input line 121.
+LaTeX Info: Redefining \nameref on input line 121.
+(./Section8.2-FittingALineByLeastSquaresRegression.out) (./Section8.2-FittingAL
+ineByLeastSquaresRegression.out)
 \@outlinefile=\write5
-\openout5 = `Section9.2-ModelSelection.out'.
+\openout5 = `Section8.2-FittingALineByLeastSquaresRegression.out'.
 
 
 (c:/Users/arbaa/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/translator/transla
@@ -1528,19 +1529,19 @@ tor-theorem-dictionary-English.dict
 Dictionary: translator-theorem-dictionary, Language: English 
 )
 LaTeX Font Info:    Overwriting math alphabet `\mathrm' in version `normal'
-(Font)                  OT1/lmr/m/n --> TU/lmr/m/n on input line 108.
+(Font)                  OT1/lmr/m/n --> TU/lmr/m/n on input line 121.
 LaTeX Font Info:    Overwriting math alphabet `\mathit' in version `normal'
-(Font)                  OT1/lmr/m/it --> TU/lmr/m/it on input line 108.
+(Font)                  OT1/lmr/m/it --> TU/lmr/m/it on input line 121.
 LaTeX Font Info:    Overwriting math alphabet `\mathbf' in version `normal'
-(Font)                  OT1/lmr/bx/n --> TU/lmr/bx/n on input line 108.
+(Font)                  OT1/lmr/bx/n --> TU/lmr/bx/n on input line 121.
 LaTeX Font Info:    Overwriting math alphabet `\mathsf' in version `normal'
-(Font)                  OT1/lmss/m/n --> TU/lmss/m/n on input line 108.
+(Font)                  OT1/lmss/m/n --> TU/lmss/m/n on input line 121.
 LaTeX Font Info:    Overwriting math alphabet `\mathsf' in version `bold'
-(Font)                  OT1/lmss/bx/n --> TU/lmss/bx/n on input line 108.
+(Font)                  OT1/lmss/bx/n --> TU/lmss/bx/n on input line 121.
 LaTeX Font Info:    Overwriting math alphabet `\mathtt' in version `normal'
-(Font)                  OT1/lmtt/m/n --> TU/lmtt/m/n on input line 108.
+(Font)                  OT1/lmtt/m/n --> TU/lmtt/m/n on input line 121.
 LaTeX Font Info:    Overwriting math alphabet `\mathtt' in version `bold'
-(Font)                  OT1/lmtt/m/n --> TU/lmtt/bx/n on input line 108.
+(Font)                  OT1/lmtt/m/n --> TU/lmtt/bx/n on input line 121.
 
 Package fontspec Info: latinmodern-math scale = 1.03015890977869.
 
@@ -1569,7 +1570,7 @@ allCapsFont={},Script=Math,BoldFont={latinmodern-math.otf}].
 (fontspec)             - 'bold small caps'  (b/sc) with NFSS spec.: 
 
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(0)/m/n' will be
-(Font)              scaled to size 11.28015pt on input line 108.
+(Font)              scaled to size 11.28015pt on input line 121.
 
 Package fontspec Info: latinmodern-math scale = 1.03015890977869.
 
@@ -1608,18 +1609,18 @@ dern-math.otf]/OT:script=math;language=dflt;+ssty=1;"
 (fontspec)             - 'bold small caps'  (b/sc) with NFSS spec.: 
 
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(1)/m/n' will be
-(Font)              scaled to size 11.28015pt on input line 108.
+(Font)              scaled to size 11.28015pt on input line 121.
 LaTeX Font Info:    Encoding `OT1' has changed to `TU' for symbol font
-(Font)              `operators' in the math version `normal' on input line 108.
+(Font)              `operators' in the math version `normal' on input line 121.
 
 LaTeX Font Info:    Overwriting symbol font `operators' in version `normal'
 (Font)                  OT1/lmr/m/n --> TU/latinmodern-math.otf(1)/m/n on input
- line 108.
+ line 121.
 LaTeX Font Info:    Encoding `OT1' has changed to `TU' for symbol font
-(Font)              `operators' in the math version `bold' on input line 108.
+(Font)              `operators' in the math version `bold' on input line 121.
 LaTeX Font Info:    Overwriting symbol font `operators' in version `bold'
 (Font)                  OT1/lmr/bx/n --> TU/latinmodern-math.otf(1)/b/n on inpu
-t line 108.
+t line 121.
 
 Package fontspec Info: latinmodern-math scale = 1.03015890977869.
 
@@ -1706,15 +1707,15 @@ t=math;language=dflt;"
 (fontspec)             =0pt\relax \fontdimen 21\font =0pt\relax 
 
 LaTeX Font Info:    Encoding `U' has changed to `TU' for symbol font
-(Font)              `symbols' in the math version `normal' on input line 108.
+(Font)              `symbols' in the math version `normal' on input line 121.
 LaTeX Font Info:    Overwriting symbol font `symbols' in version `normal'
 (Font)                  U/FdSymbolA/m/n --> TU/latinmodern-math.otf(2)/m/n on i
-nput line 108.
+nput line 121.
 LaTeX Font Info:    Encoding `U' has changed to `TU' for symbol font
-(Font)              `symbols' in the math version `bold' on input line 108.
+(Font)              `symbols' in the math version `bold' on input line 121.
 LaTeX Font Info:    Overwriting symbol font `symbols' in version `bold'
 (Font)                  U/FdSymbolA/b/n --> TU/latinmodern-math.otf(2)/b/n on i
-nput line 108.
+nput line 121.
 
 Package fontspec Info: latinmodern-math scale = 1.03015890977869.
 
@@ -1784,16 +1785,16 @@ t=math;language=dflt;"
 
 LaTeX Font Info:    Encoding `U' has changed to `TU' for symbol font
 (Font)              `largesymbols' in the math version `normal' on input line 1
-08.
+21.
 LaTeX Font Info:    Overwriting symbol font `largesymbols' in version `normal'
 (Font)                  U/FdSymbolE/m/n --> TU/latinmodern-math.otf(3)/m/n on i
-nput line 108.
+nput line 121.
 LaTeX Font Info:    Encoding `U' has changed to `TU' for symbol font
-(Font)              `largesymbols' in the math version `bold' on input line 108
+(Font)              `largesymbols' in the math version `bold' on input line 121
 .
 LaTeX Font Info:    Overwriting symbol font `largesymbols' in version `bold'
 (Font)                  U/FdSymbolE/b/n --> TU/latinmodern-math.otf(3)/b/n on i
-nput line 108.
+nput line 121.
 
 Package unicode-math Warning: Using \overbracket and \underbracket from
 (unicode-math)                `mathtools' package.
@@ -1812,12 +1813,12 @@ Package unicode-math Warning: I'm going to overwrite the following commands
 (unicode-math)                colon-like commands, using them will lead to
 (unicode-math)                inconsistencies.
 
-LaTeX Info: Redefining \microtypecontext on input line 108.
-Package microtype Info: Applying patch `item' on input line 108.
-Package microtype Info: Applying patch `toc' on input line 108.
-Package microtype Info: Applying patch `eqnum' on input line 108.
+LaTeX Info: Redefining \microtypecontext on input line 121.
+Package microtype Info: Applying patch `item' on input line 121.
+Package microtype Info: Applying patch `toc' on input line 121.
+Package microtype Info: Applying patch `eqnum' on input line 121.
 
-Package microtype Warning: Unable to apply patch `footnote' on input line 108.
+Package microtype Warning: Unable to apply patch `footnote' on input line 121.
 
 Package microtype Info: Character protrusion enabled (level 2).
 Package microtype Info: Using protrusion set `basicmath'.
@@ -1828,29 +1829,29 @@ Package microtype Info: Loading generic protrusion settings for font family
 (microtype)             `lmss' (encoding: TU).
 (microtype)             For optimal results, create family-specific settings.
 (microtype)             See the microtype manual for details.
-(./Section9.2-ModelSelection.nav)
+(./Section8.2-FittingALineByLeastSquaresRegression.nav)
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(1)/m/n' will be
-(Font)              scaled to size 7.8961pt on input line 109.
+(Font)              scaled to size 7.8961pt on input line 122.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(1)/m/n' will be
-(Font)              scaled to size 5.64008pt on input line 109.
+(Font)              scaled to size 5.64008pt on input line 122.
 LaTeX Font Info:    Trying to load font information for OML+lmm on input line 1
-09.
+22.
 (c:/Users/arbaa/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/lm/omllmm.fd
 File: omllmm.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(2)/m/n' will be
-(Font)              scaled to size 11.28131pt on input line 109.
+(Font)              scaled to size 11.28131pt on input line 122.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(2)/m/n' will be
-(Font)              scaled to size 7.89691pt on input line 109.
+(Font)              scaled to size 7.89691pt on input line 122.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(2)/m/n' will be
-(Font)              scaled to size 5.64066pt on input line 109.
+(Font)              scaled to size 5.64066pt on input line 122.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(3)/m/n' will be
-(Font)              scaled to size 11.27914pt on input line 109.
+(Font)              scaled to size 11.27914pt on input line 122.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(3)/m/n' will be
-(Font)              scaled to size 7.8954pt on input line 109.
+(Font)              scaled to size 7.8954pt on input line 122.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(3)/m/n' will be
-(Font)              scaled to size 5.63957pt on input line 109.
-LaTeX Font Info:    Trying to load font information for U+msa on input line 109
+(Font)              scaled to size 5.63957pt on input line 122.
+LaTeX Font Info:    Trying to load font information for U+msa on input line 122
 .
 (c:/Users/arbaa/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
@@ -1859,7 +1860,7 @@ File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 fg
 File: mt-msa.cfg 2006/02/04 v1.1 microtype config. file: AMS symbols (a) (RS)
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 109
+LaTeX Font Info:    Trying to load font information for U+msb on input line 122
 .
 (c:/Users/arbaa/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
@@ -1869,7 +1870,7 @@ fg
 File: mt-msb.cfg 2005/06/01 v1.0 microtype config. file: AMS symbols (b) (RS)
 )
 LaTeX Font Info:    Trying to load font information for OT1+lmr on input line 1
-09.
+22.
 (c:/Users/arbaa/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/lm/ot1lmr.fd
 File: ot1lmr.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
@@ -1879,285 +1880,409 @@ File: mt-LatinModernRoman.cfg 2021/02/21 v1.1 microtype config. file: Latin Mod
 ern Roman (RS)
 )
 LaTeX Font Info:    Trying to load font information for OMS+lmsy on input line 
-109.
+122.
 (c:/Users/arbaa/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/lm/omslmsy.fd
 File: omslmsy.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
 LaTeX Font Info:    Font shape `U/FdSymbolB/m/n' will be
-(Font)              scaled to size 10.95pt on input line 109.
+(Font)              scaled to size 10.95pt on input line 122.
 Package microtype Info: Fixing zero fontdimen6 for font `U/FdSymbolB/m/n/10.95'
 
-(microtype)             (new value: 10.95pt) on input line 109.
+(microtype)             (new value: 10.95pt) on input line 122.
 LaTeX Font Info:    Font shape `U/FdSymbolB/m/n' will be
-(Font)              scaled to size 7.665pt on input line 109.
+(Font)              scaled to size 7.665pt on input line 122.
 Package microtype Info: Fixing zero fontdimen6 for font `U/FdSymbolB/m/n/7.665'
 
-(microtype)             (new value: 7.665pt) on input line 109.
+(microtype)             (new value: 7.665pt) on input line 122.
 LaTeX Font Info:    Font shape `U/FdSymbolB/m/n' will be
-(Font)              scaled to size 5.475pt on input line 109.
+(Font)              scaled to size 5.475pt on input line 122.
 Package microtype Info: Fixing zero fontdimen6 for font `U/FdSymbolB/m/n/5.475'
 
-(microtype)             (new value: 5.475pt) on input line 109.
+(microtype)             (new value: 5.475pt) on input line 122.
 LaTeX Font Info:    Font shape `U/FdSymbolC/m/n' will be
-(Font)              scaled to size 10.95pt on input line 109.
+(Font)              scaled to size 10.95pt on input line 122.
 Package microtype Info: Fixing zero fontdimen6 for font `U/FdSymbolC/m/n/10.95'
 
-(microtype)             (new value: 10.95pt) on input line 109.
+(microtype)             (new value: 10.95pt) on input line 122.
 LaTeX Font Info:    Font shape `U/FdSymbolC/m/n' will be
-(Font)              scaled to size 7.665pt on input line 109.
+(Font)              scaled to size 7.665pt on input line 122.
 Package microtype Info: Fixing zero fontdimen6 for font `U/FdSymbolC/m/n/7.665'
 
-(microtype)             (new value: 7.665pt) on input line 109.
+(microtype)             (new value: 7.665pt) on input line 122.
 LaTeX Font Info:    Font shape `U/FdSymbolC/m/n' will be
-(Font)              scaled to size 5.475pt on input line 109.
+(Font)              scaled to size 5.475pt on input line 122.
 Package microtype Info: Fixing zero fontdimen6 for font `U/FdSymbolC/m/n/5.475'
 
-(microtype)             (new value: 5.475pt) on input line 109.
+(microtype)             (new value: 5.475pt) on input line 122.
 LaTeX Font Info:    Font shape `U/FdSymbolD/m/n' will be
-(Font)              scaled to size 10.95pt on input line 109.
+(Font)              scaled to size 10.95pt on input line 122.
 Package microtype Info: Fixing zero fontdimen6 for font `U/FdSymbolD/m/n/10.95'
 
-(microtype)             (new value: 10.95pt) on input line 109.
+(microtype)             (new value: 10.95pt) on input line 122.
 LaTeX Font Info:    Font shape `U/FdSymbolD/m/n' will be
-(Font)              scaled to size 7.665pt on input line 109.
+(Font)              scaled to size 7.665pt on input line 122.
 Package microtype Info: Fixing zero fontdimen6 for font `U/FdSymbolD/m/n/7.665'
 
-(microtype)             (new value: 7.665pt) on input line 109.
+(microtype)             (new value: 7.665pt) on input line 122.
 LaTeX Font Info:    Font shape `U/FdSymbolD/m/n' will be
-(Font)              scaled to size 5.475pt on input line 109.
+(Font)              scaled to size 5.475pt on input line 122.
 Package microtype Info: Fixing zero fontdimen6 for font `U/FdSymbolD/m/n/5.475'
 
-(microtype)             (new value: 5.475pt) on input line 109.
+(microtype)             (new value: 5.475pt) on input line 122.
 LaTeX Font Info:    Font shape `U/FdSymbolF/m/n' will be
-(Font)              scaled to size 10.95pt on input line 109.
+(Font)              scaled to size 10.95pt on input line 122.
 Package microtype Info: Fixing zero fontdimen6 for font `U/FdSymbolF/m/n/10.95'
 
-(microtype)             (new value: 10.95pt) on input line 109.
+(microtype)             (new value: 10.95pt) on input line 122.
 LaTeX Font Info:    Font shape `U/FdSymbolF/m/n' will be
-(Font)              scaled to size 7.665pt on input line 109.
+(Font)              scaled to size 7.665pt on input line 122.
 Package microtype Info: Fixing zero fontdimen6 for font `U/FdSymbolF/m/n/7.665'
 
-(microtype)             (new value: 7.665pt) on input line 109.
+(microtype)             (new value: 7.665pt) on input line 122.
 LaTeX Font Info:    Font shape `U/FdSymbolF/m/n' will be
-(Font)              scaled to size 5.475pt on input line 109.
+(Font)              scaled to size 5.475pt on input line 122.
 Package microtype Info: Fixing zero fontdimen6 for font `U/FdSymbolF/m/n/5.475'
 
-(microtype)             (new value: 5.475pt) on input line 109.
+(microtype)             (new value: 5.475pt) on input line 122.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(1)/m/n' will be
-(Font)              scaled to size 9.27136pt on input line 109.
+(Font)              scaled to size 9.27136pt on input line 122.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(1)/m/n' will be
-(Font)              scaled to size 6.18091pt on input line 109.
+(Font)              scaled to size 6.18091pt on input line 122.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(1)/m/n' will be
-(Font)              scaled to size 5.15076pt on input line 109.
+(Font)              scaled to size 5.15076pt on input line 122.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(2)/m/n' will be
-(Font)              scaled to size 9.27232pt on input line 109.
+(Font)              scaled to size 9.27232pt on input line 122.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(2)/m/n' will be
-(Font)              scaled to size 6.18155pt on input line 109.
+(Font)              scaled to size 6.18155pt on input line 122.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(2)/m/n' will be
-(Font)              scaled to size 5.15129pt on input line 109.
+(Font)              scaled to size 5.15129pt on input line 122.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(3)/m/n' will be
-(Font)              scaled to size 9.27054pt on input line 109.
+(Font)              scaled to size 9.27054pt on input line 122.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(3)/m/n' will be
-(Font)              scaled to size 6.18036pt on input line 109.
+(Font)              scaled to size 6.18036pt on input line 122.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(3)/m/n' will be
-(Font)              scaled to size 5.1503pt on input line 109.
+(Font)              scaled to size 5.1503pt on input line 122.
 LaTeX Font Info:    Font shape `U/FdSymbolB/m/n' will be
-(Font)              scaled to size 9.0pt on input line 109.
+(Font)              scaled to size 9.0pt on input line 122.
 Package microtype Info: Fixing zero fontdimen6 for font `U/FdSymbolB/m/n/9'
-(microtype)             (new value: 9.0pt) on input line 109.
+(microtype)             (new value: 9.0pt) on input line 122.
 LaTeX Font Info:    Font shape `U/FdSymbolB/m/n' will be
-(Font)              scaled to size 6.0pt on input line 109.
+(Font)              scaled to size 6.0pt on input line 122.
 Package microtype Info: Fixing zero fontdimen6 for font `U/FdSymbolB/m/n/6'
-(microtype)             (new value: 6.0pt) on input line 109.
+(microtype)             (new value: 6.0pt) on input line 122.
 LaTeX Font Info:    Font shape `U/FdSymbolB/m/n' will be
-(Font)              scaled to size 5.0pt on input line 109.
+(Font)              scaled to size 5.0pt on input line 122.
 Package microtype Info: Fixing zero fontdimen6 for font `U/FdSymbolB/m/n/5'
-(microtype)             (new value: 5.0pt) on input line 109.
+(microtype)             (new value: 5.0pt) on input line 122.
 LaTeX Font Info:    Font shape `U/FdSymbolC/m/n' will be
-(Font)              scaled to size 9.0pt on input line 109.
+(Font)              scaled to size 9.0pt on input line 122.
 Package microtype Info: Fixing zero fontdimen6 for font `U/FdSymbolC/m/n/9'
-(microtype)             (new value: 9.0pt) on input line 109.
+(microtype)             (new value: 9.0pt) on input line 122.
 LaTeX Font Info:    Font shape `U/FdSymbolC/m/n' will be
-(Font)              scaled to size 6.0pt on input line 109.
+(Font)              scaled to size 6.0pt on input line 122.
 Package microtype Info: Fixing zero fontdimen6 for font `U/FdSymbolC/m/n/6'
-(microtype)             (new value: 6.0pt) on input line 109.
+(microtype)             (new value: 6.0pt) on input line 122.
 LaTeX Font Info:    Font shape `U/FdSymbolC/m/n' will be
-(Font)              scaled to size 5.0pt on input line 109.
+(Font)              scaled to size 5.0pt on input line 122.
 Package microtype Info: Fixing zero fontdimen6 for font `U/FdSymbolC/m/n/5'
-(microtype)             (new value: 5.0pt) on input line 109.
+(microtype)             (new value: 5.0pt) on input line 122.
 LaTeX Font Info:    Font shape `U/FdSymbolD/m/n' will be
-(Font)              scaled to size 9.0pt on input line 109.
+(Font)              scaled to size 9.0pt on input line 122.
 Package microtype Info: Fixing zero fontdimen6 for font `U/FdSymbolD/m/n/9'
-(microtype)             (new value: 9.0pt) on input line 109.
+(microtype)             (new value: 9.0pt) on input line 122.
 LaTeX Font Info:    Font shape `U/FdSymbolD/m/n' will be
-(Font)              scaled to size 6.0pt on input line 109.
+(Font)              scaled to size 6.0pt on input line 122.
 Package microtype Info: Fixing zero fontdimen6 for font `U/FdSymbolD/m/n/6'
-(microtype)             (new value: 6.0pt) on input line 109.
+(microtype)             (new value: 6.0pt) on input line 122.
 LaTeX Font Info:    Font shape `U/FdSymbolD/m/n' will be
-(Font)              scaled to size 5.0pt on input line 109.
+(Font)              scaled to size 5.0pt on input line 122.
 Package microtype Info: Fixing zero fontdimen6 for font `U/FdSymbolD/m/n/5'
-(microtype)             (new value: 5.0pt) on input line 109.
+(microtype)             (new value: 5.0pt) on input line 122.
 LaTeX Font Info:    Font shape `U/FdSymbolF/m/n' will be
-(Font)              scaled to size 9.0pt on input line 109.
+(Font)              scaled to size 9.0pt on input line 122.
 Package microtype Info: Fixing zero fontdimen6 for font `U/FdSymbolF/m/n/9'
-(microtype)             (new value: 9.0pt) on input line 109.
+(microtype)             (new value: 9.0pt) on input line 122.
 LaTeX Font Info:    Font shape `U/FdSymbolF/m/n' will be
-(Font)              scaled to size 6.0pt on input line 109.
+(Font)              scaled to size 6.0pt on input line 122.
 Package microtype Info: Fixing zero fontdimen6 for font `U/FdSymbolF/m/n/6'
-(microtype)             (new value: 6.0pt) on input line 109.
+(microtype)             (new value: 6.0pt) on input line 122.
 LaTeX Font Info:    Font shape `U/FdSymbolF/m/n' will be
-(Font)              scaled to size 5.0pt on input line 109.
+(Font)              scaled to size 5.0pt on input line 122.
 Package microtype Info: Fixing zero fontdimen6 for font `U/FdSymbolF/m/n/5'
-(microtype)             (new value: 5.0pt) on input line 109.
+(microtype)             (new value: 5.0pt) on input line 122.
 [1
 
 ] [2
 
-] [3
+]
+LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(1)/m/n' will be
+(Font)              scaled to size 10.30151pt on input line 155.
+LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(1)/m/n' will be
+(Font)              scaled to size 7.21106pt on input line 155.
+LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(2)/m/n' will be
+(Font)              scaled to size 10.30258pt on input line 155.
+LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(2)/m/n' will be
+(Font)              scaled to size 7.2118pt on input line 155.
+LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(3)/m/n' will be
+(Font)              scaled to size 10.3006pt on input line 155.
+LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(3)/m/n' will be
+(Font)              scaled to size 7.21042pt on input line 155.
+LaTeX Font Info:    Font shape `U/FdSymbolB/m/n' will be
+(Font)              scaled to size 10.0pt on input line 155.
+Package microtype Info: Fixing zero fontdimen6 for font `U/FdSymbolB/m/n/10'
+(microtype)             (new value: 10.0pt) on input line 155.
+LaTeX Font Info:    Font shape `U/FdSymbolB/m/n' will be
+(Font)              scaled to size 7.0pt on input line 155.
+Package microtype Info: Fixing zero fontdimen6 for font `U/FdSymbolB/m/n/7'
+(microtype)             (new value: 7.0pt) on input line 155.
+LaTeX Font Info:    Font shape `U/FdSymbolC/m/n' will be
+(Font)              scaled to size 10.0pt on input line 155.
+Package microtype Info: Fixing zero fontdimen6 for font `U/FdSymbolC/m/n/10'
+(microtype)             (new value: 10.0pt) on input line 155.
+LaTeX Font Info:    Font shape `U/FdSymbolC/m/n' will be
+(Font)              scaled to size 7.0pt on input line 155.
+Package microtype Info: Fixing zero fontdimen6 for font `U/FdSymbolC/m/n/7'
+(microtype)             (new value: 7.0pt) on input line 155.
+LaTeX Font Info:    Font shape `U/FdSymbolD/m/n' will be
+(Font)              scaled to size 10.0pt on input line 155.
+Package microtype Info: Fixing zero fontdimen6 for font `U/FdSymbolD/m/n/10'
+(microtype)             (new value: 10.0pt) on input line 155.
+LaTeX Font Info:    Font shape `U/FdSymbolD/m/n' will be
+(Font)              scaled to size 7.0pt on input line 155.
+Package microtype Info: Fixing zero fontdimen6 for font `U/FdSymbolD/m/n/7'
+(microtype)             (new value: 7.0pt) on input line 155.
+LaTeX Font Info:    Font shape `U/FdSymbolF/m/n' will be
+(Font)              scaled to size 10.0pt on input line 155.
+Package microtype Info: Fixing zero fontdimen6 for font `U/FdSymbolF/m/n/10'
+(microtype)             (new value: 10.0pt) on input line 155.
+LaTeX Font Info:    Font shape `U/FdSymbolF/m/n' will be
+(Font)              scaled to size 7.0pt on input line 155.
+Package microtype Info: Fixing zero fontdimen6 for font `U/FdSymbolF/m/n/7'
+(microtype)             (new value: 7.0pt) on input line 155.
+Missing character: There is no ^^E (U+0005) in font [latinmodern-math.otf]/OT:s
+cript=math;language=dflt;!
+Missing character: There is no ^^E (U+0005) in font [latinmodern-math.otf]/OT:s
+cript=math;language=dflt;!
+[3
 
 ]
-File: Section9.2-ModelSelection_files/figure-beamer/unnamed-chunk-2-1.pdf Graph
-ic file (type pdf)
-<use Section9.2-ModelSelection_files/figure-beamer/unnamed-chunk-2-1.pdf>
+Missing character: There is no ^^E (U+0005) in font [latinmodern-math.otf]/OT:s
+cript=math;language=dflt;!
+Missing character: There is no ^^E (U+0005) in font [latinmodern-math.otf]/OT:s
+cript=math;language=dflt;!
 [4
 
-] [5
-
-] [6
+]
+Missing character: There is no ^^E (U+0005) in font [latinmodern-math.otf]/OT:s
+cript=math;language=dflt;!
+Missing character: There is no ^^E (U+0005) in font [latinmodern-math.otf]/OT:s
+cript=math;language=dflt;!
+[5
 
 ]
-File: Section9.2-ModelSelection_files/figure-beamer/unnamed-chunk-3-1.pdf Graph
-ic file (type pdf)
-<use Section9.2-ModelSelection_files/figure-beamer/unnamed-chunk-3-1.pdf>
+Missing character: There is no ^^E (U+0005) in font [latinmodern-math.otf]/OT:s
+cript=math;language=dflt;!
+Missing character: There is no ^^E (U+0005) in font [latinmodern-math.otf]/OT:s
+cript=math;language=dflt;!
+[6
+
+]
+Missing character: There is no ^^E (U+0005) in font [latinmodern-math.otf]/OT:s
+cript=math;language=dflt;!
+Missing character: There is no ^^E (U+0005) in font [latinmodern-math.otf]/OT:s
+cript=math;language=dflt;!
 [7
 
 ]
-File: Section9.2-ModelSelection_files/figure-beamer/unnamed-chunk-3-1.pdf Graph
-ic file (type pdf)
-<use Section9.2-ModelSelection_files/figure-beamer/unnamed-chunk-3-1.pdf>
+Missing character: There is no ^^E (U+0005) in font [latinmodern-math.otf]/OT:s
+cript=math;language=dflt;!
+Missing character: There is no ^^E (U+0005) in font [latinmodern-math.otf]/OT:s
+cript=math;language=dflt;!
 [8
 
 ]
-File: Section9.2-ModelSelection_files/figure-beamer/unnamed-chunk-3-1.pdf Graph
-ic file (type pdf)
-<use Section9.2-ModelSelection_files/figure-beamer/unnamed-chunk-3-1.pdf>
+Missing character: There is no ^^E (U+0005) in font [latinmodern-math.otf]/OT:s
+cript=math;language=dflt;!
+Missing character: There is no ^^E (U+0005) in font [latinmodern-math.otf]/OT:s
+cript=math;language=dflt;!
 [9
 
-]
-File: Section9.2-ModelSelection_files/figure-beamer/unnamed-chunk-3-1.pdf Graph
-ic file (type pdf)
-<use Section9.2-ModelSelection_files/figure-beamer/unnamed-chunk-3-1.pdf>
-[10
+] [10
 
 ] [11
 
 ] [12
 
-]
-LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(1)/m/n' will be
-(Font)              scaled to size 10.30151pt on input line 287.
-LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(1)/m/n' will be
-(Font)              scaled to size 7.21106pt on input line 287.
-LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(2)/m/n' will be
-(Font)              scaled to size 10.30258pt on input line 287.
-LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(2)/m/n' will be
-(Font)              scaled to size 7.2118pt on input line 287.
-LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(3)/m/n' will be
-(Font)              scaled to size 10.3006pt on input line 287.
-LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(3)/m/n' will be
-(Font)              scaled to size 7.21042pt on input line 287.
-LaTeX Font Info:    Font shape `U/FdSymbolB/m/n' will be
-(Font)              scaled to size 10.0pt on input line 287.
-Package microtype Info: Fixing zero fontdimen6 for font `U/FdSymbolB/m/n/10'
-(microtype)             (new value: 10.0pt) on input line 287.
-LaTeX Font Info:    Font shape `U/FdSymbolB/m/n' will be
-(Font)              scaled to size 7.0pt on input line 287.
-Package microtype Info: Fixing zero fontdimen6 for font `U/FdSymbolB/m/n/7'
-(microtype)             (new value: 7.0pt) on input line 287.
-LaTeX Font Info:    Font shape `U/FdSymbolC/m/n' will be
-(Font)              scaled to size 10.0pt on input line 287.
-Package microtype Info: Fixing zero fontdimen6 for font `U/FdSymbolC/m/n/10'
-(microtype)             (new value: 10.0pt) on input line 287.
-LaTeX Font Info:    Font shape `U/FdSymbolC/m/n' will be
-(Font)              scaled to size 7.0pt on input line 287.
-Package microtype Info: Fixing zero fontdimen6 for font `U/FdSymbolC/m/n/7'
-(microtype)             (new value: 7.0pt) on input line 287.
-LaTeX Font Info:    Font shape `U/FdSymbolD/m/n' will be
-(Font)              scaled to size 10.0pt on input line 287.
-Package microtype Info: Fixing zero fontdimen6 for font `U/FdSymbolD/m/n/10'
-(microtype)             (new value: 10.0pt) on input line 287.
-LaTeX Font Info:    Font shape `U/FdSymbolD/m/n' will be
-(Font)              scaled to size 7.0pt on input line 287.
-Package microtype Info: Fixing zero fontdimen6 for font `U/FdSymbolD/m/n/7'
-(microtype)             (new value: 7.0pt) on input line 287.
-LaTeX Font Info:    Font shape `U/FdSymbolF/m/n' will be
-(Font)              scaled to size 10.0pt on input line 287.
-Package microtype Info: Fixing zero fontdimen6 for font `U/FdSymbolF/m/n/10'
-(microtype)             (new value: 10.0pt) on input line 287.
-LaTeX Font Info:    Font shape `U/FdSymbolF/m/n' will be
-(Font)              scaled to size 7.0pt on input line 287.
-Package microtype Info: Fixing zero fontdimen6 for font `U/FdSymbolF/m/n/7'
-(microtype)             (new value: 7.0pt) on input line 287.
-[13
-
-] [14
-
-] [15
-
-] [16
-
-] [17
-
-] [18
-
-] [19
-
-] [20
-
-] [21
-
-] [22
-
-] [23
-
-] [24
-
-] [25
-
-] [26
+] [13
 
 ]
-\openout4 = `Section9.2-ModelSelection.vrb'.
-
-(./Section9.2-ModelSelection.vrb) [27
-
-] [28
-
-] [29
+File: Section8.2-FittingALineByLeastSquaresRegression_files/figure-beamer/unnam
+ed-chunk-2-1.pdf Graphic file (type pdf)
+<use Section8.2-FittingALineByLeastSquaresRegression_files/figure-beamer/unname
+d-chunk-2-1.pdf>
+[14
 
 ]
+File: Section8.2-FittingALineByLeastSquaresRegression_files/figure-beamer/unnam
+ed-chunk-2-1.pdf Graphic file (type pdf)
+<use Section8.2-FittingALineByLeastSquaresRegression_files/figure-beamer/unname
+d-chunk-2-1.pdf>
+[15
+
+]
+File: Section8.2-FittingALineByLeastSquaresRegression_files/figure-beamer/unnam
+ed-chunk-2-1.pdf Graphic file (type pdf)
+<use Section8.2-FittingALineByLeastSquaresRegression_files/figure-beamer/unname
+d-chunk-2-1.pdf>
+[16
+
+]
+File: Section8.2-FittingALineByLeastSquaresRegression_files/figure-beamer/unnam
+ed-chunk-3-1.pdf Graphic file (type pdf)
+<use Section8.2-FittingALineByLeastSquaresRegression_files/figure-beamer/unname
+d-chunk-3-1.pdf>
+
+Overfull \hbox (50.21793pt too wide) detected at line 259
+[]
+ []
+
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(1)/m/n' will be
-(Font)              scaled to size 14.83417pt on input line 592.
+(Font)              scaled to size 14.83417pt on input line 259.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(2)/m/n' will be
-(Font)              scaled to size 14.83571pt on input line 592.
+(Font)              scaled to size 14.83571pt on input line 259.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(3)/m/n' will be
-(Font)              scaled to size 14.83284pt on input line 592.
+(Font)              scaled to size 14.83284pt on input line 259.
 LaTeX Font Info:    Font shape `U/FdSymbolB/m/n' will be
-(Font)              scaled to size 14.4pt on input line 592.
+(Font)              scaled to size 14.4pt on input line 259.
 Package microtype Info: Fixing zero fontdimen6 for font `U/FdSymbolB/m/n/14.4'
-(microtype)             (new value: 14.4pt) on input line 592.
+(microtype)             (new value: 14.4pt) on input line 259.
 LaTeX Font Info:    Font shape `U/FdSymbolC/m/n' will be
-(Font)              scaled to size 14.4pt on input line 592.
+(Font)              scaled to size 14.4pt on input line 259.
 Package microtype Info: Fixing zero fontdimen6 for font `U/FdSymbolC/m/n/14.4'
-(microtype)             (new value: 14.4pt) on input line 592.
+(microtype)             (new value: 14.4pt) on input line 259.
 LaTeX Font Info:    Font shape `U/FdSymbolD/m/n' will be
-(Font)              scaled to size 14.4pt on input line 592.
+(Font)              scaled to size 14.4pt on input line 259.
 Package microtype Info: Fixing zero fontdimen6 for font `U/FdSymbolD/m/n/14.4'
-(microtype)             (new value: 14.4pt) on input line 592.
+(microtype)             (new value: 14.4pt) on input line 259.
 LaTeX Font Info:    Font shape `U/FdSymbolF/m/n' will be
-(Font)              scaled to size 14.4pt on input line 592.
+(Font)              scaled to size 14.4pt on input line 259.
 Package microtype Info: Fixing zero fontdimen6 for font `U/FdSymbolF/m/n/14.4'
-(microtype)             (new value: 14.4pt) on input line 592.
+(microtype)             (new value: 14.4pt) on input line 259.
+
+Overfull \hbox (50.21793pt too wide) detected at line 259
+[]
+ []
+
+[17
+
+]
+File: Section8.2-FittingALineByLeastSquaresRegression_files/figure-beamer/unnam
+ed-chunk-3-1.pdf Graphic file (type pdf)
+<use Section8.2-FittingALineByLeastSquaresRegression_files/figure-beamer/unname
+d-chunk-3-1.pdf>
+
+Overfull \hbox (50.21793pt too wide) detected at line 259
+[]
+ []
+
+
+Overfull \hbox (50.21793pt too wide) detected at line 259
+[]
+ []
+
+[18
+
+]
+File: Section8.2-FittingALineByLeastSquaresRegression_files/figure-beamer/unnam
+ed-chunk-4-1.pdf Graphic file (type pdf)
+<use Section8.2-FittingALineByLeastSquaresRegression_files/figure-beamer/unname
+d-chunk-4-1.pdf>
+
+Overfull \vbox (11.81995pt too high) detected at line 287
+ []
+
+[19
+
+]
+File: Section8.2-FittingALineByLeastSquaresRegression_files/figure-beamer/unnam
+ed-chunk-4-1.pdf Graphic file (type pdf)
+<use Section8.2-FittingALineByLeastSquaresRegression_files/figure-beamer/unname
+d-chunk-4-1.pdf>
+
+Overfull \vbox (11.81995pt too high) detected at line 287
+ []
+
+[20
+
+]
+File: Section8.2-FittingALineByLeastSquaresRegression_files/figure-beamer/unnam
+ed-chunk-4-1.pdf Graphic file (type pdf)
+<use Section8.2-FittingALineByLeastSquaresRegression_files/figure-beamer/unname
+d-chunk-4-1.pdf>
+
+Overfull \vbox (11.81995pt too high) detected at line 287
+ []
+
+[21
+
+]
+File: Section8.2-FittingALineByLeastSquaresRegression_files/figure-beamer/unnam
+ed-chunk-5-1.pdf Graphic file (type pdf)
+<use Section8.2-FittingALineByLeastSquaresRegression_files/figure-beamer/unname
+d-chunk-5-1.pdf>
+[22
+
+]
+File: Section8.2-FittingALineByLeastSquaresRegression_files/figure-beamer/unnam
+ed-chunk-5-1.pdf Graphic file (type pdf)
+<use Section8.2-FittingALineByLeastSquaresRegression_files/figure-beamer/unname
+d-chunk-5-1.pdf>
+[23
+
+]
+File: Section8.2-FittingALineByLeastSquaresRegression_files/figure-beamer/unnam
+ed-chunk-5-1.pdf Graphic file (type pdf)
+<use Section8.2-FittingALineByLeastSquaresRegression_files/figure-beamer/unname
+d-chunk-5-1.pdf>
+[24
+
+]
+File: Section8.2-FittingALineByLeastSquaresRegression_files/figure-beamer/unnam
+ed-chunk-5-1.pdf Graphic file (type pdf)
+<use Section8.2-FittingALineByLeastSquaresRegression_files/figure-beamer/unname
+d-chunk-5-1.pdf>
+[25
+
+]
+File: images//nonlinear.pdf Graphic file (type pdf)
+<use images//nonlinear.pdf>
+[26
+
+]
+File: images//nonlinear.pdf Graphic file (type pdf)
+<use images//nonlinear.pdf>
+[27
+
+]
+File: images//heteroscedastic.pdf Graphic file (type pdf)
+<use images//heteroscedastic.pdf>
+[28
+
+]
+File: images//heteroscedastic.pdf Graphic file (type pdf)
+<use images//heteroscedastic.pdf>
+[29
+
+]
+File: Section8.2-FittingALineByLeastSquaresRegression_files/figure-beamer/unnam
+ed-chunk-6-1.pdf Graphic file (type pdf)
+<use Section8.2-FittingALineByLeastSquaresRegression_files/figure-beamer/unname
+d-chunk-6-1.pdf>
+
+Overfull \hbox (15.72607pt too wide) in paragraph at lines 461--461
+[][]  
+ []
+
 [30
 
 ] [31
@@ -2166,38 +2291,149 @@ Package microtype Info: Fixing zero fontdimen6 for font `U/FdSymbolF/m/n/14.4'
 
 ] [33
 
-] [34
+]
+File: Section8.2-FittingALineByLeastSquaresRegression_files/figure-beamer/unnam
+ed-chunk-7-1.pdf Graphic file (type pdf)
+<use Section8.2-FittingALineByLeastSquaresRegression_files/figure-beamer/unname
+d-chunk-7-1.pdf>
 
-] [35
+Overfull \hbox (55.41478pt too wide) detected at line 514
+[]
+ []
 
-] [36
+[34
+
+]
+File: Section8.2-FittingALineByLeastSquaresRegression_files/figure-beamer/unnam
+ed-chunk-7-1.pdf Graphic file (type pdf)
+<use Section8.2-FittingALineByLeastSquaresRegression_files/figure-beamer/unname
+d-chunk-7-1.pdf>
+
+Overfull \hbox (55.41478pt too wide) detected at line 514
+[]
+ []
+
+[35
+
+]
+File: Section8.2-FittingALineByLeastSquaresRegression_files/figure-beamer/unnam
+ed-chunk-7-1.pdf Graphic file (type pdf)
+<use Section8.2-FittingALineByLeastSquaresRegression_files/figure-beamer/unname
+d-chunk-7-1.pdf>
+
+Overfull \hbox (55.41478pt too wide) detected at line 514
+[]
+ []
+
+[36
 
 ] [37
 
 ] [38
 
 ]
+File: Section8.2-FittingALineByLeastSquaresRegression_files/figure-beamer/unnam
+ed-chunk-8-1.pdf Graphic file (type pdf)
+<use Section8.2-FittingALineByLeastSquaresRegression_files/figure-beamer/unname
+d-chunk-8-1.pdf>
+[39
+
+]
+File: Section8.2-FittingALineByLeastSquaresRegression_files/figure-beamer/unnam
+ed-chunk-9-1.pdf Graphic file (type pdf)
+<use Section8.2-FittingALineByLeastSquaresRegression_files/figure-beamer/unname
+d-chunk-9-1.pdf>
+
+Overfull \vbox (10.04425pt too high) detected at line 578
+ []
+
+[40
+
+]
+File: images//diagram.png Graphic file (type bmp)
+<images//diagram.png>
+[41
+
+]
+File: Section8.2-FittingALineByLeastSquaresRegression_files/figure-beamer/unnam
+ed-chunk-10-1.pdf Graphic file (type pdf)
+<use Section8.2-FittingALineByLeastSquaresRegression_files/figure-beamer/unname
+d-chunk-10-1.pdf>
+[42
+
+]
+File: Section8.2-FittingALineByLeastSquaresRegression_files/figure-beamer/unnam
+ed-chunk-11-1.pdf Graphic file (type pdf)
+<use Section8.2-FittingALineByLeastSquaresRegression_files/figure-beamer/unname
+d-chunk-11-1.pdf>
+[43
+
+]
+File: images/extrapolation.png Graphic file (type bmp)
+<images/extrapolation.png>
+[44
+
+]
+File: images/womenOutsprintBBC.png Graphic file (type bmp)
+<images/womenOutsprintBBC.png>
+
+Overfull \vbox (3.9311pt too high) detected at line 650
+ []
+
+[45
+
+]
+File: images/womenOutsprint.png Graphic file (type bmp)
+<images/womenOutsprint.png>
+[46
+
+] [47
+
+] [48
+
+] [49
+
+] [50
+
+] [51
+
+]
+File: Section8.2-FittingALineByLeastSquaresRegression_files/figure-beamer/unnam
+ed-chunk-12-1.pdf Graphic file (type pdf)
+<use Section8.2-FittingALineByLeastSquaresRegression_files/figure-beamer/unname
+d-chunk-12-1.pdf>
+[52
+
+]
+File: Section8.2-FittingALineByLeastSquaresRegression_files/figure-beamer/unnam
+ed-chunk-13-1.pdf Graphic file (type pdf)
+<use Section8.2-FittingALineByLeastSquaresRegression_files/figure-beamer/unname
+d-chunk-13-1.pdf>
+[53
+
+]
 \tf@nav=\write6
-\openout6 = `Section9.2-ModelSelection.nav'.
+\openout6 = `Section8.2-FittingALineByLeastSquaresRegression.nav'.
 
 \tf@toc=\write7
-\openout7 = `Section9.2-ModelSelection.toc'.
+\openout7 = `Section8.2-FittingALineByLeastSquaresRegression.toc'.
 
 \tf@snm=\write8
-\openout8 = `Section9.2-ModelSelection.snm'.
+\openout8 = `Section8.2-FittingALineByLeastSquaresRegression.snm'.
 
-(./Section9.2-ModelSelection.aux)
-Package rerunfilecheck Info: File `Section9.2-ModelSelection.out' has not chang
-ed.
-(rerunfilecheck)             Checksum: 34149790C3973780727F3A32EED3A01B;121.
+(./Section8.2-FittingALineByLeastSquaresRegression.aux)
+Package rerunfilecheck Info: File `Section8.2-FittingALineByLeastSquaresRegress
+ion.out' has not changed.
+(rerunfilecheck)             Checksum: 912F3798BB0BFAAABAAB7729BC1247EB;271.
  ) 
 Here is how much of TeX's memory you used:
- 41353 strings out of 478189
- 880249 string characters out of 5853131
- 1306787 words of memory out of 5000000
- 61193 multiletter control sequences out of 15000+600000
- 523120 words of font info for 166 fonts, out of 8000000 for 9000
+ 41582 strings out of 478189
+ 893378 string characters out of 5853131
+ 1295321 words of memory out of 5000000
+ 61401 multiletter control sequences out of 15000+600000
+ 523136 words of font info for 168 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 99i,15n,121p,1022b,781s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 99i,12n,121p,1044b,1117s stack positions out of 5000i,500n,10000p,200000b,80000s
 
-Output written on Section9.2-ModelSelection.pdf (38 pages).
+Output written on Section8.2-FittingALineByLeastSquaresRegression.pdf (53 pages
+).
