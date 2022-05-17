@@ -1,0 +1,78 @@
+---
+title: "LAB 1 - Intro to R Solution"
+author: "MATH224 - Intro to Stat"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(openintro)
+```
+
+
+## Exercise 1
+
+```{r, message=F, warning=F}
+(2.59 - 22/7)/(10 - sqrt(23)) #2 Points
+```
+## Exercise 2
+
+### Part 1
+
+```{r, message=F, warning=F}
+log(pi) #2 Points
+```
+
+### Part 2
+
+```{r, message=F, warning=F}
+exp(2*pi^2) #2 Points
+```
+
+OR
+
+```{r, message=F, warning=F}
+log(exp(2*pi^2))
+```
+
+## Exercise 3
+
+```{r, message=F, warning=F}
+a = 3 #4 Points
+b = 7
+
+(a+b)^2
+
+a^2 + 2*a*b + b^2
+```
+
+As we can see, both $(a+b)^2$ and $a^2+2ab+b^2$ output the same numbers.
+
+## Exercise 4
+
+```{r, message=F, warning=F}
+x1 = c(1,2,3,4,5) #4 Points
+x2 = c(6,9,1,11,5)
+
+(x1^2 + x2)/2
+```
+
+## Exercise 5
+
+```{r, message=F, warning=F}
+x3 = c(7,6,8,5,5,9,1) #4 Points
+x4 = c(1,2,3)
+
+x3 + x4
+```
+
+We still obtain a result even though x3 and x4 are vectors with different lengths. This is because R replicates the smaller vector multiple times to match the size of the larger vector. That is, in the background R creates x4 as `x4 = c(1,2,3,1,2,3,1)` which is of length 7, same as x3. This makes sense based on the output given for the addition.
+
+## Exercise 6
+
+```{r, message=F, warning=F}
+glimpse(arbuthnot) #Not necessary for the exercise
+
+arbuthnot$girls #2 Points
+```

@@ -1,0 +1,131 @@
+---
+title: "Lab 3 - Exploratory Data Analysis Part II Solution"
+author: "MATH224 - Intro to Stat"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(openintro)
+library(nycflights13)
+```
+
+
+## Exercise 1 (3 points)
+
+**2 points** Explanation: We can see that as we use a smaller binwidth, we see too much of the data whereas a bigger binwidth doesn't provide the vital information about the data.
+
+```{r, warning=F, message=F}
+#0.34 points
+ggplot(data = nycflights, aes(x = dep_delay)) +
+  geom_histogram()
+
+#0.33 points
+ggplot(data = nycflights, aes(x = dep_delay)) +
+  geom_histogram(binwidth = 15)
+
+#0.33 points
+ggplot(data = nycflights, aes(x = dep_delay)) +
+  geom_histogram(binwidth = 150)
+```
+
+## Exercise 2 (1 Point)
+
+```{r, warning=F, message=F}
+sfo_feb_flights <- nycflights %>%
+  filter(dest == "SFO", month == 2)
+```
+
+## Exercise 3 (4 points)
+
+Explanation: 
+
+**2 Points** From the histogram plot, we can see that the arrival delay has a distribution of data that is right skewed. Since the data is right skewed, we will be using median as a summary statistic as it gives us a better understanding of the center of the data because mean is sensitive to outliers.
+
+```{r, warning=F, message=F}
+#1 Point
+ggplot(data = nycflights, aes(x = arr_delay)) +
+  geom_histogram()
+
+#1 Point
+nycflights%>%
+  summarise(mean_ad = mean(arr_delay),
+            median_ad = median(arr_delay))
+```
+
+## Exercise 4 (4 Points)
+
+**2 Points** Answer: As we know, IQR can be used to understand the variability of data. From the table below, we can see that carriers DL and UA have the highest IQR with an arrival delay of 22 minutes. 
+
+```{r, warning=F, message=F}
+sfo_feb_flights %>%
+  group_by(carrier) %>% #1 Point
+  summarise(median_ad = median(arr_delay), #0.5 Point
+            iqr_ad = IQR(arr_delay), #0.5 Point
+            n_flights = n())
+```
+
+
+## Exercise 5 (4 Points)
+
+**1 Point** We will choose October if we were to consider mean as the summary statistic. We will either choose September or October if we were to use median as they both have a median departure delay of -3 minutes.
+
+**2 Points** The pros of choosing median is that it gives a better estimate of the center of departure delay as the variable is right skewed. Thus, this makes it a cons for using mean for this particular data.
+
+```{r, warning=F, message=F}
+#1 Point (Either finding mean or median or both)
+nycflights %>%
+  group_by(month) %>%
+  summarise(mean_dd = mean(dep_delay)) %>%
+  arrange(mean_dd)
+
+nycflights %>%
+  group_by(month) %>%
+  summarise(median_dd = median(dep_delay)) %>%
+  arrange(median_dd)
+```
+
+## Exercise 6 (4  Points)
+
+**2 Points** We will choose LGA to fly out of as it has a 72.79% of on time departures.
+
+```{r, warning=F, message=F}
+#1 Point
+nycflights <- nycflights %>%
+  mutate(dep_type = ifelse(dep_delay < 5, "on time", "delayed"))
+
+#1 Point
+nycflights %>%
+  group_by(origin) %>%
+  summarise(ot_dep_rate = sum(dep_type == "on time") / n()) %>%
+  arrange(desc(ot_dep_rate))
+```
+
+## More Practice
+
+## Exercise 7
+
+```{r, warning=F, message=F}
+nycflights = nycflights%>%
+  mutate(avg_speed = distance/air_time*60)
+```
+
+## Exercise 8
+
+The scatter plot resembles a quadratic relationship between average speed and distance. But average speed doesn't seem to exceed 600 mph except for one outlier.
+
+```{r, warning=F, message=F}
+nycflights %>%
+  ggplot(aes(x = avg_speed, y = distance))+
+  geom_point()
+```
+
+## Exercise 9
+
+```{r, warning=F, message=F}
+nycflights %>%
+  filter(carrier %in% c("AA", "DL", "UA"))%>%
+  ggplot(aes(x = dep_delay, y = arr_delay, col = carrier))+
+  geom_point()
+```

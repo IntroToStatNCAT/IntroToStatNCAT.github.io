@@ -1,0 +1,70 @@
+---
+title: "Foundations for statistical inference - Confidence intervals"
+author: "MATH224 - Intro to Stat"
+output: pdf_document
+urlcolor: blue
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(openintro)
+library(infer)
+```
+
+
+## Exercise 1 (5 Points)
+
+**1 Point** 65% of adults from the sample think climate change affects their community.
+
+```{r, warning=F, message=F}
+set.seed(123) # 1 Point
+
+us_adults <- tibble(
+  climate_change_affects = c(rep("Yes", 62000), rep("No", 38000))
+) # 1 Point
+
+n <- 60
+samp <- us_adults %>%
+  sample_n(size = n) # 1 Point
+
+samp%>%
+  count(climate_change_affects) %>%
+  mutate(p = n /sum(n)) # 1 Point
+```
+
+## Exercise 2 (3 Points)
+
+We wouldn't expect another students sample proportion to be the same as mine. It will be identical given that there was a lot of rounding or if two students had the same seed. We would expect it to be similar most of the time. But sometimes it could be further away.
+
+## Exercise 3 (3 Points)
+
+95% confidence means that 95% of the time, the true proportion will be contained within the confidence interval for any given sample of the same size.
+
+OR
+
+A 95% confidence interval means that if we were to take 100 different samples and compute a 95% confidence interval for each sample, then approximately 95 of the 100 confidence intervals will contain the true proportion (p).
+
+## Exercise 4 (3 Points)
+
+**1 Point** The true proportion is 0.62. So our confidence interval captures the true proportion.
+
+```{r, warning=F, message=F}
+prop_test(samp,
+          climate_change_affects ~ NULL,
+          success = "Yes",
+          z = TRUE,
+          conf_int = TRUE,
+          conf_level = 0.95, correct = FALSE) # 2 Points
+```
+
+## Exercise 5 (3 Points)
+
+We would expect 95% of the students to have captured the true proportion in their confidence intervals on average. This is because every student used a confidence level of 0.95 (95%)
+
+## Exercise 6 (3 Points)
+
+Use this <a href="https://introtostatncat.shinyapps.io/05b_Confidence_Intervals/" target="_blank">link</a>
+
+In my run, only 94% (47 out of 50) of the confidence intervals captured the true proportion. This is not exactly equal to the confidence level of 95%. This is because of the fact that we used 50 confidence intervals which can't be split in any way to get a proportion of 95%. It's going to be either 94% or 96% on average which would mean it rounds up to 95% on average.
+
