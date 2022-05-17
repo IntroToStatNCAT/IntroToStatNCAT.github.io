@@ -1,0 +1,1 @@
+"0","text(x = 600, y = 1000, expression(paste(widehat(weight),"" = 108 + 0.7 volume"")), cex = 1.8, col = COL[1], pos = 1)"

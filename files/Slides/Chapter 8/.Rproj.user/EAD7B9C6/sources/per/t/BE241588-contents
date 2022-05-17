@@ -1,0 +1,684 @@
+---
+title: "Chapter 8"
+subtitle: "Introduction to linear regression^[These notes use content from OpenIntro Statistics Slides by Mine Cetinkaya-Rundel.]"
+author: |
+  | Department of Mathematics & Statistics
+  | North Carolina A\&T State University
+#date: "8/19/2020"
+urlcolor: blue
+header-includes:
+    \usepackage{multirow}
+    \usepackage{graphicx}
+    \usepackage{subfigure}
+    \usepackage{multicol}
+    \usepackage[utf8]{inputenc}
+    \usepackage[english]{babel}
+    \usepackage{bm}
+    \usepackage{amsmath}
+    \usepackage{color}
+    \usepackage{tikz}
+    \usetikzlibrary{shapes}
+    \usepackage{mathtools}
+    \usepackage{textcomp}
+    \usepackage{fdsymbol}
+    \usepackage{siunitx}
+    \usepackage{xcolor,pifont}
+    \usepackage{hyperref}
+    \usepackage{mathtools}
+    \usepackage[geometry]{ifsym}
+output: 
+  beamer_presentation:
+    fig_caption: true
+    latex_engine: xelatex
+    
+    
+---
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+```{r, echo=F, message=F, warning=F}
+library(readr)
+library(openintro)
+library(here)
+library(tidyverse)
+library(xtable)
+library(broom)
+library(faraway)
+data(COL)
+```
+
+
+# Fitting a line by least squares regression
+
+## An objective measure for finding the best line
+
+\begin{itemize}
+
+\item We want a line that has small residuals:
+\pause
+\begin{enumerate}
+\item Option 1: Minimize the sum of magnitudes (absolute values) of residuals
+\[ |e_1| + |e_2| + \cdots + |e_n| \]
+\pause
+\item Option 2: Minimize the sum of squared residuals -- \textbf{least squares}
+\[ e_1^2 + e_2^2 + \cdots + e_n^2 \]
+\end{enumerate}
+
+\pause
+
+\item Why least squares?
+\pause
+\begin{enumerate}
+\item Most commonly used
+\pause
+\item Easier to compute by hand and using software
+\pause
+\item In many applications, a residual twice as large as another is usually more than twice as bad
+\end{enumerate}
+
+\end{itemize}
+
+## The least squares line
+
+\centering{\alert{$\hat{y} = \beta_0 + \beta_1 x$}}
+
+- $\hat{y}:$ Predicted value of the response variable, $y$.
+
+- $\beta_0:$ Intercept, parameter.
+
+  - $b_0:$ Intercept, point estimate.
+  
+- $\beta_1:$ Slope, parameter
+
+  - $b_1:$ Slope, point estimate
+  
+- $x:$ Explanatory variable
+
+
+## Conditions for the least squares line
+
+\begin{enumerate}
+
+\item Linearity.
+
+\pause
+
+\item Nearly normal residuals.
+
+\pause
+
+\item Constant variability.
+
+\end{enumerate}
+
+## Conditions: Linearity
+
+\begin{itemize}
+
+\item The relationship between the explanatory and the response variable should be linear. 
+
+\pause
+
+\item Methods for fitting a model to non-linear relationships exist, but are beyond the scope of this class. If this topic is of interest, an \href{http://www.openintro.org/download.php?file=os2_extra_nonlinear_relationships&referrer=/stat/textbook.php}{Online Extra is available on openintro.org} covering new techniques.
+
+\pause
+
+\item Check using a scatterplot of the data, or a \textbf{residuals plot}.
+
+\end{itemize}
+
+```{r, echo=F, message=F, warning=F, fig.width=4, fig.height=1.5,fig.align='center'}
+COL <- c('#22558899', '#000000CC')
+set.seed(1)
+
+par(mfrow=2:3, mar=rep(0.5, 4))
+
+MyLayOut <- matrix(1:6, 2)
+nf <- layout(mat=MyLayOut, widths=c(2,2,2), heights=c(2,1), respect=TRUE)
+
+n <- c(25)
+x <- runif(n[1])
+y <- -8*x + rnorm(n[1])
+plot(x,y, axes=FALSE, pch=20, col=COL[1], cex=1.202, xlim=c(-0.03, 1.03), ylim=c(-10, 1))
+box()
+g <- lm(y~x)
+abline(g, col=COL[2])
+plot(x, summary(g)$residuals, pch=20, col=COL[1], cex=1.202, xlim=c(-0.03, 1.03), axes=FALSE, ylim=2.5*c(-1,1)*max(abs(summary(g)$residuals)))
+box()
+abline(h=0, col=COL[2], lty=2)
+
+n <- 30
+x <- c(runif(n[1]-2, 0, 4), 2, 2.1)
+y <- -2*x^2 + rnorm(n[1])
+plot(x,y, axes=FALSE, pch=20, col=COL[1], cex=1.202, xlim=c(-0.2, 4.2), ylim=c(-35, 2))
+box()
+g <- lm(y~x)
+abline(g, col=COL[2])
+plot(x, summary(g)$residuals, pch=20, col=COL[1], cex=1.202, xlim=c(-0.2, 4.2), axes=FALSE, ylim=1.8*c(-1,1)*max(abs(summary(g)$residuals)))
+box()
+abline(h=0, col=COL[2], lty=2)
+
+n <- 40
+x <- runif(n[1])
+y <- 0.2*x + rnorm(n[1])
+y[y < -2] <- -1.5
+plot(x,y, axes=FALSE, pch=20, col=COL[1], cex=1.202, xlim=c(-0.03, 1.03), ylim=c(-2, 2))
+box()
+g <- lm(y~x)
+abline(g, col=COL[2])
+plot(x, summary(g)$residuals, pch=20, col=COL[1], cex=1.202, xlim=c(-0.03, 1.03), axes=FALSE, ylim=1.2*c(-1,1)*max(abs(summary(g)$residuals)))
+box()
+abline(h=0, col=COL[2], lty=2)
+```
+
+## Anatomy of a residuals plot
+
+\begin{columns}
+
+\begin{column}{0.5\textwidth}
+
+```{r, echo=F, message=F, warning=F, out.width="100%",fig.align='center'}
+data(COL)
+poverty = read.table("poverty.txt", header = T, sep = "\t")
+
+par(mar=c(4,4,1,1), las=1, mgp=c(2.5,0.5,0), cex.lab = 2, cex.axis = 2, mfrow = c(2,1))
+
+lmPlot(x = poverty$Graduates, y = poverty$Poverty, highlight = c(9,40), hlCol = c(COL[4],COL[2]), hlPch = c(15,17), col = COL[1,2], ylab = "% in poverty", xlab = "% HS grad", lCol = COL[4], cex = 2,lwd = 3, xAxis = 4)
+```
+
+\end{column}
+
+\begin{column}{0.5\textwidth}
+
+\small
+
+\raisebox{0.5pt}{\tikz{\node[draw,scale=0.3,regular polygon, regular polygon sides=3,fill=green!10!green,rotate=0](){};}} \textbf{RI:}
+
+\begin{align*}
+\%~HS~grad &= 81 \hspace{1cm} \%~in~poverty = 10.3 \\
+\widehat{\%~in~poverty} &= 64.68 - 0.62 * 81 = 14.46 \\
+e &= \%~in~poverty - \widehat{\%~in~poverty} \\
+&= 10.3 - 14.46 = \textcolor{green}{-4.16}
+\end{align*}
+
+\pause
+
+{\textcolor{red}{\Large $\blacksquare$}} \textbf{DC:}
+
+\begin{align*}
+\%~HS~grad &= 86 \hspace{1cm} \%~in~poverty = 16.8 \\
+\widehat{\%~in~poverty} &= 64.68 - 0.62 * 86 = 11.36 \\
+e &= \%~in~poverty - \widehat{\%~in~poverty} \\
+&= 16.8 - 11.36 = \textcolor{red}{5.44}
+\end{align*}
+
+\end{column}
+
+\end{columns}
+
+## Conditions: Nearly normal residuals
+
+- The residuals should be nearly normal.
+
+\pause
+
+- This condition may not be satisfied when there are unusual observations that don't follow the trend of the rest of the data.
+
+\pause
+
+- Check using a histogram.
+
+```{r, echo=F, message=F, warning=F, out.width="75%",fig.align='center'}
+lm_pov_grad = lm(poverty$Poverty ~ poverty$Graduates)
+histPlot(lm_pov_grad$residuals, col = COL[1], xlab = "residuals", cex.lab = 1.5)
+```
+
+## Conditions: Constant variability
+
+\begin{columns}
+
+\begin{column}{0.5\textwidth}
+
+```{r, echo=F, message=F, warning=F, out.width="100%",fig.align='center'}
+layout(matrix(1:2, 2), c(1,1), c(2,1))
+par(mar=c(4,4,1,1))
+
+plot(x = poverty$Graduates, y = poverty$Poverty, ylab = "% in poverty", xlab = "% HS grad", pch=19, col=COL[1,2], cex.lab = 1.3)
+makeTube(x = poverty$Graduates, y = poverty$Poverty)
+
+plot(x = poverty$Graduates, y = lm_pov_grad$residuals, pch=19, col=COL[1,2], ylab = "", xlab = "", axes = FALSE, ylim = c(-5.5,5.5))
+makeTube(x = poverty$Graduates, y = lm_pov_grad$residuals, addLine = FALSE)
+axis(1, at = c(80,90,95))
+axis(2, at = c(-4, 0, 4))
+box()
+abline(h = 0, lty = 2)
+```
+
+\end{column}
+
+\begin{column}{0.45\textwidth}
+
+\begin{itemize}
+
+\item The variability of points around the least squares line should be roughly constant.
+
+\pause
+
+\item This implies that the variability of residuals around the 0 line should be roughly constant as well.
+
+\pause
+
+\item Also called \textbf{homoscedasticity}.
+
+\pause
+
+\item Check using a residuals plot.
+
+\end{itemize}
+
+\end{column}
+
+\end{columns}
+
+
+## Checking conditions
+
+\begin{columns}
+
+\begin{column}{0.45\textwidth}
+
+\alert{What condition is this linear model obviously violating?}
+
+A) Constant variability
+
+B) Linear relationship
+
+C) Normal residuals
+
+D) No extreme outliers
+
+\end{column}
+
+\begin{column}{0.5\textwidth}
+
+\includegraphics[width=1\columnwidth]{nonlinear.pdf}
+
+\end{column}
+
+\end{columns}
+
+## Checking conditions
+
+\begin{columns}
+
+\begin{column}{0.45\textwidth}
+
+\alert{What condition is this linear model obviously violating?}
+
+A) Constant variability
+
+B) \alert{Linear relationship}
+
+C) Normal residuals
+
+D) No extreme outliers
+
+\end{column}
+
+\begin{column}{0.5\textwidth}
+
+\includegraphics[width=1\columnwidth]{nonlinear.pdf}
+
+\end{column}
+
+\end{columns}
+
+## Checking conditions
+
+\begin{columns}
+
+\begin{column}{0.45\textwidth}
+
+\alert{What condition is this linear model obviously violating?}
+
+A) Constant variability
+
+B) Linear relationship
+
+C) Normal residuals
+
+D) No extreme outliers
+
+\end{column}
+
+\begin{column}{0.5\textwidth}
+
+\includegraphics[width=1\columnwidth]{heteroscedastic.pdf}
+
+\end{column}
+
+\end{columns}
+
+## Checking conditions
+
+\begin{columns}
+
+\begin{column}{0.45\textwidth}
+
+\alert{What condition is this linear model obviously violating?}
+
+A) \alert{Constant variability}
+
+B) Linear relationship
+
+C) Normal residuals
+
+D) No extreme outliers
+
+\end{column}
+
+\begin{column}{0.5\textwidth}
+
+\includegraphics[width=1\columnwidth]{heteroscedastic.pdf}
+
+\end{column}
+
+\end{columns}
+
+## Given...
+
+\begin{columns}
+
+\begin{column}{0.5\textwidth}
+
+```{r, echo=F, message=F, warning=F, out.width="100%",fig.align='center'}
+par(mar=c(4,4,1,1), las=1, mgp=c(2.5,0.7,0), cex.lab = 2, cex.axis = 2)
+plot(poverty$Poverty ~ poverty$Graduates, ylab = "% in poverty", xlab = "% HS grad", pch=19, col=COL[1,2], cex =2)
+```
+
+\end{column}
+
+\begin{column}{0.5\textwidth}
+
+\begin{tabular}{l r r}
+\hline
+		& \% HS grad		& \% in poverty \\
+		& $(x)$			& $(y)$ \\
+\hline
+mean	& $\bar{x} = 86.01$	& $\bar{y} = 11.35$  \\
+sd		& $s_x = 3.73$		& $s_y = 3.1$ \\
+\hline
+		& correlation		& $R = -0.75$ \\
+\hline
+\end{tabular}
+
+\end{column}
+
+\end{columns}
+
+## Slope
+
+The slope of the regression can be calculated as
+
+\centering{$b_1 = \frac{s_y}{s_x}R$}
+
+\pause
+
+\raggedright \textbf{In context...}
+
+\centering{$b_1 = \frac{3.1}{3.73} \times -0.75 = -0.62$}
+
+\pause
+
+\raggedright \textbf{Interpretation}
+
+For each additional % point in HS graduate rate, we would expect the % living in poverty to be lower on average by 0.62% points.
+
+## Intercept
+
+The intercept is where the regression line intersects the $y$-axis. The calculation of the intercept uses the fact the a regression line always passes through ($\bar{x}, \bar{y}$).
+
+\centering{$b_0 = \bar{y}-b_1 \bar{x}$}
+
+\pause
+
+\begin{columns}
+
+\begin{column}{0.7\textwidth}
+
+```{r, echo=F, message=F, warning=F, out.width="100%",fig.align='center'}
+par(mar=c(4,4,1,1), las=1, mgp=c(2.5,0.7,0), cex.lab = 1.5, cex.axis = 1.5)
+
+plot(poverty$Poverty ~ poverty$Graduates, ylab = "% in poverty", xlab = "% HS grad", pch=19, col=COL[1,2], xlim = c(0,100), ylim = c(0,70), cex.lab = 2)
+lm_pov_grad = lm(poverty$Poverty ~ poverty$Graduates)
+abline(lm_pov_grad, col = COL[4], lwd = 3)
+abline(v = 0)
+text(y = lm_pov_grad$coefficient[1]+3, x = 7, "intercept", cex = 2, col = COL[1])
+```
+
+\end{column}
+
+\begin{column}{0.28\textwidth}
+
+\pause
+
+\begin{align*}
+b_0 &= 11.35 - (-0.62) \times 86.01 \\
+&= 64.68
+\end{align*}
+
+\end{column}
+
+\end{columns}
+
+
+## Practice
+
+\alert{Which of the following is the correct interpretation of the intercept?}
+
+A) For each % point increase in HS graduate rate, % living in poverty is expected to increase on average by 64.68%.
+
+B) For each % point decrease in HS graduate rate, % living in poverty is expected to increase on average by 64.68%.
+
+C) Having no HS graduates leads to 64.68% of residents living below the poverty line.
+
+D) States with no HS graduates are expected on average to have 64.68% of residents living below the poverty line.
+
+E) In states with no HS graduates % living in poverty is expected to increase on average by 64.68%.
+
+## Practice
+
+\alert{Which of the following is the correct interpretation of the intercept?}
+
+A) For each % point increase in HS graduate rate, % living in poverty is expected to increase on average by 64.68%.
+
+B) For each % point decrease in HS graduate rate, % living in poverty is expected to increase on average by 64.68%.
+
+C) Having no HS graduates leads to 64.68% of residents living below the poverty line.
+
+D) \alert{States with no HS graduates are expected on average to have 64.68\% of residents living below the poverty line.}
+
+E) In states with no HS graduates % living in poverty is expected to increase on average by 64.68%.
+
+## More on the intercept
+
+Since there are no states in the dataset with no HS graduates, the intercept is of no interest, not very useful, and also not reliable since the predicted value of the intercept is so far from the bulk of the data.
+
+```{r, echo=F, message=F, warning=F, out.width="80%",fig.align='center'}
+par(mar=c(4,4,1,1), las=1, mgp=c(2.5,0.7,0), cex.lab = 1.5, cex.axis = 1.5)
+
+plot(poverty$Poverty ~ poverty$Graduates, ylab = "% in poverty", xlab = "% HS grad", pch=19, col=COL[1,2], xlim = c(0,100), ylim = c(0,70), cex.lab = 2)
+lm_pov_grad = lm(poverty$Poverty ~ poverty$Graduates)
+abline(lm_pov_grad, col = COL[4], lwd = 3)
+abline(v = 0)
+text(y = lm_pov_grad$coefficient[1]+3, x = 7, "intercept", cex = 2, col = COL[1])
+```
+
+## Regression line
+
+\centering{$\widehat{\%~in~poverty} = 64.68 - 0.62 \%~HS~grad$}
+
+```{r, echo=F, message=F, warning=F, out.width="100%",fig.align='center'}
+par(mar=c(4,4,1,1), las=1, mgp=c(2.5,0.7,0), cex.lab = 1.5, cex.axis = 1.5)
+plot(poverty$Poverty ~ poverty$Graduates, ylab = "% in poverty", xlab = "% HS grad", pch=19, col=COL[1,2], cex.lab = 2)
+lm_pov_grad = lm(poverty$Poverty ~ poverty$Graduates)
+abline(lm_pov_grad, col = COL[4], lwd = 3)
+```
+
+
+## Interpretation of slope and intercept
+
+\begin{columns}
+
+\begin{column}{0.5\textwidth}
+
+\begin{itemize}
+
+\item \textbf{Intercept:} When {$x = 0$}, {$y$} is expected to equal {the intercept}. \\
+
+\item[]
+
+\item \textbf{Slope:} For each {unit} in {$x$}, {$y$} is expected to {increase / decrease} on average by {the slope}.
+
+\end{itemize}
+
+\end{column}
+
+\begin{column}{0.5\textwidth}
+
+\includegraphics[width=1\columnwidth]{diagram.png}
+
+\end{column}
+
+\end{columns}
+
+\noindent\rule{4cm}{0.4pt}
+
+\alert{Note:} These statements are not casual, unless the study is a randomized controlled experiment.
+
+## Prediction
+
+- Using the linear model to predict the value of the response variable for a given value of the explanatory variable is called **prediction**, simply by plugging in the value of $x$ in the linear model equation.
+
+- There will be some uncertainty associated with the predicted value.
+
+```{r, echo=F, message=F, warning=F, out.height="50%",fig.align='center'}
+par(mar=c(4,4,1,1), las=1, mgp=c(2.5,0.7,0), cex.lab = 1.5, cex.axis = 1.5)
+
+plot(poverty$Poverty ~ poverty$Graduates, ylab = "% in poverty", xlab = "% HS grad", pch=19, col=COL[1,2], cex.lab = 2, cex = 2)
+lm_pov_grad = lm(poverty$Poverty ~ poverty$Graduates)
+abline(lm_pov_grad, col = COL[4], lwd = 3)
+lines(x = c(82,82), y = c(0,64.781-0.6212*82), lty = 3)
+lines(x = c(0,82), y = c(64.781-0.6212*82,64.781-0.6212*82), lty = 3)
+```
+
+
+## Extrapolation
+
+- Applying a model estimate to values outside of the realm of the original data is called **extrapolation**.
+
+- Sometimes the intercept might be an extrapolation.
+
+```{r, echo=F, message=F, warning=F, out.height="55%",fig.align='center'}
+par(mar=c(4,4,1,1), las=1, mgp=c(2.5,0.7,0), cex.lab = 2, cex.axis = 2)
+
+plot(poverty$Poverty ~ poverty$Graduates, ylab = "% in poverty", xlab = "% HS grad", pch=19, col=COL[1,2], xlim = c(0,100), ylim = c(0,70))
+lm_pov_grad = lm(poverty$Poverty ~ poverty$Graduates)
+abline(lm_pov_grad, col = COL[4], lwd = 3)
+abline(v = 0)
+text(y = lm_pov_grad$coefficient[1]+3, x = 7, "intercept", cex = 2, col = COL[1])
+```
+
+## Examples of extrapolation
+
+![](extrapolation.png)
+
+## Example of extrapolation
+
+![](womenOutsprintBBC.png){width="90%"}
+
+## Example of extrapolation
+
+![](womenOutsprint.png)
+
+## $R^2$
+
+- The strength of the fit of a linear model is most commonly evaluated using $\mathbf{R^2}$.
+
+\pause
+
+- $R^2$ is calculated as the square of the correlation coefficient.
+
+\pause
+
+- It tells us what percent of variability in the response variable is explained by the model.
+
+\pause
+
+- The remainder of the variability is explained by variables not included in the model or by inherent randomness in the data.
+
+\pause
+
+- For the model we've been working with, $R^2 = (-0.75)^2 = 0.56$.
+
+## Interpretation of $R^2$
+
+\alert{Which of the below is the correct interpretation of $R = -0.75, R^2 = 0.56?$}
+
+\begin{columns}
+
+\begin{column}{0.65\textwidth}
+
+A) 56\% of the variability in the \% of HG graduates among the 51 states is explained by the model.
+
+B) 56\% of the variability in the \% of residents living in poverty among the 51 states is explained by the model.\
+
+C) 56\% of the time \% HS graduates predict \% living in poverty correctly.
+
+D) 75\% of the variability in the \% of residents living in poverty among the 51 states is explained by the model.
+
+\end{column}
+
+\begin{column}{0.35\textwidth}
+
+```{r, echo=F, message=F, warning=F, out.height="100%",fig.align='center'}
+par(mar=c(4,4,1,1), las=1, mgp=c(2.5,0.7,0), cex.lab = 2, cex.axis = 2)
+plot(poverty$Poverty ~ poverty$Graduates, ylab = "% in poverty", xlab = "% HS grad", pch=19, col=COL[1,2], cex = 2)
+
+```
+
+\end{column}
+
+\end{columns}
+
+
+## Interpretation of $R^2$
+
+\alert{Which of the below is the correct interpretation of $R = -0.75, R^2 = 0.56?$}
+
+\begin{columns}
+
+\begin{column}{0.65\textwidth}
+
+A) 56\% of the variability in the \% of HG graduates among the 51 states is explained by the model.
+
+B) \alert{56\% of the variability in the \% of residents living in poverty among the 51 states is explained by the model.}\
+
+C) 56\% of the time \% HS graduates predict \% living in poverty correctly.
+
+D) 75\% of the variability in the \% of residents living in poverty among the 51 states is explained by the model.
+
+\end{column}
+
+\begin{column}{0.35\textwidth}
+
+```{r, echo=F, message=F, warning=F, out.height="100%",fig.align='center'}
+par(mar=c(4,4,1,1), las=1, mgp=c(2.5,0.7,0), cex.lab = 2, cex.axis = 2)
+plot(poverty$Poverty ~ poverty$Graduates, ylab = "% in poverty", xlab = "% HS grad", pch=19, col=COL[1,2], cex = 2)
+
+```
+
+\end{column}
+
+\end{columns}

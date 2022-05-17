@@ -173,6 +173,10 @@
 <lastmod>2022-04-16T12:37:57-07:00</lastmod>
 </url>
 <url>
+<loc>http://localhost:4000/files/Data%20Analysis%20Project/Project%20Descriptions/Part_III.pdf</loc>
+<lastmod>2022-04-29T14:17:58-07:00</lastmod>
+</url>
+<url>
 <loc>http://localhost:4000/files/Data%20Analysis%20Project/Template/Sample%20Final%20Report.pdf</loc>
 <lastmod>2022-04-21T13:07:30-07:00</lastmod>
 </url>
@@ -243,6 +247,14 @@
 <url>
 <loc>http://localhost:4000/files/Labs/07_inf_for_numerical_data/inf_for_numerical_data.html</loc>
 <lastmod>2021-11-11T11:27:01-07:00</lastmod>
+</url>
+<url>
+<loc>http://localhost:4000/files/Publications/ECSU-SP22-Talk.pdf</loc>
+<lastmod>2022-04-29T14:12:38-07:00</lastmod>
+</url>
+<url>
+<loc>http://localhost:4000/files/Publications/IASE2021%20Satellite%20145_MOSTAFA.pdf</loc>
+<lastmod>2022-04-29T14:12:37-07:00</lastmod>
 </url>
 <url>
 <loc>http://localhost:4000/files/Shiny%20Tutorials/0_StartHere/0_StartHere.html</loc>

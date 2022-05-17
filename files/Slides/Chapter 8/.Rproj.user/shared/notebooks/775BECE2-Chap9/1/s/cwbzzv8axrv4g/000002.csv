@@ -1,0 +1,6 @@
+"0","# poverty vs. female_house"
+"0",""
+"0","pov_slr = lm(poverty ~ female_house, data = poverty)"
+"0",""
+"0","par(mar=c(4,4,1,1), las=1, mgp=c(2.5,0.7,0), cex.lab = 2, cex.axis = 1.5)"
+"0","plot(poverty$poverty ~ poverty$female_house, ylab = ""% in poverty"", xlab = ""% female householder"", pch=19, col=COL[1,2], cex = 2)"

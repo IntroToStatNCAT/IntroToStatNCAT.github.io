@@ -1,0 +1,6 @@
+"0",""
+"0","x=0:80"
+"0","p_male = predict(g,newdata=data.frame(Age=x,Sex=""Male""))"
+"0","p_female = predict(g,newdata=data.frame(Age=x,Sex=""Female""))"
+"0",""
+"0","lines(x,exp(p_male)/(1+exp(p_male)), col = COL[1], lwd = 4)"

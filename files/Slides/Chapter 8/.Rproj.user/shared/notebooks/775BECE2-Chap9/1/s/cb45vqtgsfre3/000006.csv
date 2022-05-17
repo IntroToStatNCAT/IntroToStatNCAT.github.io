@@ -1,0 +1,2 @@
+"0","i=which.max(U)"
+"0","points(p[i],U[i],col=COL[1],pch=16,cex = 2, lwd = 3)"

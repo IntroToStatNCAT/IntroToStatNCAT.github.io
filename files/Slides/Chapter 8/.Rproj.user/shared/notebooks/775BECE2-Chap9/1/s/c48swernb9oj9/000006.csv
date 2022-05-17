@@ -1,0 +1,2 @@
+"0",""
+"0","plot(m_final$residuals ~ d$age, pch = 19, col = COL[1,2], xlab = ""age"", ylab = ""professor evaluation"", cex = 2)"
