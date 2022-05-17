@@ -27,6 +27,8 @@ These labs are inspired by [OpenIntro Statistics](https://www.openintro.org/book
 
 [Lab 9 - Inference for numerical data](https://github.com/IntroToStatNCAT/IntroToStatNCAT.github.io/tree/main/files/Labs/07_inf_for_numerical_data){:target="_blank"}
 
-[Lab 10 - Simple linear regression](){:target="_blank"}
+[Lab 11 - Multiple linear regression](https://github.com/IntroToStatNCAT/IntroToStatNCAT.github.io/tree/main/files/Labs/09_multiple_regression){:target="_blank"}
 
-[Lab 11 - Multiple linear regression](){:target="_blank"}
+[Lab - Data Analysis Project](https://github.com/IntroToStatNCAT/IntroToStatNCAT.github.io/tree/main/files/Labs/Lab%20-%20Data%20analysis%20project){:target="_blank"}
+
+[Lab Solutions](https://github.com/IntroToStatNCAT/IntroToStatNCAT.github.io/tree/main/files/Labs/Lab%20solutions){:target="_blank"}

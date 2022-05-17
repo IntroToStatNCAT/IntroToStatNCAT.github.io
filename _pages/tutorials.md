@@ -31,3 +31,5 @@ The R reading assignment tutorials are inspired by by agmath, [AppliedStatsInter
 
 [12 - Multiple Linear Regression](https://introtostatncat.shinyapps.io/12_MultipleLinearRegression/){:target="_blank"}
 
+[Reading Assignment Grading](https://github.com/IntroToStatNCAT/IntroToStatNCAT.github.io/tree/main/files/Shiny%20Tutorials/Reading%20Assignment%20Grading){:target="_blank"}
+
