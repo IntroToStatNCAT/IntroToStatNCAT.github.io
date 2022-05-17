@@ -1,0 +1,14 @@
+name: 9_HypothesisTesting
+title: 9_HypothesisTesting
+username:
+account: introtostatncat
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 5885641
+bundleId: 5757718
+url: https://introtostatncat.shinyapps.io/9_HypothesisTesting/
+when: 1648919815.12406
+lastSyncTime: 1648919815.12406
+asMultiple: FALSE
+asStatic: FALSE
+ignoredFiles: Trash/11_HTandCIprop.html|Trash/11_HTandCIprop.Rmd

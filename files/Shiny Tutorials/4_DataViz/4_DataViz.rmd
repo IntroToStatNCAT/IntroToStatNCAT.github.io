@@ -1,8 +1,5 @@
 ---
-title: "Topic 4: Data Visualization and a Grammar of Graphics"
-tutorial:
-  id: "DataViz.Topic4.AppliedStats"
-  version: 1.0
+title: "Tutorial 4: Data Visualization and a Grammar of Graphics"
 output: 
   learnr::tutorial:
     progressive: TRUE
@@ -25,32 +22,26 @@ tutorial_options(exercise.timelimit = 60, exercise.checker = gradethis::grade_le
 data <- data.frame("FuelType" = c("F1", "F1", "F1", "F2", "F2", "F2"), "EngineBrand" = c("E1", "E2", "E3", "E1", "E2", "E3"))
 ```
 
-If you've never coded before (or even if you have), type `print("Your Name")` in the interactive R chunk below and run it by hitting `crtl+Enter` or `cmd+Enter` for MAC users.
+## Objective
+
+If you've never coded before (or even if you have), type `"Your Name"` in the interactive R chunk below and run it by hitting `crtl+Enter` or `cmd+Enter` for MAC users.
 
 ```{r Student-Name, exercise = TRUE}
 
 ```
 
-## Topic 4: Data Visualization
+Through this tutorial you'll learn techniques for data visualization. You'll think about how the type of plot chosen impacts what information is conveyed (or lost). Choosing the wrong plot type can result in a useless plot (at best) or even a plot which is misleading. Think about the *types* (numerical, categorical) of variables you are working with and how they dictate which plot type should be utilized -- for example, a scatterplot is not appropriate in every scenario!
 
-Through this workbook you'll learn techniques for data visualization. You'll think about how the type of plot chosen impacts what information is conveyed (or lost). Choosing the wrong plot type can result in a useless plot (at best) or even a plot which is misleading. Think about the *types* (numerical, categorical) of variables you are working with and how they dictate which plot type should be utilized -- for example, a scatterplot is not appropriate in every scenario!
-
-###
-
-### Objectives
-
-**Workbook Objectives:** After completing this workbook you should be able to:
+**Tutorial Objectives:** After completing this tutorial you should be able to:
 
 + Read a plot, describe any interesting features, and accurately convey the *story* being told by the plot.
 + Identify and utilize the most appropriate plot types for your scenario by identifying the types of variables you are working with.
 + Utilize color, size, and shape to show additional dimensions of data in a plot, but also recognize that adding more information to a plot negatively impacts our ability to read the graphic. 
 + Use your newfound knowledge of data visualization to generate informative plots which uncover a compelling (and truthful) story about the relationships that exist between variables.
 
-###
 
-### The Grammar of Graphics
+## The Grammar of Graphics
 
-###
 
 **Grammar of Graphics:** Jeffrey Gitomer said "Your grammar is a reflection of your image". Here, we take the converse literally. Your image is a reflection of your grammar. Just like a well-written sentence follows the rules of grammar, so does an informative statistical graphic.
 
@@ -59,7 +50,9 @@ Through this workbook you'll learn techniques for data visualization. You'll thi
 * Graphics need adjectives (attributes attached to the visualized data, called `aesthetics`)
 * Graphics need context (a title, scales, axes, legends, etc.)
 
-In this workbook we explore `ggplot2` and think about graphics in terms of their layered grammar. 
+In this tutorial we explore `ggplot2` and think about graphics in terms of their layered grammar. 
+
+###
 
 ###
 
@@ -91,9 +84,9 @@ question_checkbox(
 )
 ```
 
-### Getting Started: Exploring Data
+## Getting Started: Exploring Data
 
-Throughout this workbook, we will explore fuel efficiencies of multiple classes of vehicles using the `mpg` data frame.
+Throughout this tutorial, we will explore fuel efficiencies of multiple classes of vehicles using the `mpg` data frame.
 
 1. Remember that a *data frame* is like an Excel spreadsheet. Explore the `mpg` data frame by typing `mpg` in the following code block and running it.
 
@@ -108,6 +101,8 @@ mpg
 ```{r print-mpg-dataframe-check, include = FALSE}
 grade_code()
 ```
+
+###
 
 ###
 
@@ -170,7 +165,7 @@ The `diamonds` data frame is also available to you. See if you can get your basi
 
 Were you able to obtain the information you were looking for? Be sure to ask a question if not!
 
-### Building and interpreting plots
+## Building and interpreting plots
 
 The code below creates a plot of highway miles per gallon (`hwy`) against engine displacement `displ` (a measure of the size of an engine).
 ```{r echo=TRUE, eval=TRUE, message = FALSE, warning = FALSE, results = FALSE}
@@ -209,6 +204,8 @@ quiz(
   )
 )
 ```
+
+###
 
 ###
 
@@ -303,11 +300,11 @@ grade_code()
 
 ###
 
-**Note:** There are many different geom types, and different aesthetic properties which can be passed to geoms. We will see examples throughout the rest of this workbook, but reading the entirety of Chapter 3 in Hadley Wickham's [R for Data Science](http://r4ds.had.co.nz/data-visualisation.html) would be a great start for those of you who are more interested in data visualization.
+**Note:** There are many different geom types, and different aesthetic properties which can be passed to geoms. We will see examples throughout the rest of this tutorial, but reading the entirety of Chapter 3 in Hadley Wickham's [R for Data Science](http://r4ds.had.co.nz/data-visualisation.html) would be a great start for those of you who are more interested in data visualization.
 
-### Plotting more than two variables at once
+## Plotting more than two variables at once
 
-Let's go back to our original plot of `hwy` versus `displ`. Maybe we want to color the points in the scatterplot according to the class of the vehicle. Add a third asthetic, `color = class` to the code below and re-run the plot.
+Let's go back to our original plot of `hwy` versus `displ`. Maybe we want to color the points in the scatterplot according to the class of the vehicle. Add a third aesthetic, `color = class` to the code below and re-run the plot.
 
 ```{r hwy-displ-class-plot, exercise = TRUE, exercise.eval = TRUE}
 ggplot(data = mpg) + geom_point(mapping = aes(x = displ, y = hwy))
@@ -320,6 +317,8 @@ ggplot(data = mpg) + geom_point(mapping = aes(x = displ, y = hwy, color = class)
 ```{r hwy-displ-class-plot-check}
 grade_code()
 ```
+
+###
 
 ###
 
@@ -351,9 +350,9 @@ question_radio(
 )
 ```
 
-### Categorical Variables
+## Categorical Variables
 
-We've seen plots for categorical variables earlier in this workbook. Let's revisit a barplot with fill, similar to the one we constructed between `class` and `drv` earlier and check two alternative plots which give different insights. We'll explore the transmission variable (I've stored a more usable version of the `trans` variable as `trans2`) and the drive variable (`drv`).
+We've seen plots for categorical variables earlier in this tutorial. Let's revisit a barplot with fill, similar to the one we constructed between `class` and `drv` earlier and check two alternative plots which give different insights. We'll explore the transmission variable (I've stored a more usable version of the `trans` variable as `trans2`) and the drive variable (`drv`).
 
 ```{r engineer-trans2, echo = TRUE, eval = TRUE}
 mpg_with_trans <- mpg
@@ -361,6 +360,8 @@ mpg_with_trans$trans2 <- str_sub(mpg_with_trans$trans, 1, -5)
 ```
 
 We'll switch to using the `mpg_with_trans` data frame for the rest of this notebook.
+
+###
 
 ###
 
@@ -386,9 +387,9 @@ Great! But the problem now is that we've lost the idea that there are more autom
 mosaicplot(mpg_with_trans$trans2 ~ mpg_with_trans$drv, main = "Transmission and Drive Types")
 ```
 
-The advantage to the mosaic plot is that it contains all of the information from the two separate plots above, but it is all combined into one plot! We've built a visualization that manages to convey that the proportion of manual vehicles in our dataset outweighs the proportion of automatics, and we can also compare the distribution of drive types within each of these two classes. Notice, however, that the syntax for the mosaic plot is not like the `ggplot()` syntax we've been experimenting with throughout this workbook.
+The advantage to the mosaic plot is that it contains all of the information from the two separate plots above, but it is all combined into one plot! We've built a visualization that manages to convey that the proportion of manual vehicles in our dataset outweighs the proportion of automatics, and we can also compare the distribution of drive types within each of these two classes. Notice, however, that the syntax for the mosaic plot is not like the `ggplot()` syntax we've been experimenting with throughout this tutorial.
 
-### Submit
+## Submit
 
 ```{r context="server"}
 learnrhash::encoder_logic(strip_output = TRUE)
@@ -406,21 +407,16 @@ learnrhash::encoder_ui(
 )
 ```
 
-### Summary
-
-###
+## Summary
 
 Congratulations! You made it through a first discussion on data visualization. You should know, however, that this is just the "tip of the iceberg" -- there's much more to learn. I've already suggested the Data Visualization chapter of Hadley Wickham's *R for Data Science*, but he also has an entire book devoted to the `ggplot2` package in R -- check it out if you are interested in learning more!
 
-###
-
-In this workbook you learned the following:
+In this tutorial you learned the following:
 
 + Variable types dictate the kinds of plots which can be used to create effective visuals. Always consider your variable types!
 + Plotting with `ggplot()` follows a *grammar of graphics* and layered plotting structure, with "`+`" separating each plot layer. The structure of a `ggplot` is as follows:
 <center> `ggplot(data = DATA) + geom_TYPE(mapping = aes(MAPPINGS))`</center>
 + There are entire courses devoted to data visualization. You've had a crash course here but there is much more to be learned. Check out the two Wickham books, use the `ggplot2` [documentation](https://ggplot2.tidyverse.org/reference/), or check out [this cheatsheet](https://rstudio.com/wp-content/uploads/2015/03/ggplot2-cheatsheet.pdf) for more inspiration!
 
-###
 
-**A final note:** These interactive workbooks allow me to hide some of the setup requirements from you so that we can focus on the task at hand -- in this workbook, plotting. When you make the switch to using a standalone R instance you'll need to install and load libraries to expand R's functionality. You can do this with the `install.packages()` and `library()` functions. You would need the `ggplot2` or `tidyverse` libraries to run the code for this workbook in a local R session.
+**A final note:** These interactive tutorials allow me to hide some of the setup requirements from you so that we can focus on the task at hand -- in this tutorial, plotting. When you make the switch to using a standalone R instance you'll need to install and load libraries to expand R's functionality. You can do this with the `install.packages()` and `library()` functions. You would need the `ggplot2` or `tidyverse` libraries to run the code for this tutorial in a local R session.
