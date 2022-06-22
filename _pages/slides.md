@@ -5,9 +5,9 @@ title: "Slides"
 
 {% include base_path %}
 
-## Slides by chapter per section
+## Section by Section Slides
 
-The following slides are derived from the openintro statistics slides.
+The following slides are derived from the [OpenIntro Statistics](https://www.openintro.org/book/os/){:target="_blank"} slides. Here, we provide the slides in both pdf and R Markdown format. The markdown format allow for the instructor to easily customize the R codes and output embedded in the slides. 
 
 [Chapter 1 - Introduction to data](https://github.com/IntroToStatNCAT/IntroToStatNCAT.github.io/tree/main/files/Slides/Chapter%201){:target="_blank"}
 

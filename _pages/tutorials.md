@@ -1,13 +1,13 @@
 ---
 permalink: /tutorials/
-title: "Tutorials"
+title: "Interactive Shiny Tutorials"
 ---
 
 {% include base_path %}
 
-## Reading Assignment Tutorials for each week
+## Interactive Tutorials
 
-The R reading assignment tutorials are inspired by by agmath, [AppliedStatsInteractive](https://github.com/agmath/AppliedStatsInteractive){:target="_blank"}
+These are interactive R shiny tutorials that are assigned as weekly reading assignments for students to complete prior to the computing lab session. These tutorials are inspired by and largely derived from the [AppliedStatsInteractive](https://github.com/agmath/AppliedStatsInteractive){:target="_blank"} of [Adam Gilbert](https://github.com/agmath){:target="_blank"}.
 
 [1 - Intro to data](https://introtostatncat.shinyapps.io/1_IntroToData/){:target="_blank"}
 

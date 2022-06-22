@@ -1,13 +1,13 @@
 ---
 permalink: /labs/
-title: "Labs"
+title: "Computing Labs"
 ---
 
 {% include base_path %}
 
-## Labs for each week
+## Descriptions of Weekly Computing Labs
 
-These labs are inspired by [OpenIntro Statistics](https://www.openintro.org/book/os/){:target="_blank"}. We have modified some of the labs to match the class schedule.
+These computing labs are largely derived from the computing labs of [OpenIntro Statistics](https://www.openintro.org/book/os/){:target="_blank"}.
 
 [Lab 1 - Intro to R](https://github.com/IntroToStatNCAT/IntroToStatNCAT.github.io/tree/main/files/Labs/01_intro_to_r){:target="_blank"}
 
