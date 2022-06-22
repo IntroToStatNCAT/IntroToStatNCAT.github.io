@@ -1,0 +1,49 @@
+---
+title: "Lab 4 - The Normal Distribution Solution"
+author: "MATH224 - Intro to Stat"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(openintro)
+```
+
+For exercise 1 & 2, don't remove points for not including `mean = 0` and `sd = 1` as it is just the standard normal.
+
+For exercise 3, 4 & 5, remove a point each if they don't have the right numbers such as the cut off point, mean and sd. Same with the function as well.
+
+## Exercise 1 (4 Points)
+
+```{r, warning=F, message=F}
+pnorm(-0.33, mean = 0, sd = 1)
+```
+
+
+## Exercise 2 (4 Points)
+
+```{r, warning=F, message=F}
+pnorm(1.89, mean = 0, sd = 1) - pnorm(-1.89, mean = 0, sd = 1)
+```
+
+
+## Exercise 3 (4 Points)
+
+```{r, warning=F, message=F}
+1 - pnorm(83, mean = 77, sd = 5)
+```
+
+
+## Exercise 4 (4 Points)
+
+```{r, warning=F, message=F}
+qnorm(0.10, mean = 77, sd = 5)
+```
+
+
+## Exercise 5 (4 Points)
+
+```{r, warning=F, message=F}
+qnorm(0.95, mean = 77, sd = 5)
+```

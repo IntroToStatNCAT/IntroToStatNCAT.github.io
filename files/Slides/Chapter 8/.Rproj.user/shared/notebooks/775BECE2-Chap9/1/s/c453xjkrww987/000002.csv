@@ -1,0 +1,5 @@
+"0","g=glm(Status~Age+Sex, data=donner, family=binomial)"
+"0",""
+"0","par(mar=c(2,4,2,1), las=1, mgp=c(3,0.7,0), cex.lab = 1.5, cex.axis = 1.25)"
+"0",""
+"0","plot(donner$Age,as.numeric(donner$Status)-1+0.01*((as.numeric(donner$Sex)-1)*2-1),xlab=""Age"",ylab=""Status"",xlim=c(0,80),pch=c(15,17)[donner$Sex], col = c(COL[1,2], COL[2,2]), cex = 2)"

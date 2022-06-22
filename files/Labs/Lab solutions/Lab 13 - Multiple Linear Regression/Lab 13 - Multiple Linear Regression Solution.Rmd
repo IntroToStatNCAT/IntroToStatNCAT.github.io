@@ -1,0 +1,106 @@
+---
+title: "Multiple Linear Regression Solution"
+author: "MATH224 - Intro to Stat"
+output: pdf_document
+urlcolor: blue
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(openintro)
+library(GGally)
+
+advertising = read.csv("https://raw.githubusercontent.com/nguyen-toan/ISLR/master/dataset/Advertising.csv")%>%
+  .[,-1]
+```
+
+## Exercise 1 (2 Points)
+
+**0.5 Points** Sales and TV has the highest correlation with a value of 0.782.
+
+**1 Point** We can see a positive relationship sales and TV where the scatter points are close to each other but they start to spread out as TV increases. Same case for Sales and Radio. But we can't see an apparent pattern with Sales and Newspaper which is reflected by a low correlation of 0.228.
+
+```{r, warning = FALSE, message = FALSE}
+ggpairs(advertising) # 0.5 Points
+```
+
+
+## Exercise 2 (2 Points)
+
+Intercept: 7.0326 **0.5 Points**
+Slope: 0.0475 **0.5 Points**
+
+```{r, warning = FALSE, message = FALSE}
+simple.model = lm(Sales ~ TV, data = advertising) # 0.5 Points
+summary(simple.model) # 0.5 Points
+```
+
+
+## Exercise 3 (3 Points)
+
+**1 Point** The variable `TV` is highly significant as the p-value is far less than 0.05. 
+
+**2 Point** The $R^2$ value is 0.6119. The total variation in the outcome variable is explained by the explanatory variables with 61.19%
+
+```{r, warning = FALSE, message = FALSE}
+
+```
+
+
+## Exercise 4 (2 Points)
+
+**2 Points** The line of best fit matches the linear model results. The intercept seems to start around 7 on the y-axis. For from the x-axis, we can see that for a change of 100, we can observe a change of around 5 on the y-axis. So the slope is $\frac{5}{100} = 0.05$ which is closer to the actual result.
+
+```{r, warning = FALSE, message = FALSE}
+advertising%>%
+  ggplot(aes(x = TV, y = Sales))+
+  geom_point()+
+  geom_smooth(method = "lm", se = F)
+```
+
+
+## Exercise 5 (2 Points)
+
+**1 Point** Newspaper wasn't a significant variable while the others were. Adjusted $R^2$ value is 0.8956
+
+```{r, warning = FALSE, message = FALSE}
+full_model = lm(Sales ~ TV + Radio + Newspaper, data = advertising) #0.5 Points
+summary(full_model) #0.5 Points
+```
+
+
+## Exercise 6 (3 Points)
+
+**1 Point each**
+
+While holding all other variables constant, a unit increase in TV correlates to a increase of 0.046 units in sales on average.
+
+While holding all other variables constant, a unit increase in Radio correlates to a increase of 0.189 units in sales on average.
+
+While holding all other variables constant, a unit increase in Newspaper correlated to a decrease of 0.001 units in sales on average.
+
+```{r, warning = FALSE, message = FALSE}
+
+```
+
+
+## Exercise 7 (2 Points)
+
+**1 Points** Adjusted $R^2$ is 0.8962. The final model has a higher Adjusted $R^2$ than the full model. The final model provides a better fit out of the two.
+
+```{r, warning = FALSE, message = FALSE}
+final_model = lm(Sales ~ TV + Radio, data = advertising) # 0.5 Points
+summary(final_model) # 0.5 Points
+```
+
+
+## Exercise 8 (4 Points)
+
+**1.5 Points** The first residual plot seems to slightly violate the assumption of constant variance in residuals regardless of the x-axis.
+
+**1.5 Points** The second residual plot is a qq plot to check for normality of the residuals from the model. We can clearly see that the residual isn't normal. It seems to be left skewed. Thus, the residual normality assumption has been violated.
+
+```{r, warning = FALSE, message = FALSE}
+plot(final_model, which = 1:2) # 1 Point
+```

@@ -1,0 +1,4 @@
+"0",""
+"0","x=0:80"
+"0","p = predict(g1,newdata=data.frame(Age=x))"
+"0","lines(x,exp(p)/(1+exp(p)), col = COL[4], lwd = 4)"

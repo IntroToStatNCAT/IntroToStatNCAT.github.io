@@ -1,0 +1,3 @@
+"0",""
+"0","plot(abs(m_final$residuals) ~ m_final$fitted, main = ""Absolute value of residuals vs. fitted"", pch = 19, col = COL[1,2], ylab = ""abs(residuals)"", xlab = ""fitted"", cex = 2)"
+"0",""

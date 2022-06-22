@@ -1,0 +1,5 @@
+"0","par(mar=c(5, 4, 2, 2) + 0.1)"
+"0","g_full = glm(spam ~ ., data=email, family=binomial)"
+"0","pred = prediction(g_full$fitted.values, email$spam)"
+"0","perf = performance(pred,""tpr"",""fpr"")"
+"0","plot(perf, lwd = 4, cex.lab = 1.5)"

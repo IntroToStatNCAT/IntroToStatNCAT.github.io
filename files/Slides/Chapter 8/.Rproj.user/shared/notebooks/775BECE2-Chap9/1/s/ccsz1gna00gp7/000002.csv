@@ -1,0 +1,1 @@
+"0","pairs(poverty[,c(2:6)], lower.panel = panel.cor, pch = 19, col = COL[1,2], cex = 1.5, cex.labels = 1.6, cex.axis = 1.5)"

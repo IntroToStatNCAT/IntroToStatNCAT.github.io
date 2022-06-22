@@ -1,0 +1,215 @@
+---
+title: "Chapter 9"
+subtitle: "Multiple and logistic regression^[These notes use content from OpenIntro Statistics Slides by Mine Cetinkaya-Rundel.]"
+author: |
+  | Department of Mathematics & Statistics
+  | North Carolina A\&T State University
+#date: "8/19/2020"
+urlcolor: blue
+header-includes:
+    \usepackage{multirow}
+    \usepackage{graphicx}
+    \graphicspath{{images/}}
+    \usepackage{subfigure}
+    \usepackage{multicol}
+    \usepackage[utf8]{inputenc}
+    \usepackage[english]{babel}
+    \usepackage{bm}
+    \usepackage{amsmath}
+    \usepackage{color}
+    \usepackage{tikz}
+    \usetikzlibrary{shapes}
+    \usepackage{mathtools}
+    \usepackage{textcomp}
+    \usepackage{fdsymbol}
+    \usepackage{siunitx}
+    \usepackage{xcolor,pifont}
+    \usepackage{hyperref}
+    \usepackage{mathtools}
+    \usepackage[geometry]{ifsym}
+output: 
+  beamer_presentation:
+    fig_caption: true
+    latex_engine: xelatex
+    
+    
+---
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+```{r, echo=F, message=F, warning=F}
+library(readr)
+library(openintro)
+library(here)
+library(tidyverse)
+library(xtable)
+library(broom)
+library(DAAG)
+library(Sleuth3)
+library(ROCR)
+data(allbacks)
+data(COL)
+```
+
+# Checking model conditions using graphs
+
+## Modeling conditions
+
+\centering{$\hat{y} = \beta_0 + \beta_1 x_1 + \beta_2 x_2 + \cdots + \beta_p x_p$} 
+
+\raggedright
+
+The model depends on the following conditions
+\begin{enumerate}
+\item residuals are nearly normal (less important for larger data sets)
+\item residuals have constant variability
+\item residuals are independent
+\item each variable is linearly related to the outcome \\
+\end{enumerate}
+
+We often use graphical methods to check the validity of these conditions, which we will go through in detail in the following slides.
+
+## Nearly normal residuals
+
+Normal probability plot and/or histogram of residuals:
+
+```{r, echo=F, message=F, warning=F, out.width="80%",fig.align='center'}
+d = read.csv(file = "dataset/beauty.csv")
+
+# final model
+
+m_final = lm(profevaluation ~ beauty + gender + age + formal + native + tenure, data = d)
+
+
+# nearly normal residuals
+
+par(mar=c(2,4,2,1), las=1, mgp=c(3,0.7,0), cex.lab = 1.5, cex.main = 2, cex.axis = 1.25)
+
+hist(m_final$residuals, main = "Histogram of residuals", col = COL[1])
+```
+
+\alert{Does this condition appear to be satisfied?}
+
+
+## Constant variability in residuals
+
+Scatterplot of residuals and/or absolute value of residuals vs. fitted (predicted):
+
+
+```{r, echo=F, message=F, warning=F, out.width="80%",fig.align='center'}
+par(mar=c(4,4,2,1), las=1, mgp=c(3,0.7,0), cex.lab = 1.5, cex.main = 1.25,cex.axis = 1.25, mfrow = c(1,2))
+
+plot(m_final$residuals ~ m_final$fitted, main = "Residuals vs. fitted", pch = 19, col = COL[1,2], ylab = "residuals", xlab = "fitted", cex = 2)
+abline(h = 0, lty = 3, lwd = 4)
+
+plot(abs(m_final$residuals) ~ m_final$fitted, main = "Absolute value of residuals vs. fitted", pch = 19, col = COL[1,2], ylab = "abs(residuals)", xlab = "fitted", cex = 2)
+
+```
+
+\alert{Does this condition appear to be satisfied?}
+
+## Checking constant variance - recap
+
+\begin{itemize}
+
+\item When we did simple linear regression (one explanatory variable) we checked the constant variance condition using a plot of \textbf{residuals vs. x}.
+
+\item With multiple linear regression (2+ explanatory variables) we checked the constant variance condition using a plot of \textbf{residuals vs. fitted}. 
+
+\end{itemize}
+
+\alert{Why are we using different plots?}
+
+\pause 
+
+In multiple linear regression there are many explanatory variables, so a plot of residuals vs. one of them wouldn't give us the complete picture.
+
+## Independent residuals
+
+Scatterplot of residuals vs. order of data collection:
+
+```{r, echo=F, message=F, warning=F, out.height="70%",fig.align='center'}
+par(mar=c(4,4,2,1), las=1, mgp=c(3,0.7,0), cex.lab = 1.5, cex.axis = 1.25, mfrow = c(1,1))
+
+plot(m_final$residuals, main = "Residuals vs. order of data collection", pch = 19, col = COL[1,2], ylab = "residuals", xlab = "order of data collection", cex = 2)
+
+abline(h = 0, lty = 3, lwd = 4)
+```
+
+\alert{Does this condition appear to be satisfied?}
+
+
+## More on the condition of independent residuals
+
+\begin{itemize}
+
+\item Checking for independent residuals allows us to indirectly check for independent observations.
+
+\item If observations and residuals are independent, we would not expect to see an increasing or decreasing trend in the scatterplot of residuals vs. order of data collection.
+
+\item This condition is often violated when we have time series data. Such data require more advanced time series regression techniques for proper analysis.
+
+\end{itemize}
+
+
+## Linear relationships
+
+Scatterplot of residuals vs. each (numerical) explanatory variable:
+
+```{r, echo=F, message=F, warning=F, out.width="50%",fig.align='center'}
+par(mar=c(4,4,1,1), las=1, mgp=c(3,0.7,0), cex.lab = 1.8, cex.axis = 1.25, mfrow = c(1,2))
+
+plot(m_final$residuals ~ d$beauty, pch = 19, col = COL[1,2], xlab = "beauty", ylab = "professor evaluation", cex = 2)
+abline(h = 0, lty = 3, lwd = 4)
+
+plot(m_final$residuals ~ d$age, pch = 19, col = COL[1,2], xlab = "age", ylab = "professor evaluation", cex = 2)
+abline(h = 0, lty = 3, lwd = 6)
+```
+
+\alert{Does this condition appear to be satisfied?}
+
+\noindent\rule{4cm}{0.4pt}
+\footnotesize
+\alert{Note:} We use residuals instead of the predictors on the y-axis so that we can still check for linearity without worrying about other possible violations like collinearity between the predictors.
+
+## Several options for improving a model
+
+\begin{itemize}
+
+\item Transforming variables
+\item Seeking out additional variables to fill model gaps
+\item Using more advanced methods that would account for challenges around inconsistent variability or nonlinear relationships between predictors and the outcome
+
+\end{itemize}
+
+## Transformations
+
+If the concern with the model is non-linear relationships between the explanatory 
+variable(s) and the response variable, transforming the response variable can be helpful. 
+
+\begin{itemize}
+
+\item Log transformation (log $y$)
+\item Square root transformation ($\sqrt{y}$)
+\item Inverse transformation ($1/y$)
+\item Truncation (cap the max value possible)
+
+\end{itemize}
+
+It is also possible to apply transformations to the explanatory variable(s), however 
+such transformations tend to make the model coefficients even harder to interpret.
+
+## Models can be wrong, but useful
+
+\begin{quote}
+All models are wrong, but some are useful. - George Box
+\end{quote}
+
+\begin{itemize}
+
+\item No model is perfect, but even imperfect models can be useful, as long as we are clear and report the model's shortcomings.
+
+\item If conditions are grossly violated, we should not report the model results, but instead consider a new model, even if it means learning more statistical methods or hiring someone who can help.
+
+\end{itemize}

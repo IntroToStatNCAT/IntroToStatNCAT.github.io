@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 
 
 <!doctype html>
@@ -277,6 +278,284 @@
       
 
       <section class="page__content" itemprop="text">
+=======
+
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+
+<meta charset="utf-8">
+
+
+
+<!-- begin SEO -->
+
+
+
+
+
+
+
+
+
+<title>Tutorial 3: Descriptive Statistics for Numerical and Categorical Data   MATH 224 - Intro to Stat</title>
+
+
+
+
+
+
+
+<meta property="og:locale" content="en-US">
+<meta property="og:site_name" content="MATH 224 - Intro to Stat">
+<meta property="og:title" content="Tutorial 3: Descriptive Statistics for Numerical and Categorical Data">
+
+
+  <link rel="canonical" href="http://localhost:4000/files/Shiny%20Tutorials/3_DescriptiveNumCat/3_DescriptiveNumCat.Rmd">
+  <meta property="og:url" content="http://localhost:4000/files/Shiny%20Tutorials/3_DescriptiveNumCat/3_DescriptiveNumCat.Rmd">
+
+
+
+
+
+
+
+  
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <script type="application/ld+json">
+    {
+      "@context" : "http://schema.org",
+      "@type" : "Person",
+      "name" : "Intro To Stat NCAT",
+      "url" : "http://localhost:4000",
+      "sameAs" : null
+    }
+  </script>
+
+
+
+
+
+
+<!-- end SEO -->
+
+
+<link href="http://localhost:4000/feed.xml" type="application/atom+xml" rel="alternate" title="MATH 224 - Intro to Stat Feed">
+
+<!-- http://t.co/dKP3o1e -->
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="http://localhost:4000/assets/css/main.css">
+
+<meta http-equiv="cleartype" content="on">
+    
+
+<!-- start custom head snippets -->
+
+<link rel="apple-touch-icon" sizes="57x57" href="http://localhost:4000/images/apple-touch-icon-57x57.png?v=M44lzPylqQ">
+<link rel="apple-touch-icon" sizes="60x60" href="http://localhost:4000/images/apple-touch-icon-60x60.png?v=M44lzPylqQ">
+<link rel="apple-touch-icon" sizes="72x72" href="http://localhost:4000/images/apple-touch-icon-72x72.png?v=M44lzPylqQ">
+<link rel="apple-touch-icon" sizes="76x76" href="http://localhost:4000/images/apple-touch-icon-76x76.png?v=M44lzPylqQ">
+<link rel="apple-touch-icon" sizes="114x114" href="http://localhost:4000/images/apple-touch-icon-114x114.png?v=M44lzPylqQ">
+<link rel="apple-touch-icon" sizes="120x120" href="http://localhost:4000/images/apple-touch-icon-120x120.png?v=M44lzPylqQ">
+<link rel="apple-touch-icon" sizes="144x144" href="http://localhost:4000/images/apple-touch-icon-144x144.png?v=M44lzPylqQ">
+<link rel="apple-touch-icon" sizes="152x152" href="http://localhost:4000/images/apple-touch-icon-152x152.png?v=M44lzPylqQ">
+<link rel="apple-touch-icon" sizes="180x180" href="http://localhost:4000/images/apple-touch-icon-180x180.png?v=M44lzPylqQ">
+<link rel="icon" type="image/png" href="http://localhost:4000/images/favicon-32x32.png?v=M44lzPylqQ" sizes="32x32">
+<link rel="icon" type="image/png" href="http://localhost:4000/images/android-chrome-192x192.png?v=M44lzPylqQ" sizes="192x192">
+<link rel="icon" type="image/png" href="http://localhost:4000/images/favicon-96x96.png?v=M44lzPylqQ" sizes="96x96">
+<link rel="icon" type="image/png" href="http://localhost:4000/images/favicon-16x16.png?v=M44lzPylqQ" sizes="16x16">
+<link rel="manifest" href="http://localhost:4000/images/manifest.json?v=M44lzPylqQ">
+<link rel="mask-icon" href="http://localhost:4000/images/safari-pinned-tab.svg?v=M44lzPylqQ" color="#000000">
+<link rel="shortcut icon" href="/images/favicon.ico?v=M44lzPylqQ">
+<meta name="msapplication-TileColor" content="#000000">
+<meta name="msapplication-TileImage" content="http://localhost:4000/images/mstile-144x144.png?v=M44lzPylqQ">
+<meta name="msapplication-config" content="http://localhost:4000/images/browserconfig.xml?v=M44lzPylqQ">
+<meta name="theme-color" content="#ffffff">
+<link rel="stylesheet" href="http://localhost:4000/assets/css/academicons.css"/>
+
+<script type="text/x-mathjax-config"> MathJax.Hub.Config({ TeX: { equationNumbers: { autoNumber: "all" } } }); </script>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/latest.js?config=TeX-MML-AM_CHTML' async></script>
+
+<!-- end custom head snippets -->
+
+  </head>
+
+  <body>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        <button><div class="navicon"></div></button>
+        <ul class="visible-links">
+          <li class="masthead__menu-item masthead__menu-item--lg"><a href="http://localhost:4000/">MATH 224 - Intro to Stat</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="http://localhost:4000/syllabus/">Syllabus</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="http://localhost:4000/slides/">Slides</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="http://localhost:4000/labs/">Statistical Computing Labs</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="http://localhost:4000/tutorials/">R Tutorials</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="http://localhost:4000/dap/">Data Analysis Project</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="http://localhost:4000/workshop/">Faculty Workshop</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="http://localhost:4000/manual/">Implementation Manual</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="http://localhost:4000/research/">Research/Publication</a></li>
+          
+        </ul>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+    
+
+
+
+
+
+<div id="main" role="main">
+  
+
+
+  <div class="sidebar sticky">
+  
+
+
+
+<div itemscope itemtype="http://schema.org/Person">
+
+  <div class="author__avatar">
+    
+    	<img src="https://cdn.d1baseball.com/logos/teams/256/ncat.png" alt="Intro to Statistics">
+    
+  </div>
+
+  <div class="author__content">
+    <h3 class="author__name">Intro to Statistics</h3>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">Follow</button>
+    <ul class="author__urls social-icons">
+      
+        <li><i class="fa fa-fw fa-map-marker" aria-hidden="true"></i> Mateena Hall</li>
+      
+      
+      
+      
+      
+       
+      
+      
+      
+      
+      
+      
+      
+      
+      
+        <li><a href="https://github.com/IntroToStatNCAT/IntroToStatNCAT.github.io"><i class="fab fa-fw fa-github" aria-hidden="true"></i> Github</a></li>
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+    </ul>
+  </div>
+</div>
+
+  
+  </div>
+
+
+  <article class="page" itemscope itemtype="http://schema.org/CreativeWork">
+    <meta itemprop="headline" content="Tutorial 3: Descriptive Statistics for Numerical and Categorical Data">
+    
+    
+    
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 class="page__title" itemprop="headline">Tutorial 3: Descriptive Statistics for Numerical and Categorical Data
+</h1>
+          
+        
+        
+        
+        
+             
+        
+    
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+>>>>>>> ed77fa7f17e014a44750b2c6c7dfec1f3a824b9e
         ```{r setup, include=FALSE}
 library(dplyr)
 library(ggplot2)
@@ -298,40 +577,41 @@ samples <- data.frame(Sample_One = diamonds$carat[sample(1:nrow(diamonds), 8, re
 cut.samples <- data.frame(Sample_One = diamonds$cut[sample(1:nrow(diamonds), 8, replace = FALSE)], Sample_Two = diamonds$cut[sample(1:nrow(diamonds), 8, replace = FALSE)], Sample_Three = diamonds$cut[sample(1:nrow(diamonds), 8, replace = FALSE)])
 ```
 
-If you've never coded before (or even if you have), type `print("Your Name")` in the interactive R chunk below and run it by hitting `crtl+Enter` or `cmd+Enter` for MAC users.
+
+
+## Objective
+
+If you've never coded before (or even if you have), type `"Your Name"` in the interactive R chunk below and run it by hitting `crtl+Enter` or `cmd+Enter` for MAC users.
 
 ```{r Student-Name, exercise = TRUE}
 
 ```
 
-## Descriptive Statistics for Numerical and Categorical Data
-
-###
-
-**Workbook Objectives:** This workbook covers the following objectives.
+**Tutorial Objectives:** This tutorial covers the following objectives.
 
   * Compute and discuss appropriate summaries for both numerical and categorical data
   * Regarding numerical variables, discuss the difference between mean and median as well as standard deviation and inter-quartile range. Identify when each measure is appropriate.
   * Compute summary statistics both by hand and with the use of $\tt{R}$
   
-**Important Reminders:** The following previously mastered material is necessary for success through this workbook
+**Important Reminders:** The following previously mastered material is necessary for success through this tutorial
 
 + A variable is *numerical* if a summary statistic such as the mean has a meaningful interpretation.
 + A variable is *categorical* if it serves to sort observations into different groups (categories).
 + The unique values which a variable takes are called the *levels* of that variable.
 
-### Summarizing Numerical (Quantitative) Data
+## Summarizing Numerical (Quantitative) Data
 
 **Recall**: Variables for which computation of measures like the mean (average) or standard deviation are meaningful are numerical variables.
 
-###
 
 ### Measuring Central Tendancy
 
 **Measures of Central Tendency (Averages)**: The mean and median both attempt to measure the *center* of a dataset. 
 
+###
+
   * The **mean** of a set of observations is the traditional *average*. We typically denote the mean by $\bar{x}$ (or $\mu$ in the case of population-level data) and it is computed as follows:
-  $$\bar{x} = \frac{\displaystyle{\sum_{i=1}^{n}{x_i}}}{n} = \frac{x_1+x_2+x_3+...+x_n}{n}$$
+  $\bar{x} = \frac{\displaystyle{\sum_{i=1}^{n}{x_i}}}{n} = \frac{x_1+x_2+x_3+...+x_n}{n}$
 
 ###
 
@@ -340,12 +620,14 @@ If you've never coded before (or even if you have), type `print("Your Name")` in
 ###
 
 **Example**: The following are three random samples of carat values from the *diamonds* dataset.
-```{r printSamplesDf, echo = FALSE, eval = TRUE}
+```{r printSamplesDf, eval = TRUE}
 samples
 ```
 
+###
+
 1. Use the code block below to compute the mean of `Sample_One`
-```{r meanSampleOne, exercise = TRUE}
+```{r meanSampleOne, exercise = TRUE, exercise.eval = TRUE}
 
 ```
 
@@ -357,10 +639,10 @@ grade_result(
 
 ###
 
-In `R` we can easily compute the means and medians for our samples or for the entire dataset! Remember from our most recent workbook that the `$` operator can be used to access an entire column of a data frame. I've stored the samples in a data frame called *samples*. `R` includes a function `mean()` for computing the mean of a list of numbers and a function `median()` for computing the median. This means that we could compute the mean of `Sample_Two` using `mean(samples$Sample_Two)`.
+In `R` we can easily compute the means and medians for our samples or for the entire dataset! Remember from our most recent tutorial that the `$` operator can be used to access an entire column of a data frame. I've stored the samples in a data frame called *samples*. `R` includes a function `mean()` for computing the mean of a list of numbers and a function `median()` for computing the median. This means that we could compute the mean of `Sample_Two` using `mean(samples$Sample_Two)`.
 
 2. Use the code block below so that it computes the mean of `Sample_Three` using the `$` operator to access the `Sample_Three` column of the `samples` data frame.
-```{r meanSampThree, exercise = TRUE}
+```{r meanSampThree, exercise = TRUE, exercise.eval = TRUE}
 
 ```
 
@@ -393,7 +675,7 @@ question(
 
 ###
 
-4. In our first workbook we saw that we can use sample data to make generalizations about populations for which the sample is representative. Answer the following questions with this in mind.
+4. In our first tutorial we saw that we can use sample data to make generalizations about populations for which the sample is representative. Answer the following questions with this in mind.
 ```{r samplesToEstimatePop, echo = FALSE}
 quiz(
 question(
@@ -455,9 +737,11 @@ question_checkbox(
 )
 ```
 
-### Measuring Spread
+## Measuring Spread
 
 **Measures of Variability**: Clearly, the center of a dataset doesn't tell the entire story. Our two political pollsters obviously have very different door-knocking strategies but both have a mean (and median) of $25$ doors per day. We should also measure the *spread* of data.
+
+###
 
 ###
 
@@ -524,7 +808,7 @@ ggplot(data = diamonds) + geom_boxplot(mapping = aes(y = carat)) + geom_hline(yi
 
 ###
 
-In `R` we can easily compute the standard deviation with the function `sd()`, and IQR with the function `quantiles()` or `IQR()`, for our samples or for the entire dataset! Recall that our diamond samples are stored in a data frame called `samples`. The code block below is preset to compute the standard deviation, Q1, Q3, and IQR for `Sample_One`. Note that in the `quantiles()` function the `0.25` identifies the 25th percentile ($Q1$) and the `0.75` identifies the 75th percentile ($Q3$). Run the code to find the standard deviation, Q1, Q3, and the interquartile range for `Sample_One`. Once you've done that, edit the existing code to compute these metrics for the other two samples.
+In `R` we can easily compute the standard deviation with the function `sd()`, and IQR with the function `quantile()` or `IQR()`, for our samples or for the entire dataset! Recall that our diamond samples are stored in a data frame called `samples`. The code block below is preset to compute the standard deviation, Q1, Q3, and IQR for `Sample_One`. Note that in the `quantile()` function the `0.25` identifies the 25th percentile ($Q1$) and the `0.75` identifies the 75th percentile ($Q3$). Run the code to find the standard deviation, Q1, Q3, and the interquartile range for `Sample_One`. Once you've done that, edit the existing code to compute these metrics for the other two samples.
 
 ```{r computeSdIqr, exercise = TRUE, exercise.eval = FALSE}
 sd(samples$Sample_One)
@@ -546,14 +830,17 @@ Use the code blocks below to find the standard deviation and IQR for the doors v
 
 ```
 
-### Summarizing Categorical (Qualitative, Factor) Data
+## Summarizing Categorical (Qualitative, Factor) Data
   
-###
 
 Categorical data is best summarized using a frequency table. That is, we use a table that lists how *frequent* each observation occured in the dataset. For example, consider the samples of diamond *cuts* below:
 ```{r sampleCuts, echo = FALSE, eval = TRUE}
 cut.samples
 ```
+
+###
+
+###
 
 We can use `R`'s `table()` function to construct frequency and relative frequency tables for a sample or our entire set of observations. The following code chunk is preset to compute a frequency and relative frequency table for `Sample_One`. Adapt the code to provide summaries for `Sample_Two` and `Sample_Three`.
 ```{r summarizeCut, exercise = TRUE, exercise.eval = FALSE}
@@ -563,7 +850,7 @@ table(cut.samples$Sample_One)/nrow(cut.samples)
 
 ###
 
-Below, we can see the distributions of diamond `cut` from `Sample_Two` (left) and from our entire population (right) below. Even with a sample of 8 diamonds, we gain "some" insight as to the most and least common diamond cuts. You may also notice that the frequency and relative frequency plots look identical aside from the scale on the vertical axis -- this will be the case in general.
+Below, we can see the distributions of diamond `cut` from `Sample_Three` (left) and from our entire population (right) below. Even with a sample of 8 diamonds, we gain "some" insight as to the most and least common diamond cuts. You may also notice that the frequency and relative frequency plots look identical aside from the scale on the vertical axis -- this will be the case in general.
   
 ```{r printCutPlots, echo = FALSE, eval = TRUE, fig.width = 4, fig.height = 2.5, warning = FALSE, message = FALSE, results = FALSE}
 ggplot(data = cut.samples) + geom_bar(mapping = aes(x = Sample_Three)) + labs(title = "Distribution of cut type in Diamonds (samp)", x = "Cut Type")
@@ -572,7 +859,7 @@ ggplot(data = cut.samples) + geom_bar(mapping = aes(x = Sample_Three, y = (..cou
 ggplot(data = diamonds) + geom_bar(mapping = aes(x = cut, y = (..count..)/sum(..count..))) + ylab("proportion") + labs(title = "Distribution of cut type in Diamonds (pop)", x = "Cut Type")
 ```
 
-### Submit
+## Submit
 
 ```{r context="server"}
 learnrhash::encoder_logic(strip_output = TRUE)
@@ -590,9 +877,9 @@ learnrhash::encoder_ui(
 )
 ```
 
-### Summary
+## Summary
     
-**Summary**: Here's a quick summary of the most important ideas from this workbook.
+**Summary**: Here's a quick summary of the most important ideas from this tutorial.
 
 * We can summarize numerical data using measures of central tendency and measures of spread (or variability)
 * The *mean* ($\bar{x}$ for samples, $\mu$ for populations) and *median* measure the center of a set of numerical data.

@@ -1,0 +1,30 @@
+---
+title: "Introducing the Data Analysis Project"
+output:
+  html_document:
+    css: lab.css
+    highlight: pygments
+    theme: cerulean
+---
+
+```{r global_options, include=FALSE}
+knitr::opts_chunk$set(eval = TRUE, results = FALSE, fig.show = "hide", message = FALSE)
+```
+
+We will be making use of RStudio Cloud to complete the group data analysis project. For this purpose, one of the group members will be creating a workspace and inviting the other members into the workspace for everyone to work on this project together. To get started, we will complete the following tasks:
+
+1. Create a workspace in RStudio cloud.
+
+2. Name the workspace as MATH224-DAP-G# (G# - Group Number)
+
+3. Invite group members and TA (Arbaaz Mohideen - amohidee@aggies.ncat.edu)
+
+4. Create a RStudio project in the workspace with the same name as your workspace.
+
+5. Create a draft report with the following information:
+    - Group member names in the author field
+    - Dataset name in the title
+    - Headings and subheadings for all necessary sections of final report (Introduction, Research Questions and Hypothesis, Exploratory Data Analysis, Predictive Modeling, Conclusion and Reference)
+
+6. Submit the draft as the lab report for the day.
+

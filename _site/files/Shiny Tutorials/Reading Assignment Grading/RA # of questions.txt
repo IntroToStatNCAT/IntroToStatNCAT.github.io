@@ -1,0 +1,12 @@
+RA1 - 10
+RA2 - 9
+RA3 - 9
+RA4 - 17
+RA5 - Submissions of codebook with group member names for Data Analysis Project
+RA6 - 13
+RA7 - 9
+RA8 - 11
+RA9 - 13
+RA10 - 6
+RA11 - 12
+RA12 - 5

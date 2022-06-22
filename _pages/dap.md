@@ -11,7 +11,11 @@ title: "Data Analysis Project"
 
 [Part 2 Description](https://github.com/IntroToStatNCAT/IntroToStatNCAT.github.io/blob/main/files/Data%20Analysis%20Project/Project%20Descriptions/Part_II.pdf){:target="_blank"}
 
+<<<<<<< HEAD
 [Part 3 Description](https://github.com/IntroToStatNCAT/IntroToStatNCAT.github.io/blob/51f300c811a42cd559ca97feb35a2f23bc38ffa1/files/Data%20Analysis%20Project/Project%20Descriptions/Part_III.pdf){:target="_blank"}
+=======
+[Part 3 Description](https://github.com/IntroToStatNCAT/IntroToStatNCAT.github.io/blob/main/files/Data%20Analysis%20Project/Project%20Descriptions/Part_III.pdf){:target="_blank"}
+>>>>>>> ed77fa7f17e014a44750b2c6c7dfec1f3a824b9e
 
 
 ## Data Analysis Project Templates
@@ -21,3 +25,12 @@ title: "Data Analysis Project"
 [Template Report RMD](https://github.com/IntroToStatNCAT/IntroToStatNCAT.github.io/blob/main/files/Data%20Analysis%20Project/Template/Template%20Report.Rmd){:target="_blank"}
 
 [Sample Final Report PDF](https://github.com/IntroToStatNCAT/IntroToStatNCAT.github.io/blob/main/files/Data%20Analysis%20Project/Template/Sample%20Final%20Report.pdf){:target="_blank"}
+
+## Peer Review Grading
+
+[Part 1](https://github.com/IntroToStatNCAT/IntroToStatNCAT.github.io/tree/main/files/Data%20Analysis%20Project/Peer%20Review%20Grading/DAP%20Part%201){:target="_blank"}
+
+[Part 2](https://github.com/IntroToStatNCAT/IntroToStatNCAT.github.io/tree/main/files/Data%20Analysis%20Project/Peer%20Review%20Grading/DAP%20Part%202){:target="_blank"}
+
+[Final Report](https://github.com/IntroToStatNCAT/IntroToStatNCAT.github.io/tree/main/files/Data%20Analysis%20Project/Peer%20Review%20Grading/DAP%20Final%20Report){:target="_blank"}
+

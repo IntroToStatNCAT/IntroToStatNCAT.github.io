@@ -1,0 +1,59 @@
+---
+title: "Name of the dataset"
+author: "Member 1, Member 2, Member 3"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Introduction
+
+Text
+
+# Research Question and Hypotheses
+
+## Research Question
+
+Text
+
+## Hypotheses
+
+Text
+
+# Exploratory Data Analysis
+
+Text & Pictures
+
+## Correlation
+
+Correlation number and interpretation
+
+# Predictive Modeling
+
+## Methodology
+
+Type of model
+
+Pros and Cons of the model
+
+## Results
+
+Output from R
+
+## Interpretation
+
+Explain the results
+
+# Conclusion
+
+Inference of the results
+
+## Discussion
+
+Possible improvement to the project
+
+# Reference
+
+
