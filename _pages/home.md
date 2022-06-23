@@ -1,6 +1,6 @@
 ---
 permalink: /home/
-title: "Overview"
+title: "Infusing Data-Centered Pedagogy and Data-Analytical Skills into Introductory Statistics"
 ---
 
 Project Goals
@@ -15,7 +15,7 @@ The intro stats course at NCA&T serves more than 600 students annually (46% STEM
 Funding Source
 =====
 
-This project is supported by a grant from the NSF HBCU-UP Target Infusion Projects Program under Grant No. [HRD 2106945](https://www.nsf.gov/awardsearch/showAward?AWD_ID=2106945&HistoricalAwards=false){:target="_blank"}.
+This project is supported by a grant from the NSF HBCU-UP Target Infusion Projects (TIP) Program under Grant No. [HRD 2106945](https://www.nsf.gov/awardsearch/showAward?AWD_ID=2106945&HistoricalAwards=false){:target="_blank"}.
 
 The National Science Foundation (NSF) Historically Black Colleges and Universities Undergraduate Program (HBCU-UP), through Targeted Infusion Projects, supports the development, implementation, and study of evidence-based innovative models and approaches for improving the preparation and success of HBCU undergraduate students so that they may pursue STEM graduate programs and/or careers.
 
