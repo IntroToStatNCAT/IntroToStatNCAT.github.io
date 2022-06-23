@@ -7,8 +7,13 @@ title: "Assessments"
 
 ## Data Science Awareness, Readiness and Aspirations Survey
 
+This survey instrument is designed to measure students' levels of awareness, preparedness and aspirations of Data Science.
+
 [Survey Instrument](https://github.com/IntroToStatNCAT/IntroToStatNCAT.github.io/blob/24d16e3ea1f997baa546164dcf5e346e177ee5c0/files/Assessments/DS-AwarenessReadinessAspirations-Survey_Spring2022.pdf){:target="_blank"}
 
-## (Modified) CAOS Diagnostic Test
+## Intro Stats Concept Inventory
 
-[Section 007 Word](https://github.com/IntroToStatNCAT/IntroToStatNCAT.github.io/blob/51f300c811a42cd559ca97feb35a2f23bc38ffa1/files/Syllabus/MATH224007-Syllabus-Sp22-updated.docx){:target="_blank"}
+We used a modified version of the Comprehensive Assessment of Outcomes in Statistics (CAOS) test originally developed by del Mas et al. [del Mas, R., Garfield, J., Ooms, A., and Chance, B. (2007), “Assessing Students’ Conceptual Understanding After a First Course in Statistics,”
+*Statistics Education Research Journal*, 6:28–58.] and modified by Chance et al. [Chance, B., Wong, J., and Tintle, N. (2016), “Student Performance in Curricula Centered on Simulation-Based Inference: A Preliminary Report,” *Journal of Statistics Education*, 24(3):114-126.]. The instrument was generously shared by Professor Nathan Tintle. 
+
+[Test](https://github.com/IntroToStatNCAT/IntroToStatNCAT.github.io/blob/3833252aac5a7c1ea180febc0481280c56eda63a/files/Assessments/CAOS-DiagnosticTest-Sp2022.pdf){:target="_blank"}
