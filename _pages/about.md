@@ -22,7 +22,7 @@ Funding Source
 
 This project is supported by a grant from the NSF HBCU-UP Target Infusion Projects Program under Grant No. [HRD 2106945](https://www.nsf.gov/awardsearch/showAward?AWD_ID=2106945&HistoricalAwards=false){:target="_blank"}.
 
-The National Science Foundation (NSF) Historically Black Colleges and Universities Undergraduate Program (HBCU-UP), through Targeted Infusion Projects, supports the development, implementation, and study of evidence-based innovative models and approaches for improving the preparation and success of HBCU undergraduate students so that they may pursue STEM graduate programs and/or careers.
+The National Science Foundation (NSF) Historically Black Colleges and Universities Undergraduate Program (HBCU-UP), through Targeted Infusion Projects (TIP), supports the development, implementation, and study of evidence-based innovative models and approaches for improving the preparation and success of HBCU undergraduate students so that they may pursue STEM graduate programs and/or careers.
 
 Project Team
 =====
