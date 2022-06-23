@@ -1,14 +1,11 @@
-<<<<<<< HEAD
 ---
 permalink: /slides/
-title: "Slides"
+title: "Lecture Slides"
 ---
-
-{% include base_path %}
 
 ## Section by Section Slides
 
-The following slides are derived from the [OpenIntro Statistics](https://www.openintro.org/book/os/){:target="_blank"} slides. Here, we provide the slides in both pdf and R Markdown format. The markdown format allow for the instructor to easily customize the R codes and output embedded in the slides. 
+The following slides are derived from the [OpenIntro Statistics](https://www.openintro.org/book/os/){:target="_blank"} slides. Here, we provide the slides in both pdf and R Markdown format. The markdown format allows for the instructor to easily customize the R codes and output embedded in the slides. 
 
 [Chapter 1 - Introduction to data](https://github.com/IntroToStatNCAT/IntroToStatNCAT.github.io/tree/main/files/Slides/Chapter%201){:target="_blank"}
 
@@ -24,18 +21,12 @@ The following slides are derived from the [OpenIntro Statistics](https://www.ope
 
 [Chapter 7 - Inference for numerical data](https://github.com/IntroToStatNCAT/IntroToStatNCAT.github.io/tree/main/files/Slides/Chapter%207){:target="_blank"}
 
-[Chapter 8 - Introduction to linear regression](){:target="_blank"}
+[Chapter 8 - Introduction to linear regression](https://github.com/IntroToStatNCAT/IntroToStatNCAT.github.io/tree/main/files/Slides/Chapter%208){:target="_blank"}
 
-[Chapter 9 - Multiple and Logistic regression](){:target="_blank"}
-=======
----
-permalink: /slides/
-title: "Slides"
----
+[Chapter 9 - Multiple and Logistic regression](https://github.com/IntroToStatNCAT/IntroToStatNCAT.github.io/tree/main/files/Slides/Chapter%209){:target="_blank"}
 
-{% include base_path %}
 
-## Slides by chapter per section
+## Complete Chapter Slides
 
 The following slides are derived from the openintro statistics slides.
 
@@ -56,4 +47,4 @@ The following slides are derived from the openintro statistics slides.
 [Chapter 8 - Introduction to linear regression](https://github.com/IntroToStatNCAT/IntroToStatNCAT.github.io/tree/main/files/Slides/Chapter%208){:target="_blank"}
 
 [Chapter 9 - Multiple and Logistic regression](https://github.com/IntroToStatNCAT/IntroToStatNCAT.github.io/tree/main/files/Slides/Chapter%209){:target="_blank"}
->>>>>>> ed77fa7f17e014a44750b2c6c7dfec1f3a824b9e
+

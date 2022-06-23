@@ -9,7 +9,7 @@ title: "Assessments"
 
 This survey instrument is designed to measure students' levels of awareness, preparedness and aspirations of Data Science.
 
-[Survey Instrument](https://github.com/IntroToStatNCAT/IntroToStatNCAT.github.io/blob/24d16e3ea1f997baa546164dcf5e346e177ee5c0/files/Assessments/DS-AwarenessReadinessAspirations-Survey_Spring2022.pdf){:target="_blank"}
+[Survey Instrument](https://github.com/IntroToStatNCAT/IntroToStatNCAT.github.io/blob/029bafcd78178b2986e062390c63fb3599ae3e4e/files/Assessments/DS-AwarenessReadinessAspirations-Survey_Spring2022.pdf){:target="_blank"}
 
 ## Intro Stats Concept Inventory
 

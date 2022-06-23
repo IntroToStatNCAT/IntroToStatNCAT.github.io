@@ -5,7 +5,7 @@ title: "Syllabus"
 
 {% include base_path %}
 
-## Book required for the class
+## Textbook
 
 [OpenIntro Statistics](https://www.openintro.org/book/os/){:target="_blank"}
 

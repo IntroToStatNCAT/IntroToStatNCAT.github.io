@@ -84,6 +84,9 @@
 <loc>http://localhost:4000/dap/</loc>
 </url>
 <url>
+<loc>http://localhost:4000/home/</loc>
+</url>
+<url>
 <loc>http://localhost:4000/labs/</loc>
 </url>
 <url>
@@ -111,6 +114,9 @@
 <loc>http://localhost:4000/sitemap/</loc>
 </url>
 <url>
+<loc>http://localhost:4000/slides/</loc>
+</url>
+<url>
 <loc>http://localhost:4000/syllabus/</loc>
 </url>
 <url>
@@ -136,9 +142,6 @@
 </url>
 <url>
 <loc>http://localhost:4000/year-archive/</loc>
-</url>
-<url>
-<loc>http://localhost:4000/_pages/slides/</loc>
 </url>
 <url>
 <loc>http://localhost:4000/files/Labs/05a_sampling_distributions/README/</loc>
