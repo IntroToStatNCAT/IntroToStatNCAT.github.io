@@ -29,6 +29,4 @@ These computing labs are largely derived from the computing labs of [OpenIntro S
 
 [Lab 11 - Multiple linear regression](https://github.com/IntroToStatNCAT/IntroToStatNCAT.github.io/tree/main/files/Labs/09_multiple_regression){:target="_blank"}
 
-[Lab - Data Analysis Project](https://github.com/IntroToStatNCAT/IntroToStatNCAT.github.io/tree/main/files/Labs/Lab%20-%20Data%20analysis%20project){:target="_blank"}
-
-[Lab Solutions](https://github.com/IntroToStatNCAT/IntroToStatNCAT.github.io/tree/main/files/Labs/Lab%20solutions){:target="_blank"}
+[Lab - Introducing Data Analysis Projects](https://github.com/IntroToStatNCAT/IntroToStatNCAT.github.io/tree/main/files/Labs/Lab%20-%20Data%20analysis%20project){:target="_blank"}
