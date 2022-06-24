@@ -21,11 +21,4 @@ title: "Data Analysis Project"
 
 [Sample Final Report PDF](https://github.com/IntroToStatNCAT/IntroToStatNCAT.github.io/blob/main/files/Data%20Analysis%20Project/Template/Sample%20Final%20Report.pdf){:target="_blank"}
 
-## Peer Review Grading
-
-[Part 1](https://github.com/IntroToStatNCAT/IntroToStatNCAT.github.io/tree/main/files/Data%20Analysis%20Project/Peer%20Review%20Grading/DAP%20Part%201){:target="_blank"}
-
-[Part 2](https://github.com/IntroToStatNCAT/IntroToStatNCAT.github.io/tree/main/files/Data%20Analysis%20Project/Peer%20Review%20Grading/DAP%20Part%202){:target="_blank"}
-
-[Final Report](https://github.com/IntroToStatNCAT/IntroToStatNCAT.github.io/tree/main/files/Data%20Analysis%20Project/Peer%20Review%20Grading/DAP%20Final%20Report){:target="_blank"}
 
