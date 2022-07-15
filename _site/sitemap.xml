@@ -72,6 +72,9 @@
 <loc>http://localhost:4000/assessments/</loc>
 </url>
 <url>
+<loc>http://localhost:4000/assignments/</loc>
+</url>
+<url>
 <loc>http://localhost:4000/categories/</loc>
 </url>
 <url>

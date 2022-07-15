@@ -39,4 +39,6 @@ Dr. Tamer Elbayoumi, Co-Principal Investigator, is an Assistant Professor of Sta
 
 Dr. Mingxiang Chen, Co-Principal Investigator, is a Professor of Mathematics in the College of Science and Technology at NCA&T. She has taught introductory statistics for about ten years. She will help with creating and revising course materials, will implement the new course design in her course sections, will help with evaluation data collection, and will facilitate generalizing the new course design to all course sections. [More info.](https://www.ncat.edu/employee-bio.php?directoryID=607127531){:target="_blank"}
 
-Dr. Monique Matelski (External Evaluator), Director of Research & Evaluation, at Cobblestone Applied Research & Evaluation, Inc, is responsible for project evaluation and assessment. [More info.](https://www.linkedin.com/in/monique-matelski-ph-d-4910bb84/){:target="_blank"}
+Dr. Rebecca M. Eddy is the Founder and current President of Cobblestone Applied Research & Evaluation, Inc. She serves as Principal Investigator of the TIP Evaluation. [More info.](https://www.cobblestoneeval.com/team/rebecca-eddy/){:target="_blank"}
+
+Dr. Monique H. Matelski is the Director of Research and Evaluation at Cobblestone Applied Research & Evaluation, Inc. She served as Project Manager of the TIP Evaluation during the first year of project (2021-2022). [More info.](https://www.cobblestoneeval.com/team/monique-matelski/){:target="_blank"}

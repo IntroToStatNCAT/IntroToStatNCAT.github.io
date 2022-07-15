@@ -155,6 +155,9 @@
             <li class="masthead__menu-item"><a href="http://localhost:4000/slides/">Slides</a></li>
           
             
+            <li class="masthead__menu-item"><a href="http://localhost:4000/assignments/">Assignments</a></li>
+          
+            
             <li class="masthead__menu-item"><a href="http://localhost:4000/labs/">Computing Labs</a></li>
           
             
