@@ -1510,8 +1510,8 @@ To answer this question we examine the row proportions:
 -   \% Children who survived: 57 / 109 $\approx$ 0.52
 
 What do the column proportion tell us?
-$\frac{654}{711}\approx 0.92 \hspace{0.2cm} \text {% adults survived in the total survivors on Titanic}$
-$\frac{57}{711}\approx 0.08 \hspace{0.2cm} \text{(Give a description)}$
+$\frac{654}{711}\approx 0.92 \% \hspace{0.2cm} \text {adults survived in the total survivors on Titanic}$
+$\frac{57}{711}\approx 0.08 \% \hspace{0.2cm} \text{(Give a description)}$
 
 The percentage of passengers who were survived and were adults?
 $\frac{654}{2201} \approx 0.30$
