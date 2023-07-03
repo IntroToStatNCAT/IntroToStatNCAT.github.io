@@ -1,0 +1,654 @@
+
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+
+<meta charset="utf-8">
+
+
+
+<!-- begin SEO -->
+
+
+
+
+
+
+
+
+
+<title>Chapter 7   MATH 224 - Intro to Stat</title>
+
+
+
+
+
+
+
+<meta property="og:locale" content="en-US">
+<meta property="og:site_name" content="MATH 224 - Intro to Stat">
+<meta property="og:title" content="Chapter 7">
+
+
+  <link rel="canonical" href="http://localhost:4000/files/Slides/ShinySlides/Chapter%207/Chapter7_2_Shiny/Chapter7_2_Shiny.Rmd">
+  <meta property="og:url" content="http://localhost:4000/files/Slides/ShinySlides/Chapter%207/Chapter7_2_Shiny/Chapter7_2_Shiny.Rmd">
+
+
+
+
+
+
+
+  
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <script type="application/ld+json">
+    {
+      "@context" : "http://schema.org",
+      "@type" : "Person",
+      "name" : "Intro To Stat NCAT",
+      "url" : "http://localhost:4000",
+      "sameAs" : null
+    }
+  </script>
+
+
+
+
+
+
+<!-- end SEO -->
+
+
+<link href="http://localhost:4000/feed.xml" type="application/atom+xml" rel="alternate" title="MATH 224 - Intro to Stat Feed">
+
+<!-- http://t.co/dKP3o1e -->
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="http://localhost:4000/assets/css/main.css">
+
+<meta http-equiv="cleartype" content="on">
+    
+
+<!-- start custom head snippets -->
+
+<link rel="apple-touch-icon" sizes="57x57" href="http://localhost:4000/images/apple-touch-icon-57x57.png?v=M44lzPylqQ">
+<link rel="apple-touch-icon" sizes="60x60" href="http://localhost:4000/images/apple-touch-icon-60x60.png?v=M44lzPylqQ">
+<link rel="apple-touch-icon" sizes="72x72" href="http://localhost:4000/images/apple-touch-icon-72x72.png?v=M44lzPylqQ">
+<link rel="apple-touch-icon" sizes="76x76" href="http://localhost:4000/images/apple-touch-icon-76x76.png?v=M44lzPylqQ">
+<link rel="apple-touch-icon" sizes="114x114" href="http://localhost:4000/images/apple-touch-icon-114x114.png?v=M44lzPylqQ">
+<link rel="apple-touch-icon" sizes="120x120" href="http://localhost:4000/images/apple-touch-icon-120x120.png?v=M44lzPylqQ">
+<link rel="apple-touch-icon" sizes="144x144" href="http://localhost:4000/images/apple-touch-icon-144x144.png?v=M44lzPylqQ">
+<link rel="apple-touch-icon" sizes="152x152" href="http://localhost:4000/images/apple-touch-icon-152x152.png?v=M44lzPylqQ">
+<link rel="apple-touch-icon" sizes="180x180" href="http://localhost:4000/images/apple-touch-icon-180x180.png?v=M44lzPylqQ">
+<link rel="icon" type="image/png" href="http://localhost:4000/images/favicon-32x32.png?v=M44lzPylqQ" sizes="32x32">
+<link rel="icon" type="image/png" href="http://localhost:4000/images/android-chrome-192x192.png?v=M44lzPylqQ" sizes="192x192">
+<link rel="icon" type="image/png" href="http://localhost:4000/images/favicon-96x96.png?v=M44lzPylqQ" sizes="96x96">
+<link rel="icon" type="image/png" href="http://localhost:4000/images/favicon-16x16.png?v=M44lzPylqQ" sizes="16x16">
+<link rel="manifest" href="http://localhost:4000/images/manifest.json?v=M44lzPylqQ">
+<link rel="mask-icon" href="http://localhost:4000/images/safari-pinned-tab.svg?v=M44lzPylqQ" color="#000000">
+<link rel="shortcut icon" href="/images/favicon.ico?v=M44lzPylqQ">
+<meta name="msapplication-TileColor" content="#000000">
+<meta name="msapplication-TileImage" content="http://localhost:4000/images/mstile-144x144.png?v=M44lzPylqQ">
+<meta name="msapplication-config" content="http://localhost:4000/images/browserconfig.xml?v=M44lzPylqQ">
+<meta name="theme-color" content="#ffffff">
+<link rel="stylesheet" href="http://localhost:4000/assets/css/academicons.css"/>
+
+<script type="text/x-mathjax-config"> MathJax.Hub.Config({ TeX: { equationNumbers: { autoNumber: "all" } } }); </script>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/latest.js?config=TeX-MML-AM_CHTML' async></script>
+
+<!-- end custom head snippets -->
+
+  </head>
+
+  <body>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        <button><div class="navicon"></div></button>
+        <ul class="visible-links">
+          <li class="masthead__menu-item masthead__menu-item--lg"><a href="http://localhost:4000/">MATH 224 - Intro to Stat</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="http://localhost:4000/home/">Home</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="http://localhost:4000/syllabus/">Syllabus</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="http://localhost:4000/slides/">Slides</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="http://localhost:4000/assignments/">Assignments</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="http://localhost:4000/labs/">Computing Labs</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="http://localhost:4000/tutorials/">R Tutorials</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="http://localhost:4000/dap/">Data Analysis Project</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="http://localhost:4000/assessments/">Assessments</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="http://localhost:4000/research/">Research/Publication</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="http://localhost:4000/manual/">Implementation Manual</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="http://localhost:4000/workshop/">Faculty Workshops</a></li>
+          
+        </ul>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+    
+
+
+
+
+
+<div id="main" role="main">
+  
+
+
+  <div class="sidebar sticky">
+  
+
+
+
+<div itemscope itemtype="http://schema.org/Person">
+
+  <div class="author__avatar">
+    
+    	<img src="http://localhost:4000/images/ncat-nsf-logo.jpg" class="author__avatar" alt="Introduction to Probability & Statistics">
+    
+  </div>
+
+  <div class="author__content">
+    <h3 class="author__name">Introduction to Probability & Statistics</h3>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">Follow</button>
+    <ul class="author__urls social-icons">
+      
+        <li><i class="fa fa-fw fa-map-marker" aria-hidden="true"></i> NC A&T State University</li>
+      
+      
+      
+      
+      
+       
+      
+      
+      
+      
+      
+      
+      
+      
+      
+        <li><a href="https://github.com/IntroToStatNCAT/IntroToStatNCAT.github.io"><i class="fab fa-fw fa-github" aria-hidden="true"></i> Github</a></li>
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+    </ul>
+  </div>
+</div>
+
+  
+  </div>
+
+
+  <article class="page" itemscope itemtype="http://schema.org/CreativeWork">
+    <meta itemprop="headline" content="Chapter 7">
+    
+    
+    
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 class="page__title" itemprop="headline">Chapter 7
+</h1>
+          
+        
+        
+        
+        
+             
+        
+    
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        ```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+```{r, echo=F, message=F, warning=F}
+library(datasets)
+library(tidyverse)
+library(shiny)
+library(scales)
+library(jpeg)
+library(openintro)
+library(dplyr)
+library(ggplot2)
+library(learnr)
+library(readr)
+library(knitr)
+library(png)
+library(gradethis) #remotes::install_github("rstudio/gradethis")
+library(learnrhash) #devtools::install_github("rundel/learnrhash")
+library(grid)
+library(tinytex)
+data("COL")
+```
+
+
+## Acknowledgement
+
+<center>
+<div class="black">
+These notes use content from OpenIntro Statistics Slides by   
+
+Mine Cetinkaya-Rundel.
+</div>
+</center>
+
+## 7.2 Paired data
+<div class="black">
+
+Paired data --Two sets of observations are paired if each observation in one set has a special correspondence or connection with exactly one observation in the other data set.
+
+To analyze a paired data, we simply **analyze the differences of each pair of observations.**
+
+We **use the contents of 7.1 to discuss** two examples about the difference of paired observations.
+</div>
+
+## Example 1. 
+<div class="black">
+
+- 200 observations were randomly sampled from the High School and Beyond survey. The same students took a reading and writing test and their scores are shown below.
+
+
+<div style="float: left; width: 50%;">
+```{r, echo=F, message=F, warning=F, out.width="90%",fig.align='center'}
+data(hsb2)
+data(COL)
+par(mar=c(3, 4, 0.5, 0.5), las=1, mgp=c(2.8, 0.7, 0), cex.axis = 1.1, cex.lab = 1.1)
+scores <- c(hsb2$read, hsb2$write)
+gp <- c(rep('read', nrow(hsb2)), rep('write', nrow(hsb2)))
+openintro::dotPlot(scores, gp, vertical=TRUE, xlab="",ylab = "scores", at=1:2+0.13, col=fadeColor(COL[1],33), xlim=c(0.5,2.5), ylim=c(20, 80), axes = FALSE, cex.lab = 1.8, cex.axis = 1.8)
+axis(1, at = c(1,2), labels = c("read","write"), cex.lab = 1.8, cex.axis = 1.8)
+axis(2, at = seq(20,80,20), cex.axis = 1.25)
+boxplot(scores ~ gp, add=TRUE, axes=FALSE)
+abline(h=0)
+```
+</div>
+
+<div style="float: right; width: 50%;">
+
+```{r, out.width="90%"}
+b <- readPNG("b.png")
+grid.raster(b)
+```
+</div>
+
+</div>
+
+## Example (Cont.) Analyze paired data.
+<div class="black">
+
+To analyze paired data, we look at the difference in outcomes of each pair of observations. For our example,  diff = read − write
+
+<div style="float: left; width: 50%;">
+```{r, echo=F, message=F, warning=F, out.width="100%",fig.align='center'}
+data(hsb2)
+data(COL)
+histPlot(hsb2$read - hsb2$write, col = COL[1], xlab = "Differences in scores (read - write)", ylab = "", cex.lab = 2, cex.axis = 3)
+```
+</div>
+
+
+<div style="float: right; width: 50%;">
+```{r, out.width="90%"}
+xx <- readPNG("xx.png")
+grid.raster(xx)
+
+```
+
+</div>
+</div>
+
+## Inference for paired data- Hypotheses testing.
+<div class="black">
+The analysis is no different than what we have done before.
+
+We have data from one sample: differences.
+
+- **Parameter of interest:**  Average difference between the reading and writing scores of **all** high school students.
+$𝜇_{diff}$
+
+- point estimate: Average difference between the reading and writing scores of sampled high school students.
+$\bar{x}_{diff}$
+
+</div>
+
+## Inference for paired data- Hypotheses testing
+<div class= "black">
+<div class = "blue">
+
+For the paired test scores, We would like to test to see if average difference is different than 0.
+</div>
+
+**Hypotheses**
+
+For testing if there is a difference between the average reading and writing scores, we have hypotheses
+
+$𝐻_0$ ∶ There is no difference between the average reading and writing score.$𝜇_{diff}$ = 0
+
+$𝐻_a$ ∶ There is a difference between the average reading and writing score.$𝜇_{diff}\ne$ 0 
+
+**Checking assumptions & conditions**
+
+Since students are sampled randomly and are less than 10% of all high school students, we can assume that the difference between the reading and writing scores of one student in the sample is independent of another.
+
+</div>
+
+
+## Calculating the test-statistic and the p-value
+<font size= "2">
+<div class="black">
+
+The observed average difference between the two scores is −0.545  points and the standard deviation of the difference is 8.887 points.
+
+Do these data provide convincing evidence of a difference between the average scores on the two exams? Use 𝛼 = 0.05.
+
+<div style="float: left; width: 50%;"> 
+Recall n= 200, as $\sigma$ is unknown; Compute t test statistic
+
+$𝑡=\frac{−0.545−0}{8.887/\sqrt{200}}=0.8673$
+
+**P – value** 
+\
+With $df$=200−1=199
+\
+\
+$𝑃(|𝑇|>0.86732)=2∗𝑃(𝑇<−0.8673)=2∗𝑃(𝑇>0.8673) =2∗0.1934=0.38$
+</div> 
+
+
+<div style="float: right; width: 50%;">
+```{r, out.width="80%"}
+qq <- readPNG("qq.png")
+grid.raster(qq)
+```
+</div>
+
+\
+\
+\
+\
+
+**Conclusion**
+
+As the P-value > 0.05, we failed to reject $𝐻_0$. The data do not provide convincing evidence of a difference between the average reading and writing scores. 
+
+</div>
+</font>
+
+
+## Interpretation of p-value
+<div class="black">
+
+**The interpretation of the p-value**
+P- value is 0.3868.
+
+$=P(|𝑇| > 0.86732)$
+
+$=P(𝑇<−0.86732 \hspace{0.2cm} \text{or} \hspace{0.2cm}  𝑇>0.86732)$
+
+$=𝑃(\bar{X} <−0.545 \hspace{0.2cm} \text{or} \hspace{0.2cm} \bar{X}>0.545)$ (Note: the mean is 0)
+\
+So the p-value is the probability of obtaining a random sample of 200 students where the average difference between the reading and writing scores is at least **0.545 more or less** is 0.3868, if it assumes that the true average difference between the scores is 0.
+
+
+
+
+
+
+**Decision**
+\
+Because the p-value is large, so the data does not provide strong evidence to reject the null hypothesis to support the alternative hypothesis: we do not see the average difference is different than 0.
+</div>
+
+
+
+
+## Using CI in Hypothesis Testing
+<div class= "black">
+Suppose we were to construct 95% confidence interval for the average difference between the reading and writing scores. Would you expect this interval to include 0?
+
+1) Yes
+2) No
+3) Cannot tell from the information given.
+
+The choice is A)--b/c  HT failed to reject $𝐻_0$
+
+Check:
+
+The 95% CI is  $\bar{x} \pm 𝑡_{0.025} \times \frac{s}{\sqrt{n}}$
+
+with  $df$=199, $t_{0.025}=1.972$ (use TI 84 Calculator or R  to check)
+
+CI : ${−0.545} \pm 1.972 \times \frac{8.887}{\sqrt{200}}$, 
+
+(−1.784, 0.694) which contains 0.
+
+So, we cannot reject $H_0$ to support $H_a$
+</div>
+
+
+## Example 2-- Friday the $13^{th}$
+<div class="black">
+
+Between 1990 - 1992 researchers in the UK collected data on traffic flow, accidents, hospital admissions on Fridays $13^{th}$ and the previous Fridays, Friday $6^{th}$. Below is this data set on traffic flow. We can assume that traffic flow on given day at locations 1 and 2 are independent
+
+```{r, out.width= "70%"}
+kk <- readPNG("kk.png")
+grid.raster(kk)
+```
+</div>
+
+
+## Hypotheses Testing
+<font size="2">
+<div class="black">
+We want to investigate if people’s behavior is different on Friday $13^{th}$ compared to Friday $6^{th}$.
+
+**Hypotheses**
+\
+   $H_0$ ∶ Average traffic flow on Friday $6^{th}$ and$13^{th}$ are equal.
+  \
+   $H_a$ ∶ Average traffic flow on Friday $6^{th}$ and$13^{th}$ are different.
+  \
+   $𝐻_0 ∶ 𝜇_{diff}= 0$
+  \
+   $𝐻_𝐴 ∶ 𝜇_{diff}\ne  0$
+
+The difference data:  698 1104    1037   1889   1911   2416   2761   4382   1839   321
+
+```{r quiz5_1, exercise=TRUE}
+data <- c(698,1104,1037,1889,1911,2416,2761,4382,1839,321)
+xbar <- mean(data);xbar; s= sd(data);s
+```
+
+Data Summary: $n$=10,  $\bar{x}$=1836,  $s$=1176
+
+**The t-test statistic** $𝑡=\frac{1836−0}{1176/\sqrt{10}}=4.937$
+\
+**The P-value is, with $df$ =𝟗,**$𝑃(|𝑇|>4.937)=2∗𝑃(𝑇>4.937)=0.0008055524$
+\
+**The conclusion:** Since the p-value is quite low, we conclude that the data provide strong evidence to support that there is a difference between traffic flow on Friday $6^{th}$ and $13^{th}$.
+</div>
+</font>
+
+## Estimate the difference using confidence interval (end of 7.2)
+
+<div class="black">
+We concluded that there is a difference in the traﬀic flow  between Friday $6^{th}$ and $13^{th}$ at the significance level $\alpha=0.05$. 
+
+We can use a 95% confidence interval to estimate this difference.
+
+For $df$=9,  $𝑡_{0.025}=2.2622$ the 95 CI is: $1836\pm 2.2622 \times \frac{1176}{\sqrt{10}}$, that is, (995, 2677)
+
+As the  CI does not contain the null value 0,  we reject $H_0$ and substantiated $H_a$. This conclusion using confidence interval agrees with the findings using P-value.
+
+</div>
+
+
+
+
+
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+
+
+
+
+      </footer>
+
+      
+
+      
+
+
+    </div>
+
+    
+  </article>
+
+  
+  
+</div>
+
+
+    <div class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+<a href="/sitemap/">Sitemap</a>
+<!-- end custom footer snippets -->
+
+        
+
+<div class="page__footer-follow">
+  <ul class="social-icons">
+    
+      <li><strong>Follow:</strong></li>
+    
+    
+    
+    
+      <li><a href="http://github.com/IntroToStatNCAT/IntroToStatNCAT.github.io"><i class="fab fa-github" aria-hidden="true"></i> GitHub</a></li>
+    
+    
+    <li><a href="http://localhost:4000/feed.xml"><i class="fa fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2023 Intro To Stat NCAT. Powered by <a href="http://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://github.com/academicpages/academicpages.github.io">AcademicPages</a>, a fork of <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    <script src="http://localhost:4000/assets/js/main.min.js"></script>
+
+
+
+
+  <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', '', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+
+
+
+  </body>
+</html>
+

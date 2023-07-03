@@ -1,0 +1,872 @@
+
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+
+<meta charset="utf-8">
+
+
+
+<!-- begin SEO -->
+
+
+
+
+
+
+
+
+
+<title>Chapter 5   MATH 224 - Intro to Stat</title>
+
+
+
+
+
+
+
+<meta property="og:locale" content="en-US">
+<meta property="og:site_name" content="MATH 224 - Intro to Stat">
+<meta property="og:title" content="Chapter 5">
+
+
+  <link rel="canonical" href="http://localhost:4000/files/Slides/ShinySlides/Chapter%205/Chapter5_2_Shiny/Chapter5_2_Shiny.Rmd">
+  <meta property="og:url" content="http://localhost:4000/files/Slides/ShinySlides/Chapter%205/Chapter5_2_Shiny/Chapter5_2_Shiny.Rmd">
+
+
+
+
+
+
+
+  
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <script type="application/ld+json">
+    {
+      "@context" : "http://schema.org",
+      "@type" : "Person",
+      "name" : "Intro To Stat NCAT",
+      "url" : "http://localhost:4000",
+      "sameAs" : null
+    }
+  </script>
+
+
+
+
+
+
+<!-- end SEO -->
+
+
+<link href="http://localhost:4000/feed.xml" type="application/atom+xml" rel="alternate" title="MATH 224 - Intro to Stat Feed">
+
+<!-- http://t.co/dKP3o1e -->
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="http://localhost:4000/assets/css/main.css">
+
+<meta http-equiv="cleartype" content="on">
+    
+
+<!-- start custom head snippets -->
+
+<link rel="apple-touch-icon" sizes="57x57" href="http://localhost:4000/images/apple-touch-icon-57x57.png?v=M44lzPylqQ">
+<link rel="apple-touch-icon" sizes="60x60" href="http://localhost:4000/images/apple-touch-icon-60x60.png?v=M44lzPylqQ">
+<link rel="apple-touch-icon" sizes="72x72" href="http://localhost:4000/images/apple-touch-icon-72x72.png?v=M44lzPylqQ">
+<link rel="apple-touch-icon" sizes="76x76" href="http://localhost:4000/images/apple-touch-icon-76x76.png?v=M44lzPylqQ">
+<link rel="apple-touch-icon" sizes="114x114" href="http://localhost:4000/images/apple-touch-icon-114x114.png?v=M44lzPylqQ">
+<link rel="apple-touch-icon" sizes="120x120" href="http://localhost:4000/images/apple-touch-icon-120x120.png?v=M44lzPylqQ">
+<link rel="apple-touch-icon" sizes="144x144" href="http://localhost:4000/images/apple-touch-icon-144x144.png?v=M44lzPylqQ">
+<link rel="apple-touch-icon" sizes="152x152" href="http://localhost:4000/images/apple-touch-icon-152x152.png?v=M44lzPylqQ">
+<link rel="apple-touch-icon" sizes="180x180" href="http://localhost:4000/images/apple-touch-icon-180x180.png?v=M44lzPylqQ">
+<link rel="icon" type="image/png" href="http://localhost:4000/images/favicon-32x32.png?v=M44lzPylqQ" sizes="32x32">
+<link rel="icon" type="image/png" href="http://localhost:4000/images/android-chrome-192x192.png?v=M44lzPylqQ" sizes="192x192">
+<link rel="icon" type="image/png" href="http://localhost:4000/images/favicon-96x96.png?v=M44lzPylqQ" sizes="96x96">
+<link rel="icon" type="image/png" href="http://localhost:4000/images/favicon-16x16.png?v=M44lzPylqQ" sizes="16x16">
+<link rel="manifest" href="http://localhost:4000/images/manifest.json?v=M44lzPylqQ">
+<link rel="mask-icon" href="http://localhost:4000/images/safari-pinned-tab.svg?v=M44lzPylqQ" color="#000000">
+<link rel="shortcut icon" href="/images/favicon.ico?v=M44lzPylqQ">
+<meta name="msapplication-TileColor" content="#000000">
+<meta name="msapplication-TileImage" content="http://localhost:4000/images/mstile-144x144.png?v=M44lzPylqQ">
+<meta name="msapplication-config" content="http://localhost:4000/images/browserconfig.xml?v=M44lzPylqQ">
+<meta name="theme-color" content="#ffffff">
+<link rel="stylesheet" href="http://localhost:4000/assets/css/academicons.css"/>
+
+<script type="text/x-mathjax-config"> MathJax.Hub.Config({ TeX: { equationNumbers: { autoNumber: "all" } } }); </script>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/latest.js?config=TeX-MML-AM_CHTML' async></script>
+
+<!-- end custom head snippets -->
+
+  </head>
+
+  <body>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        <button><div class="navicon"></div></button>
+        <ul class="visible-links">
+          <li class="masthead__menu-item masthead__menu-item--lg"><a href="http://localhost:4000/">MATH 224 - Intro to Stat</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="http://localhost:4000/home/">Home</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="http://localhost:4000/syllabus/">Syllabus</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="http://localhost:4000/slides/">Slides</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="http://localhost:4000/assignments/">Assignments</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="http://localhost:4000/labs/">Computing Labs</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="http://localhost:4000/tutorials/">R Tutorials</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="http://localhost:4000/dap/">Data Analysis Project</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="http://localhost:4000/assessments/">Assessments</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="http://localhost:4000/research/">Research/Publication</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="http://localhost:4000/manual/">Implementation Manual</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="http://localhost:4000/workshop/">Faculty Workshops</a></li>
+          
+        </ul>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+    
+
+
+
+
+
+<div id="main" role="main">
+  
+
+
+  <div class="sidebar sticky">
+  
+
+
+
+<div itemscope itemtype="http://schema.org/Person">
+
+  <div class="author__avatar">
+    
+    	<img src="http://localhost:4000/images/ncat-nsf-logo.jpg" class="author__avatar" alt="Introduction to Probability & Statistics">
+    
+  </div>
+
+  <div class="author__content">
+    <h3 class="author__name">Introduction to Probability & Statistics</h3>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">Follow</button>
+    <ul class="author__urls social-icons">
+      
+        <li><i class="fa fa-fw fa-map-marker" aria-hidden="true"></i> NC A&T State University</li>
+      
+      
+      
+      
+      
+       
+      
+      
+      
+      
+      
+      
+      
+      
+      
+        <li><a href="https://github.com/IntroToStatNCAT/IntroToStatNCAT.github.io"><i class="fab fa-fw fa-github" aria-hidden="true"></i> Github</a></li>
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+    </ul>
+  </div>
+</div>
+
+  
+  </div>
+
+
+  <article class="page" itemscope itemtype="http://schema.org/CreativeWork">
+    <meta itemprop="headline" content="Chapter 5">
+    
+    
+    
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 class="page__title" itemprop="headline">Chapter 5
+</h1>
+          
+        
+        
+        
+        
+             
+        
+    
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        ```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r,echo=F, message=F, warning=F}
+library(datasets)
+library(tidyverse)
+library(tikzDevice)
+library(shiny)
+library(scales)
+library(jpeg)
+library(openintro)
+library(learnr)
+library(knitr)
+library(png)
+library(gradethis) #remotes::install_github("rstudio/gradethis")
+library(learnrhash) #devtools::install_github("rundel/learnrhash")
+library(grid)
+library(tinytex)
+library(magrittr)
+data("COL")
+```
+
+## Acknowledgement
+
+<center>
+<div class="black">
+These notes use content from OpenIntro Statistics Slides by   
+
+Mine Cetinkaya-Rundel.
+</div>
+</center>
+
+
+## 5.2 Confidence intervals for a proportion
+<div class="black">
+
+In this section, we discuss using confidence intervals to estimate the population proportion.
+
+- Construction of confidence intervals (width depends on given confidence level) 
+
+- Margin of error
+
+- Interpreting confidence intervals
+</div>
+
+
+## Confidence intervals
+<div class="black">
+<font size="4">
+
+- If we report a point estimate, we probably won’t hit the exact  population parameter. If we report a range of plausible values, we have a good shot at capturing the parameter. A plausible range of values for the population parameter is called a **confidence interval**.
+
+- Using only a sample statistic to estimate a parameter is like fishing in a murky lake with a spear, and using a confidence interval is like fishing with a net.
+
+<div style="float: left; width: 50%;">
+```{r, echo= FALSE,out.width= "70%"}
+sp <- readJPEG("spear.jpg")
+grid.raster(sp)
+```
+</div>
+
+<div style="float: right; width: 50%;">
+```{r, echo= FALSE,out.width= "70%"}
+nt <- readJPEG("net.jpg")
+grid.raster(nt)
+```
+</div>
+
+We can throw a spear where we saw a fish but we will probably miss. If we toss a net in that area, we have a good chance of catching the fish.
+
+</font>
+</div>
+
+## Confidence Intervals
+<div class="black">
+
+- A confidence interval is a plausible range of values so defined that there is a specified probability that the value of the interested population parameter lies within it.
+
+- The probability of the confidence interval that contains the parameter is called the confidence level – which is a number chosen to be close to 1
+    (usually use percentages like 90%, 95%, 99%).
+
+- Confidence  intervals  are interval estimates and they are built around a point estimate  (value of  sample proportion)
+</div>
+
+
+
+## Constructing confidence intervals
+<div class="black">
+
+- By CLT, if the conditions are met, $\hat{p} \sim N(p, \sqrt{\frac{p(1-p)}{n}})$
+
+- The Standard Error is $\sigma_{\hat{p}}= S.E._{\hat{p}} = \sqrt{\frac{p(1-p)}{n}}$
+
+- When $p$ is unknown, we replace $p$ by $\hat{p}$
+
+$$S.E._{\hat{p}}= \sqrt{\frac{\hat{p}(1-\hat{p})}{n}}$$
+
+- A $(1-\alpha)100\%$ confidence interval for the proportion $p$ is 
+$$\hat{p} ± z_{\frac{\alpha}{2}} \times S.E._{\hat{p}}$$
+where $z_{\frac{\alpha}{2}}$ is a z-score from the standard normal distribution and is related to the confidence level $(1-\alpha)100\%$.
+</div>
+
+
+## Example: 95% confidence intervals
+<div class="black">
+
+- The 95% confidence interval for p is given by:
+
+$$\hat{p} ± 1.96 \times S.E._{\hat{p}}$$
+
+- Note that $(1-\alpha)100\%=95\% \implies \alpha = 0.05 \implies \alpha/2 = 0.025$
+
+- $z_{\frac{\alpha}{2}} = z_{0.025} = 1.96$ is the z-score that makes the upper-tail area under the standard normal distribution curve equal to $\alpha/2$ (0.025).
+
+```{r, echo=F, message=F, warning=F,out.height= "130%", out.width= "40%",fig.align='center'}
+normTail(M = c(-1.96,1.96), col = COL[6,4], cex.axis = 1.25)
+text(x = 0, y = 0.25, "0.95", col = COL[4], cex = 2.5)
+lines(x = c(-1.96,-1.96), y = c(0, 0.15), lty = 2)
+lines(x = c(1.96,1.96), y = c(0, 0.15), lty = 2)
+text(x = -1.96, y = 0.20, "z = -1.96", col = COL[1], cex = 1.5)
+text(x = 1.96, y = 0.20, "z = 1.96", col = COL[1], cex = 1.5)
+text(x = -2.7, y = 0.03, "0.025", col = COL[4], cex = 1.5)
+text(x = 2.7, y = 0.03, "0.025", col = COL[4], cex = 1.5)
+```
+
+<!-- ```{r, out.width="50%", echo=FALSE, fig.align='center'} -->
+<!-- cb <- readPNG("zalpha2.png") -->
+<!-- grid.raster(cb) -->
+<!-- ``` -->
+
+</div>
+
+## More about $𝑧_{\frac{𝛼}{2}}$
+<div class="black">
+
+- The value of $𝑧_{\frac{𝛼}{2}}$ is determined by the value of the subscript. 
+
+<!-- ```{r, out.width="35%", echo=FALSE, fig.align='center'} -->
+<!-- xv <- readPNG("xv.png") -->
+<!-- grid.raster(xv) -->
+
+<!-- ``` -->
+
+```{r, out.width="50%", echo=FALSE, fig.align='center'}
+xvv <- readPNG("xvv.png")
+grid.raster(xvv)
+```
+
+- The textbook uses the notation $z*$ to refer to $𝑧_{\frac{𝛼}{2}}$.
+
+</div>
+
+## Margin of error (M.E.)
+<div class="black">
+
+- Recall that a $(1-\alpha)100\%$ confidence interval for the proportion $p$ is given by:
+$$\hat{p} ± z_{\frac{\alpha}{2}} \times S.E._{\hat{p}}$$
+
+- The **margin of error (M.E.)** of the confidence interval is:
+
+$$M.E. = z_{\frac{\alpha}{2}} \times S.E._{\hat{p}}$$
+
+- The **margin of error (M.E.)** depends on the confidence level (through $z_{\frac{\alpha}{2}}$) and the standard error ($S.E._{\hat{p}}=\sqrt{\frac{\hat{p}(1-\hat{p})}{n}}$).
+
+- The confidence interval can also be written as follows:
+
+$$\hat{p} ± M.E.$$
+
+</div>
+
+## Illusteration of the 95% confidence interval
+<div class="black">
+
+- For large random samples, there is about 95% chance that $\hat{p}$ falls within $1.96\times S.E.$ of the population proportion $𝑝$. 
+
+```{r, out.width="65%", echo=FALSE, fig.align='center'}
+cb <- readPNG("cb.png")
+grid.raster(cb)
+```
+</div>
+
+## Interpretation of the 95% confidence interval
+<div class="black">
+<div class="blue">
+What does 95% confident mean? 
+</div>
+
+- If we draw many samples of the same size and build a 95% C.I. $\hat{𝒑} ±𝟏.𝟗𝟔\times S.E.$ from each sample. Then, about 95% of such C.I.s would contain the true population proportion $𝑝$.
+
+- The figure below shows twenty-five (25) point-estimates and 95% confidence intervals from the simulations relative to the population proportion p = 0.88. Only 1 of these 25 intervals did not capture the population proportion, and this interval has been marked red bolded. (Note that: 1/25=0.04, 24/25=0.96)
+
+```{r, out.width="40%", echo=FALSE, fig.align='center'}
+cf <- readPNG("cf.png")
+grid.raster(cf)
+```
+</div>
+
+## Interpretation of the 95% confidence interval
+<div class="black">
+<font size="3">
+<div class="blue">
+What does 95% confident mean? The code below performs the simulation described in previous slide.
+</div>
+
+```{r CL_sim, exercise=TRUE, out.width="40%", fig.align='center', message=FALSE}
+library(tidyverse)
+nsim = 25 #number of simulations to run (larger nsim will produce more accurate estimate of true confidence level)
+CL = 0.95 #confidence level
+p = 0.88 #population proportion (parameter)
+N = 100000 #population size
+pop = c(rep("success", N*p), rep("failure", N*(1-p))) #population of successes and failures
+n = 100 #sample size
+
+phat = numeric(nsim)
+L = numeric(nsim)
+U = numeric(nsim)
+
+for (i in 1:nsim){
+  s = sample(pop, n, replace = TRUE)
+  phat[i] = sum(s=="success")/n
+  SE = sqrt(phat[i]*(1-phat[i])/n)
+  L[i] = phat[i] - qnorm((1-CL)/2, lower.tail = FALSE)*SE
+  U[i] = phat[i] + qnorm((1-CL)/2, lower.tail = FALSE)*SE
+}
+
+ci95 = data.frame(Sample = seq(1,nsim), phat, L, U) 
+ci95 = mutate(ci95, capture = as.factor(ifelse(L <= p & p <= U, 1, 0)))
+
+ggplot(data = ci95, aes(x = Sample, y = phat)) + 
+  geom_point(aes(color = capture)) + 
+  geom_errorbar(aes(ymin = L, ymax = U, color = capture)) + 
+  scale_color_manual(values = c('0'='red','1'='black')) + 
+  coord_flip() + 
+  geom_hline(yintercept = p, linetype = "dashed", color = "blue") + 
+  labs(title = paste0(CL*100, "% Confidence Intervals")) + 
+  theme(plot.title = element_text(hjust = 0.5))
+```
+</font>
+</div>
+
+## Changing the confidence level
+<div class="black">
+<font size="4">
+If the confidence level is changed to 90%, would you expect the confidence interval to be wider or narrower?
+
+* Here, $1 - \alpha = 0.90 \implies \alpha = 0.10 \implies \alpha/2 = 0.05$
+
+* So, using R, we find $z_{\frac{\alpha}{2}} = z_{0.05} = 1.645$
+
+```{r Ex_8, exercise=TRUE}
+qnorm(0.05, lower.tail = FALSE)
+qnorm(1-0.05, lower.tail = TRUE) 
+```
+
+* The 90% confident interval would be $\hat{p} ± 1.645×𝑆.𝐸.$ which will be narrower than the 95% interval because the margin of error is higher for the 95% interval ($z_{\frac{\alpha}{2}} = z_{0.025} = 1.96$). 
+
+* Practice: Find the 99% confidence interval. 
+
+```{r Ex_81, exercise=TRUE}
+qnorm(0.005, lower.tail = FALSE)
+qnorm(1-0.005, lower.tail = TRUE)
+```
+
+$\hat{p} ± 2.58×𝑆.𝐸.$
+</font>
+</div>
+
+## Changing the confidence level
+<div class="black">
+* The following table shows the values of $z_{\frac{\alpha}{2}}$ for commonly used confidence levels. You are encouraged to use R to confirm the values in the table.
+
+```{r, out.width="50%", echo=FALSE, fig.align='center'}
+cl <- readPNG("cl.png")
+grid.raster(cl)
+```
+
+* Practice: For an 80% confidence level, find $z_{\frac{\alpha}{2}}$. 
+
+Answer: $𝛼= 0.20 \implies \frac{\alpha}{2} = 0.10 \implies z_{\frac{\alpha}{2}} = 𝑧_{0.10} = 1.281552$
+</div>
+
+## Practice
+<div class="black">
+<div class="red"> Which of the below Z scores is the appropriate $z^*$ when calculating a 98\% confidence interval?
+</div>
+
+A) Z = 2.05 
+B) Z = 1.96 
+C) Z = 2.33 
+D) Z = -2.33 
+E) Z = -1.65
+</div>
+
+## Practice
+<div class="black">
+<div class="red"> Which of the below Z scores is the appropriate $z^*$ when calculating a 98\% confidence interval? 
+</div>
+
+A) Z = 2.05
+B) Z = 1.96
+C) <div class="red"> Z = 2.33</div>
+D) Z = -2.33 
+E) Z = -1.65
+<left>
+
+```{r, echo=F, message=F, warning=F,out.height= "130%", out.width= "40%",fig.align='center'}
+normTail(M = c(-2.33,2.33), col = COL[6,4], cex.axis = 1.25)
+text(x = 0, y = 0.25, "0.98", col = COL[4], cex = 1.5)
+lines(x = c(-2.33,-2.33), y = c(0, 0.15), lty = 2)
+lines(x = c(2.33,2.33), y = c(0, 0.15), lty = 2)
+text(x = -2.33, y = 0.20, "z = -2.33", col = COL[1], cex = 1.5)
+text(x = 2.33, y = 0.20, "z = 2.33", col = COL[1], cex = 1.5)
+text(x = -2.7, y = 0.03, "0.01", col = COL[4], cex = 1.5)
+text(x = 2.7, y = 0.03, "0.01", col = COL[4], cex = 1.5)
+```
+</left>
+</div>
+
+## Facebook's categorization of user interests
+
+<div class="black">
+<font size="4">
+Most commercial websites (e.g. social media platforms, news outlets, online retailers) collect a data about their users' behaviors and use these data to deliver targeted content, recommendations, and ads. To understand whether Americans think their lives line up with how the algorithm-driven classification systems categorizes them, Pew Research asked a representative sample of 850 American Facebook users how accurately they feel the list of categories Facebook has listed for them on the page of their supposed interests actually represents them and their interests. 67% of the respondents said that the listed categories were accurate.
+
+Estimate the true proportion of American Facebook users who think the Facebook categorizes their interests accurately.
+
+1) Find the **point estimate** in this case
+
+2) Estimate the **standard error**
+
+3) Construct a **95% confidence interval** for population proportion
+
+4) Construct a **90% confidence interval** for population proportion
+
+</font>
+</div>
+
+
+## Facebook's categorization of user interests
+
+<div class="black">
+<font size="3">
+
+Note that: $\hat{p} = 0.67$ and $n=850$
+
+Ans 1. The point estimate is $\hat{p}$ = 0.67
+
+Ans 2. The standard error is: $${S.E. = \sqrt{\frac{p(1-p)}{n}} = \sqrt{\frac{0.67 \times 0.33}{850}} \approx 0.0161281}$$
+
+Ans 3. The approximate 95% confidence interval is
+
+$$
+\begin{align*}
+\hat{p} \pm 1.96 \times S.E. &= 0.67 \pm 1.96 \times 0.016\\
+&= (0.67-0.03136, 0.67+0.03136)\\
+&= (0.639, 0.701)
+\end{align*}
+$$ We are 95% confident that 63.9% to 70.1% of all American Facebook users think Facebook  categorizes their interests accurately.
+
+Ans 4. The 90% confidence interval is 
+
+$$
+\begin{align*}
+\hat{p} \pm 1.645 \times S.E. &= 0.67 \pm 1.645 \times 0.016\\
+&= (0.67-0.02632, 0.67+0.02632)\\
+&= (0.644, 0.696)
+\end{align*}
+$$
+* Note that the 90% confidence interval is narrower since it has a smaller margin of error. 
+</font>
+</div>
+
+## Practice
+<div class="black">
+<div class="red"> Which of the following is the correct interpretation of this confidence interval?
+</div>
+
+We are 95% confident that
+
+A) 64% to 70% of American Facebook users in this sample think Facebook categorizes their interests accurately.
+
+B) 64% to 70% of all American Facebook users think Facebook categorizes their interests accurately.
+
+C) There is a 64% to 70% chance that a randomly chosen American Facebook user's interests are categorized accurately.
+
+D) There is a 64% to 70% chance that 95% of American Facebook users' interests are categorized accurately.
+</div>
+
+
+## Practice
+<div class="black">
+<div class="red"> Which of the following is the correct interpretation of this confidence interval?
+</div>
+
+We are 95% confident that
+
+A) 64% to 70% of American Facebook users in this sample think Facebook categorizes their interests accurately.
+
+B) <div class="red"> 64\% to 70\% of all American Facebook users think Facebook categorizes their interests accurately.</div>
+
+C) There is a 64% to 70% chance that a randomly chosen American Facebook user's interests are categorized accurately.
+
+D) There is a 64% to 70% chance that 95% of American Facebook users' interests are categorized accurately.
+</div>
+
+
+## Factors affecting width of confidence interval
+<div class="black">
+- The $(1-\alpha)100\%$ confidence interval for the population proportion is
+
+$$\text{point estimate} \pm z_{\frac{\alpha}{2}} \times S.E. \implies \text{point estimate} \pm M.E. $$
+
+
+- If we increase our confidence level,  then we would have a wider  interval.
+
+- If we know the lower limit and upper limit of the confidence interval $(𝐿,𝑈)$,  then we can find the point estimate and the M.E. as follows:
+
+  $$\text{the point estimate} =  \text{the midpoint of the interval}=\frac{𝐿+𝑈}{2}$$
+    
+  $$\text{M. E.} = \text{half of the length of the C.I.} = \frac{𝑈−𝐿}{2}$$
+</div>
+
+## Determining the sample size given M.E. and C.L. 
+<div class="black">
+<font size="3">
+Since $M.E. = z_{\frac{\alpha}{2}} \times \sqrt{\frac{p(1-p)}{n}}$, we can solve for $n$ if we are given the M.E. and confidence level:
+
+$$n=p(1-p) \left({\frac{z_{\frac{\alpha}{2}}}{M.E.}}\right)^2$$
+
+- When $p$ is unknown, use $\hat{p}$ to replace $p$:
+
+$$n=\hat{p}(1-\hat{p}) \left({\frac{z_{\frac{\alpha}{2}}}{M.E.}}\right)^2$$
+- As the maximum of $p(1-p)$ is $\frac{1}{4}$ (i.e., when $p=0.5$), we can use
+
+$$n=\frac{1}{4}\left({\frac{z_{\frac{\alpha}{2}}}{M.E.}}\right)^2$$
+which gives the minimum size to guarantee the required M.E.
+</font>
+</div>
+
+
+
+## Example
+<div class="black">
+<font size="4">
+Example. Determine the sample size to be 98% certain that the M.E. is below 0.05. Consider two cases:
+
+* $p=0.3$
+* $p$ is unknown
+
+**Solution**
+
+For confidence level 98%, $z_{\frac{\alpha}{2}} = z_{0.01} = 2.326$
+
+* When $p=0.3$, take the sample size as
+
+$$
+n=p(1-p) \left({\frac{z_{\frac{\alpha}{2}}}{M.E}}\right)^2 =0.3 *(0.7) \left({\frac{2.326}{0.05}}\right)^2= 454.4632\approx 455 \ (\text{Always round up!})
+$$
+
+
+* When $p$ is unknown, use $p=0.5$ to get
+
+$$
+n=\frac{1}{4}\left({\frac{z_{\frac{\alpha}{2}}}{M.E}}\right)^2 =\frac{1}{4} \left({\frac{2.326}{0.05}}\right)^2 = 541.02 \approx 542 \ (\text{Always round up!})
+$$
+
+* Note: whenever the sample size is not an integer, round it up to the next integer. 
+
+</font>
+</div>
+
+## Interpreting confidence intervals
+<div class="black">
+Confidence intervals are ...
+
+- Always about the population.
+- Not probability statements.
+- Only about population parameters, not individual observation.
+- Only reliable if the sample statistic they're based on is an unbiased estimator of the population parameter.
+</div>
+
+## Extending to the population mean (end of 5.2)
+<div class="black">
+<font size="4">
+For the population mean $\mu$:
+
+- Use sample mean $\bar{x}$ as the point estimator.
+
+- The Central Limit Theorem for the mean is similar: 
+"If the sample observations are independent and the sample size is at least 30 ($𝑛\ge30$), then the sample mean $\bar{X}$ is approximately normally distributed."
+
+- The  mean of the sampling distribution of $\bar{X}$ is $𝐸(\bar{X})=\mu$
+
+- The standard error of the sampling distribution of $\bar{X}$ is 
+$$𝑆.𝐸._{\bar{X}} = \frac{\sigma}{\sqrt{𝑛}} \approx \frac{s}{\sqrt{𝑛}}$$
+
+where $\sigma$ is the population standard deviation and $s$ is the sample standard deviation.
+
+- The CI for the mean $\mu$ is:
+$$\color{red}{\text{point estimate}}\pm z_{\frac{\alpha}{2}} \times S.E \hspace{0.7cm} or  \hspace{0.7cm} \color{red}{\text{point estimate}} \pm M.E$$
+
+
+$$\bar{x} \pm z_{\frac{\alpha}{2}} \times \frac{𝜎}{\sqrt{𝑛}}(\hspace{0.2cm} or \hspace{0.2cm} \bar{x} \pm z_{\frac{\alpha}{2}} \times \frac{s}{\sqrt{n}})$$
+
+</font>
+</div>
+
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+
+
+
+
+      </footer>
+
+      
+
+      
+
+
+    </div>
+
+    
+  </article>
+
+  
+  
+</div>
+
+
+    <div class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+<a href="/sitemap/">Sitemap</a>
+<!-- end custom footer snippets -->
+
+        
+
+<div class="page__footer-follow">
+  <ul class="social-icons">
+    
+      <li><strong>Follow:</strong></li>
+    
+    
+    
+    
+      <li><a href="http://github.com/IntroToStatNCAT/IntroToStatNCAT.github.io"><i class="fab fa-github" aria-hidden="true"></i> GitHub</a></li>
+    
+    
+    <li><a href="http://localhost:4000/feed.xml"><i class="fa fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2023 Intro To Stat NCAT. Powered by <a href="http://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://github.com/academicpages/academicpages.github.io">AcademicPages</a>, a fork of <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    <script src="http://localhost:4000/assets/js/main.min.js"></script>
+
+
+
+
+  <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', '', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+
+
+
+  </body>
+</html>
+

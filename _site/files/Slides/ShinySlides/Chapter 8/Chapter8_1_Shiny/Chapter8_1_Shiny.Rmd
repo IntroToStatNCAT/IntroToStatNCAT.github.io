@@ -1,0 +1,812 @@
+
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+
+<meta charset="utf-8">
+
+
+
+<!-- begin SEO -->
+
+
+
+
+
+
+
+
+
+<title>Chapter 8   MATH 224 - Intro to Stat</title>
+
+
+
+
+
+
+
+<meta property="og:locale" content="en-US">
+<meta property="og:site_name" content="MATH 224 - Intro to Stat">
+<meta property="og:title" content="Chapter 8">
+
+
+  <link rel="canonical" href="http://localhost:4000/files/Slides/ShinySlides/Chapter%208/Chapter8_1_Shiny/Chapter8_1_Shiny.Rmd">
+  <meta property="og:url" content="http://localhost:4000/files/Slides/ShinySlides/Chapter%208/Chapter8_1_Shiny/Chapter8_1_Shiny.Rmd">
+
+
+
+
+
+
+
+  
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <script type="application/ld+json">
+    {
+      "@context" : "http://schema.org",
+      "@type" : "Person",
+      "name" : "Intro To Stat NCAT",
+      "url" : "http://localhost:4000",
+      "sameAs" : null
+    }
+  </script>
+
+
+
+
+
+
+<!-- end SEO -->
+
+
+<link href="http://localhost:4000/feed.xml" type="application/atom+xml" rel="alternate" title="MATH 224 - Intro to Stat Feed">
+
+<!-- http://t.co/dKP3o1e -->
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="http://localhost:4000/assets/css/main.css">
+
+<meta http-equiv="cleartype" content="on">
+    
+
+<!-- start custom head snippets -->
+
+<link rel="apple-touch-icon" sizes="57x57" href="http://localhost:4000/images/apple-touch-icon-57x57.png?v=M44lzPylqQ">
+<link rel="apple-touch-icon" sizes="60x60" href="http://localhost:4000/images/apple-touch-icon-60x60.png?v=M44lzPylqQ">
+<link rel="apple-touch-icon" sizes="72x72" href="http://localhost:4000/images/apple-touch-icon-72x72.png?v=M44lzPylqQ">
+<link rel="apple-touch-icon" sizes="76x76" href="http://localhost:4000/images/apple-touch-icon-76x76.png?v=M44lzPylqQ">
+<link rel="apple-touch-icon" sizes="114x114" href="http://localhost:4000/images/apple-touch-icon-114x114.png?v=M44lzPylqQ">
+<link rel="apple-touch-icon" sizes="120x120" href="http://localhost:4000/images/apple-touch-icon-120x120.png?v=M44lzPylqQ">
+<link rel="apple-touch-icon" sizes="144x144" href="http://localhost:4000/images/apple-touch-icon-144x144.png?v=M44lzPylqQ">
+<link rel="apple-touch-icon" sizes="152x152" href="http://localhost:4000/images/apple-touch-icon-152x152.png?v=M44lzPylqQ">
+<link rel="apple-touch-icon" sizes="180x180" href="http://localhost:4000/images/apple-touch-icon-180x180.png?v=M44lzPylqQ">
+<link rel="icon" type="image/png" href="http://localhost:4000/images/favicon-32x32.png?v=M44lzPylqQ" sizes="32x32">
+<link rel="icon" type="image/png" href="http://localhost:4000/images/android-chrome-192x192.png?v=M44lzPylqQ" sizes="192x192">
+<link rel="icon" type="image/png" href="http://localhost:4000/images/favicon-96x96.png?v=M44lzPylqQ" sizes="96x96">
+<link rel="icon" type="image/png" href="http://localhost:4000/images/favicon-16x16.png?v=M44lzPylqQ" sizes="16x16">
+<link rel="manifest" href="http://localhost:4000/images/manifest.json?v=M44lzPylqQ">
+<link rel="mask-icon" href="http://localhost:4000/images/safari-pinned-tab.svg?v=M44lzPylqQ" color="#000000">
+<link rel="shortcut icon" href="/images/favicon.ico?v=M44lzPylqQ">
+<meta name="msapplication-TileColor" content="#000000">
+<meta name="msapplication-TileImage" content="http://localhost:4000/images/mstile-144x144.png?v=M44lzPylqQ">
+<meta name="msapplication-config" content="http://localhost:4000/images/browserconfig.xml?v=M44lzPylqQ">
+<meta name="theme-color" content="#ffffff">
+<link rel="stylesheet" href="http://localhost:4000/assets/css/academicons.css"/>
+
+<script type="text/x-mathjax-config"> MathJax.Hub.Config({ TeX: { equationNumbers: { autoNumber: "all" } } }); </script>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/latest.js?config=TeX-MML-AM_CHTML' async></script>
+
+<!-- end custom head snippets -->
+
+  </head>
+
+  <body>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        <button><div class="navicon"></div></button>
+        <ul class="visible-links">
+          <li class="masthead__menu-item masthead__menu-item--lg"><a href="http://localhost:4000/">MATH 224 - Intro to Stat</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="http://localhost:4000/home/">Home</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="http://localhost:4000/syllabus/">Syllabus</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="http://localhost:4000/slides/">Slides</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="http://localhost:4000/assignments/">Assignments</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="http://localhost:4000/labs/">Computing Labs</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="http://localhost:4000/tutorials/">R Tutorials</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="http://localhost:4000/dap/">Data Analysis Project</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="http://localhost:4000/assessments/">Assessments</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="http://localhost:4000/research/">Research/Publication</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="http://localhost:4000/manual/">Implementation Manual</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="http://localhost:4000/workshop/">Faculty Workshops</a></li>
+          
+        </ul>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+    
+
+
+
+
+
+<div id="main" role="main">
+  
+
+
+  <div class="sidebar sticky">
+  
+
+
+
+<div itemscope itemtype="http://schema.org/Person">
+
+  <div class="author__avatar">
+    
+    	<img src="http://localhost:4000/images/ncat-nsf-logo.jpg" class="author__avatar" alt="Introduction to Probability & Statistics">
+    
+  </div>
+
+  <div class="author__content">
+    <h3 class="author__name">Introduction to Probability & Statistics</h3>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">Follow</button>
+    <ul class="author__urls social-icons">
+      
+        <li><i class="fa fa-fw fa-map-marker" aria-hidden="true"></i> NC A&T State University</li>
+      
+      
+      
+      
+      
+       
+      
+      
+      
+      
+      
+      
+      
+      
+      
+        <li><a href="https://github.com/IntroToStatNCAT/IntroToStatNCAT.github.io"><i class="fab fa-fw fa-github" aria-hidden="true"></i> Github</a></li>
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+    </ul>
+  </div>
+</div>
+
+  
+  </div>
+
+
+  <article class="page" itemscope itemtype="http://schema.org/CreativeWork">
+    <meta itemprop="headline" content="Chapter 8">
+    
+    
+    
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 class="page__title" itemprop="headline">Chapter 8
+</h1>
+          
+        
+        
+        
+        
+             
+        
+    
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        ```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+```{r, echo=F, message=F, warning=F}
+library(datasets)
+library(tidyverse)
+library(shiny)
+library(scales)
+library(jpeg)
+library(openintro)
+library(learnr)
+library(readr)
+library(knitr)
+library(png)
+library(gradethis) #remotes::install_github("rstudio/gradethis")
+library(learnrhash) #devtools::install_github("rundel/learnrhash")
+library(grid)
+library(GGally)
+library(tinytex)
+data("COL")
+```
+
+
+## Acknowledgement
+
+<center>
+<div class="black">
+These notes use content from OpenIntro Statistics Slides by   
+
+Mine Cetinkaya-Rundel.
+</div>
+</center>
+
+
+## Introduction
+<div class="black">
+
+Regression Analysis concerns the study of relationship between several quantitative variables.
+
+<font size="2">
+The word “ Regression” was first used by a British scientist Sir Francis Galton when he published his research result (1885) about the heights of sons and the average of their parents. Now the word “Regression” has become synonymous with the statistical study of relation among variables.
+</font>
+
+For more than one quantitative variables involved in each experiment, we want to determine
+
+- Whether the variables are related
+
+- How strong the relationships appear to be
+
+- If one variable can be predicted from others 
+
+In this chapter, we confine to two numerical variables --linear Regression
+
+**8.1**  Fitting a line, Residuals, and Correlation
+
+**8.2**  Least Squares Regression
+
+</div>
+
+
+## 8.1 Line fitting, Residuals and Correlation
+<font size="5">
+<div class= "black">
+
+- Linear Regression
+
+- Prediction
+
+- Residuals
+
+- Correlation
+
+**Linear regression**
+
+When the relationship between two quantitative variables is approximately linear, we find a linear model that best describes the relationship. In other words, over the scatter plot of data of two variables, we place a line which has the least square errors.
+
+We use **correlation** to describe the strength of linear relationship.
+
+<div>
+</font>
+
+
+
+## First Step-- plotting data.
+<div class="black">
+For a pair of numerical data, we always first use a scatter plot to see if any association appears.
+
+**Example.** The cost of share purchase and the number of stocks to purchase of 12 buyers.
+
+```{r, out.width="50%"}
+xx <- readPNG("xx.png")
+grid.raster(xx)
+```
+
+The plot shows a perfect linear fit. 
+
+The relation is given by y= 5 + 64.96x
+</div>
+
+
+## Fitting a line to data
+<div class="black">
+
+It is rare that all data can fit a perfect line. 
+
+**Example.** The scatterplot below shows the relationship between HS graduate rate in all 50 US states and DC and the percent of residents who live below the poverty line (income below $23,050 for a family of 4 in 2012).
+
+<div style="float: left; width: 50%;">
+```{r, out.width="100%"}
+tt <- readPNG("tt.png")
+grid.raster(tt)
+```
+</div>
+<div style="float: right; width: 50%;">
+
+**(Review in 2.1)**
+
+- **Response variable**
+ 
+    % in poverty
+- **Explanatory variable**
+    
+    % HS grad(Higher education leads to better income)
+- **Relationship**
+ 
+    linear, negative, moderately strong 
+</div>
+</div>
+
+
+## Eyeballing the (best linear fit) line
+
+<div class="black">
+
+<div style="float: left; width: 60%;">
+
+Which of the following appears to be the line that best fits the linear relationship between % in poverty and % HS grad?
+
+Choose one.
+
+<div class="blue">
+
+- (a) The solid red line
+
+</div>
+
+</div>
+
+<div style="float: right; width: 50%;">
+```{r, out.width="100%"}
+ik <- readPNG("ik.png")
+grid.raster(ik)
+```
+</div>
+</div>
+
+
+## Fitting a line to data
+<div class="black">
+
+When the relationship of two variables is not fit perfectly with a linear function, we try to use a best linear line with some error to fit the data:
+$$ y = \beta_{0} + \beta_{1}x + \epsilon$$
+
+where $\beta_{0}$ and $\beta_{1}$ are the parameters of the model. 
+
+$\beta_{1}$ is the slope - the change in y for every unit increase in x.
+
+$\beta_{0}$ is the intercept of the line with the y axis.
+
+$\epsilon$ represents the error (or residual)
+
+```{r, out.width="43%"}
+jk <- readPNG("jk.png")
+grid.raster(jk)
+```
+</div>
+
+
+## Example (cont. Poverty vs. HS graduate rate)
+<div class="black">
+
+The linear model for predicting poverty from high school graduation rate in the US is
+
+$\hat{poverty} = 64.78 - 0.62\hspace{0.2cm} HS_{grad}$ (y= a+bx)
+
+The "hat" is used to signify that this is an estimate (using a sample)
+
+<div class="blue">
+Use the model to make prediction: The high school graduate rate in Georgia is **85.1%.** What poverty level does the model predict for this state?
+
+$64.78−0.62×85.1=12.018$
+
+</div>
+
+Predict: the poverty level that the model predicts for the state of Georgia is 12%.
+
+</div>
+
+## Residuals
+<div class="black">
+Residuals are the leftovers from the model fit.
+            Data = Fit + Residual 
+            
+Residual = Data - Fit; $e_i = y_i - \hat{y}_{i}$
+
+<div style="float: left; width: 50%;">
+```{r, out.width="50%"}
+mn <- readPNG("mn.png")
+grid.raster(mn)
+```
+</div>
+
+<div style="float: right; width: 50%;">
+```{r, out.width="50%"}
+mm <- readPNG("mm.png")
+grid.raster(mm)
+```
+</div>
+
+The residual is positive (negative) if the data is above (below) the regression line. 
+
+From the right graph on the above right:
+
+$\%$ living in poverty in DC is 5.44% more than predicted.
+
+$\%$ living in poverty in RI is 4.16% less than predicted.
+</div>
+</div>
+
+
+## Residuals
+<div class="black">
+
+**Example.**  For the scatter plot below, the linear fit is given by $\hat{y} = 41 + 0.59x$, 
+compute the residual of the observation (77.0, 85.3).
+
+**Solution**
+
+x= 77, $\hat{y}= 41 + 0.59 \times 77 = 86.43$ 
+
+Residual: $e= y-\hat{y}= 85.3 - 86.43 =-1.13$
+
+(One step: $e= y-\hat{y} = 85.3 -(41+0.59 \times 77))$
+
+Practice: compute the residual of the observations
+
+<div style="float: left; width: 50%;">
+   +(85.0,  98.6), 
+\
+   ∆ (95.5,  94)
+
+Check answers:
+
+7.45   (for +)
+\
+−3.3  (for ∆) 
+</div>
+
+<div style="float: right; width: 50%;">
+```{r, out.width="80%"}
+cc <- readPNG("cc.png")
+grid.raster(cc)
+```
+</div>
+</div>
+
+## Scatter Plot and Residual plot
+<div class = "black">
+
+**Example. (compare plots)** 
+
+<div style="float: left; width: 45%;">
+```{r, out.width="120%", out.height="110%"}
+bb <- readPNG("bb.png")
+grid.raster(bb)
+```
+</div>
+
+<div style="float: right; width: 45%;">
+```{r, out.width="120%", out.height="110%"}
+dd <- readPNG("dd.png")
+grid.raster(dd)
+```
+</div>
+</div>
+
+## Correlation - Use Letter R(r)
+<div class="black">
+- It describes the strength of the linear association between two variables.
+- It takes values between -1 (perfect negative) and +1 (perfect positive).
+- A value of 0 indicates no linear association.
+- Correlation is unit less, that is, it does not change the value for different measurement units. For $n$ pairs of observations
+$(x_1,y_1, (x_2,y_2),...,(x_n,y_n))$ is given by formula
+
+$$R= \frac{1}{n-1}\sum_{i=1}^{n} \frac{(x_i -\bar{x})(y_i - \bar{y})}{S_x S_y}$$
+Where $\bar{x}$, $\bar{y}$, and $s_x$,$s_y$ are means and standard deviations for each variables.
+
+- The quantity $R^2$ is called the coefficient of determination,it is the proportion of the variation in the response variable that is predictable from the explanatory variable(s). Generally, a higher coefficient $R^2$ indicates a better fit for the model.
+
+Example : $R^2$ = 0.60, 60% of data is predictable by the regression model.
+</div>
+
+
+## Estimating correlation using R
+<font size="4">
+<div class="black">
+
+In the following R code, we use the `cor()` command to calculate the Pearson correlation coefficient (R) between the % HS Grad and % Poverty in the states. Note that the coefficient of determination is obtained by squaring R.
+
+```{r quiz1_1, exercise=TRUE}
+Poverty = c(14.6, 8.3, 13.3, 18.0, 12.8,  9.4,  7.8,  8.1, 16.8, 12.1, 12.1, 10.6,
+       11.8, 11.2,  8.7 , 8.3,  9.4, 13.1, 17.0, 11.3,  7.3,  9.6, 10.3,6.5, 17.6,
+       9.6, 13.7,  9.5, 8.3,  5.6,  7.8, 17.8, 14.0, 13.1, 11.9, 10.1, 14.7,
+       11.2 ,9.2 ,10.3,13.5, 10.2 ,14.2, 15.3, 9.3,  9.9,8.7 ,10.8, 16.0,  8.6 , 9.5)
+
+Graduates = c(79.9,90.6 ,83.8, 80.9, 81.1,88.7, 87.5, 88.7, 86.0, 84.7,85.1,88.5, 88.2,
+      85.9, 86.4, 89.7, 88.6, 82.8, 79.8,86.6, 87.6,87.1,87.6,91.6,
+      81.2, 88.3,90.1, 90.8, 85.6, 92.1, 86.2, 81.7, 84.2, 81.4, 89.7, 87.2, 85.7,
+      86.9, 86.0, 81.0, 80.8 ,88.7 ,81.0 ,77.2, 89.4, 88.9,87.8 ,89.1, 78.7,88.6, 90.9)
+
+##Correlation Coefficient
+R = cor(Graduates, Poverty, method = "pearson")
+R
+## Coefficient of Determination R2
+R2 = R^2
+R2
+```
+</div>
+</font>
+
+## Visualizing correlation
+<div class="black">
+
+- Remember −1 ≤𝑅≤ 1
+
+- If 𝑅 is near 1,  it means strong positive linear association
+
+- If 𝑅 is near −1, it means strong negative linear association
+
+- Some sample scatter plots and their correlations
+
+```{r, out.width= "60%"}
+jj <- readPNG("jj.png")
+grid.raster(jj)
+```
+</div>
+
+
+## Guessing the Correlation
+<div class="black">
+<div class="blue">
+Which of the following is the best guess for the correlation between percent in poverty and percent HS grad?
+</div>
+
+<div style="float: left; width: 50%;">
+1)  0.6
+2) -0.75
+3) -0.1
+4) 0.02
+5) -1.5
+
+**-0.75**
+
+</div>
+
+<div style="float: left; width: 50%;">
+```{r, out.width="100%"}
+vv <- readPNG("vv.png")
+grid.raster(vv)
+```
+</div>
+</div>
+
+
+## Guessing the correlation
+<div class="black">
+<div class = "blue">
+Which of the following is the best guess for the correlation between percent in poverty and percent female householder?
+</div>
+
+<div style="float: left; width: 50%;">
+1) 0.1
+2) -0.6
+3) -0.4
+4) 0.9
+5) 0.5
+
+**0.5**
+</div>
+
+<div style="float: left; width: 50%;">
+```{r, out.width="100%"}
+cv <- readPNG("cv.png")
+grid.raster(cv)
+```
+</div>
+</div>
+
+## Weak/Moderate/ Strong correlation
+
+<div class="black">
+- Weak Positive Correlation: $R$ is between 0.1 and 0.3 means that the existing relationship is weak.
+
+- Moderate Positive Correlation: $R$ is between 0.3 and 0.7 means that the relationship is moderate. 
+
+- Strong Positive Correlation:  $R$ is between 0.7 and 0.9 means that the relationship is strong.
+
+Different standard:
+```{r, out.width="75%"}
+yy <- readPNG("yy.png")
+grid.raster(yy)
+```
+</div>
+
+
+## Assessing the correlation (end of 8.1)
+<div class="black">
+<div class="blue">
+Which of the following is has the strongest correlation, i.e. correlation coefficient closest to +1 or -1?
+</div>
+
+<div style="float: left; width: 50%;">
+- **(b)  → correlation measures the strength of linear association**
+
+- The correlation is intended to quantify the strength of a linear trend.
+
+- For nonlinear trends, correlations may not reflect the strength of the relationship.
+
+</div>
+
+<div style="float: right; width: 50%;">
+```{r, out.width="80%"}
+yx <- readPNG("yx.png")
+grid.raster(yx)
+```
+</div>
+
+**The plots below show strong nonlinear association but weak correlation.**
+
+<center>
+```{r, out.width= "40%"}
+jkk <- readPNG("jkk.png")
+grid.raster(jkk)
+```
+</center>
+</div>
+
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+
+
+
+
+      </footer>
+
+      
+
+      
+
+
+    </div>
+
+    
+  </article>
+
+  
+  
+</div>
+
+
+    <div class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+<a href="/sitemap/">Sitemap</a>
+<!-- end custom footer snippets -->
+
+        
+
+<div class="page__footer-follow">
+  <ul class="social-icons">
+    
+      <li><strong>Follow:</strong></li>
+    
+    
+    
+    
+      <li><a href="http://github.com/IntroToStatNCAT/IntroToStatNCAT.github.io"><i class="fab fa-github" aria-hidden="true"></i> GitHub</a></li>
+    
+    
+    <li><a href="http://localhost:4000/feed.xml"><i class="fa fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2023 Intro To Stat NCAT. Powered by <a href="http://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://github.com/academicpages/academicpages.github.io">AcademicPages</a>, a fork of <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    <script src="http://localhost:4000/assets/js/main.min.js"></script>
+
+
+
+
+  <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', '', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+
+
+
+  </body>
+</html>
+

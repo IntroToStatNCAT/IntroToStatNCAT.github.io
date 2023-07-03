@@ -1,0 +1,1047 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Chapter 7</title>
+
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <meta name="generator" content="pandoc" />
+
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+
+  <base target="_blank">
+
+  <script type="text/javascript">
+    var SLIDE_CONFIG = {
+      // Slide settings
+      settings: {
+                title: 'Chapter 7',
+                        subtitle: 'Inference for numerical data',
+                useBuilds: true,
+        usePrettify: true,
+        enableSlideAreas: true,
+        enableTouch: true,
+                      },
+
+      // Author information
+      presenters: [
+            ]
+    };
+  </script>
+
+  <!-- HEAD_CONTENT -->
+
+  <style type="text/css">
+
+    b, strong {
+      font-weight: bold;
+    }
+
+    em {
+      font-style: italic;
+    }
+
+    summary {
+      display: list-item;
+    }
+
+    details > summary > p:only-child {
+      display: inline;
+    }
+
+    slides > slide {
+      -webkit-transition: all 0.2s ease-in-out;
+      -moz-transition: all 0.2s ease-in-out;
+      -o-transition: all 0.2s ease-in-out;
+      transition: all 0.2s ease-in-out;
+    }
+
+    .auto-fadein {
+      -webkit-transition: opacity 0.6s ease-in;
+      -webkit-transition-delay: 0.2s;
+      -moz-transition: opacity 0.6s ease-in 0.2s;
+      -o-transition: opacity 0.6s ease-in 0.2s;
+      transition: opacity 0.6s ease-in 0.2s;
+      opacity: 0;
+    }
+/* https://github.com/ropensci/plotly/pull/524#issuecomment-468142578 */
+slide:not(.current) .plotly.html-widget{
+  display: block;
+}
+
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+            
+  </style>
+
+
+</head>
+
+<body style="opacity: 0">
+
+<slides class="layout-widescreen">
+
+  <slide class="title-slide segue nobackground">
+        <!-- The content of this hgroup is replaced programmatically through the slide_config.json. -->
+    <hgroup class="auto-fadein">
+      <h1 data-config-title><!-- populated from slide_config.json --></h1>
+      <h2 data-config-subtitle><!-- populated from slide_config.json --></h2>
+      <p data-config-presenter><!-- populated from slide_config.json --></p>
+          </hgroup>
+  </slide>
+
+<slide class=""><hgroup><h2>Acknowledgement</h2></hgroup><article  id="acknowledgement" class="smaller ">
+
+<center>
+
+<div class="black">
+<p>These notes use content from OpenIntro Statistics Slides by</p>
+
+<p>Mine Cetinkaya-Rundel.</p></div>
+
+</center>
+
+</article></slide><slide class=""><hgroup><h2>7.1 One-sample means with the t distribution</h2></hgroup><article  id="one-sample-means-with-the-t-distribution" class="smaller ">
+
+<div class="black">
+<p>We discuss inference for the mean for numerical data in this chapter. The frame work and ideas are like that of chapter 5 (Inference for proportion), but we introduce and use a new t-distribution.</p>
+
+<ul>
+<li><p>The sampling distribution for \(\bar{x}\)</p></li>
+<li><p><strong>t-distribution</strong></p></li>
+<li><p>Find probability under t-distribution (for P-value)</p></li>
+<li><p>Find critical t-value for given probability of tail (for \(𝑡_{\frac{\alpha}{2}})\)</p></li>
+<li><p>Confidence interval for population mean</p></li>
+<li><p>One sample mean t-tests</p></li>
+</ul></div>
+
+</article></slide><slide class=""><hgroup><h2>The Sampling Distribution of Sample Mean</h2></hgroup><article  id="the-sampling-distribution-of-sample-mean" class="smaller ">
+
+<div class="black">
+<p><strong>Central Limit Theorem for the Sample Mean</strong></p>
+
+<p>For random samples of large size n (\(𝑛\ge 30\)) from a population with mean 𝜇 and standard deviation 𝜎, the sampling distribution of the sample mean \(\bar{x}\) approaches a normal distribution with the mean equal to the population mean 𝜇 and the standard deviation equal to the population standard deviation divided by the square root of the sample size: that is, \(\bar{x}\) is approximately \(𝑁(\mu, \frac{\sigma}{\sqrt{n}}).\)</p>
+
+<p>For a population with normal distribution, no matter what sample size is, \(\bar{x} \sim 𝑁(\mu, \frac{\sigma}{\sqrt{n}})\)</p></div>
+
+</article></slide><slide class=""><hgroup><h2>Use Webapp to understand Sampling distribution of Sample Mean</h2></hgroup><article  id="use-webapp-to-understand-sampling-distribution-of-sample-mean" class="smaller ">
+
+<div class="black">
+<p>Use a Webapp <a href='https://istats.shinyapps.io/sampdist_cont/' title=''>https://istats.shinyapps.io/sampdist_cont/</a></p>
+
+<ol>
+<li><p>choose a (continuous) population – the graph on the right displays the probability distribution, the mean and standard deviation. Try</p>
+
+<ol>
+<li>Real population data (show data)</li>
+<li>Skewed (then chose skewness)</li>
+<li>Bell-shaped</li>
+<li>Build your own</li>
+</ol></li>
+<li><p>choose sample size 𝑛 and the number of simulations</p></li>
+<li><p>Then click &ldquo;Draw samples&rdquo; (see next slide for the result)</p></li>
+</ol></div>
+
+</article></slide><slide class=""><hgroup><h2>Discussions About CLT</h2></hgroup><article  id="discussions-about-clt" class="smaller ">
+
+<div class="black">
+<ol>
+<li><p>The conditions for CLT to be true:</p>
+
+<ul>
+<li>The sample observations must be independent: the sample is a simple random sample from population;</li>
+<li>For any population if the sample size is at least 30 and there are no particularly extreme outliers;</li>
+<li>Or if the population is normal then the sample size can be smaller than 30</li>
+</ul></li>
+<li><p>Use CLT (for inference about population mean):</p>
+
+<ul>
+<li><p>Use \(\bar{x}\) as the point estimate for \(\mu\);</p></li>
+<li><p>Construct the confidence interval in the similar way as we do in the proportion case: \(\bar{x} \pm 𝑧_{\frac{\alpha}{2}} \times 𝑆.𝐸.\) , where \(𝑆.𝐸.= \frac{\sigma}{\sqrt{n}} \approx \frac{s}{\sqrt{𝑛}}\) if 𝜎 is unknown;</p></li>
+</ul></li>
+<li><p>For hypothesis testing, use the same framework and terms as in the case of proportion, use z test statistic</p></li>
+</ol></div>
+
+</article></slide><slide class=""><hgroup><h2>Example - CI of mean using Normal Distribution</h2></hgroup><article  id="example---ci-of-mean-using-normal-distribution" class="smaller ">
+
+<font size="4">
+
+<div class="black">
+<p><strong>Example</strong>. . A GSS asked about &ldquo;On the average day, how many hours do you watch TV?&rdquo; A summary of surveyed result is below: \(\bar{x}\) = 2.94,\(s\)= 2.84,\(n\)=1555. Find a point estimate; the SE; and a 95% confidence interval.</p>
+
+<p><strong>Solution.</strong></p>
+
+<ul>
+<li><p>\(\color{purple}{\text{The point estimate of population mean is 2.94}}\)</p></li>
+<li><p>\(\color{purple}{\text{The standard error is}}\hspace{0.2cm} se \approx \frac{\sigma}{\sqrt{𝑛}} = \frac{2.84}{\sqrt{1555}}=0.072\)</p></li>
+<li><p>At 95% confidence level, \(𝑧_{0.025}=1.96,\)</p></li>
+</ul>
+
+<p><strong>The margin of error</strong>:</p>
+
+<p>1.96(0.072)=0.14</p></div>
+
+<p></font></p>
+
+</article></slide><slide class=""><hgroup><h2>Example - Continued</h2></hgroup><article  id="example---continued" class="smaller ">
+
+<font size="4">
+
+<div class="black">
+<ul>
+<li>95% confidence CI for \(\mu\) is:</li>
+</ul>
+
+<p>\[\text{point estimate} \pm 𝑧_{\frac{\alpha}{2}}\times 𝑆.𝐸. \implies 2.94 \pm 1.96(0.07) \implies (2.8, 3.1)  \ \ (\text{rounded to 1 decimal})\]</p>
+
+<p><strong>Interpretation:</strong></p>
+
+<p>We can be 95% confident that mean amount time of watching TV for Americans is between 2.8 and 3.1 hours a day. Or, out of 100 such similar intervals, 95 of them may contain the mean amount time of watching TV for Americans.</p></div>
+
+<p></font></p>
+
+</article></slide><slide class=""><hgroup><h2>From CLT to t-distribution.</h2></hgroup><article  id="from-clt-to-t-distribution." class="smaller ">
+
+<div class="black">
+<p>Why we need to use t-distribution.</p>
+
+<ul>
+<li><p>The sampling distributions of sample means is nearly normal for <strong>any</strong> sample size if the population distribution is nearly normal. While this is helpful special case, it is usually diﬀicult to verify normality.</p></li>
+<li><p>When the standard deviation is unknown (almost always), and the sample size is small, the CLT cannot be applied. Or even when the size is large, we still have error if we use 𝑠 for 𝜎.</p></li>
+</ul>
+
+<p><strong>Introducing t-distribution</strong></p>
+
+<ul>
+<li>For small sizes, and when \(\sigma\) is unknown, keeping the intendance condition, then for sample mean \(\bar{x}\) , the variable \(𝑇=\frac{\bar{x}−\mu}{𝑠/√𝑛}\) is a <strong>Student’s t-distribution with 𝒏−𝟏 degrees of freedom</strong>, shortened as: \[𝑻\sim𝒕_{𝒅𝒇}\]</li>
+<li>The t-distribution was introduced by British chemist W.S. Gosset who first published his work in 1908 under the pseudonym &ldquo;Student&rdquo;.</li>
+</ul></div>
+
+</article></slide><slide class=""><hgroup><h2>The t distribution</h2></hgroup><article  id="the-t-distribution" class="smaller ">
+
+<div class="black">
+<ul>
+<li><p>The t distribution is \(\color{blue}{\text{centered at 0}}\), it also has a bell shape (therefore symmetric, like the standard normal (𝑧) distribution), but \(\color{blue}{\text{its tails are thicker than that of the standard normal model}}\).</p></li>
+<li><p>Extra thick tails are helpful for resolving our problem with a less reliable estimate the standard error (since n is small).</p>
+
+<center>
+
+<p><img src="Chapter7_1_Shiny_files/figure-html/unnamed-chunk-2-1.png" width="50%" /></p>
+
+</center></li>
+</ul></div>
+
+</article></slide><slide class=""><hgroup><h2>The t distribution</h2></hgroup><article  id="the-t-distribution-1" class="smaller ">
+
+<div class="black">
+<ul>
+<li><p>The t- distribution has an associated parameter: degrees of freedom, df, 𝒅f=𝒏−𝟏.</p></li>
+<li><p>The smaller (larger) df, the thicker (thinner) the tails.</p></li>
+<li><p>As \(df\) increases (i.e. n increases) , the t distribution approaches the standard normal distribution.</p></li>
+</ul>
+
+<font size="4">
+
+<div class="tutorial-exercise" data-label="t-dist" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
+<pre class = 'prettyprint lang-text'>x = seq(-6, 6, length.out = 1000)
+plot(x, dnorm(x), type = &quot;l&quot;, ylab = &quot;Density&quot;) #standard normal
+lines(x, dt(x, df=1), col = &quot;red&quot;, lty=2) #t(df=1)
+lines(x, dt(x, df=2), col = &quot;blue&quot;, lty=3) #t(df=2)
+lines(x, dt(x, df=10), col = &quot;orange&quot;, lty=5) #t(df=10)</pre>
+
+<script type="application/json" data-ui-opts="1">{"engine":"r","has_checker":false,"caption":"<span data-i18n=\"text.enginecap\" data-i18n-opts=\"{&quot;engine&quot;:&quot;R&quot;}\">R Code<\/span>"}</script></div>
+
+<p></font></p></div>
+
+</article></slide><slide class=""><hgroup><h2>Use R to find probabibility for t-distribution</h2></hgroup><article  id="use-r-to-find-probabibility-for-t-distribution" class="smaller ">
+
+<font size= "4">
+
+<div class="black">
+<ul>
+<li><p>The function <code>pt( x,  df)</code> gives the probability to the left of <code>𝑥</code> under the t-distribution with degrees of freedom <code>df</code>.</p></li>
+<li><p>The function <code>pt( x,  df, lower.tail = FALSE)</code> gives the probability to the right of <code>𝑥</code> under the t-distribution with degrees of freedom <code>df</code>.</p></li>
+</ul>
+
+<strong>Example:</strong> Suppose \(T \sim t(df = 2)\), i.e., \(n=3\). Find the \(P(T&lt;-1.79)\).
+
+<div class="tutorial-exercise" data-label="quiz2" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
+<pre class = 'prettyprint lang-text'>pt(-1.79,2)</pre>
+
+<script type="application/json" data-ui-opts="1">{"engine":"r","has_checker":false,"caption":"<span data-i18n=\"text.enginecap\" data-i18n-opts=\"{&quot;engine&quot;:&quot;R&quot;}\">R Code<\/span>"}</script></div>
+
+<strong>Example:</strong> Suppose \(T \sim t(df = 18)\), i.e., \(n=19\). Find the \(P(T&gt;1.65)\).
+
+<div class="tutorial-exercise" data-label="quiz2_1" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
+<pre class = 'prettyprint lang-text'>pt(1.65, 18, lower.tail=FALSE)</pre>
+
+<script type="application/json" data-ui-opts="1">{"engine":"r","has_checker":false,"caption":"<span data-i18n=\"text.enginecap\" data-i18n-opts=\"{&quot;engine&quot;:&quot;R&quot;}\">R Code<\/span>"}</script></div></div>
+
+<p></font></p>
+
+</article></slide><slide class=""><hgroup><h2>Use R to find probability for t- distribution</h2></hgroup><article  id="use-r-to-find-probability-for-t--distribution" class="smaller ">
+
+<font size="3">
+
+<div class="black">
+<p><strong>Exercises</strong>: Find the probability of each of the following regions under the t-distribution.</p>
+
+<ul>
+<li><p>With \(df\)=18, below −2.10</p></li>
+<li><p>With \(df\)=20, above 1.65</p></li>
+<li><p>With \(df\)=2, between −2 and 2</p></li>
+<li><p>With \(df\)=29, between −2 and 2</p></li>
+</ul>
+
+<div class="tutorial-exercise" data-label="quiz3" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
+<pre class = 'prettyprint lang-text'>pt(-2.10,18)
+pt(1.65, 20, lower.tail = FALSE)
+pt(2,2) - pt(-2,2)
+pt(2,29) - pt(-2,29)</pre>
+
+<script type="application/json" data-ui-opts="1">{"engine":"r","has_checker":false,"caption":"<span data-i18n=\"text.enginecap\" data-i18n-opts=\"{&quot;engine&quot;:&quot;R&quot;}\">R Code<\/span>"}</script></div></div>
+
+<p></font></p>
+
+</article></slide><slide class=""><hgroup><h2>Use R to find t critical value</h2></hgroup><article  id="use-r-to-find-t-critical-value" class="smaller ">
+
+<font size="3">
+
+<div class="black">
+<p>To find the \(𝑡\) critical value in R, use the <code>qt()</code> function. The syntax is as follows: <code>qt(p, df, lower.tail=TRUE)</code> where:</p>
+
+<ul>
+<li><p><strong>p</strong>: The significance level (probability) to use</p></li>
+<li><p><strong>df</strong>: The degrees of freedom</p></li>
+<li><p><strong>lower.tail</strong>: If TRUE, the probability is to the left of the t-score to be returned. If FALSE, the probability to the right of the t-score to be returned. Default is TRUE.</p></li>
+</ul>
+
+<strong>Example:</strong> Suppose \(T \sim t(df = 11)\), i.e., \(n=12\). Find the t-score such that the area to its left is 0.05.
+
+<div class="tutorial-exercise" data-label="quiz4" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
+<pre class = 'prettyprint lang-text'>qt(0.05, 11)</pre>
+
+<script type="application/json" data-ui-opts="1">{"engine":"r","has_checker":false,"caption":"<span data-i18n=\"text.enginecap\" data-i18n-opts=\"{&quot;engine&quot;:&quot;R&quot;}\">R Code<\/span>"}</script></div>
+
+<strong>Example:</strong> Suppose \(T \sim t(df = 24)\), i.e., \(n=25\). Find the t-score such that the area to its right is 0.05.
+
+<div class="tutorial-exercise" data-label="quiz4_1" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
+<pre class = 'prettyprint lang-text'>qt(0.05, 24, lower.tail = FALSE)</pre>
+
+<script type="application/json" data-ui-opts="1">{"engine":"r","has_checker":false,"caption":"<span data-i18n=\"text.enginecap\" data-i18n-opts=\"{&quot;engine&quot;:&quot;R&quot;}\">R Code<\/span>"}</script></div></div>
+
+<p></font></p>
+
+</article></slide><slide class=""><hgroup><h2>Confidence Interval using t-distribution.</h2></hgroup><article  id="confidence-interval-using-t-distribution." class="smaller ">
+
+<font size="3">
+
+<div class="black">
+<p><strong>Example.</strong> (page 255) The mercury content from a sample of 19 Risso’s dolphins in Japan has the summary as the following:</p>
+
+<p><img src="Chapter7_1_Shiny_files/figure-html/unnamed-chunk-3-1.png" width="45%" height="45%" style="display: block; margin: auto;" /></p>
+
+<ol>
+<li>Compute the standard error;</li>
+<li>Find the critical t value for 95% confidence level;</li>
+<li>Find the margin of error at a 95% confidence level</li>
+<li>Find the 95% confidence interval.</li>
+</ol></div>
+
+<p></font></p>
+
+</article></slide><slide class=""><hgroup><h2>Confidence Interval using t-distribution.</h2></hgroup><article  id="confidence-interval-using-t-distribution.-1" class="smaller ">
+
+<div class="black">
+<p><strong>Solution</strong></p>
+
+<ul>
+<li><p>\(SE = \frac{s}{\sqrt{n}}= \frac{2.3}{\sqrt{19}}= 0.527\)</p></li>
+<li><p>for \(df\)= n-1=19-1 = 18, and 95% confidence level, \(t_{0.025}= 2.1009\)</p></li>
+</ul>
+
+<div class="tutorial-exercise" data-label="quiz4_1--" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
+<pre class = 'prettyprint lang-text'>qt(0.025,18,lower.tail = FALSE)
+qt(0.975,18)</pre>
+
+<script type="application/json" data-ui-opts="1">{"engine":"r","has_checker":false,"caption":"<span data-i18n=\"text.enginecap\" data-i18n-opts=\"{&quot;engine&quot;:&quot;R&quot;}\">R Code<\/span>"}</script></div>
+
+<ul>
+<li><p>\(M.E = t_{\frac{\alpha}{2}} \times S.E= 2.1009 \times 0.527 =1.1072\)</p></li>
+<li><p>\(CI: \bar{x} \pm t_{\frac{\alpha}{2}} \times S.E = 4.4 \pm 2.1009 \times 0.527= (3.2928,5.5072)\)</p></li>
+</ul></div>
+
+</article></slide><slide class=""><hgroup><h2>Practice</h2></hgroup><article  id="practice" class="smaller ">
+
+<div class="black">
+<p><strong>Practice: Find 90% CI using sample with n=25, \(\bar{x}= 0.287, s=0.069\).</strong></p>
+
+<p>(Reminder: CI:\(\bar{x} \pm t_{\frac{\alpha}{2}} \times S.E\))</p>
+
+<ul>
+<li><p>\(SE = \frac{s}{\sqrt{n}}= \frac{0.069}{\sqrt{25}}= 0.0138\)</p></li>
+<li><p>For \(df= n-1=25-1 = 24\), and 90% confidence level, \(t_{0.05}= 1.71\)</p></li>
+</ul>
+
+<div class="tutorial-exercise" data-label="quiz4_1-1" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
+<pre class = 'prettyprint lang-text'>qt(0.05,24, lower.tail = FALSE)
+qt(0.95,24)</pre>
+
+<script type="application/json" data-ui-opts="1">{"engine":"r","has_checker":false,"caption":"<span data-i18n=\"text.enginecap\" data-i18n-opts=\"{&quot;engine&quot;:&quot;R&quot;}\">R Code<\/span>"}</script></div>
+
+<ul>
+<li><p>\(M.E= t_{\frac{\alpha}{2}} \times S.E= 1.71 \times 0.0138\)</p></li>
+<li><p>\(CI: \bar{x} \pm t_{\frac{\alpha}{2}} \times S.E = 0.287 \pm 1.71 \times 0.0138= (0.2634,0.3106)\)</p></li>
+</ul></div>
+
+</article></slide><slide class=""><hgroup><h2>Hypothesis testing for mean- One sample t-tests</h2></hgroup><article  id="hypothesis-testing-for-mean--one-sample-t-tests" class="smaller ">
+
+<div class="black">
+<p>Set up the null and alternative hypotheses. (Similar to that for proportion)</p>
+
+<p>What are the hypotheses for testing for the mean of college student heights <strong>different from 66.5</strong> inches?</p>
+
+<ol>
+<li><div class="red">
+\(H_0: \mu = 66.5\) \(H_a: \mu \ne 66.5\)</div></li>
+<li><p>\(H_0: \mu = 66.5\) \(H_a: \mu &gt; 66.5\)</p></li>
+<li><p>\(H_0: \mu = 66.5\) \(H_a: \mu &lt; 66.5\)</p></li>
+<li><p>\(H_0: \mu \ne 66.5\) \(H_a: \mu &gt; 66.5\)</p></li>
+</ol></div>
+
+</article></slide><slide class=""><hgroup><h2>The t-test statistic and p-value</h2></hgroup><article  id="the-t-test-statistic-and-p-value" class="smaller ">
+
+<font size= "3">
+
+<div class="black">
+<div class="blue">
+<p><strong>Example</strong>. A city health department wishes to determine if the mean bacteria count per unit volume of the water at a lake is within the safety level of 200. A researcher collected samples of waters with the counts: 175 190 205 193 184 207 204 193 196 180. Do the data strongly indicate that there is no concern? Test with 𝛼=0.05.</p></div>
+
+<strong>Solution</strong>. Sample data summary; \(n\)=10, \(\bar{x}\)=192.7, \(s\)=10.81.
+
+<div class="tutorial-exercise" data-label="quiz4_2_1" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
+<pre class = 'prettyprint lang-text'>data= c(175, 190, 205, 193, 184,  207, 204, 193,  196 , 180)
+Mean=mean(data);Mean ;SD= sd(data);SD</pre>
+
+<script type="application/json" data-ui-opts="1">{"engine":"r","has_checker":false,"caption":"<span data-i18n=\"text.enginecap\" data-i18n-opts=\"{&quot;engine&quot;:&quot;R&quot;}\">R Code<\/span>"}</script></div>
+
+<p><strong>Hypothesis</strong> \(H_0: \mu = 200\)   versus    \(H_a: \mu &lt; 200 \hspace{0.2cm} {\color{green}{\text{(left sided)}}}\)</p>
+
+<p>\(S.E =\frac{s}{\sqrt{n}}= \frac{10.81}{\sqrt{10}}=3.418\)</p>
+
+<p><strong>t-test statistic</strong> \(t= \frac{\text{sample mean - null value}}{S.E} = \frac{192.7-200}{3.418} = -2.14\)</p>
+
+<p><strong>The P-value is</strong> \(P(T &lt; -2.14)= 0.031 &lt;0.05\), with \(df\)= 10-1=9.</p>
+
+<p>We have strong evidence to reject \(H_0\) and support \(H_a\). That is, the water of that lake is within safety level.</p></div>
+
+<p></font></p>
+
+</article></slide><slide class=""><hgroup><h2>Example (cont.) Rejection region.</h2></hgroup><article  id="example-cont.-rejection-region." class="smaller ">
+
+<div class="black">
+<ul>
+<li><p>With \(\alpha\) =0.05, \(df\)=9, the critical t-value is \(t_{0.05}\)=1.833113</p></li>
+<li><p>The rejection region is</p>
+
+<p>\(R.R.=\{𝑇≤−𝑡_{0.05}\}=\{𝑇≤− 1.833\}\) (for left-sided}</p></li>
+<li><p>Our t-test statistic is −2.14, is in the rejection region.</p></li>
+<li><p>So we have the same decision: We have strong evidence to reject \(𝐻_0\) and support \(𝐻_𝑎\). That is, the water of that lake is within safety level.</p></li>
+</ul></div>
+
+</article></slide><slide class=""><hgroup><h2>Hypothesis Testing for mean– the t-test statistic, p-value</h2></hgroup><article  id="hypothesis-testing-for-mean-the-t-test-statistic-p-value" class="smaller ">
+
+<font size="1">
+
+<div class="black">
+<p><strong>Example</strong>. A researcher wants to determine if the water in lakes is non-acidic \((PH&gt;6)\). The sample summary is: \(n\)=15,\(\bar{x}\)= 6.6, \(s\)=0.672. Test with \(\alpha\)=0.05</p>
+
+<p><strong>Solution</strong>. Sample data summary; \(n\)=15,\(\bar{x}= 6.6\), \(s\)=0.672</p>
+
+<p><strong>Hypothesis</strong></p>
+
+<p>\(H_0: \mu = 6\) \(H_a: \mu &gt;6 \hspace{0.2cm} {\color{red}{\text{right sided}}}\)</p>
+
+<p>\(S.E =\frac{s}{\sqrt{n}}= \frac{0.672}{\sqrt{15}}=0.1735\)</p>
+
+<p><strong>t-test statistic</strong><br/>\(t= \frac{\text{sample mean - null value}}{S.E} = \frac{6.6-6}{0.1735} = 3.458\)</p>
+
+<p><strong>The P-value is</strong><br/>\(P(T &gt; 3.458)= 0.00192 &lt; 0.05\), with \(df\)= 15-1=14.<br/>We have strong evidence to reject \(H_0\) and support \(H_a\). That is, the water of that lake is non-acidic.</p></div>
+
+<p></font></p>
+
+</article></slide><slide class=""><hgroup><h2>Example (cont.) Rejection region.</h2></hgroup><article  id="example-cont.-rejection-region.-1" class="smaller ">
+
+<div class="black">
+<ul>
+<li><p>With \(\alpha\)=0.05, \(df\)=14, the critical t-value is \(t_{0.05}\)=1.7613</p></li>
+<li><p>The rejection region is</p>
+
+<p>\(R.R.=\{𝑇\ge 𝑡_{0.05}\}=\{𝑇\ge 1.7613\}\) (for right-sided}</p></li>
+<li><p>Our t-test statistic is 3.458, is in the rejection region.</p></li>
+<li><p>So we have the same decision: We have strong evidence to reject \(𝐻_0\) and support \(𝐻_𝑎\). That is, the water in the lakes is non-acidic(PH&gt;6).</p></li>
+</ul></div>
+
+</article></slide><slide class=""><hgroup><h2>Hypothesis Testing for mean– the t-test statistic, p-value</h2></hgroup><article  id="hypothesis-testing-for-mean-the-t-test-statistic-p-value-1" class="smaller ">
+
+<font size= "1">
+
+<div class="black">
+<p><strong>Example</strong>. Test the claim “ The Cherry Blossom 10 mile race running time average was 93.29 minutes in 2006. Is the typical US runner getting faster or slower over time since then? Use a sample in 2017 with \(n\)=100,\(\bar{x}\)=97.32, \(s\)=16.98,find the t-test statistic, p-value and make decision.</p>
+
+<p>Solution.<br/><strong>Hypothesis</strong><br/>\(H_0: \mu = 93.29\) \(H_a: \ne 93.29 \hspace{0.2cm} {\color{purple}{\text{two sided}}}\)<br/>\(S.E =\frac{s}{\sqrt{n}}= \frac{16.98}{\sqrt{100}}=1.698\)</p>
+
+<p><strong>t-test statistic</strong><br/>\(t= \frac{\text{sample mean - null value}}{S.E} = \frac{97.32-93.29}{1.698} = 2.3734\)</p>
+
+<p><strong>The P-value is</strong><br/>\(P(|t| &gt;2.3734)= 2*P(t&lt;-2.3734)= 2*P(t&gt;2.3734)=2*0.0098=0.0196 &lt;0.05\), with \(df\)= 100-1=99.<br/>Because the P-value is smaller than 0.05, we reject \(𝐻_0\) and support \(𝐻_𝑎\). That is, the data provides strong evidence that the average running time in 2017 is different from the 2006 average</p></div>
+
+<p></font></p>
+
+</article></slide><slide class=""><hgroup><h2>Example (cont.) Rejection region.</h2></hgroup><article  id="example-cont.-rejection-region.-2" class="smaller ">
+
+<div class="black">
+<ul>
+<li><p>With \(\alpha=\frac{0.05}{2}\) =0.025, \(df\)=99, the critical t-value is \(t_{\frac{0.05}{2}}= t_{0.025}\)=1.984</p></li>
+<li><p>The rejection region <strong>(for two-sided}</strong> is</p>
+
+<p>\(R.R.=\{|𝑇| \ge −𝑡_{0.025}\}=\{|𝑇|≤ -1.984 \hspace{0.2cm} or \hspace{0.2cm}𝑇\ge 1.984\}\)</p></li>
+</ul>
+
+<p>Our t-test statistic is 2.3734, is in the rejection region, so we have the same decision: We have strong evidence to reject \(𝐻_0\) and support \(𝐻_𝑎\). That is, the data provides strong evidence that the average running time in 2017 is different from the 2006 average.</p>
+
+<p>Note: Rejection region depends on the significance level and the degree of freedom, the smaller n allows larger R.R.</p>
+
+<ul>
+<li><p>Compare \(t_{0.025}=1.984\), (\(df\)=99), with \(z_{0.025}\)=1.96.</p></li>
+<li><p>Compare \(t_{0.05}\)=1.833 (\(df\)=9) ,\(t_{0.05}\)=1.761, (\(df\)=14), with \(z_{0.05}=1.645\).</p></li>
+</ul></div>
+
+</article></slide><slide class=""><hgroup><h2>Confidence interval and two-sided test</h2></hgroup><article  id="confidence-interval-and-two-sided-test" class="smaller ">
+
+<font size="5">
+
+<div class="black">
+
+
+<p>Similar to the normal distribution case, we can use 100(1−𝛼)% confidence interval to conduct two-sided hypothesis test using t-distribution and significance level 𝛼.</p>
+
+<div class="blue">
+<p>The confidence interval is the &ldquo;acceptance region&rdquo;, the complement of the rejection region, so</p></div>
+
+<div class="red">
+<p>If the null value is in the CI, then we cannot reject \(𝐻_0\) to substantiate \(𝐻_𝑎;\)</p>
+
+<p>If the null value is NOT in the CI, then we have evidence to reject \(𝐻_0\) to substantiate \(𝐻_𝑎\)</p></div>
+
+<p></font></p>
+
+</article></slide><slide class=""><hgroup><h2>Confidence interval and two-sided test contd.</h2></hgroup><article  id="confidence-interval-and-two-sided-test-contd." class="smaller ">
+
+<div class="black">
+<p>For the previous example, for two-sided hypothesis testing</p>
+
+<p><strong>Hypotheses</strong></p>
+
+<p>\(𝐻_0: \mu = 93.29, 𝐻_𝑎: \mu \ne 93.29\)</p>
+
+<p>\(n\)=100, \(\bar{x}=97.32\), \(s\)=16.98, \(\mu_0=93.29\) (null value)</p>
+
+<p>\(S.E = 1.698\), \(t_{0.025}\)=1.984 (with \(df\)=99) (for \(\alpha\)=0.05).</p>
+
+<p>\(\text{The 95% CI is}\hspace{0.2cm} 97.32 \pm 1.984 \times 1.698= (93.95117, 100.6888)\).</p>
+
+<p>\(\mu_0=93.29\) is not in the CI, so we reject \(𝐻_0\) to substantiate \(𝐻_𝑎\).</p></div>
+
+</article></slide><slide class=""><hgroup><h2>Notes about CI and Hypothesis Testing</h2></hgroup><article  id="notes-about-ci-and-hypothesis-testing" class="smaller ">
+
+<div class="black">
+<ol>
+<li><p>We can also construct CI using the null value as the center, then check the if the observed statistic is in the CI (not reject \(𝐻_0\)) or not (reject \(𝐻_0\))</p></li>
+<li><p>For One-sided test, we can do the same, but we must be very careful with the confidence level and significance level, and the direction of interval.</p></li>
+</ol>
+
+<p>We do not recommend using CI for one-sided tests.</p></div>
+
+</article></slide><slide class=""><hgroup><h2>Compare Normal Distribution and t-distribution</h2></hgroup><article  id="compare-normal-distribution-and-t-distribution" class="smaller ">
+
+<font size="4">
+
+<div class="black">
+<div class="blue">
+<p>When 𝜎 is unknown, we use t-distribution to compensate the error caused by using \(“s”\) for \(“\sigma”\), even the sample size is large.</p></div>
+
+<ul>
+<li>For the same confidence level or significance level, \(𝑡_\frac{\alpha}{2}&gt;𝑧_\frac{\alpha}{2}\) as \(n\) Increases, \(𝑡_\frac{\alpha}{2}↓ 𝑧_\frac{\alpha}{2}.\)</li>
+</ul>
+
+<p>Example. For 95% confidence level, or significance level \(\alpha\)=0.025 \(z_{0.025}=1.959964\)</p>
+
+<p>\(t_{0.025}=2.059539 \hspace{0.2cm} \text{with df}=25\)</p>
+
+<p>\(𝑡_{0.025}=1.961492 \hspace{0.2cm} \text{with df}=1554\)</p>
+
+<p>\(𝑡_{0.025}=1.960893 \hspace{0.2cm} \text{with df}=2554\)</p></div>
+
+<p></font></p>
+
+</article></slide><slide class=""><hgroup><h2>Compare Normal Distribution and t-distribution</h2></hgroup><article  id="compare-normal-distribution-and-t-distribution-1" class="smaller ">
+
+<font size="4">
+
+<div class="black">
+<div class="blue">
+<ul>
+<li>For the same test statistic value, the P-value using t-distribution is greater than that using normal distribution.</li>
+</ul></div>
+
+<p><strong>Example.</strong> If the test statistic is 2, for right-sided \(𝐻_𝑎\)</p>
+
+<p>P-value = \(𝑃(𝑍&gt;2)=0.02275013\)</p>
+
+<p>for \(df\)=25, \(P-value = 𝑃(𝑡&gt;2)=0.02823799\)</p>
+
+<p>for \(df\)=2554, \(P-value = 𝑃(𝑡&gt;2)=0.02280299\)</p>
+
+<p>Because t-distribution has thicker tails, and as \(n\) gets larger, the difference is getting smaller.</p></div>
+
+<p></font></p>
+
+</article></slide><slide class=""><hgroup><h2>Recap: Inference for one mean using t-distruibution (end of 7.1)</h2></hgroup><article  id="recap-inference-for-one-mean-using-t-distruibution-end-of-7.1" class="smaller ">
+
+<div class="black">
+<ul>
+<li><p>If \(\sigma\) is unknown, use 𝑡-distribution with \(S.E =\frac{s}{\sqrt{n}}\)</p></li>
+<li><p>Conditions:</p>
+
+<ul>
+<li>Independence of observations (often verified by random sample, and if sampling w/o replacement, n &lt; 10% of population).</li>
+<li>No extreme skew.</li>
+</ul></li>
+<li><p>Point Estimate: \(\bar{x}\)</p></li>
+<li><p>Confidence Interval: \(\bar{x} \pm 𝑡_\frac{\alpha}{2}×𝑆.𝐸\), \((\color{blue}{𝑡_\frac{\alpha}{2}}\) depends on \(df\)=𝑛−1).</p></li>
+<li><p>Hypothesis testing: \(T = \frac{\text{sample mean- null value}}{S.E.}\)</p></li>
+<li><p>P-value depends on \(df\)=𝑛−1.</p></li>
+</ul></div>
+
+<p>
+<script type="application/shiny-prerendered" data-context="server-start">
+knitr::opts_chunk$set(echo = FALSE)
+</script>
+ 
+<script type="application/shiny-prerendered" data-context="server">
+learnr:::register_http_handlers(session, metadata = NULL)
+</script>
+ 
+<script type="application/shiny-prerendered" data-context="server">
+learnr:::prepare_tutorial_state(session)
+</script>
+ 
+<script type="application/shiny-prerendered" data-context="server">
+learnr:::i18n_observe_tutorial_language(input, session)
+</script>
+ 
+<script type="application/shiny-prerendered" data-context="server">
+session$onSessionEnded(function() {
+        learnr:::event_trigger(session, "session_stop")
+      })
+</script>
+ 
+<script type="application/shiny-prerendered" data-context="server">
+`tutorial-exercise-t-dist-result` <- learnr:::setup_exercise_handler(reactive(req(input$`tutorial-exercise-t-dist-code-editor`)), session)
+output$`tutorial-exercise-t-dist-output` <- renderUI({
+  `tutorial-exercise-t-dist-result`()
+})
+</script>
+ 
+<script type="application/shiny-prerendered" data-context="server">
+learnr:::store_exercise_cache(structure(list(label = "t-dist", global_setup = structure("knitr::opts_chunk$set(echo = FALSE)", chunk_opts = list(
+    label = "setup", include = FALSE)), setup = NULL, chunks = list(
+    list(label = "t-dist", code = "x = seq(-6, 6, length.out = 1000)\nplot(x, dnorm(x), type = \"l\", ylab = \"Density\") #standard normal\nlines(x, dt(x, df=1), col = \"red\", lty=2) #t(df=1)\nlines(x, dt(x, df=2), col = \"blue\", lty=3) #t(df=2)\nlines(x, dt(x, df=10), col = \"orange\", lty=5) #t(df=10)", 
+        opts = list(label = "\"t-dist\"", exercise = "TRUE", 
+            fig.align = "\"center\"", fig.height = "3", fig.width = "5"), 
+        engine = "r")), code_check = NULL, error_check = NULL, 
+    check = NULL, solution = NULL, tests = NULL, options = list(
+        eval = FALSE, echo = TRUE, results = "markup", tidy = FALSE, 
+        tidy.opts = NULL, collapse = FALSE, prompt = FALSE, comment = NA, 
+        highlight = FALSE, size = "normalsize", background = "#F7F7F7", 
+        strip.white = TRUE, cache = 0, cache.path = "Chapter7_1_Shiny_cache/html/", 
+        cache.vars = NULL, cache.lazy = TRUE, dependson = NULL, 
+        autodep = FALSE, cache.rebuild = FALSE, fig.keep = "high", 
+        fig.show = "asis", fig.align = "center", fig.path = "Chapter7_1_Shiny_files/figure-html/", 
+        dev = "png", dev.args = NULL, dpi = 192, fig.ext = "png", 
+        fig.width = 5, fig.height = 3, fig.env = "figure", fig.cap = NULL, 
+        fig.scap = NULL, fig.lp = "fig:", fig.subcap = NULL, 
+        fig.pos = "", out.width = 480, out.height = NULL, out.extra = NULL, 
+        fig.retina = 2, external = TRUE, sanitize = FALSE, interval = 1, 
+        aniopts = "controls,loop", warning = TRUE, error = FALSE, 
+        message = TRUE, render = NULL, ref.label = NULL, child = NULL, 
+        engine = "r", split = FALSE, include = TRUE, purl = TRUE, 
+        exercise.timelimit = 60, exercise.checker = "function (label = NULL, solution_code = NULL, user_code = NULL, \n    check_code = NULL, envir_result = NULL, evaluate_result = NULL, \n    envir_prep = NULL, last_value = NULL, stage = NULL, ..., \n    solution_eval_fn = NULL) \n{\n    (utils::getFromNamespace(\"check_exercise\", \"gradethis\"))(label = label, \n        solution_code = solution_code, user_code = user_code, \n        check_code = check_code, envir_result = envir_result, \n        evaluate_result = evaluate_result, envir_prep = envir_prep, \n        last_value = last_value, stage = stage, ...)\n}", 
+        exercise.error.check.code = "gradethis_error_checker()", 
+        label = "t-dist", exercise = TRUE, code = c("x = seq(-6, 6, length.out = 1000)", 
+        "plot(x, dnorm(x), type = \"l\", ylab = \"Density\") #standard normal", 
+        "lines(x, dt(x, df=1), col = \"red\", lty=2) #t(df=1)", 
+        "lines(x, dt(x, df=2), col = \"blue\", lty=3) #t(df=2)", 
+        "lines(x, dt(x, df=10), col = \"orange\", lty=5) #t(df=10)"
+        ), out.width.px = 480, out.height.px = 288, params.src = "t-dist, exercise=TRUE, fig.align='center', fig.height=3, fig.width=5", 
+        fig.num = 0, exercise.df_print = "default"), engine = "r", 
+    version = "4"), class = c("r", "tutorial_exercise")))
+</script>
+ 
+<script type="application/shiny-prerendered" data-context="server">
+`tutorial-exercise-quiz2-result` <- learnr:::setup_exercise_handler(reactive(req(input$`tutorial-exercise-quiz2-code-editor`)), session)
+output$`tutorial-exercise-quiz2-output` <- renderUI({
+  `tutorial-exercise-quiz2-result`()
+})
+</script>
+ 
+<script type="application/shiny-prerendered" data-context="server">
+learnr:::store_exercise_cache(structure(list(label = "quiz2", global_setup = structure("knitr::opts_chunk$set(echo = FALSE)", chunk_opts = list(
+    label = "setup", include = FALSE)), setup = NULL, chunks = list(
+    list(label = "quiz2", code = "pt(-1.79,2)", opts = list(label = "\"quiz2\"", 
+        exercise = "TRUE"), engine = "r")), code_check = NULL, 
+    error_check = NULL, check = NULL, solution = NULL, tests = NULL, 
+    options = list(eval = FALSE, echo = TRUE, results = "markup", 
+        tidy = FALSE, tidy.opts = NULL, collapse = FALSE, prompt = FALSE, 
+        comment = NA, highlight = FALSE, size = "normalsize", 
+        background = "#F7F7F7", strip.white = TRUE, cache = 0, 
+        cache.path = "Chapter7_1_Shiny_cache/html/", cache.vars = NULL, 
+        cache.lazy = TRUE, dependson = NULL, autodep = FALSE, 
+        cache.rebuild = FALSE, fig.keep = "high", fig.show = "asis", 
+        fig.align = "default", fig.path = "Chapter7_1_Shiny_files/figure-html/", 
+        dev = "png", dev.args = NULL, dpi = 192, fig.ext = "png", 
+        fig.width = 7.5, fig.height = 4.5, fig.env = "figure", 
+        fig.cap = NULL, fig.scap = NULL, fig.lp = "fig:", fig.subcap = NULL, 
+        fig.pos = "", out.width = 720, out.height = NULL, out.extra = NULL, 
+        fig.retina = 2, external = TRUE, sanitize = FALSE, interval = 1, 
+        aniopts = "controls,loop", warning = TRUE, error = FALSE, 
+        message = TRUE, render = NULL, ref.label = NULL, child = NULL, 
+        engine = "r", split = FALSE, include = TRUE, purl = TRUE, 
+        exercise.timelimit = 60, exercise.checker = "function (label = NULL, solution_code = NULL, user_code = NULL, \n    check_code = NULL, envir_result = NULL, evaluate_result = NULL, \n    envir_prep = NULL, last_value = NULL, stage = NULL, ..., \n    solution_eval_fn = NULL) \n{\n    (utils::getFromNamespace(\"check_exercise\", \"gradethis\"))(label = label, \n        solution_code = solution_code, user_code = user_code, \n        check_code = check_code, envir_result = envir_result, \n        evaluate_result = evaluate_result, envir_prep = envir_prep, \n        last_value = last_value, stage = stage, ...)\n}", 
+        exercise.error.check.code = "gradethis_error_checker()", 
+        label = "quiz2", exercise = TRUE, code = "pt(-1.79,2)", 
+        out.width.px = 720, out.height.px = 432, params.src = "quiz2, exercise=TRUE", 
+        fig.num = 0, exercise.df_print = "default"), engine = "r", 
+    version = "4"), class = c("r", "tutorial_exercise")))
+</script>
+ 
+<script type="application/shiny-prerendered" data-context="server">
+`tutorial-exercise-quiz2_1-result` <- learnr:::setup_exercise_handler(reactive(req(input$`tutorial-exercise-quiz2_1-code-editor`)), session)
+output$`tutorial-exercise-quiz2_1-output` <- renderUI({
+  `tutorial-exercise-quiz2_1-result`()
+})
+</script>
+ 
+<script type="application/shiny-prerendered" data-context="server">
+learnr:::store_exercise_cache(structure(list(label = "quiz2_1", global_setup = structure("knitr::opts_chunk$set(echo = FALSE)", chunk_opts = list(
+    label = "setup", include = FALSE)), setup = NULL, chunks = list(
+    list(label = "quiz2_1", code = "pt(1.65, 18, lower.tail=FALSE)", 
+        opts = list(label = "\"quiz2_1\"", exercise = "TRUE"), 
+        engine = "r")), code_check = NULL, error_check = NULL, 
+    check = NULL, solution = NULL, tests = NULL, options = list(
+        eval = FALSE, echo = TRUE, results = "markup", tidy = FALSE, 
+        tidy.opts = NULL, collapse = FALSE, prompt = FALSE, comment = NA, 
+        highlight = FALSE, size = "normalsize", background = "#F7F7F7", 
+        strip.white = TRUE, cache = 0, cache.path = "Chapter7_1_Shiny_cache/html/", 
+        cache.vars = NULL, cache.lazy = TRUE, dependson = NULL, 
+        autodep = FALSE, cache.rebuild = FALSE, fig.keep = "high", 
+        fig.show = "asis", fig.align = "default", fig.path = "Chapter7_1_Shiny_files/figure-html/", 
+        dev = "png", dev.args = NULL, dpi = 192, fig.ext = "png", 
+        fig.width = 7.5, fig.height = 4.5, fig.env = "figure", 
+        fig.cap = NULL, fig.scap = NULL, fig.lp = "fig:", fig.subcap = NULL, 
+        fig.pos = "", out.width = 720, out.height = NULL, out.extra = NULL, 
+        fig.retina = 2, external = TRUE, sanitize = FALSE, interval = 1, 
+        aniopts = "controls,loop", warning = TRUE, error = FALSE, 
+        message = TRUE, render = NULL, ref.label = NULL, child = NULL, 
+        engine = "r", split = FALSE, include = TRUE, purl = TRUE, 
+        exercise.timelimit = 60, exercise.checker = "function (label = NULL, solution_code = NULL, user_code = NULL, \n    check_code = NULL, envir_result = NULL, evaluate_result = NULL, \n    envir_prep = NULL, last_value = NULL, stage = NULL, ..., \n    solution_eval_fn = NULL) \n{\n    (utils::getFromNamespace(\"check_exercise\", \"gradethis\"))(label = label, \n        solution_code = solution_code, user_code = user_code, \n        check_code = check_code, envir_result = envir_result, \n        evaluate_result = evaluate_result, envir_prep = envir_prep, \n        last_value = last_value, stage = stage, ...)\n}", 
+        exercise.error.check.code = "gradethis_error_checker()", 
+        label = "quiz2_1", exercise = TRUE, code = "pt(1.65, 18, lower.tail=FALSE)", 
+        out.width.px = 720, out.height.px = 432, params.src = "quiz2_1, exercise=TRUE", 
+        fig.num = 0, exercise.df_print = "default"), engine = "r", 
+    version = "4"), class = c("r", "tutorial_exercise")))
+</script>
+ 
+<script type="application/shiny-prerendered" data-context="server">
+`tutorial-exercise-quiz3-result` <- learnr:::setup_exercise_handler(reactive(req(input$`tutorial-exercise-quiz3-code-editor`)), session)
+output$`tutorial-exercise-quiz3-output` <- renderUI({
+  `tutorial-exercise-quiz3-result`()
+})
+</script>
+ 
+<script type="application/shiny-prerendered" data-context="server">
+learnr:::store_exercise_cache(structure(list(label = "quiz3", global_setup = structure("knitr::opts_chunk$set(echo = FALSE)", chunk_opts = list(
+    label = "setup", include = FALSE)), setup = NULL, chunks = list(
+    list(label = "quiz3", code = "pt(-2.10,18)\npt(1.65, 20, lower.tail = FALSE)\npt(2,2) - pt(-2,2)\npt(2,29) - pt(-2,29)", 
+        opts = list(label = "\"quiz3\"", exercise = "TRUE"), 
+        engine = "r")), code_check = NULL, error_check = NULL, 
+    check = NULL, solution = NULL, tests = NULL, options = list(
+        eval = FALSE, echo = TRUE, results = "markup", tidy = FALSE, 
+        tidy.opts = NULL, collapse = FALSE, prompt = FALSE, comment = NA, 
+        highlight = FALSE, size = "normalsize", background = "#F7F7F7", 
+        strip.white = TRUE, cache = 0, cache.path = "Chapter7_1_Shiny_cache/html/", 
+        cache.vars = NULL, cache.lazy = TRUE, dependson = NULL, 
+        autodep = FALSE, cache.rebuild = FALSE, fig.keep = "high", 
+        fig.show = "asis", fig.align = "default", fig.path = "Chapter7_1_Shiny_files/figure-html/", 
+        dev = "png", dev.args = NULL, dpi = 192, fig.ext = "png", 
+        fig.width = 7.5, fig.height = 4.5, fig.env = "figure", 
+        fig.cap = NULL, fig.scap = NULL, fig.lp = "fig:", fig.subcap = NULL, 
+        fig.pos = "", out.width = 720, out.height = NULL, out.extra = NULL, 
+        fig.retina = 2, external = TRUE, sanitize = FALSE, interval = 1, 
+        aniopts = "controls,loop", warning = TRUE, error = FALSE, 
+        message = TRUE, render = NULL, ref.label = NULL, child = NULL, 
+        engine = "r", split = FALSE, include = TRUE, purl = TRUE, 
+        exercise.timelimit = 60, exercise.checker = "function (label = NULL, solution_code = NULL, user_code = NULL, \n    check_code = NULL, envir_result = NULL, evaluate_result = NULL, \n    envir_prep = NULL, last_value = NULL, stage = NULL, ..., \n    solution_eval_fn = NULL) \n{\n    (utils::getFromNamespace(\"check_exercise\", \"gradethis\"))(label = label, \n        solution_code = solution_code, user_code = user_code, \n        check_code = check_code, envir_result = envir_result, \n        evaluate_result = evaluate_result, envir_prep = envir_prep, \n        last_value = last_value, stage = stage, ...)\n}", 
+        exercise.error.check.code = "gradethis_error_checker()", 
+        label = "quiz3", exercise = TRUE, code = c("pt(-2.10,18)", 
+        "pt(1.65, 20, lower.tail = FALSE)", "pt(2,2) - pt(-2,2)", 
+        "pt(2,29) - pt(-2,29)"), out.width.px = 720, out.height.px = 432, 
+        params.src = "quiz3, exercise=TRUE", fig.num = 0, exercise.df_print = "default"), 
+    engine = "r", version = "4"), class = c("r", "tutorial_exercise"
+)))
+</script>
+ 
+<script type="application/shiny-prerendered" data-context="server">
+`tutorial-exercise-quiz4-result` <- learnr:::setup_exercise_handler(reactive(req(input$`tutorial-exercise-quiz4-code-editor`)), session)
+output$`tutorial-exercise-quiz4-output` <- renderUI({
+  `tutorial-exercise-quiz4-result`()
+})
+</script>
+ 
+<script type="application/shiny-prerendered" data-context="server">
+learnr:::store_exercise_cache(structure(list(label = "quiz4", global_setup = structure("knitr::opts_chunk$set(echo = FALSE)", chunk_opts = list(
+    label = "setup", include = FALSE)), setup = NULL, chunks = list(
+    list(label = "quiz4", code = "qt(0.05, 11)", opts = list(
+        label = "\"quiz4\"", exercise = "TRUE"), engine = "r")), 
+    code_check = NULL, error_check = NULL, check = NULL, solution = NULL, 
+    tests = NULL, options = list(eval = FALSE, echo = TRUE, results = "markup", 
+        tidy = FALSE, tidy.opts = NULL, collapse = FALSE, prompt = FALSE, 
+        comment = NA, highlight = FALSE, size = "normalsize", 
+        background = "#F7F7F7", strip.white = TRUE, cache = 0, 
+        cache.path = "Chapter7_1_Shiny_cache/html/", cache.vars = NULL, 
+        cache.lazy = TRUE, dependson = NULL, autodep = FALSE, 
+        cache.rebuild = FALSE, fig.keep = "high", fig.show = "asis", 
+        fig.align = "default", fig.path = "Chapter7_1_Shiny_files/figure-html/", 
+        dev = "png", dev.args = NULL, dpi = 192, fig.ext = "png", 
+        fig.width = 7.5, fig.height = 4.5, fig.env = "figure", 
+        fig.cap = NULL, fig.scap = NULL, fig.lp = "fig:", fig.subcap = NULL, 
+        fig.pos = "", out.width = 720, out.height = NULL, out.extra = NULL, 
+        fig.retina = 2, external = TRUE, sanitize = FALSE, interval = 1, 
+        aniopts = "controls,loop", warning = TRUE, error = FALSE, 
+        message = TRUE, render = NULL, ref.label = NULL, child = NULL, 
+        engine = "r", split = FALSE, include = TRUE, purl = TRUE, 
+        exercise.timelimit = 60, exercise.checker = "function (label = NULL, solution_code = NULL, user_code = NULL, \n    check_code = NULL, envir_result = NULL, evaluate_result = NULL, \n    envir_prep = NULL, last_value = NULL, stage = NULL, ..., \n    solution_eval_fn = NULL) \n{\n    (utils::getFromNamespace(\"check_exercise\", \"gradethis\"))(label = label, \n        solution_code = solution_code, user_code = user_code, \n        check_code = check_code, envir_result = envir_result, \n        evaluate_result = evaluate_result, envir_prep = envir_prep, \n        last_value = last_value, stage = stage, ...)\n}", 
+        exercise.error.check.code = "gradethis_error_checker()", 
+        label = "quiz4", exercise = TRUE, code = "qt(0.05, 11)", 
+        out.width.px = 720, out.height.px = 432, params.src = "quiz4, exercise=TRUE", 
+        fig.num = 0, exercise.df_print = "default"), engine = "r", 
+    version = "4"), class = c("r", "tutorial_exercise")))
+</script>
+ 
+<script type="application/shiny-prerendered" data-context="server">
+`tutorial-exercise-quiz4_1-result` <- learnr:::setup_exercise_handler(reactive(req(input$`tutorial-exercise-quiz4_1-code-editor`)), session)
+output$`tutorial-exercise-quiz4_1-output` <- renderUI({
+  `tutorial-exercise-quiz4_1-result`()
+})
+</script>
+ 
+<script type="application/shiny-prerendered" data-context="server">
+learnr:::store_exercise_cache(structure(list(label = "quiz4_1", global_setup = structure("knitr::opts_chunk$set(echo = FALSE)", chunk_opts = list(
+    label = "setup", include = FALSE)), setup = NULL, chunks = list(
+    list(label = "quiz4_1", code = "qt(0.05, 24, lower.tail = FALSE)", 
+        opts = list(label = "\"quiz4_1\"", exercise = "TRUE"), 
+        engine = "r")), code_check = NULL, error_check = NULL, 
+    check = NULL, solution = NULL, tests = NULL, options = list(
+        eval = FALSE, echo = TRUE, results = "markup", tidy = FALSE, 
+        tidy.opts = NULL, collapse = FALSE, prompt = FALSE, comment = NA, 
+        highlight = FALSE, size = "normalsize", background = "#F7F7F7", 
+        strip.white = TRUE, cache = 0, cache.path = "Chapter7_1_Shiny_cache/html/", 
+        cache.vars = NULL, cache.lazy = TRUE, dependson = NULL, 
+        autodep = FALSE, cache.rebuild = FALSE, fig.keep = "high", 
+        fig.show = "asis", fig.align = "default", fig.path = "Chapter7_1_Shiny_files/figure-html/", 
+        dev = "png", dev.args = NULL, dpi = 192, fig.ext = "png", 
+        fig.width = 7.5, fig.height = 4.5, fig.env = "figure", 
+        fig.cap = NULL, fig.scap = NULL, fig.lp = "fig:", fig.subcap = NULL, 
+        fig.pos = "", out.width = 720, out.height = NULL, out.extra = NULL, 
+        fig.retina = 2, external = TRUE, sanitize = FALSE, interval = 1, 
+        aniopts = "controls,loop", warning = TRUE, error = FALSE, 
+        message = TRUE, render = NULL, ref.label = NULL, child = NULL, 
+        engine = "r", split = FALSE, include = TRUE, purl = TRUE, 
+        exercise.timelimit = 60, exercise.checker = "function (label = NULL, solution_code = NULL, user_code = NULL, \n    check_code = NULL, envir_result = NULL, evaluate_result = NULL, \n    envir_prep = NULL, last_value = NULL, stage = NULL, ..., \n    solution_eval_fn = NULL) \n{\n    (utils::getFromNamespace(\"check_exercise\", \"gradethis\"))(label = label, \n        solution_code = solution_code, user_code = user_code, \n        check_code = check_code, envir_result = envir_result, \n        evaluate_result = evaluate_result, envir_prep = envir_prep, \n        last_value = last_value, stage = stage, ...)\n}", 
+        exercise.error.check.code = "gradethis_error_checker()", 
+        label = "quiz4_1", exercise = TRUE, code = "qt(0.05, 24, lower.tail = FALSE)", 
+        out.width.px = 720, out.height.px = 432, params.src = "quiz4_1, exercise=TRUE", 
+        fig.num = 0, exercise.df_print = "default"), engine = "r", 
+    version = "4"), class = c("r", "tutorial_exercise")))
+</script>
+ 
+<script type="application/shiny-prerendered" data-context="server">
+`tutorial-exercise-quiz4_1---result` <- learnr:::setup_exercise_handler(reactive(req(input$`tutorial-exercise-quiz4_1---code-editor`)), session)
+output$`tutorial-exercise-quiz4_1---output` <- renderUI({
+  `tutorial-exercise-quiz4_1---result`()
+})
+</script>
+ 
+<script type="application/shiny-prerendered" data-context="server">
+learnr:::store_exercise_cache(structure(list(label = "quiz4_1--", global_setup = structure("knitr::opts_chunk$set(echo = FALSE)", chunk_opts = list(
+    label = "setup", include = FALSE)), setup = NULL, chunks = list(
+    list(label = "quiz4_1--", code = "qt(0.025,18,lower.tail = FALSE)\nqt(0.975,18)", 
+        opts = list(label = "\"quiz4_1--\"", exercise = "TRUE"), 
+        engine = "r")), code_check = NULL, error_check = NULL, 
+    check = NULL, solution = NULL, tests = NULL, options = list(
+        eval = FALSE, echo = TRUE, results = "markup", tidy = FALSE, 
+        tidy.opts = NULL, collapse = FALSE, prompt = FALSE, comment = NA, 
+        highlight = FALSE, size = "normalsize", background = "#F7F7F7", 
+        strip.white = TRUE, cache = 0, cache.path = "Chapter7_1_Shiny_cache/html/", 
+        cache.vars = NULL, cache.lazy = TRUE, dependson = NULL, 
+        autodep = FALSE, cache.rebuild = FALSE, fig.keep = "high", 
+        fig.show = "asis", fig.align = "default", fig.path = "Chapter7_1_Shiny_files/figure-html/", 
+        dev = "png", dev.args = NULL, dpi = 192, fig.ext = "png", 
+        fig.width = 7.5, fig.height = 4.5, fig.env = "figure", 
+        fig.cap = NULL, fig.scap = NULL, fig.lp = "fig:", fig.subcap = NULL, 
+        fig.pos = "", out.width = 720, out.height = NULL, out.extra = NULL, 
+        fig.retina = 2, external = TRUE, sanitize = FALSE, interval = 1, 
+        aniopts = "controls,loop", warning = TRUE, error = FALSE, 
+        message = TRUE, render = NULL, ref.label = NULL, child = NULL, 
+        engine = "r", split = FALSE, include = TRUE, purl = TRUE, 
+        exercise.timelimit = 60, exercise.checker = "function (label = NULL, solution_code = NULL, user_code = NULL, \n    check_code = NULL, envir_result = NULL, evaluate_result = NULL, \n    envir_prep = NULL, last_value = NULL, stage = NULL, ..., \n    solution_eval_fn = NULL) \n{\n    (utils::getFromNamespace(\"check_exercise\", \"gradethis\"))(label = label, \n        solution_code = solution_code, user_code = user_code, \n        check_code = check_code, envir_result = envir_result, \n        evaluate_result = evaluate_result, envir_prep = envir_prep, \n        last_value = last_value, stage = stage, ...)\n}", 
+        exercise.error.check.code = "gradethis_error_checker()", 
+        label = "quiz4_1--", exercise = TRUE, code = c("qt(0.025,18,lower.tail = FALSE)", 
+        "qt(0.975,18)"), out.width.px = 720, out.height.px = 432, 
+        params.src = "quiz4_1--, exercise=TRUE", fig.num = 0, 
+        exercise.df_print = "default"), engine = "r", version = "4"), class = c("r", 
+"tutorial_exercise")))
+</script>
+ 
+<script type="application/shiny-prerendered" data-context="server">
+`tutorial-exercise-quiz4_1-1-result` <- learnr:::setup_exercise_handler(reactive(req(input$`tutorial-exercise-quiz4_1-1-code-editor`)), session)
+output$`tutorial-exercise-quiz4_1-1-output` <- renderUI({
+  `tutorial-exercise-quiz4_1-1-result`()
+})
+</script>
+ 
+<script type="application/shiny-prerendered" data-context="server">
+learnr:::store_exercise_cache(structure(list(label = "quiz4_1-1", global_setup = structure("knitr::opts_chunk$set(echo = FALSE)", chunk_opts = list(
+    label = "setup", include = FALSE)), setup = NULL, chunks = list(
+    list(label = "quiz4_1-1", code = "qt(0.05,24, lower.tail = FALSE)\nqt(0.95,24)", 
+        opts = list(label = "\"quiz4_1-1\"", exercise = "TRUE"), 
+        engine = "r")), code_check = NULL, error_check = NULL, 
+    check = NULL, solution = NULL, tests = NULL, options = list(
+        eval = FALSE, echo = TRUE, results = "markup", tidy = FALSE, 
+        tidy.opts = NULL, collapse = FALSE, prompt = FALSE, comment = NA, 
+        highlight = FALSE, size = "normalsize", background = "#F7F7F7", 
+        strip.white = TRUE, cache = 0, cache.path = "Chapter7_1_Shiny_cache/html/", 
+        cache.vars = NULL, cache.lazy = TRUE, dependson = NULL, 
+        autodep = FALSE, cache.rebuild = FALSE, fig.keep = "high", 
+        fig.show = "asis", fig.align = "default", fig.path = "Chapter7_1_Shiny_files/figure-html/", 
+        dev = "png", dev.args = NULL, dpi = 192, fig.ext = "png", 
+        fig.width = 7.5, fig.height = 4.5, fig.env = "figure", 
+        fig.cap = NULL, fig.scap = NULL, fig.lp = "fig:", fig.subcap = NULL, 
+        fig.pos = "", out.width = 720, out.height = NULL, out.extra = NULL, 
+        fig.retina = 2, external = TRUE, sanitize = FALSE, interval = 1, 
+        aniopts = "controls,loop", warning = TRUE, error = FALSE, 
+        message = TRUE, render = NULL, ref.label = NULL, child = NULL, 
+        engine = "r", split = FALSE, include = TRUE, purl = TRUE, 
+        exercise.timelimit = 60, exercise.checker = "function (label = NULL, solution_code = NULL, user_code = NULL, \n    check_code = NULL, envir_result = NULL, evaluate_result = NULL, \n    envir_prep = NULL, last_value = NULL, stage = NULL, ..., \n    solution_eval_fn = NULL) \n{\n    (utils::getFromNamespace(\"check_exercise\", \"gradethis\"))(label = label, \n        solution_code = solution_code, user_code = user_code, \n        check_code = check_code, envir_result = envir_result, \n        evaluate_result = evaluate_result, envir_prep = envir_prep, \n        last_value = last_value, stage = stage, ...)\n}", 
+        exercise.error.check.code = "gradethis_error_checker()", 
+        label = "quiz4_1-1", exercise = TRUE, code = c("qt(0.05,24, lower.tail = FALSE)", 
+        "qt(0.95,24)"), out.width.px = 720, out.height.px = 432, 
+        params.src = "quiz4_1-1, exercise=TRUE", fig.num = 0, 
+        exercise.df_print = "default"), engine = "r", version = "4"), class = c("r", 
+"tutorial_exercise")))
+</script>
+ 
+<script type="application/shiny-prerendered" data-context="server">
+`tutorial-exercise-quiz4_2_1-result` <- learnr:::setup_exercise_handler(reactive(req(input$`tutorial-exercise-quiz4_2_1-code-editor`)), session)
+output$`tutorial-exercise-quiz4_2_1-output` <- renderUI({
+  `tutorial-exercise-quiz4_2_1-result`()
+})
+</script>
+ 
+<script type="application/shiny-prerendered" data-context="server">
+learnr:::store_exercise_cache(structure(list(label = "quiz4_2_1", global_setup = structure("knitr::opts_chunk$set(echo = FALSE)", chunk_opts = list(
+    label = "setup", include = FALSE)), setup = NULL, chunks = list(
+    list(label = "quiz4_2_1", code = "data= c(175, 190, 205, 193, 184,  207, 204, 193,  196 , 180)\nMean=mean(data);Mean ;SD= sd(data);SD", 
+        opts = list(label = "\"quiz4_2_1\"", exercise = "TRUE"), 
+        engine = "r")), code_check = NULL, error_check = NULL, 
+    check = NULL, solution = NULL, tests = NULL, options = list(
+        eval = FALSE, echo = TRUE, results = "markup", tidy = FALSE, 
+        tidy.opts = NULL, collapse = FALSE, prompt = FALSE, comment = NA, 
+        highlight = FALSE, size = "normalsize", background = "#F7F7F7", 
+        strip.white = TRUE, cache = 0, cache.path = "Chapter7_1_Shiny_cache/html/", 
+        cache.vars = NULL, cache.lazy = TRUE, dependson = NULL, 
+        autodep = FALSE, cache.rebuild = FALSE, fig.keep = "high", 
+        fig.show = "asis", fig.align = "default", fig.path = "Chapter7_1_Shiny_files/figure-html/", 
+        dev = "png", dev.args = NULL, dpi = 192, fig.ext = "png", 
+        fig.width = 7.5, fig.height = 4.5, fig.env = "figure", 
+        fig.cap = NULL, fig.scap = NULL, fig.lp = "fig:", fig.subcap = NULL, 
+        fig.pos = "", out.width = 720, out.height = NULL, out.extra = NULL, 
+        fig.retina = 2, external = TRUE, sanitize = FALSE, interval = 1, 
+        aniopts = "controls,loop", warning = TRUE, error = FALSE, 
+        message = TRUE, render = NULL, ref.label = NULL, child = NULL, 
+        engine = "r", split = FALSE, include = TRUE, purl = TRUE, 
+        exercise.timelimit = 60, exercise.checker = "function (label = NULL, solution_code = NULL, user_code = NULL, \n    check_code = NULL, envir_result = NULL, evaluate_result = NULL, \n    envir_prep = NULL, last_value = NULL, stage = NULL, ..., \n    solution_eval_fn = NULL) \n{\n    (utils::getFromNamespace(\"check_exercise\", \"gradethis\"))(label = label, \n        solution_code = solution_code, user_code = user_code, \n        check_code = check_code, envir_result = envir_result, \n        evaluate_result = evaluate_result, envir_prep = envir_prep, \n        last_value = last_value, stage = stage, ...)\n}", 
+        exercise.error.check.code = "gradethis_error_checker()", 
+        label = "quiz4_2_1", exercise = TRUE, code = c("data= c(175, 190, 205, 193, 184,  207, 204, 193,  196 , 180)", 
+        "Mean=mean(data);Mean ;SD= sd(data);SD"), out.width.px = 720, 
+        out.height.px = 432, params.src = "quiz4_2_1, exercise=TRUE", 
+        fig.num = 0, exercise.df_print = "default"), engine = "r", 
+    version = "4"), class = c("r", "tutorial_exercise")))
+</script>
+</p>
+
+<!--html_preserve-->
+
+<script type="application/shiny-prerendered" data-context="dependencies">
+{"type":"list","attributes":{},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["header-attrs"]},{"type":"character","attributes":{},"value":["2.14"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["rmd/h/pandoc"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["header-attrs.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["rmarkdown"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["2.14"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["bootstrap"]},{"type":"character","attributes":{},"value":["3.3.5"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["rmd/h/bootstrap"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["viewport"]}},"value":[{"type":"character","attributes":{},"value":["width=device-width, initial-scale=1"]}]},{"type":"character","attributes":{},"value":["js/bootstrap.min.js","shim/html5shiv.min.js","shim/respond.min.js"]},{"type":"character","attributes":{},"value":["css/bootstrap.min.css"]},{"type":"character","attributes":{},"value":["<style>h1 {font-size: 34px;}\n       h1.title {font-size: 38px;}\n       h2 {font-size: 30px;}\n       h3 {font-size: 24px;}\n       h4 {font-size: 18px;}\n       h5 {font-size: 16px;}\n       h6 {font-size: 12px;}\n       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}\n       pre:not([class]) { background-color: white }<\/style>"]},{"type":"NULL"},{"type":"character","attributes":{},"value":["rmarkdown"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["2.14"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["ioslides"]},{"type":"character","attributes":{},"value":["13.5.1"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["rmd/ioslides/ioslides-13.5.1"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["js/modernizr.custom.45394.js","js/prettify/prettify.js","js/prettify/lang-r.js","js/prettify/lang-yaml.js","js/hammer.js","js/slide-controller.js","js/slide-deck.js"]},{"type":"character","attributes":{},"value":["fonts/fonts.css","theme/css/default.css","theme/css/phone.css"]},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["rmarkdown"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["2.14"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["jquery"]},{"type":"character","attributes":{},"value":["3.6.0"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/3.6.0"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["jquery-3.6.0.min.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["jquerylib"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.1.4"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["font-awesome"]},{"type":"character","attributes":{},"value":["5.1.0"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["rmd/h/fontawesome"]}]},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["css/all.css","css/v4-shims.css"]},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["rmarkdown"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["2.14"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["bootbox"]},{"type":"character","attributes":{},"value":["5.5.2"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/bootbox"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["bootbox.min.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.11.2"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["idb-keyvalue"]},{"type":"character","attributes":{},"value":["3.2.0"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/idb-keyval"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["idb-keyval-iife-compat.min.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[false]},{"type":"character","attributes":{},"value":["0.11.2"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["tutorial"]},{"type":"character","attributes":{},"value":["0.11.2"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/tutorial"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["tutorial.js"]},{"type":"character","attributes":{},"value":["tutorial.css"]},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.11.2"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["ace"]},{"type":"character","attributes":{},"value":["1.10.1"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/ace"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["ace.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.11.2"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["clipboardjs"]},{"type":"character","attributes":{},"value":["2.0.10"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/clipboardjs"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["clipboard.min.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.11.2"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["ace"]},{"type":"character","attributes":{},"value":["1.10.1"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/ace"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["ace.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.11.2"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["clipboardjs"]},{"type":"character","attributes":{},"value":["2.0.10"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/clipboardjs"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["clipboard.min.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.11.2"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["ace"]},{"type":"character","attributes":{},"value":["1.10.1"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/ace"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["ace.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.11.2"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["clipboardjs"]},{"type":"character","attributes":{},"value":["2.0.10"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/clipboardjs"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["clipboard.min.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.11.2"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["ace"]},{"type":"character","attributes":{},"value":["1.10.1"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/ace"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["ace.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.11.2"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["clipboardjs"]},{"type":"character","attributes":{},"value":["2.0.10"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/clipboardjs"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["clipboard.min.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.11.2"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["ace"]},{"type":"character","attributes":{},"value":["1.10.1"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/ace"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["ace.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.11.2"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["clipboardjs"]},{"type":"character","attributes":{},"value":["2.0.10"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/clipboardjs"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["clipboard.min.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.11.2"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["ace"]},{"type":"character","attributes":{},"value":["1.10.1"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/ace"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["ace.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.11.2"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["clipboardjs"]},{"type":"character","attributes":{},"value":["2.0.10"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/clipboardjs"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["clipboard.min.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.11.2"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["ace"]},{"type":"character","attributes":{},"value":["1.10.1"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/ace"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["ace.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.11.2"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["clipboardjs"]},{"type":"character","attributes":{},"value":["2.0.10"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/clipboardjs"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["clipboard.min.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.11.2"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["ace"]},{"type":"character","attributes":{},"value":["1.10.1"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/ace"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["ace.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.11.2"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["clipboardjs"]},{"type":"character","attributes":{},"value":["2.0.10"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/clipboardjs"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["clipboard.min.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.11.2"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["ace"]},{"type":"character","attributes":{},"value":["1.10.1"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/ace"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["ace.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.11.2"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["clipboardjs"]},{"type":"character","attributes":{},"value":["2.0.10"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/clipboardjs"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["clipboard.min.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.11.2"]}]}]}
+</script>
+
+<!--/html_preserve-->
+
+<!--html_preserve-->
+
+<script type="application/shiny-prerendered" data-context="execution_dependencies">
+{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["packages"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["packages","version"]},"class":{"type":"character","attributes":{},"value":["data.frame"]},"row.names":{"type":"integer","attributes":{},"value":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91,92,93,94]}},"value":[{"type":"character","attributes":{},"value":["airports","assertthat","backports","base","broom","bslib","cellranger","cherryblossom","cli","colorspace","compiler","crayon","curl","datasets","DBI","dbplyr","digest","dplyr","ellipsis","evaluate","fansi","fastmap","forcats","fs","gargle","generics","ggplot2","glue","googledrive","googlesheets4","gradethis","graphics","grDevices","grid","gtable","haven","highr","hms","htmltools","htmlwidgets","httpuv","httr","jpeg","jquerylib","jsonlite","knitr","later","learnr","learnrhash","lifecycle","lubridate","magrittr","methods","mime","modelr","munsell","openintro","pillar","pkgconfig","png","promises","purrr","R6","Rcpp","readr","readxl","reprex","rlang","rmarkdown","rprojroot","rstudioapi","rvest","sass","scales","shiny","stats","stringi","stringr","tibble","tidyr","tidyselect","tidyverse","tinytex","tools","tzdb","usdata","utf8","utils","vctrs","withr","xfun","xml2","xtable","yaml"]},{"type":"character","attributes":{},"value":["0.1.0","0.2.1","1.4.1","4.1.3","0.8.0","0.3.1","1.1.0","0.1.0","3.3.0","2.0-3","4.1.3","1.5.1","4.3.2","4.1.3","1.1.2","2.1.1","0.6.29","1.0.9","0.3.2","0.15","1.0.3","1.1.0","0.5.1","1.5.2","1.2.0","0.1.2","3.3.6","1.6.2","2.0.0","1.0.0","0.2.11.9000","4.1.3","4.1.3","4.1.3","0.3.0","2.5.0","0.9","1.1.1","0.5.2","1.5.4","1.6.5","1.4.3","0.1-9","0.1.4","1.8.0","1.39","1.3.0","0.11.2","0.2.0","1.0.1","1.8.0","2.0.3","4.1.3","0.12","0.1.8","0.5.0","2.3.0","1.7.0","2.0.3","0.1-7","1.2.0.1","0.3.4","2.5.1","1.0.8.3","2.1.2","1.4.0","2.0.1","1.0.2","2.14","2.0.3","0.13","1.0.2","0.4.1","1.2.0","1.7.2","4.1.3","1.7.6","1.4.0","3.1.7","1.2.0","1.1.2","1.3.2","0.39","4.1.3","0.3.0","0.2.0","1.2.2","4.1.3","0.4.1","2.5.0","0.31","1.3.3","1.8-4","2.3.5"]}]}]}
+</script>
+
+<!--/html_preserve--></article></slide>
+
+
+  <slide class="backdrop"></slide>
+
+</slides>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+<!-- map slide visiblity events into shiny -->
+<script>
+  (function() {
+    if (window.jQuery) {
+       window.jQuery(document).on('slideleave', function(e) {
+         window.jQuery(e.target).trigger('hidden');
+      });
+       window.jQuery(document).on('slideenter', function(e) {
+         window.jQuery(e.target).trigger('shown');
+      });
+    }
+  })();
+</script>
+
+</body>
+</html>

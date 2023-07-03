@@ -1,0 +1,595 @@
+
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+
+<meta charset="utf-8">
+
+
+
+<!-- begin SEO -->
+
+
+
+
+
+
+
+
+
+<title>Chapter 9   MATH 224 - Intro to Stat</title>
+
+
+
+
+
+
+
+<meta property="og:locale" content="en-US">
+<meta property="og:site_name" content="MATH 224 - Intro to Stat">
+<meta property="og:title" content="Chapter 9">
+
+
+  <link rel="canonical" href="http://localhost:4000/files/Slides/ShinySlides/Chapter%209/Chapter9_3_Shiny/Chapter9_3_Shiny.Rmd">
+  <meta property="og:url" content="http://localhost:4000/files/Slides/ShinySlides/Chapter%209/Chapter9_3_Shiny/Chapter9_3_Shiny.Rmd">
+
+
+
+
+
+
+
+  
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <script type="application/ld+json">
+    {
+      "@context" : "http://schema.org",
+      "@type" : "Person",
+      "name" : "Intro To Stat NCAT",
+      "url" : "http://localhost:4000",
+      "sameAs" : null
+    }
+  </script>
+
+
+
+
+
+
+<!-- end SEO -->
+
+
+<link href="http://localhost:4000/feed.xml" type="application/atom+xml" rel="alternate" title="MATH 224 - Intro to Stat Feed">
+
+<!-- http://t.co/dKP3o1e -->
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="http://localhost:4000/assets/css/main.css">
+
+<meta http-equiv="cleartype" content="on">
+    
+
+<!-- start custom head snippets -->
+
+<link rel="apple-touch-icon" sizes="57x57" href="http://localhost:4000/images/apple-touch-icon-57x57.png?v=M44lzPylqQ">
+<link rel="apple-touch-icon" sizes="60x60" href="http://localhost:4000/images/apple-touch-icon-60x60.png?v=M44lzPylqQ">
+<link rel="apple-touch-icon" sizes="72x72" href="http://localhost:4000/images/apple-touch-icon-72x72.png?v=M44lzPylqQ">
+<link rel="apple-touch-icon" sizes="76x76" href="http://localhost:4000/images/apple-touch-icon-76x76.png?v=M44lzPylqQ">
+<link rel="apple-touch-icon" sizes="114x114" href="http://localhost:4000/images/apple-touch-icon-114x114.png?v=M44lzPylqQ">
+<link rel="apple-touch-icon" sizes="120x120" href="http://localhost:4000/images/apple-touch-icon-120x120.png?v=M44lzPylqQ">
+<link rel="apple-touch-icon" sizes="144x144" href="http://localhost:4000/images/apple-touch-icon-144x144.png?v=M44lzPylqQ">
+<link rel="apple-touch-icon" sizes="152x152" href="http://localhost:4000/images/apple-touch-icon-152x152.png?v=M44lzPylqQ">
+<link rel="apple-touch-icon" sizes="180x180" href="http://localhost:4000/images/apple-touch-icon-180x180.png?v=M44lzPylqQ">
+<link rel="icon" type="image/png" href="http://localhost:4000/images/favicon-32x32.png?v=M44lzPylqQ" sizes="32x32">
+<link rel="icon" type="image/png" href="http://localhost:4000/images/android-chrome-192x192.png?v=M44lzPylqQ" sizes="192x192">
+<link rel="icon" type="image/png" href="http://localhost:4000/images/favicon-96x96.png?v=M44lzPylqQ" sizes="96x96">
+<link rel="icon" type="image/png" href="http://localhost:4000/images/favicon-16x16.png?v=M44lzPylqQ" sizes="16x16">
+<link rel="manifest" href="http://localhost:4000/images/manifest.json?v=M44lzPylqQ">
+<link rel="mask-icon" href="http://localhost:4000/images/safari-pinned-tab.svg?v=M44lzPylqQ" color="#000000">
+<link rel="shortcut icon" href="/images/favicon.ico?v=M44lzPylqQ">
+<meta name="msapplication-TileColor" content="#000000">
+<meta name="msapplication-TileImage" content="http://localhost:4000/images/mstile-144x144.png?v=M44lzPylqQ">
+<meta name="msapplication-config" content="http://localhost:4000/images/browserconfig.xml?v=M44lzPylqQ">
+<meta name="theme-color" content="#ffffff">
+<link rel="stylesheet" href="http://localhost:4000/assets/css/academicons.css"/>
+
+<script type="text/x-mathjax-config"> MathJax.Hub.Config({ TeX: { equationNumbers: { autoNumber: "all" } } }); </script>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/latest.js?config=TeX-MML-AM_CHTML' async></script>
+
+<!-- end custom head snippets -->
+
+  </head>
+
+  <body>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        <button><div class="navicon"></div></button>
+        <ul class="visible-links">
+          <li class="masthead__menu-item masthead__menu-item--lg"><a href="http://localhost:4000/">MATH 224 - Intro to Stat</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="http://localhost:4000/home/">Home</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="http://localhost:4000/syllabus/">Syllabus</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="http://localhost:4000/slides/">Slides</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="http://localhost:4000/assignments/">Assignments</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="http://localhost:4000/labs/">Computing Labs</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="http://localhost:4000/tutorials/">R Tutorials</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="http://localhost:4000/dap/">Data Analysis Project</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="http://localhost:4000/assessments/">Assessments</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="http://localhost:4000/research/">Research/Publication</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="http://localhost:4000/manual/">Implementation Manual</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="http://localhost:4000/workshop/">Faculty Workshops</a></li>
+          
+        </ul>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+    
+
+
+
+
+
+<div id="main" role="main">
+  
+
+
+  <div class="sidebar sticky">
+  
+
+
+
+<div itemscope itemtype="http://schema.org/Person">
+
+  <div class="author__avatar">
+    
+    	<img src="http://localhost:4000/images/ncat-nsf-logo.jpg" class="author__avatar" alt="Introduction to Probability & Statistics">
+    
+  </div>
+
+  <div class="author__content">
+    <h3 class="author__name">Introduction to Probability & Statistics</h3>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">Follow</button>
+    <ul class="author__urls social-icons">
+      
+        <li><i class="fa fa-fw fa-map-marker" aria-hidden="true"></i> NC A&T State University</li>
+      
+      
+      
+      
+      
+       
+      
+      
+      
+      
+      
+      
+      
+      
+      
+        <li><a href="https://github.com/IntroToStatNCAT/IntroToStatNCAT.github.io"><i class="fab fa-fw fa-github" aria-hidden="true"></i> Github</a></li>
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+    </ul>
+  </div>
+</div>
+
+  
+  </div>
+
+
+  <article class="page" itemscope itemtype="http://schema.org/CreativeWork">
+    <meta itemprop="headline" content="Chapter 9">
+    
+    
+    
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 class="page__title" itemprop="headline">Chapter 9
+</h1>
+          
+        
+        
+        
+        
+             
+        
+    
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        ```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+```{r, echo=F, message=F, warning=F}
+library(datasets)
+library(tidyverse)
+library(shiny)
+library(here)
+library(faraway)
+library(xtable)
+library(broom)
+library(scales)
+library(jpeg)
+library(openintro)
+library(learnr)
+library(readr)
+library(knitr)
+library(png)
+library(gradethis) #remotes::install_github("rstudio/gradethis")
+library(learnrhash) #devtools::install_github("rundel/learnrhash")
+library(grid)
+library(GGally)
+library(tinytex)
+library(DAAG)
+library(Sleuth3)
+library(ROCR)
+data(allbacks)
+data(COL)
+```
+
+
+## Acknowledgement
+
+<center>
+<div class="black">
+These notes use content from OpenIntro Statistics Slides by   
+
+Mine Cetinkaya-Rundel.
+</div>
+</center>
+
+
+# Checking model conditions using graphs
+
+## Modeling conditions
+<div class="black">
+$$\hat{y} = \beta_0 + \beta_1 x_1 + \beta_2 x_2 + \cdots + \beta_p x_p$$ 
+
+
+The model depends on the following conditions; 
+
+- Residuals are nearly normal (less important for larger data sets)
+
+- Residuals have constant variability
+
+- Residuals are independent
+
+- Each variable is linearly related to the outcome
+
+We often use graphical methods to check the validity of these conditions, which we will go through in detail in the following slides.
+</div>
+
+
+## Nearly normal residuals
+<div class="black">
+
+Normal probability plot and/or histogram of residuals:
+
+```{r, echo=F, message=F, warning=F, out.width="80%",fig.align='center'}
+d = read.csv(file = "beauty.csv")
+
+# final model
+
+m_final = lm(profevaluation ~ beauty + gender + age + formal + native + tenure, data = d)
+
+
+# nearly normal residuals
+
+par(mar=c(2,4,2,1), las=1, mgp=c(3,0.7,0), cex.lab = 1.5, cex.main = 2, cex.axis = 1.25)
+
+hist(m_final$residuals, main = "Histogram of residuals", col = COL[1])
+```
+
+<div class="red">
+Does this condition appear to be satisfied?
+</div>
+
+</div>
+
+## Constant variability in residuals
+<div class="black">
+
+Scatterplot of residuals and/or absolute value of residuals vs. fitted (predicted):
+
+
+```{r, echo=F, message=F, warning=F, out.width="80%",fig.align='center'}
+par(mar=c(4,4,2,1), las=1, mgp=c(3,0.7,0), cex.lab = 1.5, cex.main = 1.25,cex.axis = 1.25, mfrow = c(1,2))
+
+plot(m_final$residuals ~ m_final$fitted, main = "Residuals vs. fitted", pch = 19, col = COL[1,2], ylab = "residuals", xlab = "fitted", cex = 2)
+abline(h = 0, lty = 3, lwd = 4)
+
+plot(abs(m_final$residuals) ~ m_final$fitted, main = "Absolute value of residuals vs. fitted", pch = 19, col = COL[1,2], ylab = "abs(residuals)", xlab = "fitted", cex = 2)
+
+```
+
+<div class="red">
+Does this condition appear to be satisfied?
+</div>
+
+</div>
+
+## Checking constant variance - recap
+<div class="black">
+
+- When we did simple linear regression (one explanatory variable) we checked the constant variance condition using a plot of **residuals vs. x**.
+
+- With multiple linear regression (2+ explanatory variables) we checked the constant variance condition using a plot of **residuals vs. fitted.** 
+
+<div class="red">
+Why are we using different plots?
+</div>
+
+In multiple linear regression there are many explanatory variables, so a plot of residuals vs. one of them wouldn't give us the complete picture.
+</div>
+
+## Independent residuals
+<div class="black">
+Scatterplot of residuals vs. order of data collection:
+
+```{r, echo=F, message=F, warning=F, out.height="70%",fig.align='center'}
+par(mar=c(4,4,2,1), las=1, mgp=c(3,0.7,0), cex.lab = 1.5, cex.axis = 1.25, mfrow = c(1,1))
+
+plot(m_final$residuals, main = "Residuals vs. order of data collection", pch = 19, col = COL[1,2], ylab = "residuals", xlab = "order of data collection", cex = 2)
+
+abline(h = 0, lty = 3, lwd = 4)
+```
+
+<div class="red">
+Does this condition appear to be satisfied?
+</div>
+
+</div>
+
+
+## More on the condition of independent residuals
+<div class="black">
+
+
+- Checking for independent residuals allows us to indirectly check for independent observations.
+
+- If observations and residuals are independent, we would not expect to see an increasing or decreasing trend in the scatterplot of residuals vs. order of data collection.
+
+- This condition is often violated when we have time series data. Such data require more advanced time series regression techniques for proper analysis.
+</div>
+
+
+
+## Linear relationships
+<div class="black">
+Scatterplot of residuals vs. each (numerical) explanatory variable:
+
+```{r, echo=F, message=F, warning=F, out.width="50%",fig.align='center'}
+par(mar=c(4,4,1,1), las=1, mgp=c(3,0.7,0), cex.lab = 1.8, cex.axis = 1.25, mfrow = c(1,2))
+
+plot(m_final$residuals ~ d$beauty, pch = 19, col = COL[1,2], xlab = "beauty", ylab = "professor evaluation", cex = 2)
+abline(h = 0, lty = 3, lwd = 4)
+
+plot(m_final$residuals ~ d$age, pch = 19, col = COL[1,2], xlab = "age", ylab = "professor evaluation", cex = 2)
+abline(h = 0, lty = 3, lwd = 6)
+```
+
+<div class="red">
+Does this condition appear to be satisfied?
+
+
+<font size= "3">
+Note: We use residuals instead of the predictors on the y-axis so that we can still check for linearity without worrying about other possible violations like collinearity between the predictors.
+</font>
+</div>
+
+</div>
+
+## Several options for improving a model
+<div class="black">
+
+- Transforming variables
+
+- Seeking out additional variables to fill model gaps
+
+- Using more advanced methods that would account for challenges around inconsistent variability or nonlinear relationships between predictors and the outcome.
+
+
+## Transformations
+<div class="black">
+
+If the concern with the model is non-linear relationships between the explanatory 
+variable(s) and the response variable, transforming the response variable can be helpful. 
+
+
+
+- Log transformation (log $y$)
+
+- Square root transformation ($\sqrt{y}$)
+
+- Inverse transformation ($1/y$)
+
+- Truncation (cap the max value possible)
+
+
+It is also possible to apply transformations to the explanatory variable(s), however 
+such transformations tend to make the model coefficients even harder to interpret.
+</div>
+
+
+## Models can be wrong, but useful
+<div class="black">
+
+<quote>
+All models are wrong, but some are useful. - George Box
+</quote>
+
+
+
+- No model is perfect, but even imperfect models can be useful, as long as we are clear and report the model's shortcomings.
+
+- If conditions are grossly violated, we should not report the model results, but instead consider a new model, even if it means learning more statistical methods or hiring someone who can help.
+
+</div>
+
+
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+
+
+
+
+      </footer>
+
+      
+
+      
+
+
+    </div>
+
+    
+  </article>
+
+  
+  
+</div>
+
+
+    <div class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+<a href="/sitemap/">Sitemap</a>
+<!-- end custom footer snippets -->
+
+        
+
+<div class="page__footer-follow">
+  <ul class="social-icons">
+    
+      <li><strong>Follow:</strong></li>
+    
+    
+    
+    
+      <li><a href="http://github.com/IntroToStatNCAT/IntroToStatNCAT.github.io"><i class="fab fa-github" aria-hidden="true"></i> GitHub</a></li>
+    
+    
+    <li><a href="http://localhost:4000/feed.xml"><i class="fa fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2023 Intro To Stat NCAT. Powered by <a href="http://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://github.com/academicpages/academicpages.github.io">AcademicPages</a>, a fork of <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    <script src="http://localhost:4000/assets/js/main.min.js"></script>
+
+
+
+
+  <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', '', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+
+
+
+  </body>
+</html>
+

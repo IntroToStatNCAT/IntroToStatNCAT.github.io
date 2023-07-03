@@ -1,0 +1,631 @@
+
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+
+<meta charset="utf-8">
+
+
+
+<!-- begin SEO -->
+
+
+
+
+
+
+
+
+
+<title>Chapter 6   MATH 224 - Intro to Stat</title>
+
+
+
+
+
+
+
+<meta property="og:locale" content="en-US">
+<meta property="og:site_name" content="MATH 224 - Intro to Stat">
+<meta property="og:title" content="Chapter 6">
+
+
+  <link rel="canonical" href="http://localhost:4000/files/Slides/ShinySlides/Chapter%206/Chapter6_1_Shiny/Chapter6_1_Shiny.Rmd">
+  <meta property="og:url" content="http://localhost:4000/files/Slides/ShinySlides/Chapter%206/Chapter6_1_Shiny/Chapter6_1_Shiny.Rmd">
+
+
+
+
+
+
+
+  
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <script type="application/ld+json">
+    {
+      "@context" : "http://schema.org",
+      "@type" : "Person",
+      "name" : "Intro To Stat NCAT",
+      "url" : "http://localhost:4000",
+      "sameAs" : null
+    }
+  </script>
+
+
+
+
+
+
+<!-- end SEO -->
+
+
+<link href="http://localhost:4000/feed.xml" type="application/atom+xml" rel="alternate" title="MATH 224 - Intro to Stat Feed">
+
+<!-- http://t.co/dKP3o1e -->
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="http://localhost:4000/assets/css/main.css">
+
+<meta http-equiv="cleartype" content="on">
+    
+
+<!-- start custom head snippets -->
+
+<link rel="apple-touch-icon" sizes="57x57" href="http://localhost:4000/images/apple-touch-icon-57x57.png?v=M44lzPylqQ">
+<link rel="apple-touch-icon" sizes="60x60" href="http://localhost:4000/images/apple-touch-icon-60x60.png?v=M44lzPylqQ">
+<link rel="apple-touch-icon" sizes="72x72" href="http://localhost:4000/images/apple-touch-icon-72x72.png?v=M44lzPylqQ">
+<link rel="apple-touch-icon" sizes="76x76" href="http://localhost:4000/images/apple-touch-icon-76x76.png?v=M44lzPylqQ">
+<link rel="apple-touch-icon" sizes="114x114" href="http://localhost:4000/images/apple-touch-icon-114x114.png?v=M44lzPylqQ">
+<link rel="apple-touch-icon" sizes="120x120" href="http://localhost:4000/images/apple-touch-icon-120x120.png?v=M44lzPylqQ">
+<link rel="apple-touch-icon" sizes="144x144" href="http://localhost:4000/images/apple-touch-icon-144x144.png?v=M44lzPylqQ">
+<link rel="apple-touch-icon" sizes="152x152" href="http://localhost:4000/images/apple-touch-icon-152x152.png?v=M44lzPylqQ">
+<link rel="apple-touch-icon" sizes="180x180" href="http://localhost:4000/images/apple-touch-icon-180x180.png?v=M44lzPylqQ">
+<link rel="icon" type="image/png" href="http://localhost:4000/images/favicon-32x32.png?v=M44lzPylqQ" sizes="32x32">
+<link rel="icon" type="image/png" href="http://localhost:4000/images/android-chrome-192x192.png?v=M44lzPylqQ" sizes="192x192">
+<link rel="icon" type="image/png" href="http://localhost:4000/images/favicon-96x96.png?v=M44lzPylqQ" sizes="96x96">
+<link rel="icon" type="image/png" href="http://localhost:4000/images/favicon-16x16.png?v=M44lzPylqQ" sizes="16x16">
+<link rel="manifest" href="http://localhost:4000/images/manifest.json?v=M44lzPylqQ">
+<link rel="mask-icon" href="http://localhost:4000/images/safari-pinned-tab.svg?v=M44lzPylqQ" color="#000000">
+<link rel="shortcut icon" href="/images/favicon.ico?v=M44lzPylqQ">
+<meta name="msapplication-TileColor" content="#000000">
+<meta name="msapplication-TileImage" content="http://localhost:4000/images/mstile-144x144.png?v=M44lzPylqQ">
+<meta name="msapplication-config" content="http://localhost:4000/images/browserconfig.xml?v=M44lzPylqQ">
+<meta name="theme-color" content="#ffffff">
+<link rel="stylesheet" href="http://localhost:4000/assets/css/academicons.css"/>
+
+<script type="text/x-mathjax-config"> MathJax.Hub.Config({ TeX: { equationNumbers: { autoNumber: "all" } } }); </script>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/latest.js?config=TeX-MML-AM_CHTML' async></script>
+
+<!-- end custom head snippets -->
+
+  </head>
+
+  <body>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        <button><div class="navicon"></div></button>
+        <ul class="visible-links">
+          <li class="masthead__menu-item masthead__menu-item--lg"><a href="http://localhost:4000/">MATH 224 - Intro to Stat</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="http://localhost:4000/home/">Home</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="http://localhost:4000/syllabus/">Syllabus</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="http://localhost:4000/slides/">Slides</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="http://localhost:4000/assignments/">Assignments</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="http://localhost:4000/labs/">Computing Labs</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="http://localhost:4000/tutorials/">R Tutorials</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="http://localhost:4000/dap/">Data Analysis Project</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="http://localhost:4000/assessments/">Assessments</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="http://localhost:4000/research/">Research/Publication</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="http://localhost:4000/manual/">Implementation Manual</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="http://localhost:4000/workshop/">Faculty Workshops</a></li>
+          
+        </ul>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+    
+
+
+
+
+
+<div id="main" role="main">
+  
+
+
+  <div class="sidebar sticky">
+  
+
+
+
+<div itemscope itemtype="http://schema.org/Person">
+
+  <div class="author__avatar">
+    
+    	<img src="http://localhost:4000/images/ncat-nsf-logo.jpg" class="author__avatar" alt="Introduction to Probability & Statistics">
+    
+  </div>
+
+  <div class="author__content">
+    <h3 class="author__name">Introduction to Probability & Statistics</h3>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">Follow</button>
+    <ul class="author__urls social-icons">
+      
+        <li><i class="fa fa-fw fa-map-marker" aria-hidden="true"></i> NC A&T State University</li>
+      
+      
+      
+      
+      
+       
+      
+      
+      
+      
+      
+      
+      
+      
+      
+        <li><a href="https://github.com/IntroToStatNCAT/IntroToStatNCAT.github.io"><i class="fab fa-fw fa-github" aria-hidden="true"></i> Github</a></li>
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+    </ul>
+  </div>
+</div>
+
+  
+  </div>
+
+
+  <article class="page" itemscope itemtype="http://schema.org/CreativeWork">
+    <meta itemprop="headline" content="Chapter 6">
+    
+    
+    
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 class="page__title" itemprop="headline">Chapter 6
+</h1>
+          
+        
+        
+        
+        
+             
+        
+    
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        ```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+```{r, echo=F, message=F, warning=F}
+library(datasets)
+library(tidyverse)
+library(tikzDevice)
+library(shiny)
+library(scales)
+library(jpeg)
+library(openintro)
+library(dplyr)
+library(ggplot2)
+library(learnr)
+library(readr)
+library(knitr)
+library(png)
+library(gradethis) #remotes::install_github("rstudio/gradethis")
+library(learnrhash) #devtools::install_github("rundel/learnrhash")
+library(grid)
+library(tinytex)
+data("COL")
+
+
+
+
+```
+
+## Acknowledgement
+
+<center>
+<div class="black">
+These notes use content from OpenIntro Statistics Slides by
+
+Mine Cetinkaya-Rundel.
+</div>
+</center>
+
+## 6.1 Inference for a single proportion 
+
+<div class="black">
+This section is a revisit of what we learned in Chapter 5.
+
+- Parameter $p$ and point estimate $\hat{p}$
+
+- Central Limit Theorem for sample proportions
+
+- Parameter $p$ and point estimate $\hat{p}$
+
+- Standard Error
+
+- Margin of Error (ME)
+
+- Confidence Interval (CI)
+
+- Hypothesis Testing (HT)
+
+- Sample Size
+</div>
+
+## Parameter and point estimate
+
+<div class="red">
+We would like to estimate the proportion of all Americans who have good intuition about experimental design, i.e. would answer "500 get the drug, 500 don't"? What are the parameter of interest and the point estimate?
+</div>
+
+<div class="black">
+- **Parameter of interest:** Proportion of **all** Americans who have good intuition about experimental design.
+
+     $$\mathbf{p} \ \text{(a population proportion)}$$
+
+- **Point estimate:** Proportion of **sampled** Americans who have good intuition about experimental design.
+
+     $$\hat{\mathbf{p}} \ \text{(a sample proportion)}$$
+     
+</div>
+
+## CLT: Sample proportions are nearly normally distributed
+<font size="4">
+<div class="black">
+**Central limit theorem for proportions**
+Sample proportions will be nearly normally distributed with mean equal to the population proportion, $p$, and standard error equal to $\sqrt{\frac{p(1-p)}{n}}$.
+
+But of course this is true only under certain conditions:
+
+1) Independent observations;
+
+2) At least 10 successes and 10 failures
+
+
+Note: If $p$ is unknown (most cases), we use $\hat{p}$ in the calculation of the standard error.
+
+</div>
+</font>
+
+## Inference on a proportion
+<div class="black">
+
+- We can estimate a population  proportion using  a sample and $\color{blue}{confidence \hspace{0.2cm}interval}$, which we know is always of the form 
+
+
+$${\textbf{point estimate} \mathbf{\pm} \textbf{ME}}$$
+
+- The margin of error is 
+
+    $\color{blue}{ME = critical\hspace{0.2cm} value \times standard \hspace{0.2cm} error}$ of the point estimate
+
+- The point estimate for proportions is $\color{blue}{\hat{p}}$
+
+- The critical value depends on the confidence level
+
+- Standard error of a sample proportion 
+$\color{blue}{SE_{\hat{p}}= \sqrt{\frac{p(1-p)}{n}} \sim \sqrt{\frac{\hat{p}(1-\hat{p})}{n}}}$
+</div>
+
+## Example
+
+<div class="black">
+<div class="red"> 
+The GSS found that 571 out of 670 (85\%) Americans answered the question on experimental design correctly. Estimate (using a 95\% confidence interval) the proportion of all Americans who have good intuition about experimental design?
+</div>
+
+Given: $n = 670, \hat{p} = 0.85$. First, check conditions.
+
+- **Independence**: The sample is random, and 670 < 10\% of all Americans, therefore we can assume that one respondent's response is independent of another.
+
+- **Success-Failure**: 571 people answered correctly (successes) and 99 answered incorrectly (failures), both are greater than 10.
+</div>
+
+## Practice
+<div class="black">
+
+We are given that $n = 670, \hspace{0.2cm} \hat{p}= 0.85$, the standard error of the sample proportion is $SE = \sqrt{\frac{p(1-p)}{n}} \sim \sqrt{\frac{\hat{p}(1-\hat{p)}}{n}}$. Which of the below is the correct calculation of the 95\% confidence interval?
+
+
+A) ${0.85} \pm 1.96 \times \sqrt{\frac{0.85 \times 0.15}{670}} \rightarrow \color{red}{(0.82, 0.88)}$
+
+B) $0.85 \pm 1.65 \times \sqrt{\frac{0.85 \times 0.15}{670}}$
+
+C) $0.85 \pm 1.96 \times \frac{0.85 \times 0.15}{\sqrt{670}}$
+
+D) $571 \pm 1.96 \times \sqrt{\frac{571 \times 99}{670}}$
+</div>
+
+
+## Choosing a (minimum) sample size
+<div class="black">
+
+How many people should you sample in order to cut the margin of error of a 95\% confidence interval down to 1\%?
+
+
+$$ME = z_{\frac{\alpha}{2}} \times SE$$
+$$
+\begin{align*}
+0.01 &\geq 1.96 \times \sqrt{\frac{0.85 \times 0.15}{n}}\color{red}{\rightarrow \text{Use } \hat{p} \text{ from previous study}}\\
+0.01^2 &\geq 1.96^2 \times \frac{0.85 \times 0.15}{n}\\
+n &\geq \frac{1.96^2 \times 0.85 \times 0.15}{0.01^2}\\
+n &\geq 4898.04 \color{red}{\rightarrow \text{n should be at least 4,899}}
+\end{align*}
+$$
+</div>
+
+## <font size="7"> Choosing the sample size given margin of error </font>
+<div class= "black">
+<font size= "4">
+Use 
+$$M.E = z_{\frac{\alpha}{2}} \sqrt{\frac{p(1-p)}{n}} \rightarrow \frac{M.E}{z_{\frac{\alpha}{2}}} = \sqrt{\frac{p(1-p)}{n}}$$
+
+$$\big(\frac{M.E}{z_{\alpha/2}}\big)^2 = {\frac{p(1-p)}{n}} \rightarrow n = \frac{p(1-p)}{\big( \frac{M.E}{z_{\frac{\alpha}{2}}}\big)^2}$$
+
+$$n= {\frac{p(1-p)z^2_{\frac{\alpha}{2}}}{(M.E)^2}}$$
+So to control the ME under the specified level, take 
+
+$$ n \ge {\frac{p(1-p)z^2_{\alpha/2}}{(M.E)^2}}$$ (i.e., take the ceiling integer)
+</font>
+</div>
+
+## <font size="8"> Choosing the sample size if there isn’t a previous study (Contd) </font>
+<font size= "4">
+<div class= "black">
+
+* The general sample size formula is: 
+$$ n \ge {\frac{p(1-p)z^2_{\alpha/2}}{(M.E)^2}}$$
+
+* When we have no value for $p$ from a previous study nor $\hat{p}$, we use $p=0.5$.  
+
+* This is because the function $f(p) = p(1-p)$ for $0≤𝑝≤1$ reaches its maximum at $$p =\frac{1}{2}, f(\frac{1}{2}) = \frac{1}{4}$$ 
+
+* Substituting $p=\frac{1}{2}$ in the general formula above gives
+
+$$n \ge {\frac{z^2_{\alpha/2}}{4(M.E)^2}}$$
+
+</div>
+</font>
+
+## CI vs. HT for proportions
+<div class="black">
+
+- Success-Failure conditions:
+
+    - CI: At least 10 **observed** successes and failures.
+     - HT: At least 10 **expected** successes and failures, calculated using the null value $p_0$
+  
+- Standard error:
+          
+    - CI: Calculate using observed sample proportion:
+    $SE = \sqrt{\frac{\hat{p}(1-\hat{p})}{n}}$.
+    
+    - HT: Calculate using the null value: 
+    $SE = \sqrt{\frac{p_0(1-p_0)}{n}}$
+</div>
+
+## Example 
+<font size= "5">
+<div class="black">
+The GSS found that 571 out of 670 (85\%) Americans answered the question on experimental design correctly. Do these data provide convincing evidence that more than 80\% of Americans have a good intuition about experimental design?
+
+**Solution**
+
+- $H_0: p = 0.80 \hspace{1.5cm} H_a: p>0.80$
+
+- $p_0=0.80, 𝑛=670, n𝑝_0=536>10,𝑛(1−𝑝_0 )=134>10$
+\
+$SE = \sqrt{\frac{p_0(1-p_0)}{n}}= \sqrt{\frac{0.80(1-0.80}{670}} = 0.01545$
+
+If $H_0$ were true, then $\hat{p} \sim N(0.80,0.01545)$.
+
+- $Z= \frac{0.85-0.80}{0.01545} = 3.2362$
+
+- P-value = $𝑃(\hat{p}>0.85)= 1-0.9994 = 0.0006$
+</div>
+</font>
+
+## Example (Contd)
+<div class="black">
+```{r,out.width="50%"}
+s <- readPNG("exp.png")
+grid.raster(s)
+```
+
+
+Since the p-value is low, we reject $H_0$. The data provide convincing evidence that more than 80\% of Americans have a good intuition on experimental design.
+
+</div>
+
+
+
+## Recap - Inference for one proportion (end of 6.1)
+<div class="black">
+- Popular parameter: $p$. 
+   point estimate: $\hat{p}$
+
+- Conditions:
+      
+    - Independence
+          - Random sample and 10% condition
+    - At least 10 successes and failures
+   
+
+- Standard error: $SE = \sqrt{\frac{p(1-p)}{n}}$
+  
+    - for CI: use $\hat{p}$
+    - for HT: use $p_0$
+</div>
+
+
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+
+
+
+
+      </footer>
+
+      
+
+      
+
+
+    </div>
+
+    
+  </article>
+
+  
+  
+</div>
+
+
+    <div class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+<a href="/sitemap/">Sitemap</a>
+<!-- end custom footer snippets -->
+
+        
+
+<div class="page__footer-follow">
+  <ul class="social-icons">
+    
+      <li><strong>Follow:</strong></li>
+    
+    
+    
+    
+      <li><a href="http://github.com/IntroToStatNCAT/IntroToStatNCAT.github.io"><i class="fab fa-github" aria-hidden="true"></i> GitHub</a></li>
+    
+    
+    <li><a href="http://localhost:4000/feed.xml"><i class="fa fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2023 Intro To Stat NCAT. Powered by <a href="http://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://github.com/academicpages/academicpages.github.io">AcademicPages</a>, a fork of <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    <script src="http://localhost:4000/assets/js/main.min.js"></script>
+
+
+
+
+  <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', '', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+
+
+
+  </body>
+</html>
+

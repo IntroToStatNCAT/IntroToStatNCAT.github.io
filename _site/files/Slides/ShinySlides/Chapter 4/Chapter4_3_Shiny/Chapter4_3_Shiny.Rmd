@@ -1,0 +1,831 @@
+
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+
+<meta charset="utf-8">
+
+
+
+<!-- begin SEO -->
+
+
+
+
+
+
+
+
+
+<title>Chapter 4   MATH 224 - Intro to Stat</title>
+
+
+
+
+
+
+
+<meta property="og:locale" content="en-US">
+<meta property="og:site_name" content="MATH 224 - Intro to Stat">
+<meta property="og:title" content="Chapter 4">
+
+
+  <link rel="canonical" href="http://localhost:4000/files/Slides/ShinySlides/Chapter%204/Chapter4_3_Shiny/Chapter4_3_Shiny.Rmd">
+  <meta property="og:url" content="http://localhost:4000/files/Slides/ShinySlides/Chapter%204/Chapter4_3_Shiny/Chapter4_3_Shiny.Rmd">
+
+
+
+
+
+
+
+  
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <script type="application/ld+json">
+    {
+      "@context" : "http://schema.org",
+      "@type" : "Person",
+      "name" : "Intro To Stat NCAT",
+      "url" : "http://localhost:4000",
+      "sameAs" : null
+    }
+  </script>
+
+
+
+
+
+
+<!-- end SEO -->
+
+
+<link href="http://localhost:4000/feed.xml" type="application/atom+xml" rel="alternate" title="MATH 224 - Intro to Stat Feed">
+
+<!-- http://t.co/dKP3o1e -->
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="http://localhost:4000/assets/css/main.css">
+
+<meta http-equiv="cleartype" content="on">
+    
+
+<!-- start custom head snippets -->
+
+<link rel="apple-touch-icon" sizes="57x57" href="http://localhost:4000/images/apple-touch-icon-57x57.png?v=M44lzPylqQ">
+<link rel="apple-touch-icon" sizes="60x60" href="http://localhost:4000/images/apple-touch-icon-60x60.png?v=M44lzPylqQ">
+<link rel="apple-touch-icon" sizes="72x72" href="http://localhost:4000/images/apple-touch-icon-72x72.png?v=M44lzPylqQ">
+<link rel="apple-touch-icon" sizes="76x76" href="http://localhost:4000/images/apple-touch-icon-76x76.png?v=M44lzPylqQ">
+<link rel="apple-touch-icon" sizes="114x114" href="http://localhost:4000/images/apple-touch-icon-114x114.png?v=M44lzPylqQ">
+<link rel="apple-touch-icon" sizes="120x120" href="http://localhost:4000/images/apple-touch-icon-120x120.png?v=M44lzPylqQ">
+<link rel="apple-touch-icon" sizes="144x144" href="http://localhost:4000/images/apple-touch-icon-144x144.png?v=M44lzPylqQ">
+<link rel="apple-touch-icon" sizes="152x152" href="http://localhost:4000/images/apple-touch-icon-152x152.png?v=M44lzPylqQ">
+<link rel="apple-touch-icon" sizes="180x180" href="http://localhost:4000/images/apple-touch-icon-180x180.png?v=M44lzPylqQ">
+<link rel="icon" type="image/png" href="http://localhost:4000/images/favicon-32x32.png?v=M44lzPylqQ" sizes="32x32">
+<link rel="icon" type="image/png" href="http://localhost:4000/images/android-chrome-192x192.png?v=M44lzPylqQ" sizes="192x192">
+<link rel="icon" type="image/png" href="http://localhost:4000/images/favicon-96x96.png?v=M44lzPylqQ" sizes="96x96">
+<link rel="icon" type="image/png" href="http://localhost:4000/images/favicon-16x16.png?v=M44lzPylqQ" sizes="16x16">
+<link rel="manifest" href="http://localhost:4000/images/manifest.json?v=M44lzPylqQ">
+<link rel="mask-icon" href="http://localhost:4000/images/safari-pinned-tab.svg?v=M44lzPylqQ" color="#000000">
+<link rel="shortcut icon" href="/images/favicon.ico?v=M44lzPylqQ">
+<meta name="msapplication-TileColor" content="#000000">
+<meta name="msapplication-TileImage" content="http://localhost:4000/images/mstile-144x144.png?v=M44lzPylqQ">
+<meta name="msapplication-config" content="http://localhost:4000/images/browserconfig.xml?v=M44lzPylqQ">
+<meta name="theme-color" content="#ffffff">
+<link rel="stylesheet" href="http://localhost:4000/assets/css/academicons.css"/>
+
+<script type="text/x-mathjax-config"> MathJax.Hub.Config({ TeX: { equationNumbers: { autoNumber: "all" } } }); </script>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/latest.js?config=TeX-MML-AM_CHTML' async></script>
+
+<!-- end custom head snippets -->
+
+  </head>
+
+  <body>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        <button><div class="navicon"></div></button>
+        <ul class="visible-links">
+          <li class="masthead__menu-item masthead__menu-item--lg"><a href="http://localhost:4000/">MATH 224 - Intro to Stat</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="http://localhost:4000/home/">Home</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="http://localhost:4000/syllabus/">Syllabus</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="http://localhost:4000/slides/">Slides</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="http://localhost:4000/assignments/">Assignments</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="http://localhost:4000/labs/">Computing Labs</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="http://localhost:4000/tutorials/">R Tutorials</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="http://localhost:4000/dap/">Data Analysis Project</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="http://localhost:4000/assessments/">Assessments</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="http://localhost:4000/research/">Research/Publication</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="http://localhost:4000/manual/">Implementation Manual</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="http://localhost:4000/workshop/">Faculty Workshops</a></li>
+          
+        </ul>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+    
+
+
+
+
+
+<div id="main" role="main">
+  
+
+
+  <div class="sidebar sticky">
+  
+
+
+
+<div itemscope itemtype="http://schema.org/Person">
+
+  <div class="author__avatar">
+    
+    	<img src="http://localhost:4000/images/ncat-nsf-logo.jpg" class="author__avatar" alt="Introduction to Probability & Statistics">
+    
+  </div>
+
+  <div class="author__content">
+    <h3 class="author__name">Introduction to Probability & Statistics</h3>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">Follow</button>
+    <ul class="author__urls social-icons">
+      
+        <li><i class="fa fa-fw fa-map-marker" aria-hidden="true"></i> NC A&T State University</li>
+      
+      
+      
+      
+      
+       
+      
+      
+      
+      
+      
+      
+      
+      
+      
+        <li><a href="https://github.com/IntroToStatNCAT/IntroToStatNCAT.github.io"><i class="fab fa-fw fa-github" aria-hidden="true"></i> Github</a></li>
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+    </ul>
+  </div>
+</div>
+
+  
+  </div>
+
+
+  <article class="page" itemscope itemtype="http://schema.org/CreativeWork">
+    <meta itemprop="headline" content="Chapter 4">
+    
+    
+    
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 class="page__title" itemprop="headline">Chapter 4
+</h1>
+          
+        
+        
+        
+        
+             
+        
+    
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        ```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+```{r, echo=F, message=F, warning=F}
+library(tidyverse)
+library(readr)
+library(openintro)
+library(shiny)
+library(scales)
+library(jpeg)
+library(dplyr)
+library(ggplot2)
+library(learnr)
+library(knitr)
+library(png)
+library(gradethis) #remotes::install_github("rstudio/gradethis")
+library(learnrhash) #devtools::install_github("rundel/learnrhash")
+library(grid)
+library(datasets)
+
+data(COL)
+```
+
+## Acknowledgement
+
+<center>
+<div class="black">
+These notes use content from OpenIntro Statistics Slides by   
+
+Mine Cetinkaya-Rundel.
+</div>
+</center>
+
+
+## 4.3 Binomial distribution
+<div class="black">
+Binomial distribution is a discrete probability distribution of the number of successes in a sequence of $n$ independent experiments, each with its own two outcomes: 
+success (with probability $p$) 
+failure (with probability $q=1-p$).
+
+Binomial distribution is determined by parameters $n$ and $p$.
+
+- Bernoulli Trials
+- Combination coefficient formula – $n$ choose $k$
+- Binomial distribution formula (pdf)
+- Cumulative density distribution (cdf)
+- Mean,  Variance, and Standard deviation of Binomial Distribution
+- Unusual Observations
+- Histogram of Binomial Distribution (skewness, bell-shaped and $𝑛$,  $p$ )
+</div>
+
+
+## Binomial Random Variable and Distribution
+<div class="black">
+<font size="4">
+- **Binary Data** — For each trial or observation, there are two possible outcomes (dichotomous responses) for example,  Success/Failure; Accept/Decline an offer; vote Yes/No
+
+- **Bernoulli Trials** — For repeated $𝑛$ trials 
+
+    - Each of $𝑛$ trials has two possible outcomes. The outcome of interest is called a success (S), the other one as a failure (F)
+    - Each trial has the same probability of getting $S$. Let $P(S)=p$, then $P(F)=q=1-p
+    - The $n$ trials are independent. The probability of success in a trial remains unchanged given the outcomes of all other trials.
+
+- **Binomial Random Variable** — For Bernoulli  trials of 𝑛 times, in which we observe a binary data, let $𝑋$ be the number of getting success, then $X$ is a binomial random variable, and the possible values $x=0, 1, \dots,n$
+
+- **Binomial Distribution** — the probability distribution for Binomial Random Variable— there will be a formula for this 
+</font>
+</div>
+
+
+## Example 
+<div class="black">
+
+Assume that  35 %  of  people do not  use iPad. Suppose we randomly select four (4) individuals, What is the probability that exactly one (1) of them does not use iPad?
+
+Let’s call these people Allen (A), Brittany (B), Caroline (C), and  Damian (D). Each one of the four scenarios below will satisfy the  condition of “exactly 1 of them do not use iPad”:
+
+- Scenario 1: A does not, B, C, D use iPad:  0.35×0.65×0.65×0.65=0.0961 
+- Scenario 2: B does not, A, C, D use iPad:  0.65×0.35×0.65×0.65=0.0961
+- Scenario 3: C does not, A, B, D use iPad:  0.65×0.65×0.35×0.65=0.0961
+- Scenario 4: D does not, A, B, C use iPad:  0.65×0.65×0.65×0.35=0.0961
+
+The probability of exactly one 1 of 4 people does not use iPad is the sum of these probabilities.
+0.0961 + 0.0961 + 0.0961 + 0.0961 = 4 × 0.0961 = 0.3844
+
+</div>
+
+## Binomial Distribution
+<div class="black">
+<font size="4">
+The question from the prior slide asked for the probability of given number of successes, **k**, in a given number of trials, **n**, (k = 1 success in $n=4$ trials), and we calculated this probability as
+
+$${\# of scenarios \times P(single scenario)}$$
+- $\#$ of scenarios: there is a less tedious way to figure it out, we'll get to that shortly...
+
+- $P(\text{single scenario}) = p^k \cdot (1-p)^{(n-k)}$
+
+<div class="red">Note:</div> probability of success to the power of number of successes, probability of failure to the power of number of failures.
+
+$\normalsize$ The **Binomial distribution** describes the probability of having exactly $k$ successes in $n$ independent Bernoulli trials with probability of success $p$.
+
+
+$$P(X=k) = {n \choose k}p^k(1-p)^{(n-k)} = \frac{n!}{k! \cdot (n-k)!}p^k(1-p)^{(n-k)}, k=0,1,2,...n$$
+</font>
+</div>
+
+
+## Factorial and Combination
+<div class="black">
+
+* In the probability formula for binomial distribution, $𝑛!$ is read as $𝒏$ factorial :
+$𝑛!=1×2×3×…×𝑛$  for any positive inter $𝑛 $
+
+* $0!=1$
+
+* While ${n \choose k}$ is the combination, it shows the total possible ways of choosing $𝑘$ items from a collection of $𝑛$ items without ordering.
+
+Example:
+
+${4\choose 1}=\frac {4!}{1!3!}=4$, say, take a quiz with 4 questions, there are four ways of getting exactly 1 correct: CIII,  ICII, IICI, IIIC.
+
+${3\choose 2} =\frac{3!}{2!1!}=3$, say, given three fruits: an apple, an orange, and a pear, there are three ways that two fruits can be drawn from this set: apple and pear; apple and orange; orange and pear.
+
+</div>
+
+
+## Calculating the Number of Scenarios
+<font size="4">
+<div class="black">
+The **choose function** is useful for calculating the number of ways to choose $k$ successes in $n$ trials.
+
+$${n \choose x} = \frac{n!}{k! \cdot (n-k)!}$$
+* $k=7, n=9: {9 \choose 7} = \frac{9!}{7!(9-7)!} = \frac{9 \times 8 \times 7 }{7 \times (2 \times 1)} = 36$
+
+* $k=2, n=9: {9 \choose 2} = \frac{9!}{2!(9-2)!} = \frac{9 \times 8 \times 7!}{2 \times 1 \times 7!} = 36$
+
+Note: You can also use R for these calculations:
+
+```{r Quiz1,exercise=TRUE}
+factorial(9) #calculates 9!
+
+choose(9,2) #calculates 9 choose 2
+```
+</div>
+</font>
+
+
+## Properties of the Choose Function
+<div class="black">
+
+For any $0≤𝑘≤𝑛$,  
+
+$${n \choose k}= \frac{𝑛!}{𝑘!(𝑛−𝑘)!} \ \text{is equal to} \ {n \choose n-k} = \frac{𝑛!}{𝑘!(𝑛−𝑘)!}$$
+
+In other words, $𝑛$ choose $𝑘$ is the same as not choose $𝑛−𝑘$.
+
+Example 
+
+1) When $𝑘=0, {n \choose 0} = {n \choose n} = \frac{𝑛!}{𝑛!0!}=1$
+
+2) When $𝑘=1, {n \choose 1} = {n \choose n-1} = \frac{𝑛!}{𝑛-1!1!}=n$
+
+3) Then, ${7\choose 1}={7\choose 6}, {7\choose 2} = {7\choose 5}, \ \text{and}\ {7\choose 3} = {7\choose 4}$
+
+</div>
+
+## Example and Practice 
+<div class="black">
+<font size="3">
+Example: Historical data shows that about 51% of newborn babies are boys. If we randomly select four newborns, build the binomial model for the possible number of boys.
+
+Solution.  Let $X$ be the number of boys in sample of $n=4$ newborns. Then, the possible values of $X$ are $0, 1, 2, 3, 4$, with $p=0.51$.
+
+Check:  for the part in red in class (using R)
+```{r Quiz2, exercise=TRUE}
+choose(4,0) * 0.51^0 * (1-0.51)^4 #calculates P(X=0)
+choose(4,1) * 0.51^1 * (1-0.51)^3 #calculates P(X=1)
+P_x_le_1 = 0.0576 + 0.2400; P_x_le_1 #calculates P(X<=1)
+```
+
+<div style="float: left; width: 50%;">
+```{r, out.width= "60%"}
+lm <- readPNG("lm.png")
+grid.raster(lm)
+```
+</div>
+
+<div style="float: right; width: 50%;">
+$$
+\begin{align*}
+x \hspace{0.2cm}& \hspace{0.2cm} P(X=x) & \hspace{0.2cm} P(X\le x) \\
+0 \hspace{0.2cm}& \hspace{0.2cm} \color{red}{0.0576} & \hspace{0.2cm} \color{red}{0.0576}\\
+1 \hspace{0.2cm}& \hspace{0.2cm} \color{red}{0.2400} & \hspace{0.2cm} \color{red}{0.2976}\\
+2 \hspace{0.2cm}& \hspace{0.2cm} 0.3747 & \hspace{0.2cm} 0.6723\\
+3 \hspace{0.2cm}& \hspace{0.2cm} 0.2600 & \hspace{0.2cm} 0.9323\\
+4 \hspace{0.2cm}& \hspace{0.2cm} 0.0677 & \hspace{0.2cm} 1.000\\
+\end{align*}
+$$
+</div>
+</font>
+</div>
+
+## Example and Practice 
+<div class="black">
+<font size="3">
+Example: Historical data shows that about 51% of newborn babies are boys. If we randomly select four newborns, build the binomial model for the possible number of boys.
+
+Solution.  Let $X$ be the number of boys in sample of $n=4$ newborns. Then, the possible values of $X$ are $0, 1, 2, 3, 4$, with $p=0.51$.
+
+Check:  for the part in red in class (using R)
+```{r dbinom_0, exercise=TRUE}
+dbinom(x = 0, size = 4, prob = 0.51) #calculates P(X=0)
+dbinom(1, 4, 0.51) #calculates P(X=1); we can drop the argument label
+pbinom(1, 4, 0.51, lower.tail = TRUE) #calculates P(X<=1)
+```
+
+<div style="float: left; width: 50%;">
+```{r, out.width= "60%"}
+lm <- readPNG("lm.png")
+grid.raster(lm)
+```
+</div>
+
+<div style="float: right; width: 50%;">
+$$
+\begin{align*}
+x \hspace{0.2cm}& \hspace{0.2cm} P(X=x) & \hspace{0.2cm} P(X\le x) \\
+0 \hspace{0.2cm}& \hspace{0.2cm} \color{red}{0.0576} & \hspace{0.2cm} \color{red}{0.0576}\\
+1 \hspace{0.2cm}& \hspace{0.2cm} \color{red}{0.2400} & \hspace{0.2cm} \color{red}{0.2976}\\
+2 \hspace{0.2cm}& \hspace{0.2cm} 0.3747 & \hspace{0.2cm} 0.6723\\
+3 \hspace{0.2cm}& \hspace{0.2cm} 0.2600 & \hspace{0.2cm} 0.9323\\
+4 \hspace{0.2cm}& \hspace{0.2cm} 0.0677 & \hspace{0.2cm} 1.000\\
+\end{align*}
+$$
+</div>
+</font>
+</div>
+
+## Examples
+<div class="red">
+<font size="3">
+Here are a few examples of the Histograms for $𝑛=11$,  various $𝑝$.
+
+1) $p=0.5$  \ \ 2) $p=0.2$  \ \ 3) $p=0.81$  \ \ 4)  $𝑛=50$, $𝑝=0.81$
+
+What are your observations?
+</font>
+</div>
+
+<div style="float: left; width: 50%;">
+```{r, out.width="55%"}
+v <- readPNG("v.png")
+grid.raster(v)
+```
+</div>
+
+<div style="float: right; width: 50%;">
+```{r, out.width="55%"}
+zx <- readPNG("zx.png")
+grid.raster(zx)
+```
+</div>
+
+<div style="float: left; width: 50%;">
+```{r, out.width= "55%"}
+nb <- readPNG("nb.png")
+grid.raster(nb)
+```
+</div>
+
+<div style="float: right; width: 50%;">
+```{r, out.width="55%"}
+aa <- readPNG("aa.png")
+grid.raster(aa)
+```
+</div>
+
+## Practice 
+
+<div class= "black">
+Which of the following is **not** a condition that needs to be met for  the binomial distribution to be applicable?
+
+1) The trials must be independent.
+2) The number of trials, 𝑛, must be fixed.
+3) Each trial outcome must be classified as a success or a failure.
+4) The number of desired successes, 𝑘, must be greater than the  number of trials.
+5) The probability of success, 𝑝, must be the same for each trial.
+</div>
+
+
+## Practice 
+
+<div class= "black">
+Which of the following is **not** a condition that needs to be met for  the binomial distribution to be applicable?
+
+1) The trials must be independent.
+2) The number of trials, 𝑛, must be fixed.
+3) Each trial outcome must be classified as a success or a failure.
+4) <div class="red">The number of desired successes, 𝑘, must be greater than the  number of trials.</div>
+5) The probability of success, 𝑝, must be the same for each trial.
+</div>
+
+
+## Practice 
+<div class="black">
+<font size="3">
+Assume that there’s an insurance agency where 70% of individuals do  not exceed their deductible. What is the probability that 3 of 8  randomly selected individuals will have exceeded the deductible, i.e.  that 5 of 8 will not exceed the deductible?
+
+**Solution.** 𝑛 = 8. If we treat “not exceed deductible” as success, then there are 𝑘 = 5 successes , the probability of a success is 𝑝 = 0.7.
+
+$$
+\begin{eqnarray*}
+P(X = 5)&=&\binom{8}{5} (0.7)^5 (1-0.7)^{8-5}\\
+&=& \frac{8!}{5!(8-5)!} (0.7)^5 (0.3)^3\\
+&=& \frac{8!}{5!(3)!} (0.7)^5 (0.3)^3 \\
+&=& 56 (0.7)^5 (0.3)^3\\
+&=& 56 \times 0.00453789\\
+&=& 0.2541218
+\end{eqnarray*}
+$$
+If we treat “exceed deductible” as success, then there are 𝑘 = 3 successes, and the probability of a success is 𝑝 = 0.3.
+
+$P(X=3) = {8 \choose 3} \times 0.3^3 \times 0.7^5 = 0.2541218$
+
+Thus, the probability that 3 of 8 randomly selected individuals will have exceeded the insurance deductible is 0.2541 or 25.41%.
+</font>
+</div>
+
+## Practice 
+<div class="black">
+<font size="3">
+Assume that there’s an insurance agency where 70% of individuals do  not exceed their deductible. What is the probability that 3 of 8  randomly selected individuals will have exceeded the deductible, i.e.  that 5 of 8 will not exceed the deductible?
+
+**Solution.** $𝑛 = 8$. Let's use R.
+If we treat “not exceed deductible” as success, then there are $𝑘 = 5$ successes , the probability of a success is $𝑝 = 0.7$.
+
+```{r dbinom_1,exercise=TRUE}
+dbinom(x = 5, size = 8, prob = 0.7) #calculates P(X=5)
+dbinom(5, 8, 0.7) #we can drop the argument label
+```
+
+If we treat “exceed deductible” as success, then there are $𝑘 = 3$ successes, and the probability of a success is $𝑝 = 0.3$.
+
+```{r dbinom_2,exercise=TRUE}
+dbinom(3, 8, 0.3) #we can drop the argument label
+```
+
+</font>
+</div>
+
+## Expected value, Variance,  and Standard Deviation
+<div class="black">
+<font size="3">
+For binomial distribution with 𝑛 and 𝑝, it can be proved that 
+$$\text{Mean} = \mu = np$$ 
+$$\text{Variance} =\sigma^2 = np(1-p)$$
+$$\text{The standard deviation} = \sigma = \sqrt{np(1-p)}$$
+
+Note: Mean and standard deviation of a binomial variable might not be whole numbers. 
+
+Example.  A 2012 Gallup survey suggests that 26.2% of Americans are obese.  Among a random sample of 100 Americans, how many would you  expect to be obese? What is the standard deviation?
+
+$$\mu = np = 100 \times 0.262 = 26.2$$
+
+$$\sigma = \sqrt{(np(1-p))} = \sqrt{(100\times0.262\times(0.738))} \approx 4.4$$
+
+(Q. What is the variance)
+
+We would  expect averagely 26.2 out of 100 randomly sampled  Americans to be obese, with a standard deviation of 4.4. 
+
+But this doesn’t mean in every random sample of 100 people, exactly 26.2 will be obese. In fact, that’s not even possible. In some samples, this value will be less, and in others more. 
+</font>
+</div>
+
+## Usual observations
+<div class="black">
+
+How  much would we expect this value to vary?
+
+<div class= "yellow">
+Rule: observations that are more than 2  standard deviations away from the mean are considered  unusual 
+</div>
+
+In  previous slide,  the mean  was 26.2, and the standard deviation was 4.4, we can calculate a range for the plausible number of  obese Americans in random samples of 100.
+
+$$𝜇±2𝜎=26.2 ± (2 × 4.4) = (17.4, 35)$$
+So, for a random sample of 100 Americans,  the percent of number of  obese Americans are usually between 17.4 and 35.
+
+The percent either below 17.4 or higher than 35 would be considered unusual.
+</div>
+
+## Shapes of binomial distributions
+<div class="black">
+We may use a web applet to explore. Go to https://istats.shinyapps.io/BinomialDist/ and choose your “the number of Bernoulli Trials(n)” and “probability of Success (p)” or you may enter 𝑛 and 𝑝.
+
+- Try different 𝑛, with 𝑝=0.5
+
+- Try p close to 0 (𝑝=0.1) or 1(𝑝=0.95) with different 𝑛 (small or large)
+
+ Further considerations:
+- What happens to the shape of the distribution as 𝑛 stays  constant and 𝑝 changes?
+
+- What happens to shape of the distribution as 𝑝  stays constant  and 𝑛 changes?
+</div>
+
+## Distributions of number of successes
+<div class="black">
+<div class="red">
+Hollow histograms of samples from the binomial model where𝑝 = 0.10  and 𝑛 = 10, 30, 100, and 300. 
+
+What happens as 𝑛 increases (large n ) ?
+</div>
+For large 𝑛,  even for small 𝑝 or 𝑝 close to 1, the shape of histogram is approximately bell shaped.  
+<div style="float: left; width: 50%;">
+```{r, out.width="50%"}
+ns <-readPNG("ns.png")
+grid.raster(ns)
+```
+</div>
+
+<div style="float: right; width: 50%;">
+```{r, out.width="50%"}
+n <-readPNG("nss.png")
+grid.raster(n)
+```
+</div>
+
+<div style="float: left; width: 50%;">
+```{r, out.width="50%"}
+s <-readPNG("nsss.png")
+grid.raster(s)
+```
+</div>
+<div style="float: right; width: 50%;">
+```{r, out.width="50%"}
+m <-readPNG("nssss.png")
+grid.raster(m)
+```
+</div>
+</div>
+
+## Large 𝑛  --> Bell shaped graph How large is large enough? (end of 4.3)
+<div class="black">
+The sample size 𝑛 is considered large enough if the expected number  of successes and failures are both at least 10.
+<div class="yellow">
+𝑛𝑝 ≥ 10 and 𝑛(1 − 𝑝) ≥ 10
+(some may use 𝑛𝑝 ≥ 15 and 𝑛(1 − 𝑝) ≥ 15)
+</div>
+
+<div class="blue">
+If 𝑛 is large enough as checked above, the graph of binomial distribution is approximately bell-shaped.
+</div>
+
+<div class= "red">
+Below are four pairs of Binomial distribution parameters. Which  distribution can be approximated by the bell-shaped curve?
+</div>
+
+A)  𝑛 = 100, 𝑝 = 0.95 → 100 × 0.95 = 95; 100 × 0.05 = 5
+B)  𝑛 = 25, 𝑝 = 0.45 → 25 × 0.45 = 11.25; 25 × 0.55 = 13.75
+C)  𝑛 = 150, 𝑝 = 0.05 → 150 × 0.05 = 7.5; 150 × 0.95 = 142.5
+D)  𝑛 = 500, 𝑝 = 0.015 → 500 × 0.015 = 7.5; 500× 0.985 = 492.5
+</div>
+
+
+
+
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+
+
+
+
+      </footer>
+
+      
+
+      
+
+
+    </div>
+
+    
+  </article>
+
+  
+  
+</div>
+
+
+    <div class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+<a href="/sitemap/">Sitemap</a>
+<!-- end custom footer snippets -->
+
+        
+
+<div class="page__footer-follow">
+  <ul class="social-icons">
+    
+      <li><strong>Follow:</strong></li>
+    
+    
+    
+    
+      <li><a href="http://github.com/IntroToStatNCAT/IntroToStatNCAT.github.io"><i class="fab fa-github" aria-hidden="true"></i> GitHub</a></li>
+    
+    
+    <li><a href="http://localhost:4000/feed.xml"><i class="fa fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2023 Intro To Stat NCAT. Powered by <a href="http://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://github.com/academicpages/academicpages.github.io">AcademicPages</a>, a fork of <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    <script src="http://localhost:4000/assets/js/main.min.js"></script>
+
+
+
+
+  <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', '', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+
+
+
+  </body>
+</html>
+

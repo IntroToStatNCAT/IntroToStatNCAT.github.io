@@ -71,4 +71,4 @@ Similar to the interactive labs, these computing labs guide students through R c
 
 [Lab 9 - Inference for numerical data](https://github.com/IntroToStatNCAT/IntroToStatNCAT.github.io/tree/main/files/Labs/StaticLabs/07_inf_for_numerical_data){:target="_blank"}
 
-[Lab 11 - Multiple linear regression](https://github.com/IntroToStatNCAT/IntroToStatNCAT.github.io/tree/main/files/Labs/StaticLabs/09_multiple_regression){:target="_blank"}
+[Lab 10 - Multiple linear regression](https://github.com/IntroToStatNCAT/IntroToStatNCAT.github.io/tree/main/files/Labs/StaticLabs/09_multiple_regression){:target="_blank"}

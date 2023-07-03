@@ -1,0 +1,751 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Chapter 4</title>
+
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <meta name="generator" content="pandoc" />
+
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+
+  <base target="_blank">
+
+  <script type="text/javascript">
+    var SLIDE_CONFIG = {
+      // Slide settings
+      settings: {
+                title: 'Chapter 4',
+                        subtitle: 'Distributions of Random Variables',
+                useBuilds: true,
+        usePrettify: true,
+        enableSlideAreas: true,
+        enableTouch: true,
+                      },
+
+      // Author information
+      presenters: [
+            ]
+    };
+  </script>
+
+  <!-- HEAD_CONTENT -->
+
+  <style type="text/css">
+
+    b, strong {
+      font-weight: bold;
+    }
+
+    em {
+      font-style: italic;
+    }
+
+    summary {
+      display: list-item;
+    }
+
+    details > summary > p:only-child {
+      display: inline;
+    }
+
+    slides > slide {
+      -webkit-transition: all 0.4s ease-in-out;
+      -moz-transition: all 0.4s ease-in-out;
+      -o-transition: all 0.4s ease-in-out;
+      transition: all 0.4s ease-in-out;
+    }
+
+    .auto-fadein {
+      -webkit-transition: opacity 0.6s ease-in;
+      -webkit-transition-delay: 0.4s;
+      -moz-transition: opacity 0.6s ease-in 0.4s;
+      -o-transition: opacity 0.6s ease-in 0.4s;
+      transition: opacity 0.6s ease-in 0.4s;
+      opacity: 0;
+    }
+/* https://github.com/ropensci/plotly/pull/524#issuecomment-468142578 */
+slide:not(.current) .plotly.html-widget{
+  display: block;
+}
+
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+            
+  </style>
+
+
+</head>
+
+<body style="opacity: 0">
+
+<slides class="layout-widescreen">
+
+  <slide class="title-slide segue nobackground">
+        <!-- The content of this hgroup is replaced programmatically through the slide_config.json. -->
+    <hgroup class="auto-fadein">
+      <h1 data-config-title><!-- populated from slide_config.json --></h1>
+      <h2 data-config-subtitle><!-- populated from slide_config.json --></h2>
+      <p data-config-presenter><!-- populated from slide_config.json --></p>
+          </hgroup>
+  </slide>
+
+<slide class=""><hgroup><h2>Acknowledgement</h2></hgroup><article  id="acknowledgement">
+
+<center>
+
+<div class="black">
+<p>These notes use content from OpenIntro Statistics Slides by</p>
+
+<p>Mine Cetinkaya-Rundel.</p></div>
+
+</center>
+
+</article></slide><slide class=""><hgroup><h2>4.3 Binomial distribution</h2></hgroup><article  id="binomial-distribution">
+
+<div class="black">
+<p>Binomial distribution is a discrete probability distribution of the number of successes in a sequence of \(n\) independent experiments, each with its own two outcomes: success (with probability \(p\)) failure (with probability \(q=1-p\)).</p>
+
+<p>Binomial distribution is determined by parameters \(n\) and \(p\).</p>
+
+<ul>
+<li>Bernoulli Trials</li>
+<li>Combination coefficient formula – \(n\) choose \(k\)</li>
+<li>Binomial distribution formula (pdf)</li>
+<li>Cumulative density distribution (cdf)</li>
+<li>Mean, Variance, and Standard deviation of Binomial Distribution</li>
+<li>Unusual Observations</li>
+<li>Histogram of Binomial Distribution (skewness, bell-shaped and \(𝑛\), \(p\) )</li>
+</ul></div>
+
+</article></slide><slide class=""><hgroup><h2>Binomial Random Variable and Distribution</h2></hgroup><article  id="binomial-random-variable-and-distribution">
+
+<div class="black">
+<p><font size="4"> - <strong>Binary Data</strong> — For each trial or observation, there are two possible outcomes (dichotomous responses) for example, Success/Failure; Accept/Decline an offer; vote Yes/No</p>
+
+<ul>
+<li><p><strong>Bernoulli Trials</strong> — For repeated \(𝑛\) trials</p>
+
+<ul>
+<li>Each of \(𝑛\) trials has two possible outcomes. The outcome of interest is called a success (S), the other one as a failure (F)</li>
+<li>Each trial has the same probability of getting \(S\). Let \(P(S)=p\), then $P(F)=q=1-p</li>
+<li>The \(n\) trials are independent. The probability of success in a trial remains unchanged given the outcomes of all other trials.</li>
+</ul></li>
+<li><p><strong>Binomial Random Variable</strong> — For Bernoulli trials of 𝑛 times, in which we observe a binary data, let \(𝑋\) be the number of getting success, then \(X\) is a binomial random variable, and the possible values \(x=0, 1, \dots,n\)</p></li>
+<li><p><strong>Binomial Distribution</strong> — the probability distribution for Binomial Random Variable— there will be a formula for this </font></p></li>
+</ul></div>
+
+</article></slide><slide class=""><hgroup><h2>Example</h2></hgroup><article  id="example">
+
+<div class="black">
+<p>Assume that 35 % of people do not use iPad. Suppose we randomly select four (4) individuals, What is the probability that exactly one (1) of them does not use iPad?</p>
+
+<p>Let’s call these people Allen (A), Brittany (B), Caroline (C), and Damian (D). Each one of the four scenarios below will satisfy the condition of &ldquo;exactly 1 of them do not use iPad&rdquo;:</p>
+
+<ul>
+<li>Scenario 1: A does not, B, C, D use iPad: 0.35×0.65×0.65×0.65=0.0961</li>
+<li>Scenario 2: B does not, A, C, D use iPad: 0.65×0.35×0.65×0.65=0.0961</li>
+<li>Scenario 3: C does not, A, B, D use iPad: 0.65×0.65×0.35×0.65=0.0961</li>
+<li>Scenario 4: D does not, A, B, C use iPad: 0.65×0.65×0.65×0.35=0.0961</li>
+</ul>
+
+<p>The probability of exactly one 1 of 4 people does not use iPad is the sum of these probabilities. 0.0961 + 0.0961 + 0.0961 + 0.0961 = 4 × 0.0961 = 0.3844</p></div>
+
+</article></slide><slide class=""><hgroup><h2>Binomial Distribution</h2></hgroup><article  id="binomial-distribution-1">
+
+<div class="black">
+<p><font size="4"> The question from the prior slide asked for the probability of given number of successes, <strong>k</strong>, in a given number of trials, <strong>n</strong>, (k = 1 success in \(n=4\) trials), and we calculated this probability as</p>
+
+<p>\[{\# of scenarios \times P(single scenario)}\] - \(\#\) of scenarios: there is a less tedious way to figure it out, we’ll get to that shortly…</p>
+
+<ul>
+<li>\(P(\text{single scenario}) = p^k \cdot (1-p)^{(n-k)}\)</li>
+</ul>
+
+<div class="red">
+Note:</div>
+
+<p>probability of success to the power of number of successes, probability of failure to the power of number of failures.</p>
+
+<p>\(\normalsize\) The <strong>Binomial distribution</strong> describes the probability of having exactly \(k\) successes in \(n\) independent Bernoulli trials with probability of success \(p\).</p>
+
+<p>\[P(X=k) = {n \choose k}p^k(1-p)^{(n-k)} = \frac{n!}{k! \cdot (n-k)!}p^k(1-p)^{(n-k)}, k=0,1,2,...n\] </font></p></div>
+
+</article></slide><slide class=""><hgroup><h2>Factorial and Combination</h2></hgroup><article  id="factorial-and-combination">
+
+<div class="black">
+<ul>
+<li><p>In the probability formula for binomial distribution, \(𝑛!\) is read as \(𝒏\) factorial : \(𝑛!=1×2×3×…×𝑛\) for any positive inter $𝑛 $</p></li>
+<li><p>\(0!=1\)</p></li>
+<li><p>While \({n \choose k}\) is the combination, it shows the total possible ways of choosing \(𝑘\) items from a collection of \(𝑛\) items without ordering.</p></li>
+</ul>
+
+<p>Example:</p>
+
+<p>\({4\choose 1}=\frac {4!}{1!3!}=4\), say, take a quiz with 4 questions, there are four ways of getting exactly 1 correct: CIII, ICII, IICI, IIIC.</p>
+
+<p>\({3\choose 2} =\frac{3!}{2!1!}=3\), say, given three fruits: an apple, an orange, and a pear, there are three ways that two fruits can be drawn from this set: apple and pear; apple and orange; orange and pear.</p></div>
+
+</article></slide><slide class=""><hgroup><h2>Calculating the Number of Scenarios</h2></hgroup><article  id="calculating-the-number-of-scenarios">
+
+<font size="4">
+
+<div class="black">
+<p>The <strong>choose function</strong> is useful for calculating the number of ways to choose \(k\) successes in \(n\) trials.</p>
+
+<p>\[{n \choose x} = \frac{n!}{k! \cdot (n-k)!}\] * \(k=7, n=9: {9 \choose 7} = \frac{9!}{7!(9-7)!} = \frac{9 \times 8 \times 7 }{7 \times (2 \times 1)} = 36\)</p>
+
+<ul>
+<li>\(k=2, n=9: {9 \choose 2} = \frac{9!}{2!(9-2)!} = \frac{9 \times 8 \times 7!}{2 \times 1 \times 7!} = 36\)</li>
+</ul>
+
+<p>Note: You can also use R for these calculations:</p>
+
+<div class="tutorial-exercise" data-label="Quiz1" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
+<pre class = 'prettyprint lang-text'>factorial(9) #calculates 9!
+
+choose(9,2) #calculates 9 choose 2</pre>
+
+<script type="application/json" data-ui-opts="1">{"engine":"r","has_checker":false,"caption":"<span data-i18n=\"text.enginecap\" data-i18n-opts=\"{&quot;engine&quot;:&quot;R&quot;}\">R Code<\/span>"}</script></div></div>
+
+<p></font></p>
+
+</article></slide><slide class=""><hgroup><h2>Properties of the Choose Function</h2></hgroup><article  id="properties-of-the-choose-function">
+
+<div class="black">
+<p>For any \(0≤𝑘≤𝑛\),</p>
+
+<p>\[{n \choose k}= \frac{𝑛!}{𝑘!(𝑛−𝑘)!} \ \text{is equal to} \ {n \choose n-k} = \frac{𝑛!}{𝑘!(𝑛−𝑘)!}\]</p>
+
+<p>In other words, \(𝑛\) choose \(𝑘\) is the same as not choose \(𝑛−𝑘\).</p>
+
+<p>Example</p>
+
+<ol>
+<li><p>When \(𝑘=0, {n \choose 0} = {n \choose n} = \frac{𝑛!}{𝑛!0!}=1\)</p></li>
+<li><p>When \(𝑘=1, {n \choose 1} = {n \choose n-1} = \frac{𝑛!}{𝑛-1!1!}=n\)</p></li>
+<li><p>Then, \({7\choose 1}={7\choose 6}, {7\choose 2} = {7\choose 5}, \ \text{and}\ {7\choose 3} = {7\choose 4}\)</p></li>
+</ol></div>
+
+</article></slide><slide class=""><hgroup><h2>Example and Practice</h2></hgroup><article  id="example-and-practice">
+
+<div class="black">
+<p><font size="3"> Example: Historical data shows that about 51% of newborn babies are boys. If we randomly select four newborns, build the binomial model for the possible number of boys.</p>
+
+<p>Solution. Let \(X\) be the number of boys in sample of \(n=4\) newborns. Then, the possible values of \(X\) are \(0, 1, 2, 3, 4\), with \(p=0.51\).</p>
+
+Check: for the part in red in class (using R)
+
+<div class="tutorial-exercise" data-label="Quiz2" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
+<pre class = 'prettyprint lang-text'>choose(4,0) * 0.51^0 * (1-0.51)^4 #calculates P(X=0)
+choose(4,1) * 0.51^1 * (1-0.51)^3 #calculates P(X=1)
+P_x_le_1 = 0.0576 + 0.2400; P_x_le_1 #calculates P(X&lt;=1)</pre>
+
+<script type="application/json" data-ui-opts="1">{"engine":"r","has_checker":false,"caption":"<span data-i18n=\"text.enginecap\" data-i18n-opts=\"{&quot;engine&quot;:&quot;R&quot;}\">R Code<\/span>"}</script></div>
+
+<div style="float: left; width: 50%;">
+<p><img src="Chapter4_3_Shiny_files/figure-html/unnamed-chunk-2-1.png" width="60%" /></p></div>
+
+<div style="float: right; width: 50%;">
+<p>\[
+\begin{align*}
+x \hspace{0.2cm}&amp; \hspace{0.2cm} P(X=x) &amp; \hspace{0.2cm} P(X\le x) \\
+0 \hspace{0.2cm}&amp; \hspace{0.2cm} \color{red}{0.0576} &amp; \hspace{0.2cm} \color{red}{0.0576}\\
+1 \hspace{0.2cm}&amp; \hspace{0.2cm} \color{red}{0.2400} &amp; \hspace{0.2cm} \color{red}{0.2976}\\
+2 \hspace{0.2cm}&amp; \hspace{0.2cm} 0.3747 &amp; \hspace{0.2cm} 0.6723\\
+3 \hspace{0.2cm}&amp; \hspace{0.2cm} 0.2600 &amp; \hspace{0.2cm} 0.9323\\
+4 \hspace{0.2cm}&amp; \hspace{0.2cm} 0.0677 &amp; \hspace{0.2cm} 1.000\\
+\end{align*}
+\]</p></div>
+
+<p></font></p></div>
+
+</article></slide><slide class=""><hgroup><h2>Example and Practice</h2></hgroup><article  id="example-and-practice-1">
+
+<div class="black">
+<p><font size="3"> Example: Historical data shows that about 51% of newborn babies are boys. If we randomly select four newborns, build the binomial model for the possible number of boys.</p>
+
+<p>Solution. Let \(X\) be the number of boys in sample of \(n=4\) newborns. Then, the possible values of \(X\) are \(0, 1, 2, 3, 4\), with \(p=0.51\).</p>
+
+Check: for the part in red in class (using R)
+
+<div class="tutorial-exercise" data-label="dbinom_0" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
+<pre class = 'prettyprint lang-text'>dbinom(x = 0, size = 4, prob = 0.51) #calculates P(X=0)
+dbinom(1, 4, 0.51) #calculates P(X=1); we can drop the argument label
+pbinom(1, 4, 0.51, lower.tail = TRUE) #calculates P(X&lt;=1)</pre>
+
+<script type="application/json" data-ui-opts="1">{"engine":"r","has_checker":false,"caption":"<span data-i18n=\"text.enginecap\" data-i18n-opts=\"{&quot;engine&quot;:&quot;R&quot;}\">R Code<\/span>"}</script></div>
+
+<div style="float: left; width: 50%;">
+<p><img src="Chapter4_3_Shiny_files/figure-html/unnamed-chunk-3-1.png" width="60%" /></p></div>
+
+<div style="float: right; width: 50%;">
+<p>\[
+\begin{align*}
+x \hspace{0.2cm}&amp; \hspace{0.2cm} P(X=x) &amp; \hspace{0.2cm} P(X\le x) \\
+0 \hspace{0.2cm}&amp; \hspace{0.2cm} \color{red}{0.0576} &amp; \hspace{0.2cm} \color{red}{0.0576}\\
+1 \hspace{0.2cm}&amp; \hspace{0.2cm} \color{red}{0.2400} &amp; \hspace{0.2cm} \color{red}{0.2976}\\
+2 \hspace{0.2cm}&amp; \hspace{0.2cm} 0.3747 &amp; \hspace{0.2cm} 0.6723\\
+3 \hspace{0.2cm}&amp; \hspace{0.2cm} 0.2600 &amp; \hspace{0.2cm} 0.9323\\
+4 \hspace{0.2cm}&amp; \hspace{0.2cm} 0.0677 &amp; \hspace{0.2cm} 1.000\\
+\end{align*}
+\]</p></div>
+
+<p></font></p></div>
+
+</article></slide><slide class=""><hgroup><h2>Examples</h2></hgroup><article  id="examples">
+
+<div class="red">
+<p><font size="3"> Here are a few examples of the Histograms for \(𝑛=11\), various \(𝑝\).</p>
+
+<ol>
+<li>\(p=0.5\)   2) \(p=0.2\)   3) \(p=0.81\)   4) \(𝑛=50\), \(𝑝=0.81\)</li>
+</ol>
+
+<p>What are your observations? </font></p></div>
+
+<div style="float: left; width: 50%;">
+<p><img src="Chapter4_3_Shiny_files/figure-html/unnamed-chunk-4-1.png" width="55%" /></p></div>
+
+<div style="float: right; width: 50%;">
+<p><img src="Chapter4_3_Shiny_files/figure-html/unnamed-chunk-5-1.png" width="55%" /></p></div>
+
+<div style="float: left; width: 50%;">
+<p><img src="Chapter4_3_Shiny_files/figure-html/unnamed-chunk-6-1.png" width="55%" /></p></div>
+
+<div style="float: right; width: 50%;">
+<p><img src="Chapter4_3_Shiny_files/figure-html/unnamed-chunk-7-1.png" width="55%" /></p></div>
+
+</article></slide><slide class=""><hgroup><h2>Practice</h2></hgroup><article  id="practice">
+
+<div class="black">
+<p>Which of the following is <strong>not</strong> a condition that needs to be met for the binomial distribution to be applicable?</p>
+
+<ol>
+<li>The trials must be independent.</li>
+<li>The number of trials, 𝑛, must be fixed.</li>
+<li>Each trial outcome must be classified as a success or a failure.</li>
+<li>The number of desired successes, 𝑘, must be greater than the number of trials.</li>
+<li>The probability of success, 𝑝, must be the same for each trial.</li>
+</ol></div>
+
+</article></slide><slide class=""><hgroup><h2>Practice</h2></hgroup><article  id="practice-1">
+
+<div class="black">
+<p>Which of the following is <strong>not</strong> a condition that needs to be met for the binomial distribution to be applicable?</p>
+
+<ol>
+<li>The trials must be independent.</li>
+<li>The number of trials, 𝑛, must be fixed.</li>
+<li>Each trial outcome must be classified as a success or a failure.</li>
+<li><div class="red">
+The number of desired successes, 𝑘, must be greater than the number of trials.</div></li>
+<li>The probability of success, 𝑝, must be the same for each trial.</li>
+</ol></div>
+
+</article></slide><slide class=""><hgroup><h2>Practice</h2></hgroup><article  id="practice-2">
+
+<div class="black">
+<p><font size="3"> Assume that there’s an insurance agency where 70% of individuals do not exceed their deductible. What is the probability that 3 of 8 randomly selected individuals will have exceeded the deductible, i.e. that 5 of 8 will not exceed the deductible?</p>
+
+<p><strong>Solution.</strong> 𝑛 = 8. If we treat &ldquo;not exceed deductible&rdquo; as success, then there are 𝑘 = 5 successes , the probability of a success is 𝑝 = 0.7.</p>
+
+<p>\[
+\begin{eqnarray*}
+P(X = 5)&amp;=&amp;\binom{8}{5} (0.7)^5 (1-0.7)^{8-5}\\
+&amp;=&amp; \frac{8!}{5!(8-5)!} (0.7)^5 (0.3)^3\\
+&amp;=&amp; \frac{8!}{5!(3)!} (0.7)^5 (0.3)^3 \\
+&amp;=&amp; 56 (0.7)^5 (0.3)^3\\
+&amp;=&amp; 56 \times 0.00453789\\
+&amp;=&amp; 0.2541218
+\end{eqnarray*}
+\] If we treat &ldquo;exceed deductible&rdquo; as success, then there are 𝑘 = 3 successes, and the probability of a success is 𝑝 = 0.3.</p>
+
+<p>\(P(X=3) = {8 \choose 3} \times 0.3^3 \times 0.7^5 = 0.2541218\)</p>
+
+<p>Thus, the probability that 3 of 8 randomly selected individuals will have exceeded the insurance deductible is 0.2541 or 25.41%. </font></p></div>
+
+</article></slide><slide class=""><hgroup><h2>Practice</h2></hgroup><article  id="practice-3">
+
+<div class="black">
+<p><font size="3"> Assume that there’s an insurance agency where 70% of individuals do not exceed their deductible. What is the probability that 3 of 8 randomly selected individuals will have exceeded the deductible, i.e. that 5 of 8 will not exceed the deductible?</p>
+
+<p><strong>Solution.</strong> \(𝑛 = 8\). Let’s use R. If we treat &ldquo;not exceed deductible&rdquo; as success, then there are \(𝑘 = 5\) successes , the probability of a success is \(𝑝 = 0.7\).</p>
+
+<div class="tutorial-exercise" data-label="dbinom_1" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
+<pre class = 'prettyprint lang-text'>dbinom(x = 5, size = 8, prob = 0.7) #calculates P(X=5)
+dbinom(5, 8, 0.7) #we can drop the argument label</pre>
+
+<script type="application/json" data-ui-opts="1">{"engine":"r","has_checker":false,"caption":"<span data-i18n=\"text.enginecap\" data-i18n-opts=\"{&quot;engine&quot;:&quot;R&quot;}\">R Code<\/span>"}</script></div>
+
+<p>If we treat &ldquo;exceed deductible&rdquo; as success, then there are \(𝑘 = 3\) successes, and the probability of a success is \(𝑝 = 0.3\).</p>
+
+<div class="tutorial-exercise" data-label="dbinom_2" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
+<pre class = 'prettyprint lang-text'>dbinom(3, 8, 0.3) #we can drop the argument label</pre>
+
+<script type="application/json" data-ui-opts="1">{"engine":"r","has_checker":false,"caption":"<span data-i18n=\"text.enginecap\" data-i18n-opts=\"{&quot;engine&quot;:&quot;R&quot;}\">R Code<\/span>"}</script></div>
+
+<p></font></p></div>
+
+</article></slide><slide class=""><hgroup><h2>Expected value, Variance, and Standard Deviation</h2></hgroup><article  id="expected-value-variance-and-standard-deviation">
+
+<div class="black">
+<p><font size="3"> For binomial distribution with 𝑛 and 𝑝, it can be proved that \[\text{Mean} = \mu = np\] \[\text{Variance} =\sigma^2 = np(1-p)\] \[\text{The standard deviation} = \sigma = \sqrt{np(1-p)}\]</p>
+
+<p>Note: Mean and standard deviation of a binomial variable might not be whole numbers.</p>
+
+<p>Example. A 2012 Gallup survey suggests that 26.2% of Americans are obese. Among a random sample of 100 Americans, how many would you expect to be obese? What is the standard deviation?</p>
+
+<p>\[\mu = np = 100 \times 0.262 = 26.2\]</p>
+
+<p>\[\sigma = \sqrt{(np(1-p))} = \sqrt{(100\times0.262\times(0.738))} \approx 4.4\]</p>
+
+<p>(Q. What is the variance)</p>
+
+<p>We would expect averagely 26.2 out of 100 randomly sampled Americans to be obese, with a standard deviation of 4.4.</p>
+
+<p>But this doesn’t mean in every random sample of 100 people, exactly 26.2 will be obese. In fact, that’s not even possible. In some samples, this value will be less, and in others more. </font></p></div>
+
+</article></slide><slide class=""><hgroup><h2>Usual observations</h2></hgroup><article  id="usual-observations">
+
+<div class="black">
+<p>How much would we expect this value to vary?</p>
+
+<div class="yellow">
+<p>Rule: observations that are more than 2 standard deviations away from the mean are considered unusual</p></div>
+
+<p>In previous slide, the mean was 26.2, and the standard deviation was 4.4, we can calculate a range for the plausible number of obese Americans in random samples of 100.</p>
+
+<p>\[𝜇±2𝜎=26.2 ± (2 × 4.4) = (17.4, 35)\] So, for a random sample of 100 Americans, the percent of number of obese Americans are usually between 17.4 and 35.</p>
+
+<p>The percent either below 17.4 or higher than 35 would be considered unusual.</p></div>
+
+</article></slide><slide class=""><hgroup><h2>Shapes of binomial distributions</h2></hgroup><article  id="shapes-of-binomial-distributions">
+
+<div class="black">
+<p>We may use a web applet to explore. Go to <a href='https://istats.shinyapps.io/BinomialDist/' title=''>https://istats.shinyapps.io/BinomialDist/</a> and choose your &ldquo;the number of Bernoulli Trials(n)&rdquo; and &ldquo;probability of Success (p)&rdquo; or you may enter 𝑛 and 𝑝.</p>
+
+<ul>
+<li><p>Try different 𝑛, with 𝑝=0.5</p></li>
+<li><p>Try p close to 0 (𝑝=0.1) or 1(𝑝=0.95) with different 𝑛 (small or large)</p></li>
+</ul>
+
+<p>Further considerations: - What happens to the shape of the distribution as 𝑛 stays constant and 𝑝 changes?</p>
+
+<ul>
+<li>What happens to shape of the distribution as 𝑝 stays constant and 𝑛 changes?</li>
+</ul></div>
+
+</article></slide><slide class=""><hgroup><h2>Distributions of number of successes</h2></hgroup><article  id="distributions-of-number-of-successes">
+
+<div class="black">
+<div class="red">
+<p>Hollow histograms of samples from the binomial model where𝑝 = 0.10 and 𝑛 = 10, 30, 100, and 300.</p>
+
+<p>What happens as 𝑛 increases (large n ) ?</p></div>
+
+For large 𝑛, even for small 𝑝 or 𝑝 close to 1, the shape of histogram is approximately bell shaped.<br/>
+
+<div style="float: left; width: 50%;">
+<p><img src="Chapter4_3_Shiny_files/figure-html/unnamed-chunk-8-1.png" width="50%" /></p></div>
+
+<div style="float: right; width: 50%;">
+<p><img src="Chapter4_3_Shiny_files/figure-html/unnamed-chunk-9-1.png" width="50%" /></p></div>
+
+<div style="float: left; width: 50%;">
+<p><img src="Chapter4_3_Shiny_files/figure-html/unnamed-chunk-10-1.png" width="50%" /></p></div>
+
+<div style="float: right; width: 50%;">
+<p><img src="Chapter4_3_Shiny_files/figure-html/unnamed-chunk-11-1.png" width="50%" /></p></div></div>
+
+</article></slide><slide class=""><hgroup><h2>Large 𝑛 –&gt; Bell shaped graph How large is large enough? (end of 4.3)</h2></hgroup><article  id="large-𝑛-bell-shaped-graph-how-large-is-large-enough-end-of-4.3">
+
+<div class="black">
+The sample size 𝑛 is considered large enough if the expected number of successes and failures are both at least 10.
+
+<div class="yellow">
+<p>𝑛𝑝 ≥ 10 and 𝑛(1 − 𝑝) ≥ 10 (some may use 𝑛𝑝 ≥ 15 and 𝑛(1 − 𝑝) ≥ 15)</p></div>
+
+<div class="blue">
+<p>If 𝑛 is large enough as checked above, the graph of binomial distribution is approximately bell-shaped.</p></div>
+
+<div class="red">
+<p>Below are four pairs of Binomial distribution parameters. Which distribution can be approximated by the bell-shaped curve?</p></div>
+
+<ol>
+<li>𝑛 = 100, 𝑝 = 0.95 → 100 × 0.95 = 95; 100 × 0.05 = 5</li>
+<li>𝑛 = 25, 𝑝 = 0.45 → 25 × 0.45 = 11.25; 25 × 0.55 = 13.75</li>
+<li>𝑛 = 150, 𝑝 = 0.05 → 150 × 0.05 = 7.5; 150 × 0.95 = 142.5</li>
+<li>𝑛 = 500, 𝑝 = 0.015 → 500 × 0.015 = 7.5; 500× 0.985 = 492.5</li>
+</ol></div>
+
+<p>
+<script type="application/shiny-prerendered" data-context="server-start">
+knitr::opts_chunk$set(echo = FALSE)
+</script>
+ 
+<script type="application/shiny-prerendered" data-context="server">
+learnr:::register_http_handlers(session, metadata = NULL)
+</script>
+ 
+<script type="application/shiny-prerendered" data-context="server">
+learnr:::prepare_tutorial_state(session)
+</script>
+ 
+<script type="application/shiny-prerendered" data-context="server">
+learnr:::i18n_observe_tutorial_language(input, session)
+</script>
+ 
+<script type="application/shiny-prerendered" data-context="server">
+session$onSessionEnded(function() {
+        learnr:::event_trigger(session, "session_stop")
+      })
+</script>
+ 
+<script type="application/shiny-prerendered" data-context="server">
+`tutorial-exercise-Quiz1-result` <- learnr:::setup_exercise_handler(reactive(req(input$`tutorial-exercise-Quiz1-code-editor`)), session)
+output$`tutorial-exercise-Quiz1-output` <- renderUI({
+  `tutorial-exercise-Quiz1-result`()
+})
+</script>
+ 
+<script type="application/shiny-prerendered" data-context="server">
+learnr:::store_exercise_cache(structure(list(label = "Quiz1", global_setup = structure("knitr::opts_chunk$set(echo = FALSE)", chunk_opts = list(
+    label = "setup", include = FALSE)), setup = NULL, chunks = list(
+    list(label = "Quiz1", code = "factorial(9) #calculates 9!\n\nchoose(9,2) #calculates 9 choose 2", 
+        opts = list(label = "\"Quiz1\"", exercise = "TRUE"), 
+        engine = "r")), code_check = NULL, error_check = NULL, 
+    check = NULL, solution = NULL, tests = NULL, options = list(
+        eval = FALSE, echo = TRUE, results = "markup", tidy = FALSE, 
+        tidy.opts = NULL, collapse = FALSE, prompt = FALSE, comment = NA, 
+        highlight = FALSE, size = "normalsize", background = "#F7F7F7", 
+        strip.white = TRUE, cache = 0, cache.path = "Chapter4_3_Shiny_cache/html/", 
+        cache.vars = NULL, cache.lazy = TRUE, dependson = NULL, 
+        autodep = FALSE, cache.rebuild = FALSE, fig.keep = "high", 
+        fig.show = "asis", fig.align = "default", fig.path = "Chapter4_3_Shiny_files/figure-html/", 
+        dev = "png", dev.args = NULL, dpi = 192, fig.ext = "png", 
+        fig.width = 7.5, fig.height = 4.5, fig.env = "figure", 
+        fig.cap = NULL, fig.scap = NULL, fig.lp = "fig:", fig.subcap = NULL, 
+        fig.pos = "", out.width = 720, out.height = NULL, out.extra = NULL, 
+        fig.retina = 2, external = TRUE, sanitize = FALSE, interval = 1, 
+        aniopts = "controls,loop", warning = TRUE, error = FALSE, 
+        message = TRUE, render = NULL, ref.label = NULL, child = NULL, 
+        engine = "r", split = FALSE, include = TRUE, purl = TRUE, 
+        exercise.timelimit = 60, exercise.checker = "function (label = NULL, solution_code = NULL, user_code = NULL, \n    check_code = NULL, envir_result = NULL, evaluate_result = NULL, \n    envir_prep = NULL, last_value = NULL, stage = NULL, ..., \n    solution_eval_fn = NULL) \n{\n    (utils::getFromNamespace(\"check_exercise\", \"gradethis\"))(label = label, \n        solution_code = solution_code, user_code = user_code, \n        check_code = check_code, envir_result = envir_result, \n        evaluate_result = evaluate_result, envir_prep = envir_prep, \n        last_value = last_value, stage = stage, ...)\n}", 
+        exercise.error.check.code = "gradethis_error_checker()", 
+        label = "Quiz1", exercise = TRUE, code = c("factorial(9) #calculates 9!", 
+        "", "choose(9,2) #calculates 9 choose 2"), out.width.px = 720, 
+        out.height.px = 432, params.src = "Quiz1,exercise=TRUE", 
+        fig.num = 0, exercise.df_print = "default"), engine = "r", 
+    version = "4"), class = c("r", "tutorial_exercise")))
+</script>
+ 
+<script type="application/shiny-prerendered" data-context="server">
+`tutorial-exercise-Quiz2-result` <- learnr:::setup_exercise_handler(reactive(req(input$`tutorial-exercise-Quiz2-code-editor`)), session)
+output$`tutorial-exercise-Quiz2-output` <- renderUI({
+  `tutorial-exercise-Quiz2-result`()
+})
+</script>
+ 
+<script type="application/shiny-prerendered" data-context="server">
+learnr:::store_exercise_cache(structure(list(label = "Quiz2", global_setup = structure("knitr::opts_chunk$set(echo = FALSE)", chunk_opts = list(
+    label = "setup", include = FALSE)), setup = NULL, chunks = list(
+    list(label = "Quiz2", code = "choose(4,0) * 0.51^0 * (1-0.51)^4 #calculates P(X=0)\nchoose(4,1) * 0.51^1 * (1-0.51)^3 #calculates P(X=1)\nP_x_le_1 = 0.0576 + 0.2400; P_x_le_1 #calculates P(X<=1)", 
+        opts = list(label = "\"Quiz2\"", exercise = "TRUE"), 
+        engine = "r")), code_check = NULL, error_check = NULL, 
+    check = NULL, solution = NULL, tests = NULL, options = list(
+        eval = FALSE, echo = TRUE, results = "markup", tidy = FALSE, 
+        tidy.opts = NULL, collapse = FALSE, prompt = FALSE, comment = NA, 
+        highlight = FALSE, size = "normalsize", background = "#F7F7F7", 
+        strip.white = TRUE, cache = 0, cache.path = "Chapter4_3_Shiny_cache/html/", 
+        cache.vars = NULL, cache.lazy = TRUE, dependson = NULL, 
+        autodep = FALSE, cache.rebuild = FALSE, fig.keep = "high", 
+        fig.show = "asis", fig.align = "default", fig.path = "Chapter4_3_Shiny_files/figure-html/", 
+        dev = "png", dev.args = NULL, dpi = 192, fig.ext = "png", 
+        fig.width = 7.5, fig.height = 4.5, fig.env = "figure", 
+        fig.cap = NULL, fig.scap = NULL, fig.lp = "fig:", fig.subcap = NULL, 
+        fig.pos = "", out.width = 720, out.height = NULL, out.extra = NULL, 
+        fig.retina = 2, external = TRUE, sanitize = FALSE, interval = 1, 
+        aniopts = "controls,loop", warning = TRUE, error = FALSE, 
+        message = TRUE, render = NULL, ref.label = NULL, child = NULL, 
+        engine = "r", split = FALSE, include = TRUE, purl = TRUE, 
+        exercise.timelimit = 60, exercise.checker = "function (label = NULL, solution_code = NULL, user_code = NULL, \n    check_code = NULL, envir_result = NULL, evaluate_result = NULL, \n    envir_prep = NULL, last_value = NULL, stage = NULL, ..., \n    solution_eval_fn = NULL) \n{\n    (utils::getFromNamespace(\"check_exercise\", \"gradethis\"))(label = label, \n        solution_code = solution_code, user_code = user_code, \n        check_code = check_code, envir_result = envir_result, \n        evaluate_result = evaluate_result, envir_prep = envir_prep, \n        last_value = last_value, stage = stage, ...)\n}", 
+        exercise.error.check.code = "gradethis_error_checker()", 
+        label = "Quiz2", exercise = TRUE, code = c("choose(4,0) * 0.51^0 * (1-0.51)^4 #calculates P(X=0)", 
+        "choose(4,1) * 0.51^1 * (1-0.51)^3 #calculates P(X=1)", 
+        "P_x_le_1 = 0.0576 + 0.2400; P_x_le_1 #calculates P(X<=1)"
+        ), out.width.px = 720, out.height.px = 432, params.src = "Quiz2, exercise=TRUE", 
+        fig.num = 0, exercise.df_print = "default"), engine = "r", 
+    version = "4"), class = c("r", "tutorial_exercise")))
+</script>
+ 
+<script type="application/shiny-prerendered" data-context="server">
+`tutorial-exercise-dbinom_0-result` <- learnr:::setup_exercise_handler(reactive(req(input$`tutorial-exercise-dbinom_0-code-editor`)), session)
+output$`tutorial-exercise-dbinom_0-output` <- renderUI({
+  `tutorial-exercise-dbinom_0-result`()
+})
+</script>
+ 
+<script type="application/shiny-prerendered" data-context="server">
+learnr:::store_exercise_cache(structure(list(label = "dbinom_0", global_setup = structure("knitr::opts_chunk$set(echo = FALSE)", chunk_opts = list(
+    label = "setup", include = FALSE)), setup = NULL, chunks = list(
+    list(label = "dbinom_0", code = "dbinom(x = 0, size = 4, prob = 0.51) #calculates P(X=0)\ndbinom(1, 4, 0.51) #calculates P(X=1); we can drop the argument label\npbinom(1, 4, 0.51, lower.tail = TRUE) #calculates P(X<=1)", 
+        opts = list(label = "\"dbinom_0\"", exercise = "TRUE"), 
+        engine = "r")), code_check = NULL, error_check = NULL, 
+    check = NULL, solution = NULL, tests = NULL, options = list(
+        eval = FALSE, echo = TRUE, results = "markup", tidy = FALSE, 
+        tidy.opts = NULL, collapse = FALSE, prompt = FALSE, comment = NA, 
+        highlight = FALSE, size = "normalsize", background = "#F7F7F7", 
+        strip.white = TRUE, cache = 0, cache.path = "Chapter4_3_Shiny_cache/html/", 
+        cache.vars = NULL, cache.lazy = TRUE, dependson = NULL, 
+        autodep = FALSE, cache.rebuild = FALSE, fig.keep = "high", 
+        fig.show = "asis", fig.align = "default", fig.path = "Chapter4_3_Shiny_files/figure-html/", 
+        dev = "png", dev.args = NULL, dpi = 192, fig.ext = "png", 
+        fig.width = 7.5, fig.height = 4.5, fig.env = "figure", 
+        fig.cap = NULL, fig.scap = NULL, fig.lp = "fig:", fig.subcap = NULL, 
+        fig.pos = "", out.width = 720, out.height = NULL, out.extra = NULL, 
+        fig.retina = 2, external = TRUE, sanitize = FALSE, interval = 1, 
+        aniopts = "controls,loop", warning = TRUE, error = FALSE, 
+        message = TRUE, render = NULL, ref.label = NULL, child = NULL, 
+        engine = "r", split = FALSE, include = TRUE, purl = TRUE, 
+        exercise.timelimit = 60, exercise.checker = "function (label = NULL, solution_code = NULL, user_code = NULL, \n    check_code = NULL, envir_result = NULL, evaluate_result = NULL, \n    envir_prep = NULL, last_value = NULL, stage = NULL, ..., \n    solution_eval_fn = NULL) \n{\n    (utils::getFromNamespace(\"check_exercise\", \"gradethis\"))(label = label, \n        solution_code = solution_code, user_code = user_code, \n        check_code = check_code, envir_result = envir_result, \n        evaluate_result = evaluate_result, envir_prep = envir_prep, \n        last_value = last_value, stage = stage, ...)\n}", 
+        exercise.error.check.code = "gradethis_error_checker()", 
+        label = "dbinom_0", exercise = TRUE, code = c("dbinom(x = 0, size = 4, prob = 0.51) #calculates P(X=0)", 
+        "dbinom(1, 4, 0.51) #calculates P(X=1); we can drop the argument label", 
+        "pbinom(1, 4, 0.51, lower.tail = TRUE) #calculates P(X<=1)"
+        ), out.width.px = 720, out.height.px = 432, params.src = "dbinom_0, exercise=TRUE", 
+        fig.num = 0, exercise.df_print = "default"), engine = "r", 
+    version = "4"), class = c("r", "tutorial_exercise")))
+</script>
+ 
+<script type="application/shiny-prerendered" data-context="server">
+`tutorial-exercise-dbinom_1-result` <- learnr:::setup_exercise_handler(reactive(req(input$`tutorial-exercise-dbinom_1-code-editor`)), session)
+output$`tutorial-exercise-dbinom_1-output` <- renderUI({
+  `tutorial-exercise-dbinom_1-result`()
+})
+</script>
+ 
+<script type="application/shiny-prerendered" data-context="server">
+learnr:::store_exercise_cache(structure(list(label = "dbinom_1", global_setup = structure("knitr::opts_chunk$set(echo = FALSE)", chunk_opts = list(
+    label = "setup", include = FALSE)), setup = NULL, chunks = list(
+    list(label = "dbinom_1", code = "dbinom(x = 5, size = 8, prob = 0.7) #calculates P(X=5)\ndbinom(5, 8, 0.7) #we can drop the argument label", 
+        opts = list(label = "\"dbinom_1\"", exercise = "TRUE"), 
+        engine = "r")), code_check = NULL, error_check = NULL, 
+    check = NULL, solution = NULL, tests = NULL, options = list(
+        eval = FALSE, echo = TRUE, results = "markup", tidy = FALSE, 
+        tidy.opts = NULL, collapse = FALSE, prompt = FALSE, comment = NA, 
+        highlight = FALSE, size = "normalsize", background = "#F7F7F7", 
+        strip.white = TRUE, cache = 0, cache.path = "Chapter4_3_Shiny_cache/html/", 
+        cache.vars = NULL, cache.lazy = TRUE, dependson = NULL, 
+        autodep = FALSE, cache.rebuild = FALSE, fig.keep = "high", 
+        fig.show = "asis", fig.align = "default", fig.path = "Chapter4_3_Shiny_files/figure-html/", 
+        dev = "png", dev.args = NULL, dpi = 192, fig.ext = "png", 
+        fig.width = 7.5, fig.height = 4.5, fig.env = "figure", 
+        fig.cap = NULL, fig.scap = NULL, fig.lp = "fig:", fig.subcap = NULL, 
+        fig.pos = "", out.width = 720, out.height = NULL, out.extra = NULL, 
+        fig.retina = 2, external = TRUE, sanitize = FALSE, interval = 1, 
+        aniopts = "controls,loop", warning = TRUE, error = FALSE, 
+        message = TRUE, render = NULL, ref.label = NULL, child = NULL, 
+        engine = "r", split = FALSE, include = TRUE, purl = TRUE, 
+        exercise.timelimit = 60, exercise.checker = "function (label = NULL, solution_code = NULL, user_code = NULL, \n    check_code = NULL, envir_result = NULL, evaluate_result = NULL, \n    envir_prep = NULL, last_value = NULL, stage = NULL, ..., \n    solution_eval_fn = NULL) \n{\n    (utils::getFromNamespace(\"check_exercise\", \"gradethis\"))(label = label, \n        solution_code = solution_code, user_code = user_code, \n        check_code = check_code, envir_result = envir_result, \n        evaluate_result = evaluate_result, envir_prep = envir_prep, \n        last_value = last_value, stage = stage, ...)\n}", 
+        exercise.error.check.code = "gradethis_error_checker()", 
+        label = "dbinom_1", exercise = TRUE, code = c("dbinom(x = 5, size = 8, prob = 0.7) #calculates P(X=5)", 
+        "dbinom(5, 8, 0.7) #we can drop the argument label"), 
+        out.width.px = 720, out.height.px = 432, params.src = "dbinom_1,exercise=TRUE", 
+        fig.num = 0, exercise.df_print = "default"), engine = "r", 
+    version = "4"), class = c("r", "tutorial_exercise")))
+</script>
+ 
+<script type="application/shiny-prerendered" data-context="server">
+`tutorial-exercise-dbinom_2-result` <- learnr:::setup_exercise_handler(reactive(req(input$`tutorial-exercise-dbinom_2-code-editor`)), session)
+output$`tutorial-exercise-dbinom_2-output` <- renderUI({
+  `tutorial-exercise-dbinom_2-result`()
+})
+</script>
+ 
+<script type="application/shiny-prerendered" data-context="server">
+learnr:::store_exercise_cache(structure(list(label = "dbinom_2", global_setup = structure("knitr::opts_chunk$set(echo = FALSE)", chunk_opts = list(
+    label = "setup", include = FALSE)), setup = NULL, chunks = list(
+    list(label = "dbinom_2", code = "dbinom(3, 8, 0.3) #we can drop the argument label", 
+        opts = list(label = "\"dbinom_2\"", exercise = "TRUE"), 
+        engine = "r")), code_check = NULL, error_check = NULL, 
+    check = NULL, solution = NULL, tests = NULL, options = list(
+        eval = FALSE, echo = TRUE, results = "markup", tidy = FALSE, 
+        tidy.opts = NULL, collapse = FALSE, prompt = FALSE, comment = NA, 
+        highlight = FALSE, size = "normalsize", background = "#F7F7F7", 
+        strip.white = TRUE, cache = 0, cache.path = "Chapter4_3_Shiny_cache/html/", 
+        cache.vars = NULL, cache.lazy = TRUE, dependson = NULL, 
+        autodep = FALSE, cache.rebuild = FALSE, fig.keep = "high", 
+        fig.show = "asis", fig.align = "default", fig.path = "Chapter4_3_Shiny_files/figure-html/", 
+        dev = "png", dev.args = NULL, dpi = 192, fig.ext = "png", 
+        fig.width = 7.5, fig.height = 4.5, fig.env = "figure", 
+        fig.cap = NULL, fig.scap = NULL, fig.lp = "fig:", fig.subcap = NULL, 
+        fig.pos = "", out.width = 720, out.height = NULL, out.extra = NULL, 
+        fig.retina = 2, external = TRUE, sanitize = FALSE, interval = 1, 
+        aniopts = "controls,loop", warning = TRUE, error = FALSE, 
+        message = TRUE, render = NULL, ref.label = NULL, child = NULL, 
+        engine = "r", split = FALSE, include = TRUE, purl = TRUE, 
+        exercise.timelimit = 60, exercise.checker = "function (label = NULL, solution_code = NULL, user_code = NULL, \n    check_code = NULL, envir_result = NULL, evaluate_result = NULL, \n    envir_prep = NULL, last_value = NULL, stage = NULL, ..., \n    solution_eval_fn = NULL) \n{\n    (utils::getFromNamespace(\"check_exercise\", \"gradethis\"))(label = label, \n        solution_code = solution_code, user_code = user_code, \n        check_code = check_code, envir_result = envir_result, \n        evaluate_result = evaluate_result, envir_prep = envir_prep, \n        last_value = last_value, stage = stage, ...)\n}", 
+        exercise.error.check.code = "gradethis_error_checker()", 
+        label = "dbinom_2", exercise = TRUE, code = "dbinom(3, 8, 0.3) #we can drop the argument label", 
+        out.width.px = 720, out.height.px = 432, params.src = "dbinom_2,exercise=TRUE", 
+        fig.num = 0, exercise.df_print = "default"), engine = "r", 
+    version = "4"), class = c("r", "tutorial_exercise")))
+</script>
+</p>
+
+<!--html_preserve-->
+
+<script type="application/shiny-prerendered" data-context="dependencies">
+{"type":"list","attributes":{},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["header-attrs"]},{"type":"character","attributes":{},"value":["2.14"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["rmd/h/pandoc"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["header-attrs.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["rmarkdown"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["2.14"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["bootstrap"]},{"type":"character","attributes":{},"value":["3.3.5"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["rmd/h/bootstrap"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["viewport"]}},"value":[{"type":"character","attributes":{},"value":["width=device-width, initial-scale=1"]}]},{"type":"character","attributes":{},"value":["js/bootstrap.min.js","shim/html5shiv.min.js","shim/respond.min.js"]},{"type":"character","attributes":{},"value":["css/bootstrap.min.css"]},{"type":"character","attributes":{},"value":["<style>h1 {font-size: 34px;}\n       h1.title {font-size: 38px;}\n       h2 {font-size: 30px;}\n       h3 {font-size: 24px;}\n       h4 {font-size: 18px;}\n       h5 {font-size: 16px;}\n       h6 {font-size: 12px;}\n       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}\n       pre:not([class]) { background-color: white }<\/style>"]},{"type":"NULL"},{"type":"character","attributes":{},"value":["rmarkdown"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["2.14"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["ioslides"]},{"type":"character","attributes":{},"value":["13.5.1"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["rmd/ioslides/ioslides-13.5.1"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["js/modernizr.custom.45394.js","js/prettify/prettify.js","js/prettify/lang-r.js","js/prettify/lang-yaml.js","js/hammer.js","js/slide-controller.js","js/slide-deck.js"]},{"type":"character","attributes":{},"value":["fonts/fonts.css","theme/css/default.css","theme/css/phone.css"]},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["rmarkdown"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["2.14"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["jquery"]},{"type":"character","attributes":{},"value":["3.6.0"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/3.6.0"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["jquery-3.6.0.min.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["jquerylib"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.1.4"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["font-awesome"]},{"type":"character","attributes":{},"value":["5.1.0"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["rmd/h/fontawesome"]}]},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["css/all.css","css/v4-shims.css"]},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["rmarkdown"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["2.14"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["bootbox"]},{"type":"character","attributes":{},"value":["5.5.2"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/bootbox"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["bootbox.min.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.11.2"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["idb-keyvalue"]},{"type":"character","attributes":{},"value":["3.2.0"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/idb-keyval"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["idb-keyval-iife-compat.min.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[false]},{"type":"character","attributes":{},"value":["0.11.2"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["tutorial"]},{"type":"character","attributes":{},"value":["0.11.2"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/tutorial"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["tutorial.js"]},{"type":"character","attributes":{},"value":["tutorial.css"]},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.11.2"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["ace"]},{"type":"character","attributes":{},"value":["1.10.1"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/ace"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["ace.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.11.2"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["clipboardjs"]},{"type":"character","attributes":{},"value":["2.0.10"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/clipboardjs"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["clipboard.min.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.11.2"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["ace"]},{"type":"character","attributes":{},"value":["1.10.1"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/ace"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["ace.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.11.2"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["clipboardjs"]},{"type":"character","attributes":{},"value":["2.0.10"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/clipboardjs"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["clipboard.min.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.11.2"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["ace"]},{"type":"character","attributes":{},"value":["1.10.1"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/ace"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["ace.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.11.2"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["clipboardjs"]},{"type":"character","attributes":{},"value":["2.0.10"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/clipboardjs"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["clipboard.min.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.11.2"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["ace"]},{"type":"character","attributes":{},"value":["1.10.1"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/ace"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["ace.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.11.2"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["clipboardjs"]},{"type":"character","attributes":{},"value":["2.0.10"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/clipboardjs"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["clipboard.min.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.11.2"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["ace"]},{"type":"character","attributes":{},"value":["1.10.1"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/ace"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["ace.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.11.2"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["clipboardjs"]},{"type":"character","attributes":{},"value":["2.0.10"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/clipboardjs"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["clipboard.min.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.11.2"]}]}]}
+</script>
+
+<!--/html_preserve-->
+
+<!--html_preserve-->
+
+<script type="application/shiny-prerendered" data-context="execution_dependencies">
+{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["packages"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["packages","version"]},"class":{"type":"character","attributes":{},"value":["data.frame"]},"row.names":{"type":"integer","attributes":{},"value":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91,92,93]}},"value":[{"type":"character","attributes":{},"value":["airports","assertthat","backports","base","broom","bslib","cellranger","cherryblossom","cli","colorspace","compiler","crayon","curl","datasets","DBI","dbplyr","digest","dplyr","ellipsis","evaluate","fansi","fastmap","forcats","fs","gargle","generics","ggplot2","glue","googledrive","googlesheets4","gradethis","graphics","grDevices","grid","gtable","haven","highr","hms","htmltools","htmlwidgets","httpuv","httr","jpeg","jquerylib","jsonlite","knitr","later","learnr","learnrhash","lifecycle","lubridate","magrittr","methods","mime","modelr","munsell","openintro","pillar","pkgconfig","png","promises","purrr","R6","Rcpp","readr","readxl","reprex","rlang","rmarkdown","rprojroot","rstudioapi","rvest","sass","scales","shiny","stats","stringi","stringr","tibble","tidyr","tidyselect","tidyverse","tools","tzdb","usdata","utf8","utils","vctrs","withr","xfun","xml2","xtable","yaml"]},{"type":"character","attributes":{},"value":["0.1.0","0.2.1","1.4.1","4.1.3","0.8.0","0.3.1","1.1.0","0.1.0","3.3.0","2.0-3","4.1.3","1.5.1","4.3.2","4.1.3","1.1.2","2.1.1","0.6.29","1.0.9","0.3.2","0.15","1.0.3","1.1.0","0.5.1","1.5.2","1.2.0","0.1.2","3.3.6","1.6.2","2.0.0","1.0.0","0.2.11.9000","4.1.3","4.1.3","4.1.3","0.3.0","2.5.0","0.9","1.1.1","0.5.2","1.5.4","1.6.5","1.4.3","0.1-9","0.1.4","1.8.0","1.39","1.3.0","0.11.2","0.2.0","1.0.1","1.8.0","2.0.3","4.1.3","0.12","0.1.8","0.5.0","2.3.0","1.7.0","2.0.3","0.1-7","1.2.0.1","0.3.4","2.5.1","1.0.8.3","2.1.2","1.4.0","2.0.1","1.0.2","2.14","2.0.3","0.13","1.0.2","0.4.1","1.2.0","1.7.2","4.1.3","1.7.6","1.4.0","3.1.7","1.2.0","1.1.2","1.3.2","4.1.3","0.3.0","0.2.0","1.2.2","4.1.3","0.4.1","2.5.0","0.31","1.3.3","1.8-4","2.3.5"]}]}]}
+</script>
+
+<!--/html_preserve--></article></slide>
+
+
+  <slide class="backdrop"></slide>
+
+</slides>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+<!-- map slide visiblity events into shiny -->
+<script>
+  (function() {
+    if (window.jQuery) {
+       window.jQuery(document).on('slideleave', function(e) {
+         window.jQuery(e.target).trigger('hidden');
+      });
+       window.jQuery(document).on('slideenter', function(e) {
+         window.jQuery(e.target).trigger('shown');
+      });
+    }
+  })();
+</script>
+
+</body>
+</html>
