@@ -127,7 +127,7 @@ Construct the CI for the difference $\mu_{esc} - \mu_{control}$
 **Point- Estimate** : $\bar{x}_{esc} - \bar{x}_{control} = 3.50-(-4.33)= 7.83$
 \
 \
-$SE= \sqrt{\frac{\sigma_1^2}{n_1} + \frac{\sigma_2^2}{n_2}} \approx  \sqrt{\frac{s_1^2}{n_1} + \frac{s_2^2}{n_2}}\\ = \sqrt{\frac{{5.17}^2}{9} + \frac{{2.76}^2}{9}} \approx 1.9535$
+$SE= \sqrt{\frac{\sigma_1^2}{n_1} + \frac{\sigma_2^2}{n_2}} \approx  \sqrt{\frac{s_1^2}{n_1} + \frac{s_2^2}{n_2}}\\ = \sqrt{\frac{5.17^2}{9} + \frac{2.76^2}{9}} \approx 1.9535$
 </div>
 
 <div style="float: right; width: 50%;">
@@ -215,7 +215,7 @@ grid.raster(py)
 
 **Compute Standard Error**
 \
-$S.E. \approx \sqrt{\frac{{s_n}^2}{n_n} + \frac{{s_s}^2}{n_s}}=\sqrt{\frac{{1.60}^2}{100} + \frac{{1.43}^2}{50}} = 0.26$
+$S.E. \approx \sqrt{\frac{s_n^2}{n_n} + \frac{s_s^2}{n_s}}=\sqrt{\frac{1.60^2}{100} + \frac{1.43^2}{50}} = 0.26$
 </div>
 
 
@@ -229,7 +229,7 @@ $H_a: \mu_𝑛−\mu_𝑠\ne 0.$
 \
 \
 
-$S.E. \approx \sqrt{\frac{{s_n}^2}{n_n} + \frac{{s_s}^2}{n_s}}\\=\sqrt{\frac{{1.60}^2}{100} + \frac{{1.43}^2}{50}} = 0.26$
+$S.E. \approx \sqrt{\frac{s_n^2}{n_n} + \frac{s_s^2}{n_s}}\\=\sqrt{\frac{1.60^2}{100} + \frac{1.43^2}{50}} = 0.26$
 </div>
 
 <div style="float: right; width: 50%;">
@@ -338,7 +338,7 @@ grid.raster(op)
 <div class="black">
 <div class="blue">
 
-$SE \approx  \sqrt{\frac{{s_A}^2}{n_A} + \frac{{s_B}^2}{n_B}} = \sqrt{\frac{{14}^2}{30} + \frac{{20}^2}{27}} \approx 4.62$
+$SE \approx  \sqrt{\frac{s_A^2}{n_A} + \frac{s_B^2}{n_B}} = \sqrt{\frac{14^2}{30} + \frac{20^2}{27}} \approx 4.62$
 </div>
 
 **Test Statistic**
@@ -363,9 +363,9 @@ Occasionally, two populations may have standard deviations that are so similar t
 If $s_1$ and $s_2$ are the standard deviations of groups 1 and 2 and there are very good reasons to believe $(\sigma_1 \approx \sigma_2)$, then we can obtain an improved estimate of the group variances by pooling their data:
 
 <div class="blue">
-${s}^2_{pooled} = \frac{{s}^2_1(n_1 -1)+{s}^2_2(n_2 -1)}{n_1 +n_2-2}$
+$s^2_{pooled} = \frac{s^2_1(n_1 -1)+s^2_2(n_2 -1)}{n_1 +n_2-2}$
 
-$S.E. = \sqrt{\frac{{S}^2_{pooled}}{n_1 +n_2 -2}}$
+$S.E. = \sqrt{\frac{S^2_{pooled}}{n_1 +n_2 -2}}$
 
 $df = n_1 + n_2 -2$ 
 </div>
