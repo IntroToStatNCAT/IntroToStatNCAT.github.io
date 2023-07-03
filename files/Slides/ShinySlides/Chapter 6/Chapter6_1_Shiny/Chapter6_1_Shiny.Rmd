@@ -180,12 +180,12 @@ $$
 Use 
 $$M.E = z_{\frac{\alpha}{2}} \sqrt{\frac{p(1-p)}{n}} \rightarrow \frac{M.E}{z_{\frac{\alpha}{2}}} = \sqrt{\frac{p(1-p)}{n}}$$
 
-$$\big({ \frac{M.E}{z_{{\alpha}/2}}}\big)^2 = {\frac{p(1-p)}{n}} \rightarrow n = \frac{p(1-p)}{\big({ \frac{M.E}{z_{\frac{\alpha}{2}}}}\big)^2}$$
+$$\big(\frac{M.E}{z_{\alpha/2}}\big)^2 = {\frac{p(1-p)}{n}} \rightarrow n = \frac{p(1-p)}{\big( \frac{M.E}{z_{\frac{\alpha}{2}}}\big)^2}$$
 
 $$n= {\frac{p(1-p)z^2_{\frac{\alpha}{2}}}{(M.E)^2}}$$
 So to control the ME under the specified level, take 
 
-$$ n \ge {\frac{p(1-p)z^2_{{\alpha}/2}}{(M.E)^2}}$$ (i.e., take the ceiling integer)
+$$ n \ge {\frac{p(1-p)z^2_{\alpha/2}}{(M.E)^2}}$$ (i.e., take the ceiling integer)
 </font>
 </div>
 
@@ -194,7 +194,7 @@ $$ n \ge {\frac{p(1-p)z^2_{{\alpha}/2}}{(M.E)^2}}$$ (i.e., take the ceiling inte
 <div class= "black">
 
 * The general sample size formula is: 
-$$ n \ge {\frac{p(1-p)z^2_{{\alpha}/2}}{(M.E)^2}}$$
+$$ n \ge {\frac{p(1-p)z^2_{\alpha/2}}{(M.E)^2}}$$
 
 * When we have no value for $p$ from a previous study nor $\hat{p}$, we use $p=0.5$.  
 
@@ -202,7 +202,7 @@ $$ n \ge {\frac{p(1-p)z^2_{{\alpha}/2}}{(M.E)^2}}$$
 
 * Substituting $p=\frac{1}{2}$ in the general formula above gives
 
-$$n \ge {\frac{z^2_{{\alpha}/2}}{4(M.E)^2}}$$
+$$n \ge {\frac{z^2_{\alpha/2}}{4(M.E)^2}}$$
 
 </div>
 </font>
