@@ -1,0 +1,1930 @@
+---
+title: "Chapter 2"
+subtitle: "Summarizing Data"
+output: 
+  ioslides_presentation:
+    progressive: FALSE
+    smaller: yes
+    widescreen: yes
+    transition: "faster"
+
+runtime: shiny_prerendered
+---
+
+<!-- <style type="text/css"> -->
+
+<!-- h2 { -->
+<!--   text-align: center; -->
+<!--   position: fixed; -->
+<!--   top: 50%; -->
+<!--   left: 50%; -->
+<!--   transform: translate(-50%, -50%); -->
+<!-- } -->
+<!-- } -->
+<!-- </style> -->
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+
+```
+
+```{r, echo=F, message=F, warning=F}
+library(datasets)
+library(tidyverse)
+library(shiny)
+library(scales)
+library(jpeg)
+library(openintro)
+library(dplyr)
+library(ggplot2)
+library(learnr)
+library(readr)
+library(knitr)
+library(png)
+library(gradethis) #remotes::install_github("rstudio/gradethis")
+library(learnrhash) #devtools::install_github("rundel/learnrhash")
+library(grid)
+library(tinytex)
+data("COL")
+```
+
+
+## Acknowledgement
+<center>
+<div class="black">
+These notes use content from OpenIntro Statistics Slides by   
+
+Mine Cetinkaya-Rundel.
+</div>
+</center>
+
+## Content Outline of Chapter 2
+
+<div class="black">
++ This chapter focuses on summarizing data
+
+    - Numerical data
+    
+    - Categorical data
+
++ There are three sections in this chapter
+
+    - 2.1 Examining numerical data
+
+    - 2.2 Considering categorical data
+
+    - 2.3 Case study
+</div>
+
+## 2.1 Examining numerical data
+
+<div class="black">
+
+In this section, we explore techniques for summarizing numerical variables.
+
++ **Graphical Summary**
+
+    - Scatterplot (for two numerical variables)
+    - Dot plot 
+    - Histogram and shape (modality and skewness)
+    - Boxplots & Outliers
+
++ **Numerical Summary**
+
+    - Mean
+    - Variance and Standard Deviation
+    - Median
+    - Quartiles and IQR
+   
+</div>
+
+## Scatterplot
+<div class="black">
+A scatterplot (also called scatter graph, scatter chart, scattergram, or scatter diagram) is a type of plot using Cartesian coordinates to display values for typically two numerical variables for a set of data.
+
+**Scatterplots** are useful for visualizing the relationship between two  numerical variables.
+
+Example 1. The figure  below is a scatterplot for a data set (50 cases) of the total income and borrowed loan amount.
+
+<center>
+```{r, echo=FALSE, out.width="50%"}
+image <- readJPEG("img.jpg")
+grid.raster(image)
+```
+
+</center>
+
+Practice: Read two pair of data and interpret.
+</div>
+
+
+## Scatterplot
+<div class="black">
+- When two variables show some connection with one another, they are called **associated** variables.
+   - Linear(positive, negative) association.
+   - Nonlinear association.
+- If two variables are not associated, i.e. there is no evident connection between the two, then they are said to **independent**.
+
+Back to Example 1. Is the association linear or nonlinear? **Nonlinear**
+
+<center>
+
+```{r, echo=FALSE, out.width="50%"}
+image <- readJPEG("img.jpeg")
+grid.raster(image)
+```
+
+</center>
+
+</div>
+
+## Practice 
+
+<div class="black">
+Visualize the types of associations.
+```{r, out.width="80%"}
+hh <- readJPEG("ag.jpeg")
+grid.raster(hh)
+```
+</div>
+
+
+## Dot plots
+
+<div class="black">
+- **Dot Plot** : shows a dot for each observation placed above its value on a number line. 
+- Dot Plot is useful for visualizing one numerical variable.
+
+- Darker colors represent areas where there are more observations.
+
+</div>
+```{r, echo= FALSE,out.width= "45%", Include= F, fig.align='center'}
+d = read.csv("gpa.csv")
+gpa = d$gpa[d$gpa <= 4]
+gpa = gpa[!is.na(gpa)]
+openintro::dotPlot(gpa, pch = 19, col = COL[1,4], xlab = "GPA", xlim = c(2.5,4), ylab = "")
+
+```
+
+
+## Stacked dot plot
+<div class="black">
+Higher bars represent areas where there are more observations, makes it a little easier to judge the center and the shape of the distribution.
+
+```{r, echo=F, message=F, warning=F, out.width="70%",fig.align='center'}
+X <- c()
+Y <- c()
+for(i in 1:length(gpa)){
+	x   <- gpa[i]
+	rec <- sum(gpa == x)
+	X   <- append(X, rep(x, rec))
+	Y   <- append(Y, 1:rec)
+}
+
+radius  <- 0.0249
+cex     <- 2.5
+seed    <- 1
+stacks  <- dotPlotStack(gpa, radius=radius, addDots=FALSE, pch=19, col=COL[1], cex=1.25, seed=seed)
+plot(0, type="n", xlab="GPA", axes=FALSE, ylab="", cex.lab = 2, xlim=c(2.6, 4.0), ylim=c(0, quantile(stacks[[3]], 0.994)))
+
+dotPlotStack(gpa, radius=radius, pch=19, col=COL[1], cex=cex, seed=seed)
+abline(h=0)
+axis(1, cex.axis = 2)
+```
+</div>
+
+
+## Dot plots & mean
+<div class="black">
+```{r,echo= FALSE,out.width= "45%", Include= F, fig.align='center'}
+openintro::dotPlot(gpa, pch = 19, col = COL[1,4], xlab = "GPA", xlim = c(2.5,4), ylab = "")
+M <- mean(d$gpa[d$gpa <= 4], na.rm = TRUE)
+polygon(M + c(-2,2,0)*0.01, c(0.25, 0.25, 0.5), border=COL[4], col=COL[4])
+
+# The plot is a stretched vertically. So we use the included plot pdf
+```
+
+
+- The **mean**, also called the **average** (marked with a triangle in the above plot), is one way to measure the center of a **distribution** of data.
+
+- The mean GPA is 3.59.
+</div>
+
+## Mean
+<div class="black">
++ The **sample mean**, denoted as $\bar{x}$, can be calculated as
+
+<div class="blue">
+$$\bar{x} = \frac{x_1+x_2+ \dots + x_n}{n},$$
+</div>
+
+where $x_1+x_2+ \dots + x_n$ represent the **n** observed values.
+
++ The **population mean** is also computed the same way but is denotes as $\mu$. It is often not possible to calculate $\mu$ since population data are rarely available.
+
+<div class="yellow"> 
++ The sample mean is a **sample statistic**, and served as a **point estimate** of the population mean (parameter).
+</div>
+
++ This estimate may not be perfect, but if the sample is good (representative of the population), it is usually a pretty good estimate.
+</div>
+
+## Examples
+
+Example 1. Calculate the mean of a sample with five observations: 5, 3, 8, 5, 6.
+
+$$\bar{x} = \frac{\sum_{i=1}^{n}x_i}{n} = \frac{5+3+8+5+6}{5}=\frac{27}{5}=5.4$$
+Using R, we can calculate the mean using the `mean()` command. Notice that we need to put the values in a vector using the `c()` function which stands for *concatenate*. 
+
+```{r Ex1, exercise=TRUE}
+mean(c(5,3,8,5,6))
+```
+
+## Examples
+
+Example 2. Given a data set with $n=234$ and $\sum_{i=1}^{n}x_i=2019$, find the mean $\bar{x}$ rounded to 4 decimals.
+
+$$\bar{x} = \frac{\sum_{i=1}^{n}x_i}{n} = \frac{2019}{234} = 8.6282$$
+
+```{r Ex2, exercise=TRUE}
+2019 / 234
+```
+
+## Discussions
+
+1. If the data set has 5 observations, with $\bar{x} = 5.4$, find $\sum_{i=1}^{5}x_i$.
+
+2. Continue discussion in 1, if add one more observation 10, will the mean $\bar{x}$ increase or decrease? What is the new $\bar{x}$?
+
+3. Compare data sets 5, 3, 8, 5, 6 and 5, 3, 80, 5, 6, which one has the higher mean? 
+
+```{r Ex3, exercise=TRUE}
+
+```
+
+<!-- ```{r, out.width= "80%"} -->
+<!-- ex <- readJPEG("ex.jpeg") -->
+<!-- grid.raster(ex) -->
+<!-- ``` -->
+
+
+## Histograms - Extracurricular hours
+
+<div class="blue"> 
+(Example: Extracurricular hours)
+</div>
+
+<div class="black">
++ Histogram provide a view of the **data density**. Higher bars represent where the data are relatively more common.
+
++ Histograms are especially convenient for describing the **shape** of the data distribution.
+
++ The chosen **bin width** can alter the story the histogram is telling.
+
+```{r, echo=F, message=F, warning=F, out.width="50%",fig.align='center'}
+d = read.csv("extracurr_hrs.csv")
+extracurr_hrs = d$extracurr_hrs[!is.na(d$extracurr_hrs)]
+histPlot(extracurr_hrs, col = COL[1], xlab = "Hours / week spent on extracurricular activities", ylab = "",cex.lab=2,cex.axis=2)
+```
+</div>
+
+## Bin width
+
+<div class="red">
+
+- Which one(s) of these histograms are useful?
+- Which reveals too much about the data?
+- Which hides too much?
+
+</div>
+
+
+<div style="float: left; width: 40%;">
+```{r, echo=F, message=F, warning=F, out.width="75%", fig.align='center'}
+histPlot(extracurr_hrs, col = COL[1],xlab = "Hours/week spent on extracurricular activities", ylab = "", breaks = 2,cex.lab=1.5,cex.axis=2)
+
+histPlot(extracurr_hrs, col = COL[1],xlab = "Hours/week spent on extracurricular activities", ylab = "", breaks = 20,cex.lab=1.5,cex.axis=2)
+```
+</div>
+
+<div style="float: right; width: 40%;">
+
+```{r, echo=F, message=F, warning=F, out.width="75%", fig.align='center'}
+histPlot(extracurr_hrs, col = COL[1], xlab = "Hours / week spent on extracurricular activities", ylab = "",cex.lab=1.5,cex.axis=2)
+
+histPlot(extracurr_hrs, col = COL[1], xlab = "Hours / week spent on extracurricular activities", ylab = "", breaks = 30,cex.lab=1.5,cex.axis=2)
+```
+</div>
+
+
+## Shape of the distribution: 1) skewness
+<div class= "red">
+Is the histogram **right skewed**, **left skewed**, or **symmetric**?
+</div>
+```{r, echo=F, message=F, warning=F,fig.width=6, fig.height=3,fig.align='center'}
+set.seed(234)
+x1 <- rchisq(65, 3)
+x2 <- c(runif(20, 0,10), rnorm(100, 16.5, 2))
+x3 <- rnorm(100, 35, 12)
+
+par(mfrow=c(1,3), mar=c(1.9, 2, 1, 2), mgp=c(2.4, 0.7, 0))
+
+histPlot(x1, axes=FALSE, xlab='', ylab='', col=COL[1])
+axis(1)
+axis(2)
+
+histPlot(x2, axes=FALSE, xlab='', ylab='', col=COL[1])
+axis(1)
+axis(2)
+
+histPlot(x3, axes=FALSE, xlab='', ylab='', col=COL[1])
+axis(1)
+axis(2)
+```
+__________________________
+
+<div class="red"> Note: </div> 
+<div class="black">
+Histograms are said to be skewed to the side of the long tail.
+</div>
+
+## Shape of the distribution: 2) unusual observations
+<div class= "red">
+Are there any unusual observations or potential **outliers**?
+</div>
+```{r, echo=F, message=F, warning=F,fig.width=6, fig.height=3,fig.align='center'}
+set.seed(195)
+x1 <- c(rchisq(65, 3), 20)
+x2 <- c(rnorm(100, 35, 10), rnorm(3, 100,3))
+
+par(mfrow=c(1,2), mar=c(1.9, 2, 1, 2), mgp=c(2.4, 0.7, 0))
+
+histPlot(x1, axes=FALSE, xlab='', ylab='', col=COL[1])
+axis(1)
+axis(2)
+
+histPlot(x2, axes=FALSE, xlab='', ylab='', col=COL[1])
+axis(1)
+axis(2)
+```
+
+## Shape of the distribution: 3) modality
+
+<div class ="red">
+
+Does the histogram have a single prominent peak (**unimodal**), several prominent peaks (**bimodal/multimodal**), or no apparent peaks (**uniform**)?
+
+</div>
+
+```{r, echo=F, message=F, warning=F,fig.width=8, fig.height=2,fig.align='center'}
+set.seed(51)
+x1 <- rchisq(65, 6)
+x2 <- c(rchisq(22, 5.8), rnorm(40, 16.5, 2))
+x3 <- c(rchisq(20, 3), rnorm(35, 12), rnorm(42, 18, 1.5))
+x4 <- runif(100,0,20)
+
+par(mfrow=c(1,4), mar=c(1.9, 2, 1, 2), mgp=c(2.4, 0.7, 0))
+
+histPlot(x1, axes=FALSE, xlab='', ylab='', col=COL[1])
+axis(1)
+axis(2)
+
+histPlot(x2, axes=FALSE, xlab='', ylab='', col=COL[1])
+axis(1)
+axis(2)
+
+histPlot(x3, axes=FALSE, xlab='', ylab='', col=COL[1])
+axis(1)
+axis(2)
+
+histPlot(x4, axes=FALSE, xlab='', ylab='', col=COL[1])
+axis(1)
+axis(2)
+```
+______________________
+<div class ="red">
+**Note**: </div> 
+<div class="black">
+In order to determine modality, step back and imagine a smooth curve over the histogram. (Continue to see next slide).
+
+</div>
+
+
+## Commonly observed shapes of distributions: Modality
+
++ Unimodal 
+
+```{r,warning=FALSE, message=FALSE, out.width= "35%", echo=FALSE,fig.align='center'}
+Unimodal <- readPNG("unimodal.png")
+grid.raster(Unimodal)
+```
+
+## Commonly observed shapes of distributions: Modality
+
+ + Unimodal 
+```{r,warning=FALSE, message=FALSE, out.width= "35%", echo=FALSE,fig.align='center'}
+Unimodal <- readPNG("unimodal.png")
+grid.raster(Unimodal)
+```
+<div style="float: right; width: 20%;">
+ + Bimodal
+```{r,warning=FALSE, message=FALSE, out.width= "35%", echo=FALSE,fig.align='center'}
+Bimodal <- readPNG("bimodal.png")
+grid.raster(Bimodal)
+```
+</div> 
+
+
+## Commonly observed shapes of distributions: Modality
+
++ Unimodal 
+```{r,warning=FALSE, message=FALSE, out.width= "20%", echo=FALSE,fig.align='center'}
+Unimodal <- readPNG("unimodal.png")
+grid.raster(Unimodal)
+```
+ + Bimodal
+```{r,warning=FALSE, message=FALSE, out.width= "20%", echo=FALSE,fig.align='center'}
+Bimodal <- readPNG("bimodal.png")
+grid.raster(Bimodal)
+
+```
++ Multimodal
+```{r,warning=FALSE, message=FALSE, out.width= "20%", echo=FALSE,fig.align='center'}
+mult <- readPNG("multimodal.png")
+grid.raster(mult)
+```
+
+## Commonly observed shapes of distributions: Modality
+
+<div style="float: left; width: 50%;">
++ Unimodal 
+```{r,warning=FALSE, message=FALSE, out.width= "25%", echo=FALSE,fig.align='center'}
+Unimodal <- readPNG("unimodal.png")
+grid.raster(Unimodal)
+```
++ Bimodal
+```{r,warning=FALSE, message=FALSE, out.width= "25%", echo=FALSE,fig.align='center'}
+Bimodal <- readPNG("bimodal.png")
+grid.raster(Bimodal)
+
+```
+</div>
+
+<div style="float: right; width: 50%;">
++ Multimodal
+```{r,warning=FALSE, message=FALSE, out.width= "25%", echo=FALSE,fig.align='center'}
+mult <- readPNG("multimodal.png")
+grid.raster(mult)
+```
++ uniform
+```{r,warning=FALSE, message=FALSE, out.width= "25%", echo=FALSE,fig.align='center'}
+unif <- readPNG("uniform.png")
+grid.raster(unif)
+```
+</div>
+
+
+## Commonly observed shapes of distributions: Skewness
+
++ Right Skew
+```{r,warning=FALSE, message=FALSE, out.width= "20%", echo=FALSE,fig.align='center'}
+skew <- readPNG("right_skew.png")
+grid.raster(skew)
+```
+</div>
+
+## Commonly observed shapes of distributions: Skewness
+
++ Right Skew
+```{r,warning=FALSE, message=FALSE, out.width= "20%", echo=FALSE,fig.align='center'}
+skew <- readPNG("right_skew.png")
+grid.raster(skew)
+```
+
++ Left Skew
+```{r,warning=FALSE, message=FALSE, out.width= "20%", echo=FALSE,fig.align='center'}
+skewd <- readPNG("left_skew.png")
+grid.raster(skewd)
+```
+
+
+## Commonly observed shapes of distributions: Skewness
+
++ Right Skew
+```{r,warning=FALSE, message=FALSE, out.width= "20%", echo=FALSE,fig.align='center'}
+skew <- readPNG("right_skew.png")
+grid.raster(skew)
+```
+
++ Left Skew
+```{r,warning=FALSE, message=FALSE, out.width= "20%", echo=FALSE,fig.align='center'}
+skewd <- readPNG("left_skew.png")
+grid.raster(skewd)
+```
+
++ Symmetric
+```{r,warning=FALSE, message=FALSE, out.width= "20%", echo=FALSE,fig.align='center'}
+sk <- readPNG("symmetric.png")
+grid.raster(sk)
+```
+
+
+## Extracurricular activities
+
+<div class="red">
+How would you describe the shape of the distribution of hours of week students spend on extracurricular activities?
+</div>
+```{r, echo=F, message=F, warning=F, out.width="50%",fig.align='center'}
+histPlot(extracurr_hrs, col = COL[1], xlab = "Hours / week spent on extracurricular activities", ylab = "",cex.lab=1.5,cex.axis=2)
+```
+<div class="black">
+Unimodal and right skewed, with a potentially unusual observation at 60 hours/week.
+</div> 
+
+
+## Variance
+
+<div class="black">
+<font size="4">
+
+**Variance** is roughly the average squared deviation from the mean.
+
+</font>
+
+$$
+s^2 = \frac{\sum_{i=1}^{n}(x_i-\bar{x})^2}{n-1}\\
+x : 1,2,5,20 \\
+\bar{x} =7\\
+(x-\bar{x}): -6,-5,-2,13 \\
+(x-\bar{x})^2 : 36,25,4,169 \\
+s^2 = \frac{234}{3}= 78
+$$
+<font size="4">
+We use the squared deviation in the calculation of variance:
+
+- To get rid of negatives so that observations equally distant from the mean are weighted equally.
+
+- To weigh larger deviations more heavily.
+</font>
+
+</div>
+
+## Variance
+
+<div class="black">
+<font size="4">
+
+**Variance** is roughly the average squared deviation from the mean.
+
+<div style="float: left; width: 50%;"class="red">
+
+Example: For the sample data set "Hours of sleep per night", the sample size is $n = 217$, sample mean is $\bar{x} = 6.71,$ and the variance is calculated as follows:
+</div>
+
+<div style="float: right; width: 40%;">
+```{r,echo=FALSE,message=F, warning=F,out.width="80%", fig.height=4, fig.align='center'}
+d = read.csv("sleep.csv")
+sleep = d$sleep[!is.na(d$sleep)]
+# hist
+histPlot(sleep, col = COL[1], xlab = "Hours of sleep / night", ylab = "", cex.lab=2)
+```
+</div>
+
+$s^2 = \frac{(5-6.71)^2+(9-6.71)^2+\dots+(7-6.71)^2}{217-1} = 4.11 \text{ } hours^2$
+</font>
+</div>
+
+## Standard Deviation
+<div class="black">
+The **standard deviation** is the square root of the variance, and has the same units as the data.
+
+$$s = \sqrt{s^2}$$
+$$ s = \sqrt{\frac{\sum_{i=1}^n(x_i - \bar{x})^2}{n-1}}$$
+Standard deviation measures the variability of data:
+
+1) if $\color{blue}{s}$ is small, the data is concentrated around the mean $\color{blue}{\bar{x}}$;
+
+2) if $\color{blue}{s}$ is large, the data is spread further from the mean $\color{blue}{\bar{x}}$. 
+
+</div>
+
+
+## Standard Deviation
+<div class="black">
+
+<div style="float: left; width: 50%;">
++ The standard deviation of amount of sleep students get per night can be calculated as:
+$$s = \sqrt{4.11} = 2.03 \text{ } hours$$
+
++ We can see that all of the data are within 3 standard deviations of the mean (center),
+i.e. between 0.62 and 12.8.
+
+$\bar{x}$ = 6.71, 3s =6.09
+
+$\bar{x}$ - 3s = 6.71- 6.09 = 0.62
+
+$\bar{x}$ + 3s = 6.71 + 6.09 = 12.8
+</div>
+
+
+<div style="float: right; width: 50%;">
+```{r,echo=FALSE,message=F, warning=F,out.width="110%", fig.height=4, fig.align='center'}
+d = read.csv("sleep.csv")
+sleep = d$sleep[!is.na(d$sleep)]
+# hist
+histPlot(sleep, col = COL[1], xlab = "Hours of sleep / night", ylab = "", cex.lab=2)
+```
+</div>
+</div>
+
+
+## Standard deviation 
+
+Example: The following are samples of women’s and men’s ideal number of children. Find the standard deviation for each group.
+
+<center>
+
+Men:  0, 0, 0, 2, 4, 4, 4   \ \ \ \ \ \ Women:  0, 2, 2, 2, 2, 2, 4
+
+</center>
+
+- Both men and women have a mean of $\bar{x} = \frac{14}{7}=2$
+
+- The deviations $(x_i - \bar{x})$ for men are: −2,  −2,  −2,  0,    2,   2,   2
+
+- The standard deviation (SD) for men is
+
+$$s = \sqrt{\frac{\sum_{i=1}^n(x_i - \bar{x})^2}{n-1}} = \sqrt{\frac{3(-2)^2+0+3(2)^2}{7-1}}=\sqrt{\frac{24}{6}}=2$$
+- The deviations $(x_i - \bar{x})$ for women are:  −2,  0,   0 ,   0 ,   0,   2
+
+- The standard deviation (SD) for women is
+
+$$s = \sqrt{\frac{\sum_{i=1}^n(x_i - \bar{x})^2}{n-1}} = \sqrt{\frac{(-2)^2+4(0)^2+(2)^2}{7-1}}=\sqrt{\frac{8}{6}}\approx1.15\approx1.2$$
+
+<!-- ```{r, out.width= "80%"} -->
+<!-- exp <- readJPEG("exp.jpeg") -->
+<!-- grid.raster(exp) -->
+<!-- ``` -->
+
+## Standard deviation 
+
+Example: The following are samples of women’s and men’s ideal number of children. Find the standard deviation for each group.
+
+<center>
+
+Men:  0, 0, 0, 2, 4, 4, 4   \ \ \ \ \ \ Women:  0, 2, 2, 2, 2, 2, 4
+
+</center>
+
+- Using R, we can calculate the standard deviation using the `sd()` command as follows:
+
+```{r Ex4, exercise = TRUE}
+sd(c(0, 0, 0, 2, 4, 4, 4))
+sd(c(0, 2, 2, 2, 2, 2, 4))
+```
+
+## Understand Standard Deviation
+
+<div class="black">
+$$ s = \sqrt{\frac{\sum_{i=1}^n(x_i - \bar{x})^2}{n-1}}$$
+
++ The standard derivation 𝑠 represents a type of average distance of observations from the mean. 
+
++ The standard deviation is zero (𝑠 = 0) only when all observations have the same value, otherwise 𝑠 > 0.
+
++ The larger the value of standard deviation 𝑠, the greater the variability of the data. As the spread of the data increases,𝑠 gets larger.
+
++ s has the same units of measurement as the original  observations, while variance 𝑠^2 does not.
+
++ The standard deviation𝑠is not resistant. That is, strong skewness or a few outliers can greatly increase𝑠.
+</div>
+
+
+## Median
+<div class="black">
+- The **median** is the value that splits the data in half when ordered in ascending order.
+
+
+$$0, 1, \textbf{2}, 3, 4$$
+
+- If there are an even number of observations, then the median is the average of the two values in the middle.
+
+$$0, 1, \underline{2, 3}, 4, 5 \rightarrow \frac{2+3}{2} = \textbf{2.5}$$
+
+- Since the $\color{red}{median}$ is the midpoint of the data, 50% of the values are below it. Hence, it is also the $\color{red}{50^{\textbf{th}}}$ **percentile**.
+</div>
+
+
+## Median 
+<div class="black">
+
+**Example.** the data below gives the per capita CO2 emissions in 9 largest nations measured in metric tons per person. Find the value of the median.
+
+China 5.9;       India 1.4;    U.S. 16.9;   Indonesia 1.8;   Brazil 2.1; Pakistan 0.8;   Nigeria 0.3;   Bangladesh 0.4;   Russia 11.6.
+
+**Solution.**
+
+First, put the 9 observations in ascending  order 
+0.3,     0.4,      0.8,    1.4,    1.8,    2.1,    5.9,     11.6,       16.9
+
+Since 𝑛 = 9 is odd, the median is the middle observation: 
+
+median= 1.8 metric tons.
+
+- In R, we calculate the median by applying the `median()` command to the raw (unordered) values:
+
+```{r Ex5, exercise = TRUE}
+median(c(5.9, 1.4, 16.9, 1.8, 2.1, 0.8, 0.3, 0.4, 11.6))
+```
+
+</div>
+
+
+## Median 
+
+<div class="black">
+<div style="float: left; width: 50%;">
+- Unlike the mean, the median is a resistant measure as its value is not sensitive to outliers. 
+      For  data       0.3, 0.4, 0.8, 1.4, 1.8, 2.1, 5.9, 11.6, 16.9
+</div>
+<div style="float: right; width: 50%;">
+```{r, out.width="80%", fig.align='center'}
+px <- readJPEG("px.jpeg")
+grid.raster(px)
+```
+</div>
+
+- If we drop out the U.S. value, what is the new median? New mean?  0.3, 0.4, 0.8, 1.4, 1.8, 2.1, 5.9, 11.6
+Now the new median is $\frac{(1.4+1.8)}2=1.6$
+
+The new mean is 3.04.
+
+- If we change the last value, 0.3, 0.4, 0.8, 1.4, 1.8, 2.1, 5.9, 11.6, $\color{red}{106.9}$ 
+   - what is the new median? New mean? 
+   - Now the new median is still 1.8, the new mean is $\color{red}{13.04}$
+
+</div>
+
+## Percentile
+
+- The  pth percentile is a value such that $p$ percent of the observations fall below or at that value, and $1-p$ percent of the observations fall above or at that value.
+
+<center>
+
+```{r, out.width= "60%"}
+pt <- readJPEG("pt.jpg")
+grid.raster(pt)
+```
+
+</center>
+
+- The median is a special percentile: 50th percentile
+
+## Quartiles and (IQR)
+
+<div class="black">
+<div style="float: left; width: 50%;">
+-   The $25^{th}$ percentile is also called the first quartile, **Q1**.
+
+-   The $50^{th}$ percentile is also called the median.
+
+-   The $75^{th}$ percentile is also called the third quartile, **Q3**.
+
+-   Between Q1 and Q3 is the middle 50% of the data. The range these data span is called the **interquartile range**, or the **IQR**.
+</div>
+
+$$IQR = Q3-Q1$$
+<div style="float: right; width: 50%;">
+**The Quartiles Split the Distribution into Four Parts**
+
+```{r, out.width="100%"}
+iqr <- readJPEG("iqr.jpeg")
+grid.raster(iqr)
+```
+</div>
+</div>
+
+## Finding Quartiles
+<div class="black">
+
+Steps: 
+
+- Arrange the data in order.
+
+- Find the median. This is the second quartile, Q2.
+
+- Consider the lower half of the observations (excluding the median itself if n is odd). The median of these observations is the first quartile, Q1.
+
+- Consider the upper half of the observations (excluding the median itself if n is odd). Their median is the third quartile, Q3.
+</div>
+
+## Five- Number Summary
+<div class= "blue">
+**Example: Cereal Sodium Data**
+</div>
+
+<div class="black">
+<div style="float: left; width: 50%;">
+For the sodium values for the 20 breakfast cereals in table, 
+</div>
+<div style="float: right; width: 50%;">
+```{r, out.width="80%"}
+fs <- readJPEG("fs.jpeg")
+grid.raster(fs)
+```
+</div>
+
+- The median of the 20 values is the average of the 10th  and 11th observations, 180 and 180, which is Q2 = 180 mg.
+
+- The first quartile Q1 is the median of the 10 smallest observations (in the top row), which is the average of 130 and 140, Q1 = 135 mg. 
+
+- The third quartile Q3 is the median of the 10 largest observations (in the bottom row), which is the average of 200 and 210, Q3 = 205 mg.
+
+- Five-Number Summary:  
+  minimum;    first quartile;     median;    third quartile;  maximum
+
+- In this example, the five number summary is:  0     135    180   205    340
+
+</div>
+
+<!-- ## Quantiles in R -->
+<!-- <div class= "blue"> -->
+<!-- **Example: Cereal Sodium Data** -->
+<!-- </div> -->
+
+<!-- ```{r, out.width="20%"} -->
+<!-- grid.raster(fs) -->
+<!-- ``` -->
+
+<!-- In R, we compute quartiles (and percentiles in general) using the `quantile()` command. -->
+
+<!-- ```{r Ex6, exercise = TRUE} -->
+<!-- quantile(c(0,50,70,100,130,140,140,150,160,180, -->
+<!--           180,180,190,200,200,210,210,220,290,340),  -->
+<!--          probs = 0.25, type = 2) #first quartile; type=2 averages at discontinuities -->
+
+<!-- quantile(c(0,50,70,100,130,140,140,150,160,180, -->
+<!--           180,180,190,200,200,210,210,220,290,340),  -->
+<!--          probs = 0.75, type = 2) #third quartile -->
+<!-- ``` -->
+
+## Five- Number Summary in R
+<div class= "blue">
+**Example: Cereal Sodium Data**
+</div>
+
+<center>
+```{r, out.width="30%"}
+grid.raster(fs)
+```
+</center>
+
+In R, we can compute the five-number summary using the `summary()` command as shown below. 
+
+Note that the `quantile.type = 2` works for both odd and even sample sizes with the exception of `n=5` observations in which case we need to adjust `quantile.type = 6`.
+
+```{r Ex7, exercise = TRUE}
+summary(c(0,50,70,100,130,140,140,150,160,180,
+          180,180,190,200,200,210,210,220,290,340),
+          quantile.type = 2) #change type to 6 if n=5
+```
+
+## The Interquartile Range (IQR) and Outliers.
+
+<div class="black">
+The interquartile range is the distance between the third quartile and first quartile:
+$$IQR = Q3-Q1$$
+IQR gives the spread of middle 50% of the data distribution.
+
+<div class="red2"> The IQR measures the variability.
+</div>
+
+<div style="float: left; width: 50%;">
+```{r,out.width= "100%" }
+ik <-readJPEG("ik.jpeg")
+grid.raster(ik)
+```
+</div>
+<div style="float: right; width: 50%;">
+An observation is a potential outlier if it falls a distance of more than 1.5 x IQR below the first quartile  or a distance of more than 1.5 x IQR above the third quartile.
+
+That is, if either 
+
+$x < Q_1 - 1.5*IQR$
+
+Or
+
+ $x> Q_3+1.5*IQR$, 
+ 
+then the value $x$ is a potential outlier
+</div>
+</div>'
+
+
+## Box Plot
+<div class="black">
+
+Boxplot uses quartiles to draw a box and two whiskers to summarize data. (Boxplot can be horizonal or vertical.)
+
+1) The box represents the middle 50% of the data, from Q1 to Q3.  The thick line in the box is the median.  
+
+2) A line goes from the lower end of the box to the smallest observation that is not a potential outlier (lower whisker).
+
+3) A line goes  from the upper end of the box to the largest observation that is not a potential outlier (upper whisker).
+
+4) Indicate potential (suspected) outliers if there are any.
+
+</div>
+
+
+## Box plot( Example)
+<div class="black">
+
+Below is a boxplot of interest rate from from loan dataset. From the plot, 
+
+1) Find (estimate) quartiles, IQR and five number summary.
+2) Is the data skewed?.
+
+<div style="float: left; width: 50%;">
+```{r, echo=F, message=F, warning=F, out.width="100%",fig.align='center'}
+# layout
+d = read.csv("study_hours.csv")
+study_hours = d$study_hours[!is.na(d$study_hours)]
+par(mar=c(0.8,4,0,1), mgp=c(2.8, 0.7, 0), las=1)
+
+boxPlot(study_hours, col = COL[1,3], ylab = "# of study hours / week", axes=FALSE, xlim = c(0,3.5), pch = 20)
+axis(2)
+
+arrows(2,0, 1.40,min(study_hours)-0.5, length=0.08)
+text(2,0.5,'lower whisker', pos=4, cex=1.5)
+
+arrows(2, 8, 1.40, quantile(study_hours, 0.25), length=0.08)
+text(2,8,expression(Q[1]~~'(first quartile)'), pos=4, cex=1.5)
+
+m <- median(study_hours)
+arrows(2, m, 1.40, m, length=0.08)
+text(2,m,'median', pos=4, cex=2)
+
+q <- quantile(study_hours, 0.75)
+arrows(2, q, 1.40, q, length=0.08)
+text(2,q,expression(Q[3]~~'(third quartile)'), pos=4, cex=1.5)
+
+arrows(2, 35, 1.40, 35, length=0.08)
+text(2,35,'max whisker reach\n& upper whisker', pos=4, cex=1.5)
+
+arrows(2, 47, 1.40, 45, length=0.08)
+arrows(2, 47, 1.40, 49, length=0.08)
+text(2,47,'suspected outliers', pos=4, cex=1.5)
+
+points(rep(0.4, 99), rev(sort(study_hours))[1:99], cex=rep(2, 27), col=rep(COL[1,3], 99), pch=rep(20, 99))
+points(rep(0.4, 99), sort(study_hours)[1:99], cex=rep(2, 27), col=rep(COL[2], 99), pch=rep(1, 99))
+```
+</div>
+<div style="float: right; width: 50%;">
+
+Guessed answer:
+Q1=8, Q2=10, Q3=14, IQR=6
+
+Max Whisker reach
+14+1.5*6=23,  Min=5 , Max= 26. 
+
+Potential outliers
+25,26
+
+Skewed to the right.
+</div>
+</div>
+
+
+## More on Boxplot (Basic Boxplot)
+<div class="black">
+
+When there is no outliers (or in a simple way), the boxplot is determined by five number summary. 
+
+<div style="float: left; width: 50%;">
+
+**Example**. Given a data set with the following boxplot. 
+
+1) Calculate the IQR
+
+2) Explain why there is no outlier. 
+
+3) What percentage of the data is below 4.
+
+4) What percentage of the data is above 10.
+
+5) Can you tell the five summary from the boxplot.
+</div>
+
+<div style="float: left; width: 50%;">
+```{r, out.width= "90%"}
+bx <- readJPEG("bx.jpeg")
+grid.raster(bx)
+```
+</div>
+</div>
+
+
+## Boxplot
+<div class="black">
+Multiple boxplots  may put by side-by-side to compare the data sets.
+
+**Example.** The following are two box plots for heights (in inches) of boys and girls. Use the boxplots to answer the following questions:
+
+
+<div style="float: left; width: 50%;">
+
+1) The five number summary for each group (boys, girls):
+
+2) If a girl is 68 inches tall, what is the percentage of girls who are below or at her height? what is the percentage of boys who are below or at her height? 
+
+3) How much percentage of boys are not shorter than all girls?
+</div>
+
+<div style="float: right; width: 50%;">
+```{r, out.width= "70%"}
+hg <- readJPEG("hg.jpeg")
+grid.raster(hg)
+
+```
+</div>
+</div>
+
+
+## Practice 
+
+<div class="black">
+
+Match the histograms to Boxplot.
+
+```{r, out.width= "85%"}
+mn <- readJPEG("mn.jpeg")
+grid.raster(mn)
+```
+</div>
+</div>
+
+
+## Outliers
+<div class="black">
+<div class="red">
+Why is it important to look for outliers?
+</div>
+
+-   Identify extreme skew in the distribution.
+
+-   Identify data collection and entry errors.
+
+-   Provide insight into interesting features of the data.
+</div>
+
+## Extreme observations
+<div class="black">
+<div class="red">
+How would sample statistics such as mean, median, SD, and IQR of household income be affected if the largest value was replaced with \$10 million? What if the smallest value was replaced with \$10 million?
+</div>
+```{r, echo=F, message=F, warning=F,fig.width=8, fig.height=4,fig.align='center'}
+d = read.csv("house_income.csv")
+
+house_income = d$house_income[!is.na(d$house_income) & d$house_income < 4000000]
+
+radius  <- 20000
+cex     <- 1.4
+seed    <- 2
+stacks  <- dotPlotStack(house_income, radius=radius, addDots=FALSE, pch=19, col=COL[1], cex=0.8, seed=seed)
+plot(0, type="n", xlab="Annual Household Income", axes=FALSE, ylab="", xlim=range(house_income), ylim=c(0, quantile(stacks[[3]], 0.999)),  cex.lab=1.5)
+
+dotPlotStack(house_income, radius=radius, pch=19, col=COL[1], cex=cex, seed=seed)
+abline(h=0)
+axis(1, cex.axis=1.1)
+```
+</div>
+
+
+## Robust statistics
+<div style="float: left; width: 50%;">
+```{r, echo=F, message=F, warning=F, fig.width=6, fig.height=4,fig.align='right'}
+radius  <- 20000
+cex     <- 1.4
+seed    <- 2
+stacks  <- dotPlotStack(house_income, radius=radius, addDots=FALSE, pch=19, col=COL[1], cex=0.8, seed=seed)
+plot(0, type="n", xlab="Annual Household Income", axes=FALSE, ylab="", xlim=range(house_income), ylim=c(0, quantile(stacks[[3]], 0.999)),  cex.lab=1.5)
+
+dotPlotStack(house_income, radius=radius, pch=19, col=COL[1], cex=cex, seed=seed)
+abline(h=0)
+axis(1, cex.axis=1.1)
+```
+</div>
+<div style="float: right; width: 50%;">
+```{r, out.width= "55%", fig.align='left'}
+rn <- readJPEG("rn.jpeg")
+grid.raster(rn)
+```
+</div>
+</div>
+
+
+
+## Robust statistics
+<div class="black">
+Median and IQR are more robust to skewness and outliers than mean and SD. Therefore,
+
+<div class="yellow">
+-   for skewed distributions it is often more helpful to use median and IQR to describe the center and spread.
+
+-   for symmetric distributions it is often more helpful to use the mean and SD to describe the center and spread.
+</div>
+<div class= "red">
+If you would like to estimate the typical household income for a student, would you be more interested in the mean or median income?
+</div>
+Median 
+-b/c household income is skewed to the right.
+
+</div>
+
+
+## Mean vs. Median
+<div class="black">
+-   If the distribution is symmetric, center is often defined as the mean: mean $\approx$ median.
+```{r, echo=F, message=F, out.width="25%",warning=F,fig.align='center'}
+set.seed(20)
+par(mar=c(1,1,1,1))
+sym = rnorm(10000, 0,1)
+d = sym
+plot(density(d), axes = FALSE, xlab = "", ylab = "", main = "Symmetric", lwd =4, cex.main=3.5, adj = 0.05, line = -2.1)
+abline(h = 0, col = "gray")
+box()
+abline(v = mean(d), col = "blue", lty = 2, lwd = 5)
+abline(v = median(d), col = "darkgreen", lty = 1, lwd = 5)
+legend("topright", inset = 0.05, col = c("blue","darkgreen"), legend = c("mean","median"), lty = c(2,1), lwd = 3)
+```
+
+-   If the distribution is skewed or has extreme outliers, center is often defined as the median.
+    -   Right-skewed: mean \> median
+    -   left-skewed: mean \< median
+</div>   
+<div style="float: left; width: 50%;">
+```{r, echo=F, message=F, out.width="60%",warning=F,fig.align='right'}
+set.seed(20)
+par(mar=c(1,1,1,1))
+rs = rpois(10000,.5)
+d = rs
+plot(density(d), axes = FALSE, xlab = "", ylab = "", main = "Right-skewed", lwd=4, cex.main=3.5, line=-2.1)
+abline(h = 0, col = "gray")
+box()
+abline(v = mean(d), col = "blue", lty = 2, lwd = 5)
+abline(v = median(d), col = "darkgreen", lty = 1, lwd = 5)
+legend("topright", inset = 0.05, col = c("blue","darkgreen"), legend = c("mean","median"), lty = c(2,1), lwd = 3)
+
+```
+</div>
+
+
+<div style="float: right; width: 50%;">
+```{r, echo=F, message=F, out.width="60%",warning=F, fig.align='left'}
+set.seed(20)
+par(mar=c(1,1,1,1))
+ls = rbeta(10000,8,0.5)
+d = ls
+plot(density(d), axes = FALSE, xlab = "", ylab = "", main = "Left-skewed", lwd=4, cex.main=3.5, line=-2.1)
+abline(h = 0, col = "gray")
+box()
+abline(v = mean(d), col = "blue", lty = 2, lwd = 5)
+abline(v = median(d), col = "darkgreen", lty = 1, lwd = 5)
+legend("topleft", inset = 0.05, col = c("blue","darkgreen"), legend = c("mean","median"), lty = c(2,1), lwd = 3)
+```
+</div>
+
+## Practice
+<div class="red">
+Which is most likely true for the distribution of percentage of time actually spent taking notes in class versus on Facebook, Twitter etc.?
+</div>
+
+```{r, echo=F, message=F, fig.width=6, fig.height=3,warning=F,fig.align='center'}
+d = read.csv("notes_perc.csv")
+
+notes_perc = d$notes_perc[!is.na(d$notes_perc)]
+
+# hist
+
+histPlot(notes_perc, col = COL[1], xlab = "% of time in class spent taking notes", ylab = "",cex.axis=3, cex.lab=1.5)
+```
+<div class="black">
+A)  Mean \> Median 
+B)  Mean \< Median 
+C) Mean $\approx$ Median
+D) Impossible to tell
+</div>
+
+## Practice
+<div class= "red">
+Which is most likely true for the distribution of percentage of time actually spent taking notes in class versus on Facebook, Twitter etc.?
+</div>
+```{r, echo=F, message=F, fig.width=5, fig.height=3,warning=F,fig.align='center'}
+# hist
+histPlot(notes_perc, col = COL[1], xlab = "% of time in class spent taking notes", ylab = "",cex.axis=3, cex.lab=1.5)
+```
+<div class="black">
+A)  Mean \> Median 
+B) <div class="red"> Mean < Median</div> 
+C) Mean $\approx$ Median
+D) Impossible to tell
+</div>
+
+## Practice
+<div class="black">
+<div class="red">
+Which is most likely true for the distribution of percentage of time actually spent taking notes in class versus on Facebook, Twitter etc.?
+</div>
+
+```{r, echo=F, message=F, fig.width=5, fig.height=3,warning=F,fig.align='center'}
+# hist
+
+histPlot(notes_perc, col = COL[1], xlab = "% of time in class spent taking notes", ylab = "",cex.axis=3, cex.lab=1.5)
+```
+
+-   **Median: 80%**
+-   **Mean: 76%**
+</div
+
+
+## Mean and Median 
+<div class="black">
+Mean and median are both measures of center of numerical (quantitative) data.
+
+<div class="yellow>
+For symmetric or almost symmetric data, use mean.
+
+For skewed data, use median
+</div>
+
+```{r, out.width= "60%"}
+sd <- readJPEG("sd.jpeg")
+grid.raster(sd)
+```
+
+
+## Transforming Data (For Extremely skewed data)
+<div class="black">
+When data are extremely skewed, transforming them might make modeling easier. A common transformation is the **log transformation**.
+
+The histograms on the left shows the distribution of number of basketball games attended by students. The histogram on the right shows the distribution of log of number of games attended.(Here is the natural log)
+```{r}
+```
+
+<div style="float: left; width: 50%;">
+```{r, echo=F, message=F, out.width="70%",warning=F,fig.align='right'}
+d = read.csv("basket_games.csv")
+basket_games = d$basket_games[!is.na(d$basket_games)]
+# hist
+histPlot(basket_games, col = COL[1], xlab = "# of basketball games attended", ylab = "", cex.lab=2, cex.axis=2)
+```
+</div>
+
+<div style="float: right; width: 50%;">
+```{r, echo=F, message=F, out.width="70%",warning=F,fig.align='left'}
+histPlot(log(basket_games), col = COL[1], xlab = "# of basketball games attended", ylab = "", cex.lab=2, cex.axis=2)
+```
+</div>
+</div>
+
+
+
+## Pros and Cons of transformations (end of 2.1)
+<div class="black">
+-   Skewed data are easier to model with when they are transformed because outliers tend to become far less prominent after an appropriate transformation.
+$$
+\begin{split}  
+\# of games       & 70    &  50    &  25    &  \dots 
+\\ 
+log(\# of games)  & 4.25  &  3.91  &  3.22  &  \dots     \\
+\end{split}
+$$
+-   However, results of an analysis in log units of the measured variable might be difficult to interpret.
+
+<div class="red">
+What other variables would you expect to be extremely skewed?
+</div>
+
+Salary, housing prices, etc.
+</div> 
+
+##  2.2 Considering categorical data
+<div class="black">
+
+In this section, we introduce tables and other tools for categorical data.
+
+- Frequency table, relative frequency table.
+- Bar Plots
+- Contingency Tables, Row and Column Proportions
+- Mosaic plots
+
+</div>
+
+## Frequency and Relative Frequency Table
+<div class="black">
+Example. A study of aphasia measured a sample of 22 adult aphasics with identified three types of aphasia (loss of ability to understand or express speech). The resulting data is given below:
+
+```{r, out.width= "65%"}
+td <- readPNG("td1.png")
+grid.raster(td)
+```
+
+</div>
+
+## Frequency and Relative Frequency Table
+<div class="black">
+
+```{r, out.width= "35%", fig.align='center'}
+#ii <- readJPEG("ii.jpeg")
+grid.raster(td)
+```
+
+- The variable "Type of Aphasia" has 3 categories (also called classes). 
+- We can construct the following frequency table to summarize the data. 
+
+```{r, out.width= "40%", fig.align='center'}
+oo <- readPNG("oo1.png")
+grid.raster(oo)
+```
+
+</div>
+
+## Frequency Tables in R
+
+<div class="black">
+
+We can use the R function `table()` to construct the frequency table to summarize the data. 
+
+- First, put the data in a vector using the `c()` function. We will name that vector `aphasia_type` 
+  - You may choose any other name but note that names of objects in R cannot contain any spaces; 
+  - Notice that we used underscore to create a two-word name 
+  - Also, notice that the values are typed within double quotes because we are working with non-numerical or character data
+
+- Then, use the `table()` function to get the frequencies of the different aphasia types
+<!-- ```{r echo=FALSE} -->
+<!-- aphasia = read.csv(file="aphasia.csv") -->
+<!-- aphasia = aphasia$aphasia_type -->
+<!-- ``` -->
+
+```{r Ex8, exercise = TRUE}
+aphasia_type = c("Broca's", "Anomic", "Anomic", "Conduction", "Broca's", "Conduction", "Conduction", "Anomic", 
+                 "Conduction", "Anomic", "Conduction", "Broca's", "Anomic", "Broca's", "Anomic", "Anomic", "Anomic",
+                 "Conduction", "Broca's", "Anomic", "Conduction", "Anomic")
+table(aphasia_type)
+```
+
+## Bar plot (Bar graph)
+<div class="black">
+
+A **bar plot** is a common way to display a single categorical variable. 
+
+- The categories of a categorical variable are represented by bars.
+
+- The height of each bar is either the frequency, or the relative frequency (or the percentage), of the represented category.
+
+Here is an example of a bar plot (frequency).
+(check the annotation and the scale of the vertical axis)
+
+<div style="float: left; width: 50%;">
+$$
+\begin{align}
+\text{Type of Aphasia} && \text{Frequency} \\ \hline
+\text{Anomic} && 10 \\
+\text{Broca's} && 5 \\
+\text{Conduction} && 7 \\ \hline
+\text{Total} && 22 \\ \hline
+\end{align}
+$$
+</div>
+<div style="float: right; width: 50%;">
+```{r, out.width= "70%"}
+kj <- readJPEG("kj.jpeg")
+grid.raster(kj)
+```
+</div>
+</div>
+
+
+
+## Contingency tables
+<div class="black">
+
+A table that summarizes data for two categorical variable is called a **contingency table**.
+
+The contingency table below shows the distribution of survival and ages of passengers on the Titanic.
+
+$$
+\begin{align}
+                               &&       &&       {Survival} &       \\ 
+                     &       && Died       & &  Survived      & & Total \\  
+{Age} & Adult && 1438        && 654          && 2092  \\
+                     & Child && 52          && 57         && 109   \\ 
+                     & Total && 1490        && 711          && 2201  \\ 
+\end{align}
+$$
+</div>
+```{r}
+```
+
+
+## Bar Plots
+<div class="black">
+A **bar plot** is a common way to display a single categorical variable. A bar plots below are **frequency bar plots*** (left) and **relative frequency bar plot** (right) **for the group of Adult on Titanic.**
+
+<div style="float: left; width: 50%;">
+```{r, echo=F, message=F, out.width="70%",warning=F,fig.align='right'}
+age_survived <- apply(Titanic, c(3, 4), sum)
+
+titanic_data <- tibble(
+  Age = c(rep("Child", 52 + 57), rep("Adult", 1438 + 654)),
+  Survival = c(rep("Died", 52), rep("Survived", 57), rep("Died", 1438), rep("Survived", 654))
+  )
+
+ggplot(titanic_data, aes(x = Survival)) +
+  geom_bar(fill = COL[1]) +
+  labs(y = "Frequency") +
+  theme_bw(base_size = 25)
+```
+</div>
+
+<div style="float: right; width: 50%;">
+```{r, echo=F, message=F, out.width="70%",warning=F,fig.align='left'}
+ggplot(titanic_data, aes(x = Survival)) +
+  geom_bar(aes(y = (..count..)/sum(..count..)), fill = COL[1]) +
+  labs(y = "Relative frequency") +
+  scale_y_continuous(labels=percent) +
+  theme_bw(base_size = 25)
+```
+</div>
+
+$$
+\begin{align}
+                               &&       &&       {Survival} &       \\ 
+                     &       && Died       & &  Survived      & & Total \\  
+{Age} & Adult && 1438        && 654          && 2092  \\
+                     & Child && 52          && 57         && 109   \\ 
+                     & Total && 1490        && 711          && 2201  \\ 
+\end{align}
+$$
+check: $\frac{1438}{2092}\approx 0.69\hspace{0.2cm} \text{or} \hspace{0.2cm} 69%$
+</div>
+
+## Bar Plots and Histograms
+<div class="black">
+<div class="red">
+How are Bar plots different than Histograms?
+</div>
+<div class="green">
+Bar plots are used fro displaying distributions of categorical variables.
+</div>
+<div class="purple">
+Histograms are used for numerical variables.
+</div>
+
+The x-axis in a histogram is a number line, hence the order of the bars cannot be changed. In a bar plot, the categories can be listed in any order(though some ordering make more sense than others, especially for ordinal variables)
+</div>
+
+
+## Choosing the appropriate proportion
+<div class="black">
+<div class="red">
+Does there appear to be a relationship between age and survival for passengers on the Titanic?
+</div>
+<font size="2">
+$$
+\begin{align}
+                               &&       &&       {Survival} &       \\ 
+                     &       && Died       & &  Survived      & & Total \\  
+{Age} & Adult && 1438        && 654          && 2092  \\
+                     & Child && 52          && 57         && 109   \\ 
+                     & Total && 1490        && 711          && 2201  \\ 
+\end{align}
+$$
+</font>
+
+To answer this question we examine the row proportions:
+
+-   \% Adults who survived: 654 / 2091 $\approx$ 0.31
+
+-   \% Children who survived: 57 / 109 $\approx$ 0.52
+
+What do the column proportion tell us?
+$\frac{654}{711}\approx 0.92 \hspace{0.2cm} \text {% adults survived in the total survivors on Titanic}$
+$\frac{57}{711}\approx 0.08 \hspace{0.2cm} \text{(Give a description)}$
+
+The percentage of passengers who were survived and were adults?
+$\frac{654}{2201} \approx 0.30$
+</div>
+
+
+
+
+
+
+## Bar plots with two variables
+
+<div class="black">
+<div class ="red">
+<div style="float: left; width: 50%;">
+<font size="2">
+What are the difference between the three visualizations shown below?
+</font>
+</div>
+
+<div style="float: right; width: 50%;">
+<font size="2">
+- **Stacked bar plot:** Graphical display of contingency table information, for counts.
+\
+- **Side-by-side bar plot:** Displays the same information by placing bars next to, instead of on top of, each other.
+\
+- **Standardized stacked bar plot:** Graphical display of contingency table information, for proportions.
+</font>
+</div>
+</div>
+
+\
+\
+<div style="float: left; width: 50%;">
+```{r, echo=F, message=F, out.width="50%",warning=F,fig.align='right'}
+ggplot(titanic_data, aes(x = Age, fill = Survival)) +
+  geom_bar() +
+  labs(y = "Frequency") +
+  theme_bw(base_size = 25) +
+  scale_fill_manual(values = c(COL[1], COL[1,3]), breaks = c("Died", "Survived"))
+```
+</div>
+
+
+<div style="float: right; width: 50%;">
+```{r, echo=F, message=F, out.width="40%",warning=F,fig.align='left'}
+ggplot(titanic_data, aes(x = Age, fill = Survival)) +
+  geom_bar(position = "dodge") +
+  labs(y = "Frequency") +
+  theme_bw(base_size = 25) +
+  scale_fill_manual(values = c(COL[1], COL[1,3]), breaks = c("Died", "Survived"))
+```
+</div>
+\
+\
+<div style="float: left; width: 50%;">
+<font size="2">
+$$
+\begin{align}
+                               &&       &&       {Survival} &       \\ 
+                     &       && Died       & &  Survived      & & Total \\  
+{Age} & Adult && 1438        && 654          && 2092  \\
+                     & Child && 52          && 57         && 109   \\ 
+                     & Total && 1490        && 711          && 2201  \\ 
+\end{align}
+$$
+</font>
+</div>
+
+<div style="float: right; width: 50%;">
+```{r, echo=F, message=F, out.width="40%",warning=F,fig.align='center'}
+ggplot(titanic_data, aes(x = Age, fill = Survival)) +
+  geom_bar(position = "fill") +
+  labs(y = "Relative frequency") +
+  theme_bw(base_size = 25) +
+  theme(axis.title.x = element_text(vjust=2.5))+
+  scale_fill_manual(values = c(COL[1], COL[1,3]), breaks = c("Died", "Survived"))
+```
+</div>
+</div>
+
+
+## Mosaic plots
+<div class="black">
+<div class="red">
+<div style="float: left; width: 50%;">
+What is the difference between the two visualizations shown below?
+The Plot on the left is a stacked bar plot for proportions.
+The Plot on the right is a Mosaic Plot.
+</div>
+</div>
+
+<div style="float: right; width: 50%;">
+<font size="2">
+$$
+\begin{align}
+                               &&       &&       {Survival} &       \\ 
+                     &       && Died       & &  Survived      & & Total \\  
+{Age} & Adult && 1438        && 654          && 2092  \\
+                     & Child && 52          && 57         && 109   \\ 
+                     & Total && 1490        && 711          && 2201  \\ 
+\end{align}
+$$
+</font>
+
+</div>
+
+
+
+<div style="float: left; width: 50%;">
+```{r, echo=F, message=F, out.width="50%",warning=F,fig.align='center'}
+ggplot(titanic_data, aes(x = Age, fill = Survival)) +
+  geom_bar(position = "fill") +
+  labs(y = "Relative frequency") +
+  theme_bw(base_size = 25) +
+  scale_fill_manual(values = c(COL[1], COL[1,3]), breaks = c("Died", "Survived"))
+```
+</div>
+
+<div style="float: right; width: 50%;">
+```{r, echo=F, message=F, out.width="50%",warning=F,fig.align='center'}
+mosaicplot(table(titanic_data$Age, titanic_data$Survival), color = c(COL[1],COL[1,3]), ylab = "", main = "", cex.axis = 2)
+```
+</div>
+
+A Mosaic plot is a special type of stacked bar plot.
+For two variables, the width of the columns is proportional to the number of observations in each level of the variable plotted on the horizontal axis. 
+(**here 2092:109** $\approx$ **19:1**)
+</div>
+
+
+## Pie charts
+```{r, out.width="75%"}
+pc <- readJPEG("pc.jpeg")
+grid.raster(pc)
+```
+
+
+## Side-by-side box plots
+
+<div class="red">
+Does there appear to be a relationship between class year and number of clubs students are in?
+</div>
+
+```{r, echo=F, message=F, out.width="80%",warning=F,fig.align='center'}
+d = read.csv("year_clubs.csv")
+d$year = factor(d$year, levels = c("First-year","Sophomore","Junior","Senior","Grad student"))
+d = d[d$year != "Grad student",]
+d$year = droplevels(d$year)
+
+# box
+par(cex.axis=1.1, cex=1.2)
+boxPlot(d$clubs, fact = d$year, col = COL[1], ylab = "")
+```
+
+## 2.3 Case Study: Gender discrimination
+<div class="black">
+
+In this section, we consider a case study on gender discrimination.
+
+-   In 1972, as a part of a study on gender discrimination, 48 male bank supervisors were each given the same personnel file and asked to judge whether the person should be promoted to a branch manager job that was described as "routine".
+
+-   The files were identical except that half of the supervisors had files showing the person was male while the other half had files showing the person was female.
+
+-   It was randomly determined which supervisors got "male" applications and which got "female" applications.
+
+-   Of the 48 files reviewed, 35 were promoted.
+
+-   The study is testing whether females are unfairly discriminated against.
+
+</div>
+
+
+## Data
+<div class="black">
+Is this an observational study or an experiment?
+<div class="blue">
+Experiment
+</div>
+- as the files marked with male/female were randomly given to supervisors, the results can be used to evaluate a casual relationship between gender and promotion. 
+
+<div class ="red">
+At a first glance, does there appear to be a relationship between promotion and gender?
+</div>
+$$
+\begin{align}
+                        &        && Promoted    && Not Promoted    && Total \\  
+{Gender} & Male   && 21          && 3               && 24    \\
+                        & Female && 14          && 10              && 24    \\ 
+                        & Total  && 35          && 13              && 48    \\ 
+\end{align}
+$$
+**% of males promoted:** 21/24 = 0.875
+
+**% of females promoted:** 14/24 = 0.583
+</div>
+
+## Practice
+<div class="black">
+<div class="red">
+We saw a difference of almost 30\% (28.2\% to be exact) between the proportion of male and female files that are promoted. Based on this information, which of the below is true?
+</div>
+
+
+A)  If we were to repeat the experiment we will definitely see that more female files get promoted. This was a fluke.
+B)  Promotion is dependent on gender, males are more likely to be promoted, and hence there is gender discrimination against women in promotion decisions.
+C)  The difference in the proportions of promoted male and female files is due to chance, this is not evidence of gender discrimination against women in promotion decisions.
+D)  Women are less qualified than men, and this is why fewer females get promoted.
+</div>
+
+**( Watch 2.3 Video in learning unit 3)**
+
+## Practice
+<div class="black">
+<div class="red">
+We saw a difference of almost 30\% (28.2\% to be exact) between the proportion of male and female files that are promoted. Based on this information, which of the below is true?
+</div>
+
+A)  If we were to repeat the experiment we will definitely see that more female files get promoted. This was a fluke.
+B) <div class="red"> Promotion is dependent on gender, males are more likely to be promoted, and hence there is gender discrimination against women in promotion decisions.</div>**Maybe**
+
+C) <div class="red"> The difference in the proportions of promoted male and female files is due to chance, this is not evidence of gender discrimination against women in promotion decisions.</div>**Maybe**
+
+D)  Women are less qualified than men, and this is why fewer females get promoted.
+</div>
+
+
+## Two competing claims
+<div class="black">
+1. "There is nothing going on."
+    - Promotion and gender are **independent** , no gender discrimination, observed difference in proportions is simply due to chance. $\rightarrow$ **Null hypothesis**
+    
+    
+2. "There is something going on."
+       - Promotion and gender are dependent, there is gender discrimination, observed difference in proportions is not due to chance. $\rightarrow$  **Alternative hypothesis**
+</div>
+
+## A trial as a hypothesis test
+<div class= "black">
+<div style="float: left; width: 50%;">
+
++ Hypothesis testing is very much like a court trial.
+
++ $H_0$: Defendant is innocent
+  $H_A$: Defendant is guilty
+
++ We then present the evidence collect data.
+</div>
+
+<div style="float: left; width: 50%;">
+```{r, message=FALSE, warning=FALSE, out.width= "65%"}
+n <- readPNG("trial.png")
+grid.raster(n)
+```
+</div>
+
+
++ Then we judge the evidence - "Could these data plausibly have happened by chance if the null hypothesis were true?"
+
++ If they were very unlikely to have occurred, then the evidence raises more than a reasonable doubt in out minds about the null hypothesis.
+  
++ Ultimately we must make a decision. How unlikely is unlikely?
+</div>
+
+## A trial as a hypothesis test
+<div class="black">
+-   If the evidence is not strong enough to reject then assumption of innocence, the jury returns with a verdict of "not guilty".
+
+     - The jury does not say that the defendant is innocent, just that there is not enough evidence to convict.
+
+     - The defendant may, in fact, be innocent, but the jury has no way of being sure.
+
+-   Said statistically, we fail to reject the null hypothesis.
+
+    -   We never declare the null hypothesis to be true, because we simply do not know whether it's true or not.
+
+    -   Therefore we never "accept the null hypothesis".
+</div>
+
+## A trial as a hypothesis test
+<div class="black">
+-   In a trial, the burden of proof is on the prosecution.
+
+-   In a hypothesis test, the burden of proof is on the unusual claim.
+
+-   The null hypothesis is the ordinary state of affairs (the status quo), so it's the alternative hypothesis that we consider unusual and for which we must gather evidence.
+</div>
+
+## Recap: Hypothesis testing framework
+<div class="black">
+
+-   We start with a **null hypothesis (**$H_0$) that represents the status quo.
+
+-   We also have an **alternative hypothesis (**$H_A$) that represents our research question, i.e. what we're testing for.
+
+-   We conduct a hypothesis test under the assumption that the null hypothesis is true, either via simulation (today) or theoretical methods (later in the courses).
+
+-   if the test results suggest that the data do not provide convincing evidence for the alternative hypothesis, we stick with the null hypothesis, If they do, then we reject the null hypothesis in favor of the alternative.
+</div>
+
+## Simulating the experiment...
+<div class="black">
+... under the assumption of independence, i.e. leave things up to chance.
+
+If results from the simulations based on the **chance model** look like the data, then we can determine that the difference between the proportions of promoted files between males and females was simply **due to chance** (promotion and gender are independent).
+
+If the results from the simulations based on the chance model do not look like the data, then we can determine that the difference between the proportions of promoted filed between males and females was not due to chance, but **due to an actual effect of gender** (promotion and gender are dependent).
+</div>
+
+## Application activity: simulating the experiment
+<div class="black">
+Use a deck of playing cards to simulate the experiment.
+
+1. Let a face card represent $\textit{not}$ promoted and a non-face card represent a $\textit{promoted}$. Consider aces as face cards.
+    - Set aside the jokers.
+    - Take out 3 aces $\rightarrow$ there are exactly 13 face cards left in the deck (face cards: A, K, Q, J).
+    - Take out a number card $\rightarrow$ there are exactly 35 number (non\-face) cards left in the deck (number cards: 2\-10).
+
+2. Shuffle the cards and deal them into two groups of size 24, representing males and females.
+
+3. Count and record how many files in each group are promoted (number cards).
+
+4. Calculate the proportion of promoted files in each group and take the difference (male - female), and record this value.
+
+5. Repeat steps 2 - 4 many times.
+</div>
+
+## Step 1
+```{r, warning=FALSE, message=FALSE, out.width= "75%"}
+sp <- readPNG("step1.png")
+grid.raster(sp)
+```
+
+
+## Step 2 - 4
+```{r,warning=FALSE, message=FALSE, out.width= "70%"}
+sop <- readPNG("step2.png")
+grid.raster(sop)
+```
+
+## Practice
+<div class="black">
+<div class="red">
+
+Do the results of the simulation you just ran provide convincing evidence of gender discrimination against women, i.e. dependence between gender and promotion decisions?
+
+</div>
+
+A)  No, the data do not provide convincing evidence for the alternative hypothesis, therefore we can't reject the null hypothesis of independence between gender and promotion decisions. The observed difference between the two proportions was due to chance.
+
+B)  Yes, the data provide convincing evidence for the alternative hypothesis of gender discrimination against women in promotion decisions. The observed difference between the two proportions was due to a real effect of gender.
+</div>
+
+## Practice
+
+<div class="red">
+
+Do the results of the simulation you just ran provide convincing evidence of gender discrimination against women, i.e. dependence between gender and promotion decisions?
+</div>
+
+<div class="black">
+A)  No, the data do not provide convincing evidence for the alternative hypothesis, therefore we can't reject the null hypothesis of independence between gender and promotion decisions. The observed difference between the two proportions was due to chance.
+
+B)  <div class="red"> Yes, the data provide convincing evidence for the alternative hypothesis of gender discrimination against women in promotion decisions. The observed difference between the two proportions was due to a real effect of gender.</div> 
+</div>
+
+## Simulation using software
+<div class="black">
+These simulations are tedious and slow to run using the method described earlier. In reality, we use software to generate the simulations. The dot plot below shows the distribution of simulated differences in promotion rates based on 100 simulations.
+
+```{r, echo=F, message=F, fig.width=8, fig.height=4,warning=F,fig.align='center'}
+set.seed(8535)
+
+gender <- c(rep('male', 24), rep('female', 24))
+outcome <- c(rep(c('promoted', 'not promoted'), c(21, 3)), rep(c('promoted', 'not promoted'), c(14, 10)))
+
+nsim  = 100
+n     = length(gender)
+group = gender
+var1  = outcome
+success = "promoted"
+sim   = matrix(NA, nrow = n, ncol = nsim)
+n1    = n2 = 24
+
+statistic <- function(var1, group){	
+	t1 <- var1 == success & group == levels(as.factor(group))[1]
+	t2 <- var1 == success & group == levels(as.factor(group))[2]
+	sum(t1)/n1 - sum(t2)/n2 
+}
+
+for(i in 1:nsim){
+	sim[,i] = sample(group, n, replace = FALSE)
+}
+
+sim_dist = apply(sim, 2, statistic, var1 = outcome)
+diffs    = sim_dist
+pval     = sum(diffs >= 0.29) / nsim
+values  <- table(sim_dist)
+
+
+X <- c()
+Y <- c()
+for(i in 1:length(diffs)){
+	x   <- diffs[i]
+	rec <- sum(sim_dist == x)
+	X   <- append(X, rep(x, rec))
+	Y   <- append(Y, 1:rec)
+}
+
+plot(X, Y, xlim=range(diffs)+c(-1,1)*sd(diffs)/4, xlab = "Difference in promotion rates", ylab="",axes = FALSE, ylim=c(0,max(Y)), col=COL[1], cex = 1.5, cex.lab = 1.5, pch=20)
+axis(1, at = seq(-0.4,0.4,0.1), labels = c(-0.4,"",-0.2,"",0,"",0.2,"",0.4))
+abline(h=0)
+
+```
+</div>
+

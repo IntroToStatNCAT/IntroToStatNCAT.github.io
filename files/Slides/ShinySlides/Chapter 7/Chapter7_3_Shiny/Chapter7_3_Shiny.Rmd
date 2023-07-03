@@ -1,0 +1,375 @@
+---
+title: "Chapter 7"
+subtitle: "Inference for numerical data"
+output: 
+  ioslides_presentation:
+    progressive: FALSE
+    smaller: yes
+    widescreen: yes
+    transition: "faster"
+
+runtime: shiny_prerendered
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+```{r, echo=F, message=F, warning=F}
+library(datasets)
+library(tidyverse)
+library(shiny)
+library(scales)
+library(jpeg)
+library(openintro)
+library(dplyr)
+library(ggplot2)
+library(learnr)
+library(readr)
+library(knitr)
+library(png)
+library(gradethis) #remotes::install_github("rstudio/gradethis")
+library(learnrhash) #devtools::install_github("rundel/learnrhash")
+library(grid)
+library(tinytex)
+data("COL")
+```
+
+
+## Acknowledgement
+
+<center>
+<div class="black">
+These notes use content from OpenIntro Statistics Slides by   
+
+Mine Cetinkaya-Rundel.
+</div>
+</center>
+
+
+## 7.3 Difference of Two means
+<font size= "5">
+<div class="black">
+
+
+In this section, we discuss a difference of two population means, 
+$\mu_1 - \mu_2$,  under the condition that the data are not paired.
+
+
+
+
+
+ 
+We use $\bar{x_1}- \bar{x_2}$ as a point estimate, and a new formula for 
+standard error and t-distribution for construction of confidence interval
+and hypothesis testing.
+
+</div>
+</font>
+
+
+
+
+## USING THE t-DISTRIBUTION FOR A DIFFERENCE IN MEANS.
+<div class="black">
+
+The t-distribution can be used for inference when working with the standardized difference of two means if
+
+- Independence, extended. The data are independent within and between the two groups, e.g. the data come from independent random samples or from a randomized experiment.
+
+- Normality. We check the outliers rules of thumb for each group separately.
+
+
+The standard error may be computed as 
+
+$SE= \sqrt{\frac{{\sigma_1}^2}{n_1} + \frac{{\sigma_2}^2}{n_2}} \approx  \sqrt{\frac{{s_1}^2}{n_1} + \frac{{s_2}^2}{n_2}}$
+
+For degrees of freedom,  the official formula is quite complex 
+and is generally computed using software.
+
+We may use $df = min(n_1-1,n_2 -1)$ for the degrees of freedom of t-distribution if software isn't readily available.
+</div>
+
+## Example (Construct confidence interval)
+<font size="4">
+<div class="black">
+Does treatment using embryonic stem cells (ESCs) help improve heart function following a heart attack? The following table contains summary statistics for an experiment to test ESCs in sheep that had a heart attack. Each of these sheep was randomly assigned to the ESC or control group, and the change in their hearts' pumping capacity was measured in the study. Histograms of two data sets are below.
+<center>
+```{r,out.width="45%" }
+lx <- readPNG("lx.png")
+grid.raster(lx)
+```
+</center>
+
+<div style="float: left; width: 50%;">
+```{r, out.width="60%"}
+kx <- readPNG("kx.png")
+grid.raster(kx)
+```
+</div>
+
+<div style="float: right; width: 50%;">
+```{r, out.width="60%"}
+cx <- readPNG("cx.png")
+grid.raster(cx)
+```
+</div>
+</div>
+</font>
+
+
+## Example (cont.)
+<font size= "8">
+<div class="black">
+Construct the CI for the difference $\mu_{esc} - \mu_{control}$
+
+<div style="float: left; width: 50%;">
+**Point- Estimate** : $\bar{x}_{esc} - \bar{x}_{control} = 3.50-(-4.33)= 7.83$
+\
+\
+$SE= \sqrt{\frac{{\sigma_1}^2}{n_1} + \frac{{\sigma_2}^2}{n_2}} \approx  \sqrt{\frac{{s_1}^2}{n_1} + \frac{{s_2}^2}{n_2}}\\ = \sqrt{\frac{{5.17}^2}{9} + \frac{{2.76}^2}{9}} \approx 1.9535$
+</div>
+
+<div style="float: right; width: 50%;">
+```{r,out.width="80%" }
+lx <- readPNG("lx.png")
+grid.raster(lx)
+```
+</div>
+</div>
+</font>
+
+
+## Example (cont.)
+<div class="black">
+
+For 95% confidence interval, with df=8, find
+
+$t_{\frac{\alpha}{2}}= t_{0.025}= 2.31$
+
+
+CI: $\text{point estimate} \pm t_{\frac{\alpha}{2}} \times S.E$
+
+
+That is, $7.83 \pm 2.31 \times 1.95, (3.32,12.34)$
+
+Interpret: We are 95% confident that embryonic stem cells improve the heart's pumping function in sheep that have suffered a heart attack by 3.32% to 12.34%.
+</div>
+
+
+## Example (Hypothesis Testing)
+<div class="black">
+A data set called **ncbirths** represents a random sample of 150 cases of mothers and their newborns in North Carolina over a year. We are particularly interested in two variables: weight and smoke. The weight variable represents the weights of the newborns and the smoke variable describes which mothers smoked during pregnancy.
+<center>
+```{r, out.width="85%"}
+px <- readPNG("px.png")
+grid.raster(px)
+```
+</div>
+
+
+## Example (Hypothesis Testing)
+<div class="black">
+The histograms of newborn weights of mothers who smoked and who did not smoke:
+<center>
+```{r,out.width="85%"}
+mk <- readPNG("mk.png")
+grid.raster(mk)
+```
+</center>
+</div>
+
+
+
+## Example(cont.) Hypothesis Testing
+<div class="black">
+
+We would like to know, is there convincing evidence that newborns from mothers who smoke have a different average birth weight than newborns from mothers who don't smoke? 
+
+**Set up Hypothesis**
+
+$H_0$: There is no difference in average birth weight for newborns from mothers who did and did not smoke, 
+
+$H_0: \mu_𝑛−\mu_𝑠=0$
+
+where subscript  n represents non-smoking mothers and s represents mothers who smoked.
+
+$H_a$: There is some difference in average newborn weights from mothers who did and did not smoke. 
+
+$H_a: \mu_𝑛−\mu_𝑠\ne 0.$
+</div>
+
+## Example (cont.) Hypothesis Testing
+<div class="black">
+
+$H_0: \mu_𝑛−\mu_𝑠= 0.$
+$H_a: \mu_𝑛−\mu_𝑠\ne 0.$
+
+We will use the North Carolina sample to try to answer this question. The summary is as the following: 
+<center>
+```{r, out.width="45%"}
+py <- readPNG("py.png")
+grid.raster(py)
+```
+</center>
+
+**Compute Standard Error**
+\
+$S.E. \approx \sqrt{\frac{{s_n}^2}{n_n} + \frac{{s_s}^2}{n_s}}=\sqrt{\frac{{1.60}^2}{100} + \frac{{1.43}^2}{50}} = 0.26$
+</div>
+
+
+## Example (cont.) Hypothesis Testing
+<div class="black">
+
+<div style="float: left; width: 50%;">
+
+$H_0: \mu_𝑛−\mu_𝑠= 0.$
+$H_a: \mu_𝑛−\mu_𝑠\ne 0.$
+\
+\
+
+$S.E. \approx \sqrt{\frac{{s_n}^2}{n_n} + \frac{{s_s}^2}{n_s}}\\=\sqrt{\frac{{1.60}^2}{100} + \frac{{1.43}^2}{50}} = 0.26$
+</div>
+
+<div style="float: right; width: 50%;">
+```{r, out.width="100%"}
+kl <- readPNG("kl.png")
+grid.raster(kl)
+```
+</div>
+</div>
+
+## Example (cont.) Hypothesis Testing
+<div class="black">
+
+**Compute test statistic**
+
+$\bar{x_n} - \bar{x_s}$ = 7.18 -6.78= 0.40
+
+$t= \frac{0.40-0}{0.26}=1.538462 \approx 1.5385$ 
+
+**Compute P-Value**
+
+Use $df = min(49,99)= 49, P(|T| > 1.5385) = 2 \times P(T> 1.5385)=0.13$
+
+```{r Quiza, exercise=TRUE}
+t <- 0.4/0.26; t
+p_value <- 2*pt(1.5385,49, lower.tail = FALSE);p_value
+```
+</div>
+
+
+## Example (cont.) Hypothesis Testing
+<font size="4">
+<div class="black">
+<div style="float: left; width: 50%;">
+
+$H_0: \mu_𝑛−\mu_𝑠= 0.$
+$H_a: \mu_𝑛−\mu_𝑠\ne 0.$
+
+$t= 1.5385$
+
+**P-Value(df=49)** 
+
+$P(|T|> 1.5385) =0.13$
+</div>
+<div style="float: right; width: 50%;">
+```{r, out.width= "60%"}
+kp <- readPNG("kp.png")
+grid.raster(kp)
+```
+</div>
+
+\
+\
+
+As the P-value is larger than 0.05, so we do not reject the null hypothesis. There is insufficient evidence to say there is a difference in average birth weight of newborns from North Carolina mothers who did smoke during pregnancy and newborns from North Carolina mothers who did not smoke during pregnancy.
+
+Note: Research suggesting smoking is harmful during pregnancy ($H_a$ is true) , so how could we fail to reject the null hypothesis?
+
+It is possible the data did not detect it— **a Type II error**.
+To correct, we may need to get larger sample size.
+</div>
+</font>
+
+## Case Study: two versions of a course exam.
+<font size= "5">
+<div class="black">
+
+An instructor decided to run two slight variations of the same exam. Prior to passing out the exams, she shuffled the exams together to ensure each student received a random version. Summary statistics for how students performed on these two exams are:
+<center>
+```{r, out.width="45%"}
+ik <- readPNG("ik.png")
+grid.raster(ik)
+```
+</center>
+
+<div class="blue">
+The instructor would like to evaluate whether the difference
+observed in the groups is so large that it provides convincing evidence that Version B was more difficult (on average) than Version A. Test using $\alpha$=0.01.
+</div>
+</div>
+</font>
+
+## Case Study(cont.) Hypothesis Testing
+<div class="black">
+
+$H_0: \mu_A -\mu_B = 0$ The exams are equally difficult on average. 
+
+$H_a: \mu_A -\mu_B \ne 0$ The exams are not equally difficult; one version is more difficult than the other on average.
+
+<div style="float: left; width: 50%;">
+```{r, out.width="100%"}
+ik <- readPNG("ik.png")
+grid.raster(ik)
+```
+</div>
+
+<div style="float: right; width: 50%;">
+```{r, out.width="100%"}
+op <- readPNG("op.png")
+grid.raster(op)
+```
+</div>
+</div>
+
+## Case Study(cont.) Hypothesis Testing
+<div class="black">
+<div class="blue">
+
+$SE \approx  \sqrt{\frac{{s_A}^2}{n_A} + \frac{{s_B}^2}{n_B}} = \sqrt{\frac{{14}^2}{30} + \frac{{20}^2}{27}} \approx 4.62$
+</div>
+
+**Test Statistic**
+
+$t = \frac{\bar{x}_{A}- \bar{x}_{B}- 0}{S.E} = \frac{79.4-74.1}{4.62}= 1.15$
+
+**P-Value** (df= min(29,26)= 26)
+
+P(|T| > 1.15) = 0.26
+
+**Conclusion**
+
+As the P-value is larger than 0.01, so we do not reject the null hypothesis. There is insufficient evidence to say one version is more difficult than the other.
+</div>
+
+
+## Pooled Standard Deviation Estimate (end of 7.3)
+<div class="black">
+
+Occasionally, two populations may have standard deviations that are so similar that they can be treated as identical **$(\sigma_1 \approx \sigma_2)$**. In such cases, we can make the t-distribution approach slightly more precise by using a pooled standard deviation.
+
+If $s_1$ and $s_2$ are the standard deviations of groups 1 and 2 and there are very good reasons to believe $(\sigma_1 \approx \sigma_2)$, then we can obtain an improved estimate of the group variances by pooling their data:
+
+<div class="blue">
+${s}^2_{pooled} = \frac{{s}^2_1(n_1 -1)+{s}^2_2(n_2 -1)}{n_1 +n_2-2}$
+
+$S.E. = \sqrt{\frac{{S}^2_{pooled}}{n_1 +n_2 -2}}$
+
+$df = n_1 + n_2 -2$ 
+</div>
+
+These two changes may permit a more accurate model of sampling distribution of $\bar{x}_{1} - \bar{x}_{2}$
+</div>
+

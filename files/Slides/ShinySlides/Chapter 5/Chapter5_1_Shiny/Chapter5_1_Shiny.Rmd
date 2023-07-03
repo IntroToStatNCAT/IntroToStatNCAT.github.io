@@ -1,0 +1,463 @@
+---
+title: "Chapter 5"
+subtitle: "Foundations for inference"
+urlcolor: blue
+output: 
+  ioslides_presentation:
+  progressive: FALSE
+smaller: yes
+widescreen: yes
+transition: "faster"
+runtime: shiny_prerendered
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r,echo=F, message=F, warning=F}
+library(datasets)
+library(tidyverse)
+library(tikzDevice)
+library(shiny)
+library(scales)
+library(jpeg)
+library(openintro)
+library(dplyr)
+library(ggplot2)
+library(learnr)
+library(readr)
+library(knitr)
+library(png)
+library(gradethis) #remotes::install_github("rstudio/gradethis")
+library(learnrhash) #devtools::install_github("rundel/learnrhash")
+library(grid)
+library(tinytex)
+data("COL")
+
+```
+
+## Acknowledgement
+
+<center>
+<div class="black">
+These notes use content from OpenIntro Statistics Slides by   
+
+Mine Cetinkaya-Rundel.
+</div>
+</center>
+
+
+## Chapter 5 outline
+<div class="black">
+
+Statistical inference is primarily concerned with understanding and quantifying the uncertainty of parameter estimates.
+
+In this chapter, we learn about the foundations for inference regarding population proportion 𝑝.
+ 
+5.1 Point Estimates and Sampling Variability
+
+5.2 Confidence Interval for a Proportion
+
+5.3 Hypothesis Testing for a Proportion
+</div>
+
+
+
+## 5.1 Point estimates and sampling variability
+<div class="black">
+
+We begin with investigating the probability distributions of one important statistic - sample proportion.
+
+- Point estimate
+- Sampling error
+- Bias
+- Sampling Distribution for Sample Proportions
+- Central Limit Theorem for Proportion
+- The effect of sample size 𝑛 on Sampling Distribution for Sample Proportions
+</div>
+
+## Sample Statistics and Population Parameters
+<div class="black">
+
+Review the concepts parameter and statistic
+
+A **parameter** is a numerical summary of the population. 
+   Example: Percentage of the population of all Florida residents favoring gun control
+   
+A **statistic** is a numerical summary of a sample taken from the population.
+
+   Example: Percentage of  a group of Florida residents favoring gun control
+   
+ Notations: 𝑝 for population proportion,  $\hat{p}$   for sample proportion.
+ 
+In this section, we investigate the probability distributions of one important statistic-- **sample proportion.**  
+
+This is called the **sampling distribution of sample proportion, represented in CENTRAL LIMIT THEOREM.**
+
+</div>
+
+## Point estimates and error
+<div class="black">
+- We are often interested in **population parameters**.
+
+- Complete populations are difficult to collect data on, so we use **sample statistics** as **point estimates** for the unknown population parameters of interest.
+
+- **Error** in the estimate $\rightarrow$ difference between population parameter and sample statistic.
+
+- **Bias** is systematic tendency to over- or under-estimate the true population parameter.
+
+- **Sampling error** describes how much an estimate will tend to vary from one sample to the next.
+
+- Much of statistics is focused on understanding and quantifying sampling error, and **sample size** is helpful for quantifying this error.
+</div>
+
+## Example- Population Proportion
+<div class="black">
+**Example**. Suppose the proportion of American adults who support the expansion of solar energy is 𝑝=0.88, which is our parameter of  interest. Is a randomly selected American adult more or less likely  to support the expansion of solar energy?
+
+**Answer:**  More likely. 
+(b/c   𝑝=0.88 is large)
+</div>
+
+
+## Example - point estimates and variability
+<div class="black">
+**Example**. Suppose you don’t know the exact proportion of American adults who support expansion of solar energy. In order to estimate the proportion, you might sample from the population and use your sample proportion as the best guess for the unknown  population proportion.
+
+- Take simple random samples, say, each with $𝑛=1000$ American adults from the  population, and record whether they support solar  power expansion or not.
+
+- For each sample, find the sample proportion
+ $$\hat{𝑝}= \frac{𝑥}{𝑛}= \frac{(\text{count of those in favor})}{(
+ \text{𝑠𝑎𝑚𝑝𝑙𝑒 𝑠𝑖𝑧𝑒})}$$
+ 
+- Different samples may yield different sample proportions. We may simulate the sampling process.
+</div>
+
+## Use WebApp 
+<div class="black">
+
+Sampling Distribution of the Sample Proportion https://istats.shinyapps.io/SampDist_Prop/
+
+Put the value and the sample size, 
+
+say  𝑝=0.88, 𝑛=1000
+
+1) We may simulate 1 by 1
+
+2) Or we can draw 10,000 samples of the same size, say $𝑛=1000$
+
+</div>
+
+
+## Use R to simulate the process
+<div class="black">
+<font size="5">
+```{r Ex_1, exercise=TRUE}
+# 1. Create a set of 250 million entries, where 88%
+# of them are "support" and 12% are "not".
+set.seed(101) #for everyone running the code to see the same result
+
+pop_size = 250000000
+possible_entries = c(rep("support", 0.88 * pop_size),
+                      rep("not", 0.12 * pop_size))
+
+# 2. Sample 1000 entries without replacement.
+sampled_entries = sample(possible_entries,
+                          size = 1000, replace = F)
+# 3. Compute p-hat: count the number that are
+# "support", then divide by # of the sample size
+sum(sampled_entries == "support")/1000
+```
+</font>
+</div>
+
+
+## Use R to compute error (p - phat)
+<div class="black">
+<font size="5">
+```{r Quiz2, exercise=TRUE}
+
+pop_size = 250000000
+possible_entries = c(rep("support", 0.88*pop_size), rep("not", 0.12*pop_size))
+
+sample_entries = sample( possible_entries, size=1000) 
+phat1 = sum(sample_entries == "support")/1000
+error1 = 0.88 - phat1
+error1
+## We have one sample proportion and the error! Do it again!
+
+sample_entries = sample( possible_entries, size=1000)
+phat2 = sum(sample_entries == "support")/1000
+error2 = 0.88 - phat2
+error2
+```
+</font>
+</div>
+
+## Sampling distribution of the sample proportion
+
+<div class="black">
+If we repeat this process many times and obtain many $\hat{p}$ values. The distribution of these $\hat{p}$ values is called the sampling distribution of $\hat{p}$.
+
+```{r, echo=F, message=F, warning=F, fig.width=6, fig.height=3,fig.align='center'}
+phat = rep(NA, 10000)
+pop_size = 250000000
+possible_entries = c(rep("support", 0.88*pop_size), rep("not", 0.12*pop_size))
+for(i in 1:10000){
+  sampled_entries = sample(possible_entries, size = 1000)
+  phat[i] = sum(sampled_entries == "support") / 1000
+}
+
+# data
+sampling = tibble(phat = phat)
+
+# plot
+ggplot(sampling, aes(x = phat)) +
+  geom_histogram(binwidth = 0.01, fill = COL[1]) +
+  theme_minimal(base_size = 14) +
+  labs(x = "Simulated sample proportion", y = "")
+```
+</div>
+
+
+## Practice
+<div class="black">
+What is the shape and center of this distribution? Based on this distribution, what do you think is the true population proportion?
+
+```{r, echo=F, message=F, warning=F, fig.width=6, fig.height=3,fig.align='center'}
+ggplot(sampling, aes(x = phat)) +
+  geom_histogram(binwidth = 0.01, fill = COL[1]) +
+  theme_minimal(base_size = 14) +
+  labs(x = "Simulated sample proportion", y = "")
+```
+
+- The distribution is unimodal and roughly symmetric. 
+
+- A reasonable  guess for the true population proportion is the center of this  distribution, approximately 0.88.
+
+</div>
+
+## Central Limit Theorem for Proportion
+<div class="black">
+<div class="blue">
+Central Limit Theorem for Proportion 
+</div>
+When observations are independent (take random samples of fixed size 𝑛, without replacement) and the sample size 𝑛 is
+large enough, i.e., $n𝑝≥10$ and $𝑛(1−𝑝)≥ 10 )$, then the sample proportion $\hat{p}$ is
+approximately normal with 
+
+* mean: $\mu_{\hat{p}}=𝑝$, and 
+
+* standard deviation (also called standard error S.E.): $\sigma_{\hat{p}}= \sqrt{\frac{𝑝(1−𝑝)}{𝑛}}$
+
+</div>
+
+## Central Limit Thereom for Proportion
+<div class="black">
+The CLT states that when observations are independent and the sample size is sufficiently large, then
+$$\hat{p} \sim N\left(p, \sqrt{\frac{𝑝(1−𝑝)}{𝑛}}\right)$$
+
+- The CLT  indicates that  $\hat{𝑝}$  is an unbiased point estimator for the parameter 𝑝.
+
+- As the sample size 𝑛  increases, the variation of  $\hat{𝑝}$  decreases
+
+- By CLT, we may use the normal distribution to compute probabilities of $\hat{𝑝}$ and 
+$$𝑍=\frac{\hat{𝑝}- 𝜇_{\hat{p}}}{𝜎_{\hat{p}}} \sim N(0,1)$$
+</div>
+
+## Example 
+<div class="black">
+<font size="4">
+
+1) For $n=1000, 𝑝=0.88$, compute $𝜇_{\hat{p}}$ and  $S.E_{\hat{p}}$ or $𝜎_{\hat{p}}$, and state the sampling distribution of $\hat{p}$.
+\
+2) Compute the z-scores for $\hat{p}=0.86$ and $\hat{p}=0.90$.
+\
+3) Find probability that $\hat{p}$ is between 0.86 and 0.90.
+
+**Solution** 
+
+1) $𝜇_{\hat{p}}=p=0.88$, $S.E_{\hat{p}}$ or ($𝜎_{\hat{p}}$) $= \sqrt{\frac{𝑝(1−𝑝)}{𝑛}}=\sqrt{\frac{0.88(1−.88)}{1000}} = 0.010$, and as $np= 880 > 10$ and $n(1-p)= 120>10$, i.e., the sample size is sufficiently large, by CLT $\hat{p} \sim N(.88,0.01)$
+
+
+2) For $\hat{p} = 0.86$: $z = \frac{0.86-0.88}{0.010}= -2$ and for $\hat{p}= 0.90$: $z=2$ 
+
+
+3) $P(0.86 < \hat{p} < 0.90) = P(-2 < Z < 2)= 0.9545$.
+
+<div style="float: left; width: 60%;">
+```{r Quiz31, exercise=TRUE}
+pnorm(0.90, 0.88, 0.010) - pnorm(0.86, 0.88, 0.010)
+```
+</div>
+<div style="float: right; width: 40%;">
+```{r, out.width="65%", echo=FALSE, fig.align='center'}
+cv <- readPNG("cv.png")
+grid.raster(cv)
+```
+</div>
+</font>
+</div>
+
+
+## Example (Practice, change sample size)
+<div class="black">
+<font size="3">
+
+1) For $n=100, 𝑝=0.88$, compute $𝜇_{\hat{p}}$ and  $S.E_{\hat{p}}$ or $𝜎_{\hat{p}}$, and state the sampling distribution of $\hat{p}$.
+\
+2) Compute the z-scores for $\hat{p}=0.86$ and $\hat{p}=0.90$.
+\
+3) Find probability that $\hat{p}$ is between 0.86 and 0.90.
+
+
+**Solution** 
+
+1) $𝜇_{\hat{p}}=p=0.88$, $S.E_{\hat{p}}$ (or$𝜎_{\hat{p}}$) $= \sqrt{\frac{𝑝(1−𝑝)}{𝑛}}=\sqrt{\frac{0.88(1−.88)}{100}} = 0.032496 \approx 0.0325$, and as $np= 880 > 10$ and $n(1-p)= 120>10$, i.e., the sample size is sufficiently large, by CLT, $\hat{p} \sim N(.88,0.0325)$
+
+2) For $\hat{p} = 0.86$: $z = \frac{0.86-0.88}{0.0325}= -0.62$ and for $\hat{p}= 0.90$: $z=0.62$ 
+
+3) $P(0.86 < \hat{p} < 0.90) = P(-0.62 < Z < 0.62)= 0.4617$.
+
+```{r Quiz3, exercise=TRUE}
+pnorm(0.90, 0.88, 0.0325) - pnorm(0.86, 0.88, 0.0325)
+```
+
+Compare the results for $𝑛=1000$ and $n=100$: how does the sample size affect the S.E., and the values of z scores?
+
+</font>
+</div>
+
+## CLT - conditions
+<div class="black">
+Certain conditions must be met for the CLT to apply:
+
+1) Independence: Sample observations must be independent.  How to verify; 
+
+      - If random assignment is used for treatment groups
+      - If observations are from a simple random sample 
+      - if sampling without replacement, CLT is for $n < 10\%$ of the population $N$. When $𝑛 > 10\%$ of $N$, then the SD is overly estimated, will typically adjust by a factor $\sqrt{\frac{(𝑁−𝑛)}{(𝑁−1)}}$ (see next slide) .
+      
+      
+2) Success-Failure condition (Large sample size): There should be at least 10 expected successes and 10 expected failures in the observed sample. Check if  
+
+      - $𝑛𝑝≥10$ and $𝑛(1−𝑝)≥10$ or 
+\        
+      - $𝑛\hat{p}≥10$ and $𝑛(1−\hat{p})≥10$ if $𝑝$ is unknown
+     
+</div>
+
+## Applying CLT in real -world setting.
+<div class="black">
+<font size="4">
+When $p$ is unknown.
+
+- The CLT states $SE = \sqrt{\frac{p(1-p)}{n}}$, with the condition that $np$ and $n(1-p)$ are at least 10, however we often don't know the value of $p$, the population proportion.
+
+- In these cases we substitute $\hat{p}$ for $p$.
+$$SE = \sqrt{\frac{p(1-p)}{n}} \approx \sqrt{\frac{\hat{p}(1-\hat{p})}{n}}$$
+Note: when the population size is N, and 𝑛≥0.10∗𝑁,
+
+- Then use a finite population correction factor $\sqrt{\frac{(𝑁−𝑛)}{(𝑁−1)}}$
+$$SE = \sqrt{\frac{p(1-p)}{n}}\sqrt{\frac{(𝑁−𝑛)}{(𝑁−1)}}$$
+which gives smaller, more precise estimate of S.E.
+</font>
+</div>
+
+
+## More on CLT--  When $p$ is low or high, n is not large enough.
+
+<div class="black">
+<font size="4">
+<div class="red"> Suppose we have a population where the true population proportion is $p=0.05,$ and we take random sample of size $n = 50$ from this population. We calculate the sample proportion in each sample and plot these proportions. Would you expect this distribution to be nearly normal? Why, or why not?
+</div>
+
+No, the success-failure condition is not met $(50 *0.05 = 2.5)$, hence we would **not** expect the sampling distribution to be nearly normal.
+
+```{r, echo=F, message=F, warning=F, out.width= "45%",fig.align='center'}
+p <- 0.05
+
+N <- 100000000
+ones <- N * p
+zeros <- N * (1-p)
+pop <- c(rep(1, ones), rep(0, zeros))
+
+n <- 50
+
+set.seed(12345)
+
+sampling <- tibble(
+  phat = rep(NA, 1000)
+)
+
+for(i in 1:nrow(sampling)){
+  sampling$phat[i] <- sum(sample(pop, n)) / n
+}
+
+ggplot(sampling, aes(x = phat)) +
+  geom_histogram(binwidth = 0.01, fill = COL[1]) +
+  theme_minimal() +
+  labs(x = "Simulated sample proportion", y = "")
+```
+</font>
+</div>
+
+```{r}
+```
+
+## Conditions 
+
+<div class="red"> What happens when $np$ and/or $n(1-p)< 10$?
+</div>
+
+<div class="black">
+
+<div style="float: left; width: 50%;">
+
+```{r,echo= FALSE,out.width= "125%", Include= F, fig.align='right'}
+cl <- readPNG("clt_prop_grid_1.png")
+grid.raster(cl)
+```
+</div>
+<div style="float: right; width: 50%;">
+```{r, echo= FALSE,out.width= "125%", Include= F, fig.align='left'}
+cls <- readPNG("clt_prop_grid_2.png")
+grid.raster(cls)
+```
+</div>
+
+</div>
+
+```{r}
+```
+
+
+## When the conditions are not met...
+
+<div class="black">
+- When either $np$ or $n(1-p)$ is small, the distribution is more discrete.
+
+- When $np$ or $n(1-p)<10$, the distribution is more skewed. 
+
+- The larger both $np$ and $n(1-p)$, the more normal the distribution.
+
+- When $np$ and $n(1-p)$ are both very large, the discreteness of the distribution is hardly evident, and the distribution looks much more like a normal distribution.
+
+</div>
+
+```{r}
+```
+
+## Extending the framework for other statistics
+
+<div class="black">
+
+- The strategy of using sample statistic to estimate a parameter is quite common, and it's a strategy that we can apply to other statistics besides a proportion.
+
+  - Take a random sample of students at a college and ask them how many extracurricular activities they are involved in to estimate the average number of extra curricular activities all students in this college are interested in.
+  
+- The principles and general ideas are from this chapter apply to other parameters as well, even if the details change a little.
+</div>
+
+

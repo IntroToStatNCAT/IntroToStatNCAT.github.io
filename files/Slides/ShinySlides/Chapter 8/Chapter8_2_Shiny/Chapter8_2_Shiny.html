@@ -1,0 +1,718 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Chapter 8</title>
+
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <meta name="generator" content="pandoc" />
+
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+
+  <base target="_blank">
+
+  <script type="text/javascript">
+    var SLIDE_CONFIG = {
+      // Slide settings
+      settings: {
+                title: 'Chapter 8',
+                        subtitle: 'Introduction to Linear Regression',
+                useBuilds: true,
+        usePrettify: true,
+        enableSlideAreas: true,
+        enableTouch: true,
+                      },
+
+      // Author information
+      presenters: [
+            ]
+    };
+  </script>
+
+  <!-- HEAD_CONTENT -->
+
+  <style type="text/css">
+
+    b, strong {
+      font-weight: bold;
+    }
+
+    em {
+      font-style: italic;
+    }
+
+    summary {
+      display: list-item;
+    }
+
+    details > summary > p:only-child {
+      display: inline;
+    }
+
+    slides > slide {
+      -webkit-transition: all 0.2s ease-in-out;
+      -moz-transition: all 0.2s ease-in-out;
+      -o-transition: all 0.2s ease-in-out;
+      transition: all 0.2s ease-in-out;
+    }
+
+    .auto-fadein {
+      -webkit-transition: opacity 0.6s ease-in;
+      -webkit-transition-delay: 0.2s;
+      -moz-transition: opacity 0.6s ease-in 0.2s;
+      -o-transition: opacity 0.6s ease-in 0.2s;
+      transition: opacity 0.6s ease-in 0.2s;
+      opacity: 0;
+    }
+/* https://github.com/ropensci/plotly/pull/524#issuecomment-468142578 */
+slide:not(.current) .plotly.html-widget{
+  display: block;
+}
+
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+            
+  </style>
+
+
+</head>
+
+<body style="opacity: 0">
+
+<slides class="layout-widescreen">
+
+  <slide class="title-slide segue nobackground">
+        <!-- The content of this hgroup is replaced programmatically through the slide_config.json. -->
+    <hgroup class="auto-fadein">
+      <h1 data-config-title><!-- populated from slide_config.json --></h1>
+      <h2 data-config-subtitle><!-- populated from slide_config.json --></h2>
+      <p data-config-presenter><!-- populated from slide_config.json --></p>
+          </hgroup>
+  </slide>
+
+<slide class=""><hgroup><h2>Acknowledgement</h2></hgroup><article  id="acknowledgement" class="smaller ">
+
+<center>
+
+<div class="black">
+<p>These notes use content from OpenIntro Statistics Slides by</p>
+
+<p>Mine Cetinkaya-Rundel.</p></div>
+
+</center>
+
+</article></slide><slide class=""><hgroup><h2>8.2 Least Squares Regression</h2></hgroup><article  id="least-squares-regression" class="smaller ">
+
+<div class="black">
+<p>In this section, we use least squares regression as a rigorous approach for fitting data using a linear model.</p>
+
+<ul>
+<li><p>Draw the scatter plot, then observe if there is a linear pattern.</p></li>
+<li><p>The least square regression line: \(y=b_0 + b_1x\), where the coefficients \(b_0\), \(b_1\) are determined by minimizing \[D = \sum{(\text{Observed response - Predicted response})^2}\\
+=\sum{(y_i - b_0 - b_1x)^2} = \sum{e_i}^2\]</p></li>
+<li><p>There are formulas to compute \(b_0\) and \(b_0\).</p></li>
+</ul></div>
+
+</article></slide><slide class=""><hgroup><h2>A measure for the best line</h2></hgroup><article  id="a-measure-for-the-best-line" class="smaller ">
+
+<div class="black">
+<ul>
+<li><p>We want a line that has small residuals</p>
+
+<ol>
+<li>Option 1: Minimize the sum of magnitudes (absolute values) of residuals. \(|e_1| + |e_2|+ ... + |e_n|\)</li>
+<li>Option 2: Minimize the sum of squared residuals – least squares. \(e_1^2 + e_2^2 + ... + e_n^2\)</li>
+</ol></li>
+<li><p>Why least squares?</p>
+
+<ol>
+<li><p>Most commonly used.</p></li>
+<li><p>Easier to compute by hand and using software.</p></li>
+</ol></li>
+</ul></div>
+
+</article></slide><slide class=""><hgroup><h2>The least squares Line</h2></hgroup><article  id="the-least-squares-line" class="smaller ">
+
+<div class="black">
+<div style="float: left; width: 50%;">
+<p><img src="Chapter8_2_Shiny_files/figure-html/unnamed-chunk-2-1.png" width="90%" /></p></div>
+
+<div style="float: right; width: 50%;">
+<p><strong>Notation:</strong></p>
+
+<ul>
+<li><p>Intercept:</p>
+
+<ul>
+<li>Parameter: \(\beta_0\)</li>
+<li>Point estimate: \(b_0\)</li>
+</ul></li>
+<li><p>Slope:</p>
+
+<ul>
+<li>Parameter: \(\beta_1\)</li>
+<li>Point estimate: \(b_1\)</li>
+</ul></li>
+</ul></div></div>
+
+</article></slide><slide class=""><hgroup><h2>Conditions for the least squares line</h2></hgroup><article  id="conditions-for-the-least-squares-line" class="smaller ">
+
+<div class="black">
+<ol>
+<li><p>Linearity</p></li>
+<li><p>Nearly normal residuals</p></li>
+<li><p>Constant variability</p></li>
+<li><p>Independent observations</p></li>
+</ol></div>
+
+</article></slide><slide class=""><hgroup><h2>Conditions: (1) Linearity</h2></hgroup><article  id="conditions-1-linearity" class="smaller ">
+
+<div class="black">
+<ul>
+<li><p>The relationship between the explanatory and the response variable should be linear.</p></li>
+<li><p>Check using a scatter plot of the data, or a <strong>residuals plot</strong>.</p></li>
+</ul>
+
+<p><img src="Chapter8_2_Shiny_files/figure-html/unnamed-chunk-3-1.png" width="70%" /></p></div>
+
+</article></slide><slide class=""><hgroup><h2>Conditions: (2) Nearly Normal residuals</h2></hgroup><article  id="conditions-2-nearly-normal-residuals" class="smaller ">
+
+<div class="black">
+<ul>
+<li><p>The residuals should be nearly normal (bell shaped, symmetric).</p></li>
+<li><p>Check using a histogram or normal probability plot of residuals</p></li>
+</ul>
+
+<p><img src="Chapter8_2_Shiny_files/figure-html/unnamed-chunk-4-1.png" width="70%" /></p></div>
+
+</article></slide><slide class=""><hgroup><h2>Conditions: (3) Constant variability</h2></hgroup><article  id="conditions-3-constant-variability" class="smaller ">
+
+<div class="black">
+<div style="float: left; width: 50%;">
+<p><img src="Chapter8_2_Shiny_files/figure-html/unnamed-chunk-5-1.png" width="100%" /></p></div>
+
+<div style="float: right; width: 50%;">
+<ul>
+<li><p>The variability of points around the least squares line should be roughly constant.</p></li>
+<li><p>This implies that the variability of residuals around the 0 line should be roughly constant as well.</p></li>
+<li><p>That is also called <strong>homoscedasticity</strong>.</p></li>
+</ul></div></div>
+
+</article></slide><slide class=""><hgroup><h2>Checking conditions</h2></hgroup><article  id="checking-conditions" class="smaller ">
+
+<div class="black">
+<div style="float: left; width: 50%;">
+<p>What condition is this linear model obviously violating?</p>
+
+<ul>
+<li>Constant variability</li>
+<li>Linear relationship</li>
+<li>Normal residuals</li>
+<li>No extreme outliers</li>
+</ul>
+
+<p><strong>(b) Linear relationship</strong></p></div>
+
+<div style="float: right; width: 50%;">
+<p><img src="Chapter8_2_Shiny_files/figure-html/unnamed-chunk-6-1.png" width="100%" /></p></div></div>
+
+</article></slide><slide class=""><hgroup><h2>Checking conditions</h2></hgroup><article  id="checking-conditions-1" class="smaller ">
+
+<div class="black">
+<div style="float: left; width: 50%;">
+<p>What condition is this linear model obviously violating?</p>
+
+<ul>
+<li>Constant variability</li>
+<li>Linear relationship</li>
+<li>Normal residuals</li>
+<li>No extreme outliers</li>
+</ul>
+
+<p><strong>(a) Constant variability</strong></p></div>
+
+<div style="float: right; width: 50%;">
+<p><img src="Chapter8_2_Shiny_files/figure-html/unnamed-chunk-7-1.png" width="100%" /></p></div></div>
+
+</article></slide><slide class=""><hgroup><h2>Use Sample Summary to find least squares line</h2></hgroup><article  id="use-sample-summary-to-find-least-squares-line" class="smaller ">
+
+<font size= "4">
+
+<div class="black">
+<center>
+
+<img src="Chapter8_2_Shiny_files/figure-html/unnamed-chunk-8-1.png" width="50%" />
+
+</center>
+
+<p>Estimate Slope of the regression line:</p>
+
+<p>\[\color{blue}{b_1 = \frac{s_y}{s_x}R} = \frac{3.1}{3.73} \times (-0.75)= -0.62\]</p></div>
+
+<p></font></p>
+
+</article></slide><slide class=""><hgroup><h2>Use Sample Summary to find least squares line contd.</h2></hgroup><article  id="use-sample-summary-to-find-least-squares-line-contd." class="smaller ">
+
+<font size= "4">
+
+<div class="black">
+<p>Estimate Intercept of the regression line:</p>
+
+<p>\[\color{blue}{b_0 = \bar{y} - b_1 \bar{x}}= 11.35 -(-0.62) \times 86.01= 64.68\] (Use the fact that regression line passes through (\(\bar{x},\bar{y})\))</p>
+
+<p>The estimate linear regression model for Poverty vs. HS grad is</p>
+
+<p>\[\hat{y} = 64.68 - 0.62x\]</p></div>
+
+<p></font></p>
+
+</article></slide><slide class=""><hgroup><h2>Regression line</h2></hgroup><article  id="regression-line" class="smaller ">
+
+<div class="black">
+<p><img src="Chapter8_2_Shiny_files/figure-html/unnamed-chunk-9-1.png" width="80%" /></p></div>
+
+</article></slide><slide class=""><hgroup><h2>Use Sample Summary to find least squares line</h2></hgroup><article  id="use-sample-summary-to-find-least-squares-line-1" class="smaller ">
+
+<font size="3">
+
+<div class="black">
+<p>The following code computes the summary statistics needed to manually calculate the point estimates of the intercept and slope in the regression model for the % in Poverty on the % of HS Grads using the states data.</p>
+
+<div class="tutorial-exercise" data-label="quiz11__2" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
+<pre class = 'prettyprint lang-text'>library(dplyr)
+Poverty = c(14.6, 8.3, 13.3, 18.0, 12.8,  9.4,  7.8,  8.1, 16.8, 12.1, 12.1, 10.6,
+       11.8, 11.2,  8.7 , 8.3,  9.4, 13.1, 17.0, 11.3,  7.3,  9.6, 10.3,6.5, 17.6,
+       9.6, 13.7,  9.5, 8.3,  5.6,  7.8, 17.8, 14.0, 13.1, 11.9, 10.1, 14.7,
+       11.2 ,9.2 ,10.3,13.5, 10.2 ,14.2, 15.3, 9.3,  9.9,8.7 ,10.8, 16.0,  8.6 , 9.5)
+
+Graduates = c(79.9,90.6 ,83.8, 80.9, 81.1,88.7, 87.5, 88.7, 86.0, 84.7,85.1,88.5, 88.2,
+      85.9, 86.4, 89.7, 88.6, 82.8, 79.8,86.6, 87.6,87.1,87.6,91.6,
+      81.2, 88.3,90.1, 90.8, 85.6, 92.1, 86.2, 81.7, 84.2, 81.4, 89.7, 87.2, 85.7,
+      86.9, 86.0, 81.0, 80.8 ,88.7 ,81.0 ,77.2, 89.4, 88.9,87.8 ,89.1, 78.7,88.6, 90.9)
+
+df = data.frame(Poverty,Graduates)
+
+df %&gt;% summarize(HSGrad_Mean = mean(Graduates), HSGrad_sd= sd(Graduates),
+            Poverty_Mean= mean(Poverty), Poverty_sd= sd(Poverty),
+            R = cor(Graduates, Poverty, method = &quot;pearson&quot;)) %&gt;% round(digits = 2)</pre>
+
+<script type="application/json" data-ui-opts="1">{"engine":"r","has_checker":false,"caption":"<span data-i18n=\"text.enginecap\" data-i18n-opts=\"{&quot;engine&quot;:&quot;R&quot;}\">R Code<\/span>"}</script></div></div>
+
+<p></font></p>
+
+</article></slide><slide class=""><hgroup><h2>Estimating Linear regression using R</h2></hgroup><article  id="estimating-linear-regression-using-r" class="smaller ">
+
+<font size="2">
+
+<div class="black">
+<p>Below, we use the <code>lm()</code> function to estimate the linear regression model directly. We save the estimated model in the object <code>lreg</code>. To extract the estimated coefficients, we apply the function <code>coef()</code> to the <code>lreg</code> object. The <code>summary(lreg)</code> command produces much more details of the model.</p>
+
+<div class="tutorial-exercise" data-label="quiz1_5" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
+<pre class = 'prettyprint lang-text'>Poverty = c(14.6, 8.3, 13.3, 18.0, 12.8,  9.4,  7.8,  8.1, 16.8, 12.1, 12.1, 10.6,
+       11.8, 11.2,  8.7 , 8.3,  9.4, 13.1, 17.0, 11.3,  7.3,  9.6, 10.3,6.5, 17.6,
+       9.6, 13.7,  9.5, 8.3,  5.6,  7.8, 17.8, 14.0, 13.1, 11.9, 10.1, 14.7,
+       11.2 ,9.2 ,10.3,13.5, 10.2 ,14.2, 15.3, 9.3,  9.9,8.7 ,10.8, 16.0,  8.6 , 9.5)
+
+Graduates = c(79.9,90.6 ,83.8, 80.9, 81.1,88.7, 87.5, 88.7, 86.0, 84.7,85.1,88.5, 88.2,
+      85.9, 86.4, 89.7, 88.6, 82.8, 79.8,86.6, 87.6,87.1,87.6,91.6,
+      81.2, 88.3,90.1, 90.8, 85.6, 92.1, 86.2, 81.7, 84.2, 81.4, 89.7, 87.2, 85.7,
+      86.9, 86.0, 81.0, 80.8 ,88.7 ,81.0 ,77.2, 89.4, 88.9,87.8 ,89.1, 78.7,88.6, 90.9)
+
+df = data.frame(Poverty,Graduates)
+
+lreg = lm(Poverty ~ Graduates, data=df) ## Linear Regression
+coef(lreg)
+#summary(lreg)</pre>
+
+<script type="application/json" data-ui-opts="1">{"engine":"r","has_checker":false,"caption":"<span data-i18n=\"text.enginecap\" data-i18n-opts=\"{&quot;engine&quot;:&quot;R&quot;}\">R Code<\/span>"}</script></div></div>
+
+<p></font></p>
+
+</article></slide><slide class=""><hgroup><h2>Practice</h2></hgroup><article  id="practice" class="smaller ">
+
+<div class="black">
+<p>Given \(\bar{x}= 7.5\), \(\bar{y} = 14.265\), \(s_x= 0.909\), \(s_y= 1.849\), \(R= 0.8976\).</p>
+
+<ol>
+<li>Calculate the slope of the regression line \(\color{blue}{b_1 = \frac{s_y}{s_x}R}\)</li>
+<li>Calculate the intercept of the regression line \(\color{blue}{b_0 = \bar{y} - b_1 \bar{x}}\)</li>
+<li>Write the equation of the regression line.</li>
+<li>Use this model to predict the value of y if x= 100</li>
+<li>Find the coefficient of determination (\(R^2\))</li>
+</ol>
+
+<p><strong>Check Answers:</strong></p>
+
+<ol>
+<li>\(b_1 = \frac{s_y}{s_x}R = 1.8258\)<br/></li>
+<li>\(b_0 = \bar{y} - b_1 \bar{x}= 0.5714\)<br/></li>
+<li>\(y= 0.5714 + 1.8258x\)<br/></li>
+<li>18.8294<br/></li>
+<li>0.8057<br/>Discussion: if know \(s_x\), \(s_y\) and the slope, how to find R?<br/>Answer: \(R = b_1\frac{s_x}{s_y}\)</li>
+</ol></div>
+
+</article></slide><slide class=""><hgroup><h2>Example (HW question)</h2></hgroup><article  id="example-hw-question" class="smaller ">
+
+<div class="black">
+<p>A researcher measures the wrist circumference and height of a random sample of individuals. The data summary is displayed below.</p>
+
+<center>
+
+<img src="Chapter8_2_Shiny_files/figure-html/unnamed-chunk-10-1.png" width="65%" />
+
+</center>
+
+<p>Residual standard error: 4.0929 on 28 degrees of freedom. R-squared: 0.6683, Adjusted R-squared: 0.6564.</p></div>
+
+</article></slide><slide class=""><hgroup><h2>Example (HW question)</h2></hgroup><article  id="example-hw-question-1" class="smaller ">
+
+<div class="black">
+<ol>
+<li>The equation of the best-fit line is(Use x(Wrist circumference) and y (height) for variables:</li>
+</ol>
+
+<p>\(y= 27.1107 + 6.4843x\)</p>
+
+<ol>
+<li>Identify the coefficient of determination</li>
+</ol>
+
+<p>\(R^2 = 0.6683\) (variability of height that can be explained using the model)</p>
+
+<ol>
+<li>Calculate the correlation coefficient</li>
+</ol>
+
+<p>\(R= \sqrt{0.6683} = 0.8174961774 \hspace{0.2cm} (\text{pay attention to sign of} \hspace{0.2cm}b_1)\)</p>
+
+<ol>
+<li>Typical error using the model to predict heights</li>
+</ol>
+
+<p>\(4.0929\)</p>
+
+<ol>
+<li>Find the residual for one observation (7.3,84)</li>
+</ol>
+
+<p>\(e= y-\hat{y} = 84- (27.1107 + 6.4843 \times 7.3)= 9.55391\)</p></div>
+
+</article></slide><slide class=""><hgroup><h2>Interpretation of Slope and Intercept</h2></hgroup><article  id="interpretation-of-slope-and-intercept" class="smaller ">
+
+<div class="black">
+<p>Interpretation of \(\hat{y}= 64.68- 0.62x\)</p>
+
+<ol>
+<li>Slope \(b_1=−0.62\): For each additional % point in HS graduate rate, we would expect the % living in poverty to be lower on average by 0.62% points.</li>
+<li>Intercept \(b_0=64.68\): States with no HS graduates are expected on average to have 64.68% of residents living below the poverty line.</li>
+</ol>
+
+<ul>
+<li>Note: Since there are no states in the data set with no HS graduates, the intercept is of no interest, not very useful, and not reliable. In fact, the predicted value of the intercept is so far from the bulk of the data.</li>
+</ul>
+
+<center>
+
+<img src="Chapter8_2_Shiny_files/figure-html/unnamed-chunk-11-1.png" width="45%" />
+
+</center></div>
+
+</article></slide><slide class=""><hgroup><h2>Prediction</h2></hgroup><article  id="prediction" class="smaller ">
+
+<div class="black">
+<ul>
+<li><p>Using the linear model to predict the value of the response variable for a given value of the explanatory variable is called <strong>prediction</strong>, simply by plugging in the value of x in the linear model equation.</p></li>
+<li><p>There will be some uncertainty associated with the predicted value.</p></li>
+</ul>
+
+<center>
+
+<img src="Chapter8_2_Shiny_files/figure-html/unnamed-chunk-12-1.png" width="50%" />
+
+</center></div>
+
+</article></slide><slide class=""><hgroup><h2>Extrapolation</h2></hgroup><article  id="extrapolation" class="smaller ">
+
+<div class="black">
+<ul>
+<li><p>Applying a model estimate to values outside of the realm of the original data is called <strong>extrapolation</strong> <em>(Extrapolation is used to estimate values that go beyond a set of given data or observations)</em>.</p></li>
+<li><p>In our example, the intercept is an extrapolation.</p></li>
+</ul>
+
+<center>
+
+<img src="Chapter8_2_Shiny_files/figure-html/unnamed-chunk-13-1.png" width="50%" />
+
+</center></div>
+
+</article></slide><slide class=""><hgroup><h2>More on correlation R and R squared</h2></hgroup><article  id="more-on-correlation-r-and-r-squared" class="smaller ">
+
+<div class="black">
+<ul>
+<li><p>The correlation</p>
+
+<p>\(R = \frac{1}{n-1}\sum_{i=1}^n \frac{x_i-\bar{x}}{s_x}\frac{y_i-\bar{y}}{s_y}\hspace{0.2cm} {\text{OR}}\hspace{0.2cm} R= \frac{\sum(x_i-\bar{x})(y_i-\bar{y})}{\sqrt{\sum(x_i-\bar{x})^2(y_i-\bar{y})^2}}\)</p></li>
+<li><p>The quantity \(R^2\) is called the <strong>coefficient of determination</strong> (see.in 8.1)</p></li>
+<li><p>It is a statistical measure in a linear regression model that determines the proportion of variance in the response variable that can be explained by the explanatory variable(or input,or predictor variable).</p></li>
+<li><p>The larger \(R^2\) (Close to 1), the better fit;</p></li>
+<li><p>The smaller \(R^2\) (close to 0), the more noise; the model does not give a good fit: due to either little association or nonlinear association.</p></li>
+</ul></div>
+
+</article></slide><slide class=""><hgroup><h2>Interpretation of \(R^2\)</h2></hgroup><article  id="interpretation-of-r2" class="smaller ">
+
+<div class="black">
+<div style="float: left; width: 50%;">
+<p>Which of the below is the correct interpretation of \(R^2\) = 0.38 (with R = -0.62):</p>
+
+<ol>
+<li>38% of the variability in the % of HS graduates among the 51 states is explained by the model.</li>
+<li>38% of the variability in the % of residents living in poverty among the 51 states is explained by the model.</li>
+<li>38% of the time % HS graduates predict % living in poverty correctly.</li>
+<li>62% of the variability in the % of residents living in poverty among the 51 states is explained by the model</li>
+</ol></div>
+
+<div style="float: right; width: 50%;">
+<p><img src="Chapter8_2_Shiny_files/figure-html/unnamed-chunk-14-1.png" width="80%" /></p></div></div>
+
+</article></slide><slide class=""><hgroup><h2>Interpretation of \(R^2\) (end of 8.2)</h2></hgroup><article  id="interpretation-of-r2-end-of-8.2" class="smaller ">
+
+<div class="black">
+<div style="float: left; width: 50%;">
+<p>Which of the below is the correct interpretation of \(R^2\) = 0.38 (with R = -0.62):</p>
+
+<ol>
+<li><p>38% of the variability in the % of HS graduates among the 51 states is explained by the model.</p></li>
+<li><div class="red">
+38% of the variability in the % of residents living in poverty among the 51 states is explained by the model.</div></li>
+<li><p>38% of the time % HS graduates predict % living in poverty correctly.</p></li>
+<li><p>62% of the variability in the % of residents living in poverty among the 51 states is explained by the model</p></li>
+</ol></div>
+
+<div style="float: right; width: 50%;">
+<p><img src="Chapter8_2_Shiny_files/figure-html/unnamed-chunk-15-1.png" width="80%" /></p></div></div>
+
+</article></slide><slide class=""><hgroup><h2>Categorical predictor(s)</h2></hgroup><article  id="categorical-predictors" class="smaller ">
+
+<div class="black">
+<p>We can allow to use categorical variable to predict outcomes.</p>
+
+<p>If we divide the US into East and West, and use the model \[ \hat{poverty} = 11.17 + 0.38 \times west \]</p>
+
+<ul>
+<li><p>Explanatory variable: region, reference level: east</p></li>
+<li><p>Intercept: The estimated average poverty percentage in eastern states is 11.17%.</p>
+
+<ul>
+<li>This is the value we get if we plug in <strong>0</strong> for the explanatory variable.</li>
+</ul></li>
+<li><p>Slope: The estimated average poverty percentage in western states is 0.38% higher than eastern states.</p>
+
+<ul>
+<li>Then, the estimated average poverty percentage in western states is 11.17 + 0.38 = 11.55%.</li>
+<li>This is the value we get if we plug in 1 for the explanatory variable</li>
+</ul></li>
+</ul></div>
+
+</article></slide><slide class=""><hgroup><h2>Poverty vs. region (northeast, midwest, west, south) (end of 8.2)</h2></hgroup><article  id="poverty-vs.-region-northeast-midwest-west-south-end-of-8.2" class="smaller ">
+
+<font size="3">
+
+<div class="black">
+<p>If we divide the US into 4 regions: Northeast, Midwest, West, and South, and use the model</p>
+
+<p><img src="Chapter8_2_Shiny_files/figure-html/unnamed-chunk-16-1.png" width="55%" /></p>
+
+<p>Which region (northeast, mid-west, west, or south) is the reference level?</p></div>
+
+<p></font></p>
+
+</article></slide><slide class=""><hgroup><h2>Poverty vs. region (northeast, midwest, west, south) (end of 8.2)</h2></hgroup><article  id="poverty-vs.-region-northeast-midwest-west-south-end-of-8.2-1" class="smaller ">
+
+<font size="3">
+
+<div class="black">
+<ol>
+<li>northeast</li>
+<li>mid-west</li>
+<li>west</li>
+<li>south</li>
+<li>cannot tell<br/><strong>(a) northeast</strong></li>
+</ol>
+
+<p>The model is \[\hat{poverty}= 9.50 + 0.03 \times midwest+ 1.79\times west +4.16 \times south\] The variables takes value 0 or 1.</p></div>
+
+<p></font></p>
+
+<p>
+<script type="application/shiny-prerendered" data-context="server-start">
+knitr::opts_chunk$set(echo = FALSE)
+</script>
+ 
+<script type="application/shiny-prerendered" data-context="server">
+learnr:::register_http_handlers(session, metadata = NULL)
+</script>
+ 
+<script type="application/shiny-prerendered" data-context="server">
+learnr:::prepare_tutorial_state(session)
+</script>
+ 
+<script type="application/shiny-prerendered" data-context="server">
+learnr:::i18n_observe_tutorial_language(input, session)
+</script>
+ 
+<script type="application/shiny-prerendered" data-context="server">
+session$onSessionEnded(function() {
+        learnr:::event_trigger(session, "session_stop")
+      })
+</script>
+ 
+<script type="application/shiny-prerendered" data-context="server">
+`tutorial-exercise-quiz11__2-result` <- learnr:::setup_exercise_handler(reactive(req(input$`tutorial-exercise-quiz11__2-code-editor`)), session)
+output$`tutorial-exercise-quiz11__2-output` <- renderUI({
+  `tutorial-exercise-quiz11__2-result`()
+})
+</script>
+ 
+<script type="application/shiny-prerendered" data-context="server">
+learnr:::store_exercise_cache(structure(list(label = "quiz11__2", global_setup = structure("knitr::opts_chunk$set(echo = FALSE)", chunk_opts = list(
+    label = "setup", include = FALSE)), setup = NULL, chunks = list(
+    list(label = "quiz11__2", code = "library(dplyr)\nPoverty = c(14.6, 8.3, 13.3, 18.0, 12.8,  9.4,  7.8,  8.1, 16.8, 12.1, 12.1, 10.6,\n       11.8, 11.2,  8.7 , 8.3,  9.4, 13.1, 17.0, 11.3,  7.3,  9.6, 10.3,6.5, 17.6,\n       9.6, 13.7,  9.5, 8.3,  5.6,  7.8, 17.8, 14.0, 13.1, 11.9, 10.1, 14.7,\n       11.2 ,9.2 ,10.3,13.5, 10.2 ,14.2, 15.3, 9.3,  9.9,8.7 ,10.8, 16.0,  8.6 , 9.5)\n\nGraduates = c(79.9,90.6 ,83.8, 80.9, 81.1,88.7, 87.5, 88.7, 86.0, 84.7,85.1,88.5, 88.2,\n      85.9, 86.4, 89.7, 88.6, 82.8, 79.8,86.6, 87.6,87.1,87.6,91.6,\n      81.2, 88.3,90.1, 90.8, 85.6, 92.1, 86.2, 81.7, 84.2, 81.4, 89.7, 87.2, 85.7,\n      86.9, 86.0, 81.0, 80.8 ,88.7 ,81.0 ,77.2, 89.4, 88.9,87.8 ,89.1, 78.7,88.6, 90.9)\n\ndf = data.frame(Poverty,Graduates)\n\ndf %>% summarize(HSGrad_Mean = mean(Graduates), HSGrad_sd= sd(Graduates),\n            Poverty_Mean= mean(Poverty), Poverty_sd= sd(Poverty),\n            R = cor(Graduates, Poverty, method = \"pearson\")) %>% round(digits = 2)\n", 
+        opts = list(label = "\"quiz11__2\"", exercise = "TRUE"), 
+        engine = "r")), code_check = NULL, error_check = NULL, 
+    check = NULL, solution = NULL, tests = NULL, options = list(
+        eval = FALSE, echo = TRUE, results = "markup", tidy = FALSE, 
+        tidy.opts = NULL, collapse = FALSE, prompt = FALSE, comment = NA, 
+        highlight = FALSE, size = "normalsize", background = "#F7F7F7", 
+        strip.white = TRUE, cache = 0, cache.path = "Chapter8_2_Shiny_cache/html/", 
+        cache.vars = NULL, cache.lazy = TRUE, dependson = NULL, 
+        autodep = FALSE, cache.rebuild = FALSE, fig.keep = "high", 
+        fig.show = "asis", fig.align = "default", fig.path = "Chapter8_2_Shiny_files/figure-html/", 
+        dev = "png", dev.args = NULL, dpi = 192, fig.ext = "png", 
+        fig.width = 7.5, fig.height = 4.5, fig.env = "figure", 
+        fig.cap = NULL, fig.scap = NULL, fig.lp = "fig:", fig.subcap = NULL, 
+        fig.pos = "", out.width = 720, out.height = NULL, out.extra = NULL, 
+        fig.retina = 2, external = TRUE, sanitize = FALSE, interval = 1, 
+        aniopts = "controls,loop", warning = TRUE, error = FALSE, 
+        message = TRUE, render = NULL, ref.label = NULL, child = NULL, 
+        engine = "r", split = FALSE, include = TRUE, purl = TRUE, 
+        exercise.timelimit = 60, exercise.checker = "function (label = NULL, solution_code = NULL, user_code = NULL, \n    check_code = NULL, envir_result = NULL, evaluate_result = NULL, \n    envir_prep = NULL, last_value = NULL, stage = NULL, ..., \n    solution_eval_fn = NULL) \n{\n    (utils::getFromNamespace(\"check_exercise\", \"gradethis\"))(label = label, \n        solution_code = solution_code, user_code = user_code, \n        check_code = check_code, envir_result = envir_result, \n        evaluate_result = evaluate_result, envir_prep = envir_prep, \n        last_value = last_value, stage = stage, ...)\n}", 
+        exercise.error.check.code = "gradethis_error_checker()", 
+        label = "quiz11__2", exercise = TRUE, code = c("library(dplyr)", 
+        "Poverty = c(14.6, 8.3, 13.3, 18.0, 12.8,  9.4,  7.8,  8.1, 16.8, 12.1, 12.1, 10.6,", 
+        "       11.8, 11.2,  8.7 , 8.3,  9.4, 13.1, 17.0, 11.3,  7.3,  9.6, 10.3,6.5, 17.6,", 
+        "       9.6, 13.7,  9.5, 8.3,  5.6,  7.8, 17.8, 14.0, 13.1, 11.9, 10.1, 14.7,", 
+        "       11.2 ,9.2 ,10.3,13.5, 10.2 ,14.2, 15.3, 9.3,  9.9,8.7 ,10.8, 16.0,  8.6 , 9.5)", 
+        "", "Graduates = c(79.9,90.6 ,83.8, 80.9, 81.1,88.7, 87.5, 88.7, 86.0, 84.7,85.1,88.5, 88.2,", 
+        "      85.9, 86.4, 89.7, 88.6, 82.8, 79.8,86.6, 87.6,87.1,87.6,91.6,", 
+        "      81.2, 88.3,90.1, 90.8, 85.6, 92.1, 86.2, 81.7, 84.2, 81.4, 89.7, 87.2, 85.7,", 
+        "      86.9, 86.0, 81.0, 80.8 ,88.7 ,81.0 ,77.2, 89.4, 88.9,87.8 ,89.1, 78.7,88.6, 90.9)", 
+        "", "df = data.frame(Poverty,Graduates)", "", "df %>% summarize(HSGrad_Mean = mean(Graduates), HSGrad_sd= sd(Graduates),", 
+        "            Poverty_Mean= mean(Poverty), Poverty_sd= sd(Poverty),", 
+        "            R = cor(Graduates, Poverty, method = \"pearson\")) %>% round(digits = 2)", 
+        ""), out.width.px = 720, out.height.px = 432, params.src = "quiz11__2, exercise=TRUE", 
+        fig.num = 0, exercise.df_print = "default"), engine = "r", 
+    version = "4"), class = c("r", "tutorial_exercise")))
+</script>
+ 
+<script type="application/shiny-prerendered" data-context="server">
+`tutorial-exercise-quiz1_5-result` <- learnr:::setup_exercise_handler(reactive(req(input$`tutorial-exercise-quiz1_5-code-editor`)), session)
+output$`tutorial-exercise-quiz1_5-output` <- renderUI({
+  `tutorial-exercise-quiz1_5-result`()
+})
+</script>
+ 
+<script type="application/shiny-prerendered" data-context="server">
+learnr:::store_exercise_cache(structure(list(label = "quiz1_5", global_setup = structure("knitr::opts_chunk$set(echo = FALSE)", chunk_opts = list(
+    label = "setup", include = FALSE)), setup = NULL, chunks = list(
+    list(label = "quiz1_5", code = "Poverty = c(14.6, 8.3, 13.3, 18.0, 12.8,  9.4,  7.8,  8.1, 16.8, 12.1, 12.1, 10.6,\n       11.8, 11.2,  8.7 , 8.3,  9.4, 13.1, 17.0, 11.3,  7.3,  9.6, 10.3,6.5, 17.6,\n       9.6, 13.7,  9.5, 8.3,  5.6,  7.8, 17.8, 14.0, 13.1, 11.9, 10.1, 14.7,\n       11.2 ,9.2 ,10.3,13.5, 10.2 ,14.2, 15.3, 9.3,  9.9,8.7 ,10.8, 16.0,  8.6 , 9.5)\n\nGraduates = c(79.9,90.6 ,83.8, 80.9, 81.1,88.7, 87.5, 88.7, 86.0, 84.7,85.1,88.5, 88.2,\n      85.9, 86.4, 89.7, 88.6, 82.8, 79.8,86.6, 87.6,87.1,87.6,91.6,\n      81.2, 88.3,90.1, 90.8, 85.6, 92.1, 86.2, 81.7, 84.2, 81.4, 89.7, 87.2, 85.7,\n      86.9, 86.0, 81.0, 80.8 ,88.7 ,81.0 ,77.2, 89.4, 88.9,87.8 ,89.1, 78.7,88.6, 90.9)\n\ndf = data.frame(Poverty,Graduates)\n\nlreg = lm(Poverty ~ Graduates, data=df) ## Linear Regression\ncoef(lreg)\n#summary(lreg)\n", 
+        opts = list(label = "\"quiz1_5\"", exercise = "TRUE"), 
+        engine = "r")), code_check = NULL, error_check = NULL, 
+    check = NULL, solution = NULL, tests = NULL, options = list(
+        eval = FALSE, echo = TRUE, results = "markup", tidy = FALSE, 
+        tidy.opts = NULL, collapse = FALSE, prompt = FALSE, comment = NA, 
+        highlight = FALSE, size = "normalsize", background = "#F7F7F7", 
+        strip.white = TRUE, cache = 0, cache.path = "Chapter8_2_Shiny_cache/html/", 
+        cache.vars = NULL, cache.lazy = TRUE, dependson = NULL, 
+        autodep = FALSE, cache.rebuild = FALSE, fig.keep = "high", 
+        fig.show = "asis", fig.align = "default", fig.path = "Chapter8_2_Shiny_files/figure-html/", 
+        dev = "png", dev.args = NULL, dpi = 192, fig.ext = "png", 
+        fig.width = 7.5, fig.height = 4.5, fig.env = "figure", 
+        fig.cap = NULL, fig.scap = NULL, fig.lp = "fig:", fig.subcap = NULL, 
+        fig.pos = "", out.width = 720, out.height = NULL, out.extra = NULL, 
+        fig.retina = 2, external = TRUE, sanitize = FALSE, interval = 1, 
+        aniopts = "controls,loop", warning = TRUE, error = FALSE, 
+        message = TRUE, render = NULL, ref.label = NULL, child = NULL, 
+        engine = "r", split = FALSE, include = TRUE, purl = TRUE, 
+        exercise.timelimit = 60, exercise.checker = "function (label = NULL, solution_code = NULL, user_code = NULL, \n    check_code = NULL, envir_result = NULL, evaluate_result = NULL, \n    envir_prep = NULL, last_value = NULL, stage = NULL, ..., \n    solution_eval_fn = NULL) \n{\n    (utils::getFromNamespace(\"check_exercise\", \"gradethis\"))(label = label, \n        solution_code = solution_code, user_code = user_code, \n        check_code = check_code, envir_result = envir_result, \n        evaluate_result = evaluate_result, envir_prep = envir_prep, \n        last_value = last_value, stage = stage, ...)\n}", 
+        exercise.error.check.code = "gradethis_error_checker()", 
+        label = "quiz1_5", exercise = TRUE, code = c("Poverty = c(14.6, 8.3, 13.3, 18.0, 12.8,  9.4,  7.8,  8.1, 16.8, 12.1, 12.1, 10.6,", 
+        "       11.8, 11.2,  8.7 , 8.3,  9.4, 13.1, 17.0, 11.3,  7.3,  9.6, 10.3,6.5, 17.6,", 
+        "       9.6, 13.7,  9.5, 8.3,  5.6,  7.8, 17.8, 14.0, 13.1, 11.9, 10.1, 14.7,", 
+        "       11.2 ,9.2 ,10.3,13.5, 10.2 ,14.2, 15.3, 9.3,  9.9,8.7 ,10.8, 16.0,  8.6 , 9.5)", 
+        "", "Graduates = c(79.9,90.6 ,83.8, 80.9, 81.1,88.7, 87.5, 88.7, 86.0, 84.7,85.1,88.5, 88.2,", 
+        "      85.9, 86.4, 89.7, 88.6, 82.8, 79.8,86.6, 87.6,87.1,87.6,91.6,", 
+        "      81.2, 88.3,90.1, 90.8, 85.6, 92.1, 86.2, 81.7, 84.2, 81.4, 89.7, 87.2, 85.7,", 
+        "      86.9, 86.0, 81.0, 80.8 ,88.7 ,81.0 ,77.2, 89.4, 88.9,87.8 ,89.1, 78.7,88.6, 90.9)", 
+        "", "df = data.frame(Poverty,Graduates)", "", "lreg = lm(Poverty ~ Graduates, data=df) ## Linear Regression", 
+        "coef(lreg)", "#summary(lreg)", ""), out.width.px = 720, 
+        out.height.px = 432, params.src = "quiz1_5, exercise=TRUE", 
+        fig.num = 0, exercise.df_print = "default"), engine = "r", 
+    version = "4"), class = c("r", "tutorial_exercise")))
+</script>
+</p>
+
+<!--html_preserve-->
+
+<script type="application/shiny-prerendered" data-context="dependencies">
+{"type":"list","attributes":{},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["header-attrs"]},{"type":"character","attributes":{},"value":["2.14"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["rmd/h/pandoc"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["header-attrs.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["rmarkdown"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["2.14"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["bootstrap"]},{"type":"character","attributes":{},"value":["3.3.5"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["rmd/h/bootstrap"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["viewport"]}},"value":[{"type":"character","attributes":{},"value":["width=device-width, initial-scale=1"]}]},{"type":"character","attributes":{},"value":["js/bootstrap.min.js","shim/html5shiv.min.js","shim/respond.min.js"]},{"type":"character","attributes":{},"value":["css/bootstrap.min.css"]},{"type":"character","attributes":{},"value":["<style>h1 {font-size: 34px;}\n       h1.title {font-size: 38px;}\n       h2 {font-size: 30px;}\n       h3 {font-size: 24px;}\n       h4 {font-size: 18px;}\n       h5 {font-size: 16px;}\n       h6 {font-size: 12px;}\n       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}\n       pre:not([class]) { background-color: white }<\/style>"]},{"type":"NULL"},{"type":"character","attributes":{},"value":["rmarkdown"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["2.14"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["ioslides"]},{"type":"character","attributes":{},"value":["13.5.1"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["rmd/ioslides/ioslides-13.5.1"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["js/modernizr.custom.45394.js","js/prettify/prettify.js","js/prettify/lang-r.js","js/prettify/lang-yaml.js","js/hammer.js","js/slide-controller.js","js/slide-deck.js"]},{"type":"character","attributes":{},"value":["fonts/fonts.css","theme/css/default.css","theme/css/phone.css"]},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["rmarkdown"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["2.14"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["jquery"]},{"type":"character","attributes":{},"value":["3.6.0"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/3.6.0"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["jquery-3.6.0.min.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["jquerylib"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.1.4"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["font-awesome"]},{"type":"character","attributes":{},"value":["5.1.0"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["rmd/h/fontawesome"]}]},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["css/all.css","css/v4-shims.css"]},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["rmarkdown"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["2.14"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["bootbox"]},{"type":"character","attributes":{},"value":["5.5.2"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/bootbox"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["bootbox.min.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.11.2"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["idb-keyvalue"]},{"type":"character","attributes":{},"value":["3.2.0"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/idb-keyval"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["idb-keyval-iife-compat.min.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[false]},{"type":"character","attributes":{},"value":["0.11.2"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["tutorial"]},{"type":"character","attributes":{},"value":["0.11.2"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/tutorial"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["tutorial.js"]},{"type":"character","attributes":{},"value":["tutorial.css"]},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.11.2"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["ace"]},{"type":"character","attributes":{},"value":["1.10.1"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/ace"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["ace.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.11.2"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["clipboardjs"]},{"type":"character","attributes":{},"value":["2.0.10"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/clipboardjs"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["clipboard.min.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.11.2"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["ace"]},{"type":"character","attributes":{},"value":["1.10.1"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/ace"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["ace.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.11.2"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["clipboardjs"]},{"type":"character","attributes":{},"value":["2.0.10"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/clipboardjs"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["clipboard.min.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.11.2"]}]}]}
+</script>
+
+<!--/html_preserve-->
+
+<!--html_preserve-->
+
+<script type="application/shiny-prerendered" data-context="execution_dependencies">
+{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["packages"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["packages","version"]},"class":{"type":"character","attributes":{},"value":["data.frame"]},"row.names":{"type":"integer","attributes":{},"value":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91,92,93,94,95,96,97,98,99,100,101,102,103,104,105,106,107,108,109,110]}},"value":[{"type":"character","attributes":{},"value":["airports","assertthat","backports","base","boot","broom","bslib","cellranger","cherryblossom","cli","colorspace","compiler","crayon","curl","datasets","DBI","dbplyr","digest","dplyr","ellipsis","evaluate","fansi","faraway","fastmap","forcats","fs","gargle","generics","ggplot2","glue","googledrive","googlesheets4","gradethis","graphics","grDevices","grid","gtable","haven","here","highr","hms","htmltools","htmlwidgets","httpuv","httr","jpeg","jquerylib","jsonlite","kableExtra","knitr","later","lattice","learnr","learnrhash","lifecycle","lme4","lubridate","magrittr","MASS","Matrix","methods","mime","minqa","modelr","munsell","nlme","nloptr","openintro","pillar","pkgconfig","png","promises","purrr","R6","Rcpp","readr","readxl","reprex","rlang","rmarkdown","rprojroot","rstudioapi","rvest","sass","scales","shiny","splines","stats","stringi","stringr","svglite","systemfonts","tibble","tidyr","tidyselect","tidyverse","tinytex","tools","tzdb","usdata","utf8","utils","vctrs","viridisLite","webshot","withr","xfun","xml2","xtable","yaml"]},{"type":"character","attributes":{},"value":["0.1.0","0.2.1","1.4.1","4.1.3","1.3-28","0.8.0","0.3.1","1.1.0","0.1.0","3.3.0","2.0-3","4.1.3","1.5.1","4.3.2","4.1.3","1.1.2","2.1.1","0.6.29","1.0.9","0.3.2","0.15","1.0.3","1.0.7","1.1.0","0.5.1","1.5.2","1.2.0","0.1.2","3.3.6","1.6.2","2.0.0","1.0.0","0.2.11.9000","4.1.3","4.1.3","4.1.3","0.3.0","2.5.0","1.0.1","0.9","1.1.1","0.5.2","1.5.4","1.6.5","1.4.3","0.1-9","0.1.4","1.8.0","1.3.4","1.39","1.3.0","0.20-45","0.11.2","0.2.0","1.0.1","1.1-29","1.8.0","2.0.3","7.3-57","1.4-1","4.1.3","0.12","1.2.4","0.1.8","0.5.0","3.1-157","2.0.2","2.3.0","1.7.0","2.0.3","0.1-7","1.2.0.1","0.3.4","2.5.1","1.0.8.3","2.1.2","1.4.0","2.0.1","1.0.2","2.14","2.0.3","0.13","1.0.2","0.4.1","1.2.0","1.7.2","4.1.3","4.1.3","1.7.6","1.4.0","2.1.1","1.0.4","3.1.7","1.2.0","1.1.2","1.3.2","0.39","4.1.3","0.3.0","0.2.0","1.2.2","4.1.3","0.4.1","0.4.0","0.5.4","2.5.0","0.31","1.3.3","1.8-4","2.3.5"]}]}]}
+</script>
+
+<!--/html_preserve--></article></slide>
+
+
+  <slide class="backdrop"></slide>
+
+</slides>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+<!-- map slide visiblity events into shiny -->
+<script>
+  (function() {
+    if (window.jQuery) {
+       window.jQuery(document).on('slideleave', function(e) {
+         window.jQuery(e.target).trigger('hidden');
+      });
+       window.jQuery(document).on('slideenter', function(e) {
+         window.jQuery(e.target).trigger('shown');
+      });
+    }
+  })();
+</script>
+
+</body>
+</html>

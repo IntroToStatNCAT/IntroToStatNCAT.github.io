@@ -1,0 +1,263 @@
+---
+title: "Foundations for Inference II: Inference for numerical data"
+output: 
+  learnr::tutorial:
+    progressive: FALSE
+runtime: shiny_prerendered
+---
+
+
+```{r setup, include=FALSE}
+library(tidyverse)
+library(openintro)
+library(infer)
+library(MASS)
+library(learnr)
+library(gradethis) #remotes::install_github("rstudio/gradethis")
+library(learnrhash) #devtools::install_github("rundel/learnrhash")
+library(emo) #devtools::install_github("hadley/emo")
+library(png)
+library(grid)
+
+tutorial_options(exercise.timelimit = 120, 
+                 exercise.checker = gradethis::grade_learnr)
+
+gradethis_setup(exercise.reveal_solution = FALSE)
+```
+
+### Inference for Categorical Data
+
+Please type `"Your Name"` in the interactive R chunk below and run it by clicking `Run Code` or by hitting `crtl+Enter` or `cmd+Enter` for MAC users.
+
+```{r Student-Name, exercise = TRUE}
+
+```
+
+### Introduction
+
+In this lab, we will explore and visualize the data using the **tidyverse** suite of packages, and perform statistical inference using the **infer** package.
+The data can be found in the companion package for OpenIntro resources, **openintro**.
+
+
+```{r load-packages, exercise = TRUE}
+library(infer)
+library(tidyverse)
+library(openintro)
+```
+
+### The Data
+
+Every two years, the Centers for Disease Control and Prevention conduct the Youth Risk Behavior Surveillance System (YRBSS) survey, where it takes data from high schoolers (9th through 12th grade), to analyze health patterns. You will work with a selected group of variables from a random sample of observations during one of the years the YRBSS was conducted.
+
+Let's start by loading the `yrbss` dataset and taking a glimpse of it by running the following code chunk.
+
+```{r yrbss-data, exercise = TRUE}
+data(yrbss)
+glimpse(yrbss)
+```
+
+Notice that there are **13583** observations on **13** different variables, some categorical and some numerical. The meaning of each variable can be found by bringing up the help file:
+
+```{r help-nc, exercise = TRUE}
+?yrbss
+```
+
+### Inference for Mean(s)
+
+Now consider the variable `weight` which reports the students weight in Kilograms (kg). Let's first plot the distribution of this variable in a density plot.
+
+```{r weight-density, exercise = TRUE}
+yrbss %>%
+  filter(!is.na(weight)) %>%
+  ggplot(aes(x = weight))+
+  geom_density()
+```
+
+Let's also calculate some summary statistics for `weight` using the `summarize()` as follows. Notice that we first filter out any cases with missing weight using the `filter(!is.na(weight))` layer in the code chunk below.
+
+```{r weight-summary, exercise = TRUE}
+yrbss %>%
+  filter(!is.na(weight)) %>%
+  summarise(n = n(),
+            x_bar = mean(weight),
+            s = sd(weight),
+            min = min(weight),
+            max = max(weight))
+```
+
+A recent study reported that college students have mean weight of 66.82 kg. Suppose we are interested in testing if the mean weight of all high school students in the U.S. $(\mu)$ differs from 66.82 kg (the hypothesized mean weight of college students). We can conduct a hypothesis test and construct a 95% confidence interval using the `t_test()` function from the `infer` package as shown below.
+
+$$H_0: \mu = 66.82 \ \ \ \text{Versus} \ \ \ H_a: \mu \not= 66.82$$
+
+```{r weight-HypoTest, exercise = TRUE}
+yrbss %>%
+  filter(!is.na(weight)) %>%
+  t_test(response = weight,
+         mu = 66.82,
+         conf_int = TRUE,
+         conf_level = 0.95)
+```
+
+**Exercise:** You are encouraged to use the code chunk below to run a hypothesis test for testing if the mean `height` of all high school students is different from 1.68 meters. Use a 5% significance level ($\alpha = 0.05$). Report the 90% confidence interval as well.
+
+
+```{r Ques_Exer1, exercise = TRUE}
+
+```
+
+```{r Ques_Exer1-solution}
+yrbss %>%
+  filter(!is.na(height)) %>%
+  t_test(response = height,
+         mu = 1.68,
+         conf_int = TRUE,
+         conf_level = 0.90)
+```
+
+```{r Ques_Exer1-check}
+grade_code()
+```
+
+> Note: The `t_test()` is for means while the `prop_test()` is for porportions.
+
+### Comparing Two Means
+
+Consider the possible relationship between a high schooler's weight and their physical activity. The variable `physically_active_7d` stores the levels of physcial activity during the week and it has 8 categories: $0, 1, 2, \dots, 7$. We will first create a new variable called `physical_3plus` which will be coded as "yes" if the student is physically active for *at least 3 days a week*, and "no" if not.
+
+Then, we will make side-by-side boxplots of `weight` by `physical_3plus` to see the relationship between the two variables. Plotting the data is a useful first step because it helps us quickly visualize trends, identify associations, and develop research questions. The following code does that for us.
+
+```{r weight-plot, exercise = TRUE}
+#first create the binary variable physical_3plus
+yrbss <- yrbss %>% 
+  mutate(physical_3plus = if_else(physically_active_7d > 2, "yes", "no"))
+
+#make side-by-side violin plots of weight
+yrbss %>%
+  filter(!is.na(physical_3plus), !is.na(weight))%>%
+  ggplot(aes(x = physical_3plus, y = weight, fill = physical_3plus))+
+  geom_boxplot(show.legend = FALSE)
+```
+
+Base on the above plot we can see that there is an observable difference. But the difference isn’t big enough for us to deem it statistically significant without conducting a hypothesis test. We can confirm this difference by calculating the `mean()` of `weight` for each group as shown below;
+
+```{r weight-mean, exercise = TRUE}
+yrbss <- yrbss %>% 
+  mutate(physical_3plus = if_else(physically_active_7d > 2, "yes", "no"))
+
+yrbss %>%
+  filter(!is.na(physical_3plus), !is.na(weight)) %>%
+  group_by(physical_3plus) %>%
+  summarise(mean_weight = mean(weight))
+```
+
+We can also set up a hypothesis test to verify if the mean `weight` is different for those who are physically active at least 3 days a week from the mean `weight` of those who are not physically active at least 3 days a week. We will use a $5\%$ significant level $(\alpha = 0.05)$ and also report the $95\%$ confidence interval.
+
+$$H_0: {\mu}_{yes} - {\mu}_{no} = 0 \ \ \ \text{Versus} \ \ \ H_a: {\mu}_{yes} - {\mu}_{no} \neq 0$$
+
+```{r weight-Hypo, exercise = TRUE}
+yrbss <- yrbss %>% 
+  mutate(physical_3plus = if_else(physically_active_7d > 2, "yes", "no"))
+
+yrbss %>%
+  filter(!is.na(physical_3plus), !is.na(weight)) %>%
+  t_test(response = weight,
+         explanatory = physical_3plus,
+         order = c("yes","no"), #to make sure the order is mu_yes - mu_no
+         mu = 0, #the difference under H0
+         conf_int = TRUE,
+         conf_level = 0.95)
+```
+
+**Exercise:** You are encouraged to use the three code chunks below to run similar analysis on the variable `height`. 
+
+```{r Ques_Exer2, exercise = TRUE}
+
+```
+
+```{r Ques_Exer2-solution}
+yrbss <- yrbss %>% 
+  mutate(physical_3plus = if_else(physically_active_7d > 2, "yes", "no"))
+
+yrbss %>%
+  filter(!is.na(physical_3plus), !is.na(height)) %>%
+  ggplot(aes(x = physical_3plus, y = height, fill = physical_3plus))+
+  geom_boxplot()
+```
+
+```{r Ques_Exer2-check}
+grade_code()
+```
+
+```{r Ques_Exer3, exercise = TRUE}
+
+```
+
+```{r Ques_Exer3-solution}
+yrbss <- yrbss %>% 
+  mutate(physical_3plus = if_else(physically_active_7d > 2, "yes", "no"))
+
+yrbss %>%
+  filter(!is.na(physical_3plus), !is.na(height)) %>%
+  group_by(physical_3plus) %>%
+  summarise(mean_height = mean(height))
+```
+
+```{r Ques_Exer3-check}
+grade_code()
+```
+
+```{r Ques_Exer4, exercise = TRUE}
+
+```
+
+```{r Ques_Exer4-solution}
+yrbss <- yrbss %>% 
+  mutate(physical_3plus = if_else(physically_active_7d > 2, "yes", "no"))
+
+yrbss %>%
+  filter(!is.na(physical_3plus), !is.na(height)) %>%
+  t_test(response = height,
+         explanatory = physical_3plus,
+         order = c("yes","no"), #to make sure the order is mu_yes - mu_no
+         mu = 0, #the difference under H0
+         conf_int = TRUE,
+         conf_level = 0.95)
+```
+
+```{r Ques_Exer4-check}
+grade_code()
+```
+
+<!-- ### Submit -->
+
+<!-- ```{r context="server"} -->
+<!-- learnrhash::encoder_logic(strip_output = TRUE) -->
+<!-- ``` -->
+
+<!-- ```{r encode, echo=FALSE} -->
+<!-- learnrhash::encoder_ui( -->
+<!--   ui_before = shiny::div( -->
+<!--     "If you have completed this tutorial and are happy with all of your", -->
+<!--     "solutions, please click the button below to generate your hash and", -->
+<!--     "submit it using the corresponding tutorial assignment tab on Blackboard", -->
+<!--     shiny::tags$br() -->
+<!--   ),  -->
+<!--   ui_after = shiny::tags$a(href = "https://blackboard.ncat.edu/", "NCAT Blackboard") -->
+<!-- ) -->
+<!-- ``` -->
+
+### Resources for learning R and working in RStudio
+
+The book [R For Data Science](https://r4ds.had.co.nz/) by Grolemund and Wickham is a great resource for data analysis in R with the tidyverse. If you are Goggling for R code, make sure to also include these package names in your search query. For example, instead of Goggling "scatterplot in R", Goggle "scatterplot in R with the tidyverse".
+
+These may come in handy throughout the semester:
+
+-   [RMarkdown cheatsheet](https://github.com/rstudio/cheatsheets/raw/master/rmarkdown-2.0.pdf)
+-   [Data transformation cheatsheet](https://github.com/rstudio/cheatsheets/raw/master/data-transformation.pdf)
+-   [Data visualization cheatsheet](https://github.com/rstudio/cheatsheets/raw/master/data-visualization-2.1.pdf)
+
+Note that some of the code on these cheatsheets may be too advanced for this course. However the majority of it will become useful throughout the semester.
+
+------------------------------------------------------------------------
+
+<a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">![Creative Commons License](https://i.creativecommons.org/l/by-sa/4.0/88x31.png){style="border-width:0"}</a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>.

@@ -1,0 +1,758 @@
+
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+
+<meta charset="utf-8">
+
+
+
+<!-- begin SEO -->
+
+
+
+
+
+
+
+
+
+<title>Chapter 8   MATH 224 - Intro to Stat</title>
+
+
+
+
+
+
+
+<meta property="og:locale" content="en-US">
+<meta property="og:site_name" content="MATH 224 - Intro to Stat">
+<meta property="og:title" content="Chapter 8">
+
+
+  <link rel="canonical" href="http://localhost:4000/files/Slides/PDFSlides/Chapter%208/Section%208.4%20Inference%20for%20Linear%20Regression/Section8.4-InferenceForLinearRegression.rmd">
+  <meta property="og:url" content="http://localhost:4000/files/Slides/PDFSlides/Chapter%208/Section%208.4%20Inference%20for%20Linear%20Regression/Section8.4-InferenceForLinearRegression.rmd">
+
+
+
+
+
+
+
+  
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <script type="application/ld+json">
+    {
+      "@context" : "http://schema.org",
+      "@type" : "Person",
+      "name" : "Intro To Stat NCAT",
+      "url" : "http://localhost:4000",
+      "sameAs" : null
+    }
+  </script>
+
+
+
+
+
+
+<!-- end SEO -->
+
+
+<link href="http://localhost:4000/feed.xml" type="application/atom+xml" rel="alternate" title="MATH 224 - Intro to Stat Feed">
+
+<!-- http://t.co/dKP3o1e -->
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="http://localhost:4000/assets/css/main.css">
+
+<meta http-equiv="cleartype" content="on">
+    
+
+<!-- start custom head snippets -->
+
+<link rel="apple-touch-icon" sizes="57x57" href="http://localhost:4000/images/apple-touch-icon-57x57.png?v=M44lzPylqQ">
+<link rel="apple-touch-icon" sizes="60x60" href="http://localhost:4000/images/apple-touch-icon-60x60.png?v=M44lzPylqQ">
+<link rel="apple-touch-icon" sizes="72x72" href="http://localhost:4000/images/apple-touch-icon-72x72.png?v=M44lzPylqQ">
+<link rel="apple-touch-icon" sizes="76x76" href="http://localhost:4000/images/apple-touch-icon-76x76.png?v=M44lzPylqQ">
+<link rel="apple-touch-icon" sizes="114x114" href="http://localhost:4000/images/apple-touch-icon-114x114.png?v=M44lzPylqQ">
+<link rel="apple-touch-icon" sizes="120x120" href="http://localhost:4000/images/apple-touch-icon-120x120.png?v=M44lzPylqQ">
+<link rel="apple-touch-icon" sizes="144x144" href="http://localhost:4000/images/apple-touch-icon-144x144.png?v=M44lzPylqQ">
+<link rel="apple-touch-icon" sizes="152x152" href="http://localhost:4000/images/apple-touch-icon-152x152.png?v=M44lzPylqQ">
+<link rel="apple-touch-icon" sizes="180x180" href="http://localhost:4000/images/apple-touch-icon-180x180.png?v=M44lzPylqQ">
+<link rel="icon" type="image/png" href="http://localhost:4000/images/favicon-32x32.png?v=M44lzPylqQ" sizes="32x32">
+<link rel="icon" type="image/png" href="http://localhost:4000/images/android-chrome-192x192.png?v=M44lzPylqQ" sizes="192x192">
+<link rel="icon" type="image/png" href="http://localhost:4000/images/favicon-96x96.png?v=M44lzPylqQ" sizes="96x96">
+<link rel="icon" type="image/png" href="http://localhost:4000/images/favicon-16x16.png?v=M44lzPylqQ" sizes="16x16">
+<link rel="manifest" href="http://localhost:4000/images/manifest.json?v=M44lzPylqQ">
+<link rel="mask-icon" href="http://localhost:4000/images/safari-pinned-tab.svg?v=M44lzPylqQ" color="#000000">
+<link rel="shortcut icon" href="/images/favicon.ico?v=M44lzPylqQ">
+<meta name="msapplication-TileColor" content="#000000">
+<meta name="msapplication-TileImage" content="http://localhost:4000/images/mstile-144x144.png?v=M44lzPylqQ">
+<meta name="msapplication-config" content="http://localhost:4000/images/browserconfig.xml?v=M44lzPylqQ">
+<meta name="theme-color" content="#ffffff">
+<link rel="stylesheet" href="http://localhost:4000/assets/css/academicons.css"/>
+
+<script type="text/x-mathjax-config"> MathJax.Hub.Config({ TeX: { equationNumbers: { autoNumber: "all" } } }); </script>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/latest.js?config=TeX-MML-AM_CHTML' async></script>
+
+<!-- end custom head snippets -->
+
+  </head>
+
+  <body>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        <button><div class="navicon"></div></button>
+        <ul class="visible-links">
+          <li class="masthead__menu-item masthead__menu-item--lg"><a href="http://localhost:4000/">MATH 224 - Intro to Stat</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="http://localhost:4000/home/">Home</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="http://localhost:4000/syllabus/">Syllabus</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="http://localhost:4000/slides/">Slides</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="http://localhost:4000/assignments/">Assignments</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="http://localhost:4000/labs/">Computing Labs</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="http://localhost:4000/tutorials/">R Tutorials</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="http://localhost:4000/dap/">Data Analysis Project</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="http://localhost:4000/assessments/">Assessments</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="http://localhost:4000/research/">Research/Publication</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="http://localhost:4000/manual/">Implementation Manual</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="http://localhost:4000/workshop/">Faculty Workshops</a></li>
+          
+        </ul>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+    
+
+
+
+
+
+<div id="main" role="main">
+  
+
+
+  <div class="sidebar sticky">
+  
+
+
+
+<div itemscope itemtype="http://schema.org/Person">
+
+  <div class="author__avatar">
+    
+    	<img src="http://localhost:4000/images/ncat-nsf-logo.jpg" class="author__avatar" alt="Introduction to Probability & Statistics">
+    
+  </div>
+
+  <div class="author__content">
+    <h3 class="author__name">Introduction to Probability & Statistics</h3>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">Follow</button>
+    <ul class="author__urls social-icons">
+      
+        <li><i class="fa fa-fw fa-map-marker" aria-hidden="true"></i> NC A&T State University</li>
+      
+      
+      
+      
+      
+       
+      
+      
+      
+      
+      
+      
+      
+      
+      
+        <li><a href="https://github.com/IntroToStatNCAT/IntroToStatNCAT.github.io"><i class="fab fa-fw fa-github" aria-hidden="true"></i> Github</a></li>
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+    </ul>
+  </div>
+</div>
+
+  
+  </div>
+
+
+  <article class="page" itemscope itemtype="http://schema.org/CreativeWork">
+    <meta itemprop="headline" content="Chapter 8">
+    
+    
+    
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 class="page__title" itemprop="headline">Chapter 8
+</h1>
+          
+        
+        
+        
+        
+             
+        
+    
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        ```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+```{r, echo=F, message=F, warning=F}
+library(readr)
+library(openintro)
+library(here)
+library(tidyverse)
+library(xtable)
+library(broom)
+library(faraway)
+data(COL)
+```
+
+# Inference for linear regression
+
+## Nature or nurture?
+
+In 1966 Cyril Burt published a paper called "The genetic determination of differences in intelligence: A study of monozygotic twins reared together and apart". The data consist of IQ scores for [an assumed random sample of] 27 identical twins, one raised by foster parents, the other by the biological parents.
+
+```{r, echo=F, message=F, warning=F, fig.width=6, fig.height=3,fig.align='center'}
+data(twins)
+
+r = cor(twins$Foster, twins$Biological)
+m1 = lm(twins$Foster ~ twins$Biological)
+
+par(mar=c(4.5,4.5,0.5,0.5))
+plot(twins$Foster ~ twins$Biological, xlab = "biological IQ", ylab = "foster IQ", pch = 20, col = COL[1,2], cex = 2, las = 1, cex.axis = 1.5, cex.lab = 1.5)
+abline(m1, col = COL[4], lwd = 2)
+text(paste("R = ", round(r,3)), x = 75, y = 125, cex = 1.5)
+```
+
+##
+
+\alert{Which of the following is \underline{false}?}
+
+\tiny
+```{r}
+summary(m1)
+```
+\normalsize
+
+
+A) Additional 10 points in the biological twin's IQ is associated with additional 9 points in the foster twin's IQ, on average.
+
+B) Roughly 78% of the foster twins' IQs can be accurately predicted by the model.
+
+C) The linear model is $\widehat{fosterIQ} = 9.2 + 0.9 \times bioIQ$.
+
+D) Foster twins with IQs higher than average IQs tend to have biological twins with higher than average IQs as well.
+
+
+##
+
+\alert{Which of the following is \underline{false}?}
+
+\tiny
+```{r}
+summary(m1)
+```
+\normalsize
+
+A) Additional 10 points in the biological twin's IQ is associated with additional 9 points in the foster twin's IQ, on average.
+
+B) \alert{Roughly 78\% of the foster twins' IQs can be accurately predicted by the model.}
+
+C) The linear model is $\widehat{fosterIQ} = 9.2 + 0.9 \times bioIQ$.
+
+D) Foster twins with IQs higher than average IQs tend to have biological twins with higher than average IQs as well.
+
+
+## Testing for the slope
+
+\alert{Assuming that these 27 twins comprise a representative sample of all twins separated at birth, we would like to test if these data provide convincing evidence that the IQ of the biological twin is a significant predictor of IQ of the foster twin. What are the appropriate hypotheses?}
+
+\begin{enumerate}[A)]
+\item $H_0: b_0 = 0; H_A: b_0 \ne 0$ 
+\item $H_0: \beta_0 = 0; H_A: \beta_0 \ne 0$ 
+\item $H_0: b_1 = 0; H_A: b_1 \ne 0$ 
+\item $H_0: \beta_1 = 0; H_A: \beta_1 \ne 0$
+\end{enumerate}
+
+
+## Testing for the slope
+
+\alert{Assuming that these 27 twins comprise a representative sample of all twins separated at birth, we would like to test if these data provide convincing evidence that the IQ of the biological twin is a significant predictor of IQ of the foster twin. What are the appropriate hypotheses?}
+
+\begin{enumerate}[A)]
+\item $H_0: b_0 = 0; H_A: b_0 \ne 0$ 
+\item $H_0: \beta_0 = 0; H_A: \beta_0 \ne 0$ 
+\item $H_0: b_1 = 0; H_A: b_1 \ne 0$ 
+\item \textcolor{red}{$H_0: \beta_1 = 0; H_A: \beta_1 \ne 0$}
+\end{enumerate}
+
+
+## Testing for the slope
+
+\footnotesize
+\begin{center}
+\begin{tabular}{rrrrr}
+  \hline
+ & Estimate & Std. Error & t value & Pr($>$$|$t$|$) \\ 
+  \hline
+(Intercept) & 9.2076 & 9.2999 & 0.99 & 0.3316 \\ 
+  bioIQ & 0.9014 & 0.0963 & 9.36 & 0.0000 \\ 
+   \hline
+\end{tabular}
+\end{center}
+
+\normalsize
+
+\pause
+
+\begin{itemize}
+
+\item We always use a $t$-test in inference for regression. $\:$ \\
+
+\pause
+
+\alert{Remember:} Test statistic, $T = \frac{point~estimate - null~value}{SE}$
+
+\pause
+
+\item Point estimate = $b_1$ is the observed slope.
+
+\pause
+
+\item $SE_{b_1}$ is the standard error associated with the slope.
+
+\pause
+
+\item Degrees of freedom associated with the slope is $df = n - 2$, where $n$ is the sample size.
+
+\pause
+
+\alert{Remember:} We lose 1 degree of freedom for each parameter we estimate, and in simple linear regression we estimate 2 parameters, $\beta_0$ and $\beta_1$.
+
+\end{itemize}
+
+## Testing for the slope
+
+\small
+\begin{center}
+\begin{tabular}{rrrrr}
+  \hline
+ & Estimate & Std. Error & t value & Pr($>$$|$t$|$) \\ 
+  \hline
+(Intercept) &  9.2076 & 9.2999 & 0.99 & 0.3316 \\ 
+  bioIQ & \textcolor{orange}{0.9014}  &   \textcolor{green}{0.0963} & \textcolor{orange}{9.36} & \textcolor{blue}{0.0000} \\ 
+   \hline
+\end{tabular}
+\end{center}
+
+\normalsize
+
+\pause
+
+\begin{eqnarray*}
+T &=& \frac{\textcolor{orange}{0.9014} - 0}{\textcolor{green}{0.0963}} = \textcolor{orange}{9.36} \\
+\pause
+df &=& 27 - 2 = 25 \\
+\pause
+p-value &=& P(|T| > \textcolor{orange}{9.36}) < \textcolor{blue}{0.01}
+\end{eqnarray*}
+
+## % College graduate vs. % Hispanic in LA
+
+\alert{What can you say about the relationship between \% college graduate and \% Hispanic in a sample of 100 zip code areas in LA?}
+
+\begin{columns}
+
+\begin{column}{0.5\textwidth}
+
+\includegraphics[width=1\columnwidth]{Prop_EduHigherThan16th.pdf}
+
+\end{column}
+
+\begin{column}{0.5\textwidth}
+
+\includegraphics[width=1\columnwidth]{Prop_RaceEthHispanic.pdf}
+
+\end{column}
+
+\end{columns}
+
+
+## % College graduate vs. % Hispanic in LA - another look
+
+\alert{What can you say about the relationship between of \% college graduate and \% Hispanic in a sample of 100 zip code areas in LA?}
+
+![](images/la.pdf){width="90%"}
+
+## % College graduate vs. % Hispanic in LA - linear model
+
+\alert{Which of the below is the best interpretation of the slope?}
+
+\centering
+\begin{tabular}{rrrrr}
+  \hline
+ & Estimate & Std. Error & t value & Pr($>$$|$t$|$) \\ 
+  \hline
+(Intercept) & 0.7290 & 0.0308 & 23.68 & 0.0000 \\ 
+ \%Hispanic & -0.7527 & 0.0501 & -15.01 & 0.0000 \\ 
+   \hline
+\end{tabular}
+
+\begin{enumerate}[A)]
+\item A 1\% increase in Hispanic residents in a zip code area in LA is associated with a 75\% decrease in \% of college grads.
+\item A 1\% increase in Hispanic residents in a zip code area in LA is associated with a 0.75\% decrease in \% of college grads.
+\item An additional 1\% of Hispanic residents decreases the \% of college graduates in a zip code area in LA by 0.75\%.
+\item In zip code areas with no Hispanic residents, \% of college graduates is expected to be 75\%.
+\end{enumerate}
+
+## % College graduate vs. % Hispanic in LA - linear model
+
+\alert{Which of the below is the best interpretation of the slope?}
+
+\centering
+\begin{tabular}{rrrrr}
+  \hline
+ & Estimate & Std. Error & t value & Pr($>$$|$t$|$) \\ 
+  \hline
+(Intercept) & 0.7290 & 0.0308 & 23.68 & 0.0000 \\ 
+ \%Hispanic & -0.7527 & 0.0501 & -15.01 & 0.0000 \\ 
+   \hline
+\end{tabular}
+
+\begin{enumerate}[A)]
+\item A 1\% increase in Hispanic residents in a zip code area in LA is associated with a 75\% decrease in \% of college grads.
+\item \alert{A 1\% increase in Hispanic residents in a zip code area in LA is associated with a 0.75\% decrease in \% of college grads.}
+\item An additional 1\% of Hispanic residents decreases the \% of college graduates in a zip code area in LA by 0.75\%.
+\item In zip code areas with no Hispanic residents, \% of college graduates is expected to be 75\%.
+\end{enumerate}
+
+
+## % College graduate vs. % Hispanic in LA - linear model
+
+\alert{Do these data provide convincing evidence that there is a statistically significant relationship between \% Hispanic and \% college graduates in zip code areas in LA?}
+
+\small
+\begin{center}
+\begin{tabular}{rrrrr}
+  \hline
+ & Estimate & Std. Error & t value & Pr($>$$|$t$|$) \\ 
+  \hline
+(Intercept) & 0.7290 & 0.0308 & 23.68 & 0.0000 \\ 
+  hispanic & -0.7527 & 0.0501 & -15.01 & 0.0000 \\ 
+   \hline
+\end{tabular}
+\end{center}
+
+\pause
+
+Yes, the p-value for % Hispanic is low, indicating that the data provide convincing evidence that the slope parameter is different than 0.
+
+\pause
+
+\alert{How reliable is this p-value if these zip code areas are not randomly selected?}
+
+\pause
+
+Not very...
+
+
+## Confidence interval for the slope
+
+\alert{ Remember that a confidence interval is calculated as $point~estimate \pm ME$ and the degrees of freedom associated with the slope in a simple linear regression is $n - 2$. Which of the below is the correct 95\% confidence interval for the slope parameter? Note that the model is based on observations from 27 twins.}
+
+\footnotesize
+\begin{center}
+\begin{tabular}{rrrrr}
+  \hline
+ & Estimate & Std. Error & t value & Pr($>$$|$t$|$) \\ 
+  \hline
+(Intercept) & 9.2076 & 9.2999 & 0.99 & 0.3316 \\ 
+  bioIQ & 0.9014 & 0.0963 & 9.36 & 0.0000 \\ 
+   \hline
+\end{tabular}
+\end{center}
+
+\begin{columns}
+
+\begin{column}{0.5\textwidth}
+\begin{enumerate}[A)]
+\item $9.2076 \pm 1.65 \times 9.2999$
+\item $0.9014 \pm 2.06 \times 0.0963$
+\item $0.9014 \pm 1.96 \times 0.0963$
+\item $9.2076 \pm 1.96 \times 0.0963$
+\end{enumerate}
+
+\end{column}
+
+\begin{column}{0.5\textwidth}
+
+\end{column}
+
+\end{columns}
+
+## Confidence interval for the slope
+
+\alert{ Remember that a confidence interval is calculated as $point~estimate \pm ME$ and the degrees of freedom associated with the slope in a simple linear regression is $n - 2$. Which of the below is the correct 95\% confidence interval for the slope parameter? Note that the model is based on observations from 27 twins.}
+
+\footnotesize
+\begin{center}
+\begin{tabular}{rrrrr}
+  \hline
+ & Estimate & Std. Error & t value & Pr($>$$|$t$|$) \\ 
+  \hline
+(Intercept) & 9.2076 & 9.2999 & 0.99 & 0.3316 \\ 
+  bioIQ & 0.9014 & 0.0963 & 9.36 & 0.0000 \\ 
+   \hline
+\end{tabular}
+\end{center}
+
+\begin{columns}
+
+\begin{column}{0.5\textwidth}
+\begin{enumerate}[A)]
+\item $9.2076 \pm 1.65 \times 9.2999$
+\item \alert{$0.9014 \pm 2.06 \times 0.0963$}
+\item $0.9014 \pm 1.96 \times 0.0963$
+\item $9.2076 \pm 1.96 \times 0.0963$
+\end{enumerate}
+
+\end{column}
+
+\begin{column}{0.5\textwidth}
+
+
+\begin{eqnarray*}
+\pause
+n &=& 27 \qquad df = 27 - 2 = 25 \\
+\pause
+95\%:~t^\star_{25} &=& 2.06 \\
+\pause
+0.9014 &\pm& 2.06 \times 0.0963 \\
+\pause
+(0.7 &,& 1.1)
+\end{eqnarray*}
+
+\end{column}
+
+\end{columns}
+
+
+## Recap
+
+\begin{itemize}
+
+\item Inference for the slope for a single-predictor linear regression model:
+\pause
+\begin{itemize}
+\item Hypothesis test:
+\[ T = \frac{b_1 - null~value}{SE_{b_1}} \qquad df = n - 2 \]
+\pause
+\item Confidence interval:
+\[ b_1 \pm t^\star_{df = n - 2} SE_{b_1} \]
+\end{itemize}
+
+\pause
+
+\item The null value is often 0 since we are usually checking for \textbf{any} relationship between the explanatory and the response variable.
+
+\pause
+
+\item The regression output gives $b_1$, $SE_{b_1}$, and \textbf{two-tailed} p-value for the $t$-test for the slope where the null value is 0.
+
+\pause
+
+\item We rarely do inference on the intercept, so we'll be focusing on the estimates and inference for the slope.
+
+\end{itemize}
+
+## Caution
+
+\begin{itemize}
+
+\item Always be aware of the type of data you're working with: random sample, non-random sample, or population.
+
+\pause
+
+\item Statistical inference, and the resulting p-values, are meaningless when you already have population data.
+
+\pause
+
+\item If you have a sample that is non-random (biased), inference on the results will be unreliable.
+
+\pause
+
+\item The ultimate goal is to have independent observations.
+
+\end{itemize}
+
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+
+
+
+
+      </footer>
+
+      
+
+      
+
+
+    </div>
+
+    
+  </article>
+
+  
+  
+</div>
+
+
+    <div class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+<a href="/sitemap/">Sitemap</a>
+<!-- end custom footer snippets -->
+
+        
+
+<div class="page__footer-follow">
+  <ul class="social-icons">
+    
+      <li><strong>Follow:</strong></li>
+    
+    
+    
+    
+      <li><a href="http://github.com/IntroToStatNCAT/IntroToStatNCAT.github.io"><i class="fab fa-github" aria-hidden="true"></i> GitHub</a></li>
+    
+    
+    <li><a href="http://localhost:4000/feed.xml"><i class="fa fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2023 Intro To Stat NCAT. Powered by <a href="http://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://github.com/academicpages/academicpages.github.io">AcademicPages</a>, a fork of <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    <script src="http://localhost:4000/assets/js/main.min.js"></script>
+
+
+
+
+  <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', '', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+
+
+
+  </body>
+</html>
+

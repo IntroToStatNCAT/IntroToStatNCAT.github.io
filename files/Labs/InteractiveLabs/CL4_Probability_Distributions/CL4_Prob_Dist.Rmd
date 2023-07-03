@@ -1,0 +1,489 @@
+---
+title: "Probability Distributions"
+output: 
+  learnr::tutorial:
+    progressive: FALSE
+runtime: shiny_prerendered
+---
+
+
+```{r setup, include=FALSE}
+library(tidyverse)
+library(openintro)
+library(MASS)
+library(readr)
+library(learnr)
+library(ggplot2)
+library(gradethis) #remotes::install_github("rstudio/gradethis")
+library(learnrhash) #devtools::install_github("rundel/learnrhash")
+library(gapminder)
+library(emo) #devtools::install_github("hadley/emo")
+library(png)
+library(grid)
+
+tutorial_options(exercise.timelimit = 120, 
+                 exercise.checker = gradethis::grade_learnr)
+
+gradethis_setup(exercise.reveal_solution = FALSE)
+```
+
+Please type `"Your Name"` in the interactive R chunk below and run it by clicking `Run Code` hitting `crtl+Enter` or `cmd+Enter` for MAC users.
+
+```{r Student-Name, exercise = TRUE}
+
+```
+
+### Getting Started
+
+### Load packages
+
+In this lab, we will continuously explore and visualize data using the `tidyverse` suite of packages. The data can be found in the companion package for OpenIntro labs, **openintro**.
+
+Let's load the packages.
+
+```{r install-packages, exercise = TRUE}
+library(tidyverse)
+library(openintro)
+```
+
+### Binomial Distribution
+
+**Binomial Experiments:** A binomial experiment satisfies the following four criteria:
+
++ There are $n$ trials.
++ Each trial has two possible outcomes (usually called *success* and *failure* for convenience)
++ The trials are independent of one another. 
++ For each trial, the probability of success is $p$ (which remains constant).
+
+**Binomial Distribution:** Let $X$ be the number of successes resulting from a binomial experiment with $n$ trials. Then, $X$ has a binomial distribution. We can use the binomial distribution to compute the following probabilities about $X$:
+
++ The probability of <u>exactly</u> $k$ successes is given by
+<center> $\displaystyle{\mathbb{P}\left[X = k\right] = \binom{n}{k}\cdot p^k\left(1 - p\right)^{n-k} \overset{\text{in R}}{\equiv} \tt{dbinom(k, n, p)}}$</center>
++ The probability of <u>at most</u> $k$ successes is given by
+<center> $\displaystyle{\mathbb{P}\left[X \leq k\right] = \sum_{i=0}^{k}{\binom{n}{i}\cdot p^i\left(1 - p\right)^{n-i}} \overset{\text{in R}}{\equiv} \tt{pbinom(k, n, p)}}$</center>
+
+In the equations above, $\binom{n}{k} = \frac{n!}{k!\left(n-k\right)!}$ counts the number of ways to arrange the $k$ successes amongst the $n$ trials. That being said, the `R` functions, `dbinom()` and `pbinom()` allow us to bypass the formulas -- but you will still need to know what these functions do in order to use them correctly!
+
+**Tip:** We need to use the binomial distribution to find probabilities associated with numbers of successful (or failing) outcomes in which *we do not know for certain the trials on which the successes (or failures) occur*.
+
+For example, we would like to find the probability that we got <u>exactly</u> 30 heads from tossing a *fair* coin 50 times. We can calculate this probability using the `dbinom()` command as follows. Note that we have $n=50$ trials and since the coin is fair, $p=0.5$. 
+
+```{r 50-30-head-toss, exercise = TRUE}
+dbinom(30,50,0.5)
+```
+We obtain $P(X=30) = 0.04185915$. So according to our answer, there is a 4.19% chance of getting exactly 30 heads from 50 coin tosses.
+
+Now if we want to find the probability that we got <u>at most</u> 8 tails out of 20 tosses of a *fair* coin, we can calculate it using the `pbinom()` command. Now we have $n=20$ trials and since the coin is fair, $p=0.5$. 
+
+```{r less-8-20-toss, exercise = TRUE}
+pbinom(8,20,0.5)
+```
+
+We obtain $P(X \le 8) = 0.2517223$. Based on the probability, we have a 25.17% chance of getting at most 8 tails out of 20 coin tosses.
+
+On the other hand, if we want to find the probability that we got <u>at least</u> 9 tails out of 20 tosses of a *fair* coin, we can calculate it using the `pbinom()` command and the rule of complements as follows.
+
+```{r more-8-20-toss, exercise = TRUE}
+1 - pbinom(8,20,0.5)
+```
+
+**Exercises**: A students takes an exam with 35 multiple choice questions. Each question has 4 choices. Assume the student didn't study and therefore the 4 choices on every question are equally likely because the student will be guessing. Based on this information answer the following questions:
+
+1. Find the probability that the student got <u>at most</u> 15 questions correct.
+
+```{r prob_25, exercise = TRUE}
+
+```
+
+```{r prob_25-solution}
+pbinom(15, 35, 0.25)
+```
+
+```{r prob_25-check}
+grade_code()
+```
+
+2. Find the probability that the student got <u>at least</u> 10 questions correct.
+
+```{r prob_10, exercise = TRUE}
+
+```
+
+```{r prob_10-solution}
+1 - pbinom(9, 35, 0.25)
+```
+
+```{r prob_10-check}
+grade_code()
+```
+
+3. Find the probability that the student got a maximum of 31 and a minimum of 19 questions correct.
+
+```{r probMax_Min, exercise = TRUE}
+
+```
+
+```{r probMax_Min-solution}
+pbinom(31, 35, 0.25) - pbinom(18, 35, 0.25)
+```
+
+```{r probMax_Min-check}
+grade_code()
+```
+
+### Normal Distribution
+
+The normal distribution is a probability distribution that is used to model <u>continuous</u> random variables. The normal distribution is unimodal with a bell-shaped curve that is symmertical around the mean of the data.
+
+Let's start by exploring the `fastfood` dataset from the `openintro` library. In the following code chunk, we will load and peek through the dataset using the `glimpse()' command. 
+
+```{r dairy-Queen-glimpse, exercise = TRUE}
+data("fastfood")
+glimpse(fastfood)
+```
+
+We observ that the `fastfood` dataset contains 515 observations and 17 variables, many of which are nutritional facts about different products of fastfood restraunts.
+
+We will focus on the products of the `Dairy Queen` restaurant and look into the calories variable (`cal_fat`) to understand the fat contents of the restaurant's products. To visualize the distribution of the `cal_fat` variable for `Dairy Queen` products, we will create both a histogram and a density plot. 
+
+In the following code chunk, we first `filter()` the `fastfood` dataset to keep only data from the "Dairy Queen" restaurant. Then, we `ggplot()` to construct a plot for the variable `cal_fat`. The plot type is set using the `geom_histogram()` and `geom_density()` layers. 
+
+```{r dairy-Queen, exercise = TRUE}
+dairy_queen = fastfood %>% 
+  filter(restaurant == "Dairy Queen") 
+
+dairy_queen %>%
+  ggplot(aes(x = cal_fat))+
+  geom_histogram()
+
+dairy_queen %>%
+  ggplot(aes(x = cal_fat))+
+  geom_density()
+```
+
+The difference between a frequency histogram and a density histogram is that while in a frequency histogram the *heights* of the bars add up to the total number of observations, in a density histogram the *areas* of the bars add up to 1. The area of each bar can be calculated as simply the height *times* the width of the bar.
+
+Using the density plot, we notice that the shape of the `cal_fat` variable is **bimodal**, skewed to the right, and not normally distributed with outliers.
+
+### Evaluating the Normal Distribution
+
+Eyeballing the shape of the histogram or the density curve is one way to determine if the data appear to be nearly normally distributed, but it can be difficult to decide how close the histogram or density curve is to the normal distribution curve. An alternative approach involves constructing a **normal probability plot**, also called a **normal Q-Q plot** for "quantile-quantile".
+
+```{r qq-example, exercise = TRUE}
+dairy_queen = fastfood %>%
+  filter(restaurant == "Dairy Queen")
+
+dairy_queen %>% 
+  ggplot(aes(sample = cal_fat)) + 
+  geom_qq() +
+  geom_qq_line(col = "red")
+```
+
+In the above code chunk, we used the `geom_qq()` to make the scatterplot and the `geom_qq_line()` layer to add the red line.
+
+It's important to note that here, instead of using `x` inside `aes()`, we used `sample` which calculates the sample quantiles.
+
+- The x-axis values correspond to the quantiles of a theoretically normal curve with mean 0 and standard deviation 1 (i.e., the standard normal distribution).
+
+- The y-axis values correspond to the quantiles of the original unstandardized sample data.
+
+However, even if we were to standardize the sample data values, the Q-Q plot would look identical. 
+
+*A data set that is nearly normal will result in a probability plot where the points closely follow a diagonal line.* Any deviations from normality lead to deviations of these points from that line.
+
+The plot for Dairy Queen's calories from fat shows points that tend to follow the line but with some errant points towards the upper tail. This indicates that the sample data distribution deviates from the normal distribution.
+
+### Finding Probabilities Under the Normal Distribution
+
+**Properties of the Normal Distribution:** We have the following properties associated with the normal distribution. Consider $X\sim N\left(\mu, \sigma\right)$.
+
+The area beneath the entire distribution is 1 (since this is equivalent to the probability that $X$ takes on any of its possible values).
+
+```{r, echo=FALSE}
+ggplot(NULL, aes(c(-3, 3))) +
+  geom_area(stat = "function", fun = dnorm, args = list(mean = 0, sd = 1), xlim = c(-3, 3), fill = "steelblue", alpha = 0.5) + geom_line(mapping = aes(x = seq(-3, 3, length.out = 200), y = dnorm(seq(-3, 3, length.out = 200), 0, 1)), color = "blue", lwd = 1.25) + xlab("") + ylab("") + ggtitle("The shaded area is 1") + scale_x_continuous(breaks = c(0), labels = c(expression(mu)))  + theme(axis.text.x = element_text(size = 14))
+```
+
+$\displaystyle{\mathbb{P}\left[X\leq \mu\right] = \mathbb{P}\left[X\geq \mu\right] = 0.5}$ (the area underneath a full half of the distribution is 0.5) 
+
+```{r, echo=FALSE}
+ggplot(NULL, aes(c(-3, 3))) +
+  geom_area(stat = "function", fun = dnorm, args = list(mean = 0, sd = 1), xlim = c(-3, 0), fill = "steelblue", alpha = 0.5) + geom_line(mapping = aes(x = seq(-3, 3, length.out = 200), y = dnorm(seq(-3, 3, length.out = 200), 0, 1)), color = "blue", lwd = 1.25) + xlab("") + ylab("") + ggtitle("The shaded area is 0.5") + scale_x_continuous(breaks = c(0), labels = c(expression(mu))) + theme(axis.text.x = element_text(size = 14))
+
+ggplot(NULL, aes(c(-3, 3))) +
+  geom_area(stat = "function", fun = dnorm, args = list(mean = 0, sd = 1), xlim = c(0, 3), fill = "steelblue", alpha = 0.5) + geom_line(mapping = aes(x = seq(-3, 3, length.out = 200), y = dnorm(seq(-3, 3, length.out = 200), 0, 1)), color = "blue", lwd = 1.25) + xlab("") + ylab("") + ggtitle("The shaded area is also 0.5") + scale_x_continuous(breaks = c(0), labels = c(expression(mu))) + theme(axis.text.x = element_text(size = 14))
+```
+
+The distribution is symmetric. In symbols, $\mathbb{P}\left[X\leq \mu - k\right] = \mathbb{P}\left[X \geq \mu + k\right]$ for any $k$.
+
+```{r, echo=FALSE}
+ggplot(NULL, aes(c(-3, 3))) +
+  geom_area(stat = "function", fun = dnorm, args = list(mean = 0, sd = 1), xlim = c(-3, -1.25), fill = "steelblue", alpha = 0.5) + geom_line(mapping = aes(x = seq(-3, 3, length.out = 200), y = dnorm(seq(-3, 3, length.out = 200), 0, 1)), color = "blue", lwd = 1.25) + xlab("") + ylab("") + ggtitle("A shaded area in the left tail") + scale_x_continuous(breaks = c(0, -1.25), labels = c(expression(mu), expression(mu - k))) + theme(axis.text.x = element_text(size = 14))
+
+ggplot(NULL, aes(c(-3, 3))) +
+  geom_area(stat = "function", fun = dnorm, args = list(mean = 0, sd = 1), xlim = c(1.25, 3), fill = "steelblue", alpha = 0.5) + geom_line(mapping = aes(x = seq(-3, 3, length.out = 200), y = dnorm(seq(-3, 3, length.out = 200), 0, 1)), color = "blue", lwd = 1.25) + xlab("") + ylab("") + ggtitle("The same shaded area in the right tail") + scale_x_continuous(breaks = c(0, 1.25), labels = c(expression(mu), expression(mu + k))) + theme(axis.text.x = element_text(size = 14))
+```
+
+$\displaystyle{\mathbb{P}\left[X = k\right] = 0}$ (the probability that $X$ takes on any prescribed value exactly is $0$)
+
+```{r, echo=FALSE}
+ggplot(NULL, aes(c(-3, 3))) +
+  geom_area(stat = "function", fun = dnorm, args = list(mean = 0, sd = 1), xlim = c(0.98, 1.02), fill = "steelblue", alpha = 0.5) + geom_line(mapping = aes(x = seq(-3, 3, length.out = 200), y = dnorm(seq(-3, 3, length.out = 200), 0, 1)), color = "blue", lwd = 1.25) + xlab("") + ylab("") + ggtitle("The area is 0") + ylim(c(0, 0.42)) + scale_x_continuous(breaks = c(0, 1), labels = c(expression(mu), "k")) + theme(axis.text.x = element_text(size = 14))
+```
+
+For the binomial Distribution (discrete distribution), we used `pbinom()` to calculate the probability of observing certain number of successes or less for a given $n$ (i.e., lower tail probabilities). Similarly, for the normal distribution (continuous distribution), we will make use of the function `pnorm()` command to compute lower tail probabilities under the normal curve.
+
+Let's find the area under the curve for the given plot.
+
+```{r, echo=FALSE, warning=FALSE, message=FALSE}
+boundary1 = 1.5
+ggplot(NULL, aes(c(-3, 3))) +
+  geom_area(stat = "function", fun = dnorm, args = list(mean = 0, sd = 1), xlim = c(-3, boundary1), fill = "steelblue", alpha = 0.5) + geom_line(mapping = aes(x = seq(-3, 3, length.out = 200), y = dnorm(seq(-3, 3, length.out = 200), 0, 1)), color = "blue", lwd = 1.25) + xlab("") + ylab("") + ggtitle("") + xlim(c(-3, 3)) + scale_x_continuous(breaks = c(0, boundary1)) + theme(axis.text.x = element_text(size = 12, angle = 45))
+```
+
+So to find this area, we will use the following R code:
+
+```{r example6, exercise = TRUE}
+pnorm(1.5, mean = 0, sd = 1)
+```
+
+Now, let's use this function to find the following areas:
+
+4. Find the area under the curve of the following plot:
+
+```{r, echo=FALSE, warning=FALSE, message=FALSE}
+boundary1 = -0.33
+ggplot(NULL, aes(c(-3, 3))) +
+  geom_area(stat = "function", fun = dnorm, args = list(mean = 0, sd = 1), xlim = c(-3, boundary1), fill = "steelblue", alpha = 0.5) + geom_line(mapping = aes(x = seq(-3, 3, length.out = 200), y = dnorm(seq(-3, 3, length.out = 200), 0, 1)), color = "blue", lwd = 1.25) + xlab("") + ylab("") + ggtitle("") + xlim(c(-3, 3)) + scale_x_continuous(breaks = c(0, boundary1)) + theme(axis.text.x = element_text(size = 12, angle = 45))
+```
+
+```{r Area_curve, exercise = TRUE}
+
+```
+
+```{r Area_curve-solution}
+pnorm(-0.33, mean = 0, sd = 1)
+```
+
+```{r Area_curve-check}
+grade_code()
+```
+
+5. Find $\mathbb{P}\left[-1.89 < Z < 1.89\right]$. In other words, find the area under the curve in the following plot.
+
+```{r, echo=FALSE, warning=FALSE, message=FALSE}
+boundary5a = -1.89
+boundary5b = 1.89
+ggplot(NULL, aes(c(-3, 3))) +
+  geom_area(stat = "function", fun = dnorm, args = list(mean = 0, sd = 1), xlim = c(boundary5a, boundary5b), fill = "steelblue", alpha = 0.5) + geom_line(mapping = aes(x = seq(-3, 3, length.out = 200), y = dnorm(seq(-3, 3, length.out = 200), 0, 1)), color = "blue", lwd = 1.25) + xlab("") + ylab("") + ggtitle("") + xlim(c(-3, 3)) + scale_x_continuous(breaks = c(boundary5a, 0, boundary5b)) + theme(axis.text.x = element_text(size = 12, angle = 45))
+```
+
+```{r new_work1, exercise = TRUE}
+
+```
+
+```{r new_work1-solution}
+pnorm(1.89, mean = 0, sd = 1) - pnorm(-1.89, mean = 0, sd = 1)
+```
+
+```{r new_work1-check}
+grade_code()
+```
+
+Let's consider this situation. The average daily high temperature in June in LA is 77$^{\circ}$F with a standard deviation of 5$^{\circ}$F. Suppose that the temperatures in June closely follow a normal distribution.
+
+6. What is the probability of observing an 83$^{\circ}$F temperature or higher in LA during a randomly chosen day in June?
+
+```{r, echo=FALSE, warning=FALSE, message=FALSE}
+boundary3 = 83
+ggplot(NULL, aes(c(62, 92))) +
+  geom_area(stat = "function", fun = dnorm, args = list(mean = 77, sd = 5), xlim = c(boundary3, 92), fill = "steelblue", alpha = 0.5) + geom_line(mapping = aes(x = seq(62, 92, length.out = 200), y = dnorm(seq(62, 92, length.out = 200), 77, 5)), color = "blue", lwd = 1.25) + xlab("") + ylab("") + ggtitle("") + xlim(c(62, 92)) + scale_x_continuous(breaks = c(77, boundary3)) + theme(axis.text.x = element_text(size = 12, angle = 45))
+```
+
+```{r new_work2, exercise = TRUE}
+
+```
+
+```{r new_work2-solution}
+1 - pnorm(83, mean = 77, sd = 5)
+```
+
+```{r new_work2-check}
+grade_code()
+```
+
+So, we can use a value, mean and sd to find the area under the curve. But we can use area under the curve, mean and sd to find the exact value as well. To do so we will make use of `qnorm(p, mean, sd)`
+
+```{r, echo=FALSE, warning=FALSE, message=FALSE}
+ggplot(NULL, aes(c(-3, 3))) +
+  geom_area(stat = "function", fun = dnorm, args = list(mean = 0, sd = 1), xlim = c(-3, 1.96), fill = "steelblue", alpha = 0.5) + geom_line(mapping = aes(x = seq(-3, 3, length.out = 200), y = dnorm(seq(-3, 3, length.out = 200), 0, 1)), color = "blue", lwd = 1.25) + xlab("") + ylab("") + ggtitle("") + xlim(c(-3, 3)) + scale_x_continuous(breaks = c(0, 1.96), labels = c(0, "x*")) + theme(axis.text.x = element_text(size = 12))
+```
+
+Let's say for instance, "x*" is 1.96 on the standard normal curve. Then the area under the curve would be
+
+```{r example7, exercise = TRUE}
+pnorm(1.96, mean = 0, sd = 1)
+```
+
+Now, if we use this number in `qnorm()`, we will get "x*" in return. That is,
+
+```{r example8, exercise = TRUE}
+qnorm(0.9750, mean = 0, sd = 1)
+```
+
+We tend to round the Z-score to two decimal places. So the outcome would be 1.96. 
+
+Now, let's answer the following exercises using the example from earlier.
+
+7. How cool are the coldest 10% of the days (days with lowest average high temperature) during June in LA?
+
+```{r, echo=FALSE, warning=FALSE, message=FALSE}
+boundary1 = 70.59224
+ggplot(NULL, aes(c(62, 92))) +
+  geom_area(stat = "function", fun = dnorm, args = list(mean = 77, sd = 5), xlim = c(62, boundary1), fill = "steelblue", alpha = 0.5) + geom_line(mapping = aes(x = seq(62, 92, length.out = 200), y = dnorm(seq(62, 92, length.out = 200), 77, 5)), color = "blue", lwd = 1.25) + xlab("") + ylab("") + ggtitle("") + xlim(c(62, 92)) + scale_x_continuous(breaks = c(77, boundary1), labels = c(77, "x*")) + theme(axis.text.x = element_text(size = 12, angle = 45))
+```
+
+```{r new_work3, exercise = TRUE}
+
+```
+
+```{r new_work3-solution}
+qnorm(0.10, mean = 77, sd = 5)
+```
+
+```{r new_work3-check}
+grade_code()
+```
+
+8. How hot are the hottest 5% of the days (days with highest average high temperature) during June in LA?
+
+```{r, echo=FALSE, warning=FALSE, message=FALSE}
+boundary3 = 85.22427
+ggplot(NULL, aes(c(62, 92))) +
+  geom_area(stat = "function", fun = dnorm, args = list(mean = 77, sd = 5), xlim = c(boundary3, 92), fill = "steelblue", alpha = 0.5) + geom_line(mapping = aes(x = seq(62, 92, length.out = 200), y = dnorm(seq(62, 92, length.out = 200), 77, 5)), color = "blue", lwd = 1.25) + xlab("") + ylab("") + ggtitle("") + xlim(c(62, 92)) + scale_x_continuous(breaks = c(77, boundary3), labels = c(77, "x*")) + theme(axis.text.x = element_text(size = 12, angle = 45))
+```
+
+```{r new_work4, exercise = TRUE}
+
+```
+
+```{r new_work4-solution}
+qnorm(0.95, mean = 77, sd = 5)
+```
+
+```{r new_work4-check}
+grade_code()
+```
+
+### Simulations in R
+
+In a simulation, you set the ground rules of a random process and then the computer uses random numbers to generate an outcome that adheres to those rules.
+As a simple example, you can simulate flipping a fair coin with the following.
+
+
+```{r head-tail, exercise = TRUE}
+coin_outcomes <- c("heads", "tails")
+sample(coin_outcomes, size = 1, replace = TRUE)
+```
+
+The vector `coin_outcomes` can be thought of as a hat with two slips of paper in it: one slip says `heads` and the other says `tails`.
+The function `sample` draws one slip from the hat and tells us if it was a head or a tail.
+
+Run the second command listed above several times.
+Just like when flipping a coin, sometimes you'll get a heads, sometimes you'll get a tails, but in the long run, you'd expect to get roughly equal numbers of each.
+
+If you wanted to simulate flipping a fair coin 100 times, you could either run the function 100 times or, more simply, adjust the `size` argument, which governs how many samples to draw (the `replace = TRUE` argument indicates we put the slip of paper back in the hat before drawing again). Save the resulting vector of heads and tails in a new object called `sim_fair_coin`.
+
+To view the results of this simulation, type the name of the object and then use `table` to count up the number of heads and tails.
+
+```{r SimFair-coin, exercise = TRUE}
+coin_outcomes <- c("heads", "tails")
+sim_fair_coin <- sample(coin_outcomes, size = 100, replace = TRUE)
+table(sim_fair_coin)
+```
+
+
+Since there are only two elements in `coin_outcomes`, the probability that we "flip" a coin and it lands heads is 0.5.
+Say we're trying to simulate an unfair coin that we know only lands heads 20% of the time.
+We can adjust for this by adding an argument called `prob`, which provides a vector of two probability weights.
+
+```{r SimUnfair-coin, exercise = TRUE}
+coin_outcomes <- c("heads", "tails")
+sim_unfair_coin <- sample(coin_outcomes, size = 100, replace = TRUE, 
+                          prob = c(0.2, 0.8))
+table(sim_unfair_coin)
+```
+
+`prob=c(0.2, 0.8)` indicates that for the two elements in the `outcomes` vector, we want to select the first one, `heads`, with probability 0.2 and the second one, `tails` with probability 0.8. Another way of thinking about this is to think of the outcome space as a bag of 10 chips, where 2 chips are labeled "head" and 8 chips "tail". Therefore at each draw, the probability of drawing a chip that says "head"" is 20%, and "tail" is 80%.
+
+If you don't provide a `prob` argument in the `sample()` function, all elements in the `outcomes` vector will be assigned an equal probability of being drawn. If you want to learn more about `sample` or any other function, recall that you can always check out its help file.
+
+```{r help-sample, exercise = TRUE}
+?sample
+```
+
+9.  In your simulation of flipping a fair coin 500 times, how many flips came up heads? 
+
+```{r fair_coin, exercise = TRUE}
+
+```
+
+```{r fair_coin-solution}
+coin_outcomes <- c("heads", "tails")
+sim_fair_coin <- sample(coin_outcomes, size = 500, replace = TRUE)
+table(sim_fair_coin)
+```
+
+```{r fair_coin-check}
+grade_code()
+```
+
+10. Simulate flipping an unfair coin 500 times, how many flips came up heads using a probability of `70% head`, and `30% Tail`? 
+
+```{r Unfair_coin, exercise = TRUE}
+
+```
+
+```{r Unfair_coin-solution}
+coin_outcomes <- c("heads", "tails")
+sim_unfair_coin <- sample(coin_outcomes, size = 500, replace = TRUE,
+                          prob = c(0.7, 0.3))
+table(sim_unfair_coin)
+```
+
+```{r Unfair_coin-check}
+grade_code()
+```
+
+**A note on setting a seed:** Setting a seed will cause R to select the same sample each time you run the code chunk. This will ensure reproducibility of your work (by setting the same seed it will be possible to reproduce your results). You can set a seed like this:
+
+```{r set-seed, exercise = TRUE}
+set.seed(35797)                 # make sure to change the seed
+coin_outcomes <- c("heads", "tails")
+sim_fair_coin <- sample(coin_outcomes, size = 500, replace = TRUE)
+table(sim_fair_coin)
+```
+
+The seed above is completely arbitrary. If you need inspiration, you can use your ID, birthday, or just a random string of numbers. The important thing is that you use each seed only once in a document.
+
+### Submit
+
+```{r context="server"}
+learnrhash::encoder_logic(strip_output = TRUE)
+```
+
+```{r encode, echo=FALSE}
+learnrhash::encoder_ui(
+  ui_before = shiny::div(
+    "If you have completed this tutorial and are happy with all of your",
+    "solutions, please click the button below to generate your hash and",
+    "submit it using the corresponding tutorial assignment tab on Blackboard",
+    shiny::tags$br()
+  ), 
+  ui_after = shiny::tags$a(href = "https://blackboard.ncat.edu/", "NCAT Blackboard")
+)
+```
+
+------------------------------------------------------------------------
+
+<a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">![Creative Commons License](https://i.creativecommons.org/l/by-sa/4.0/88x31.png){style="border-width:0"}</a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>.

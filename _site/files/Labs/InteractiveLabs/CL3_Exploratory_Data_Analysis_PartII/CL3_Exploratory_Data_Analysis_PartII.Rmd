@@ -1,0 +1,790 @@
+
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+
+<meta charset="utf-8">
+
+
+
+<!-- begin SEO -->
+
+
+
+
+
+
+
+
+
+<title>Exploratory Data Analysis Part II   MATH 224 - Intro to Stat</title>
+
+
+
+
+
+
+
+<meta property="og:locale" content="en-US">
+<meta property="og:site_name" content="MATH 224 - Intro to Stat">
+<meta property="og:title" content="Exploratory Data Analysis Part II">
+
+
+  <link rel="canonical" href="http://localhost:4000/files/Labs/InteractiveLabs/CL3_Exploratory_Data_Analysis_PartII/CL3_Exploratory_Data_Analysis_PartII.Rmd">
+  <meta property="og:url" content="http://localhost:4000/files/Labs/InteractiveLabs/CL3_Exploratory_Data_Analysis_PartII/CL3_Exploratory_Data_Analysis_PartII.Rmd">
+
+
+
+
+
+
+
+  
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <script type="application/ld+json">
+    {
+      "@context" : "http://schema.org",
+      "@type" : "Person",
+      "name" : "Intro To Stat NCAT",
+      "url" : "http://localhost:4000",
+      "sameAs" : null
+    }
+  </script>
+
+
+
+
+
+
+<!-- end SEO -->
+
+
+<link href="http://localhost:4000/feed.xml" type="application/atom+xml" rel="alternate" title="MATH 224 - Intro to Stat Feed">
+
+<!-- http://t.co/dKP3o1e -->
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="http://localhost:4000/assets/css/main.css">
+
+<meta http-equiv="cleartype" content="on">
+    
+
+<!-- start custom head snippets -->
+
+<link rel="apple-touch-icon" sizes="57x57" href="http://localhost:4000/images/apple-touch-icon-57x57.png?v=M44lzPylqQ">
+<link rel="apple-touch-icon" sizes="60x60" href="http://localhost:4000/images/apple-touch-icon-60x60.png?v=M44lzPylqQ">
+<link rel="apple-touch-icon" sizes="72x72" href="http://localhost:4000/images/apple-touch-icon-72x72.png?v=M44lzPylqQ">
+<link rel="apple-touch-icon" sizes="76x76" href="http://localhost:4000/images/apple-touch-icon-76x76.png?v=M44lzPylqQ">
+<link rel="apple-touch-icon" sizes="114x114" href="http://localhost:4000/images/apple-touch-icon-114x114.png?v=M44lzPylqQ">
+<link rel="apple-touch-icon" sizes="120x120" href="http://localhost:4000/images/apple-touch-icon-120x120.png?v=M44lzPylqQ">
+<link rel="apple-touch-icon" sizes="144x144" href="http://localhost:4000/images/apple-touch-icon-144x144.png?v=M44lzPylqQ">
+<link rel="apple-touch-icon" sizes="152x152" href="http://localhost:4000/images/apple-touch-icon-152x152.png?v=M44lzPylqQ">
+<link rel="apple-touch-icon" sizes="180x180" href="http://localhost:4000/images/apple-touch-icon-180x180.png?v=M44lzPylqQ">
+<link rel="icon" type="image/png" href="http://localhost:4000/images/favicon-32x32.png?v=M44lzPylqQ" sizes="32x32">
+<link rel="icon" type="image/png" href="http://localhost:4000/images/android-chrome-192x192.png?v=M44lzPylqQ" sizes="192x192">
+<link rel="icon" type="image/png" href="http://localhost:4000/images/favicon-96x96.png?v=M44lzPylqQ" sizes="96x96">
+<link rel="icon" type="image/png" href="http://localhost:4000/images/favicon-16x16.png?v=M44lzPylqQ" sizes="16x16">
+<link rel="manifest" href="http://localhost:4000/images/manifest.json?v=M44lzPylqQ">
+<link rel="mask-icon" href="http://localhost:4000/images/safari-pinned-tab.svg?v=M44lzPylqQ" color="#000000">
+<link rel="shortcut icon" href="/images/favicon.ico?v=M44lzPylqQ">
+<meta name="msapplication-TileColor" content="#000000">
+<meta name="msapplication-TileImage" content="http://localhost:4000/images/mstile-144x144.png?v=M44lzPylqQ">
+<meta name="msapplication-config" content="http://localhost:4000/images/browserconfig.xml?v=M44lzPylqQ">
+<meta name="theme-color" content="#ffffff">
+<link rel="stylesheet" href="http://localhost:4000/assets/css/academicons.css"/>
+
+<script type="text/x-mathjax-config"> MathJax.Hub.Config({ TeX: { equationNumbers: { autoNumber: "all" } } }); </script>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/latest.js?config=TeX-MML-AM_CHTML' async></script>
+
+<!-- end custom head snippets -->
+
+  </head>
+
+  <body>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        <button><div class="navicon"></div></button>
+        <ul class="visible-links">
+          <li class="masthead__menu-item masthead__menu-item--lg"><a href="http://localhost:4000/">MATH 224 - Intro to Stat</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="http://localhost:4000/home/">Home</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="http://localhost:4000/syllabus/">Syllabus</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="http://localhost:4000/slides/">Slides</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="http://localhost:4000/assignments/">Assignments</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="http://localhost:4000/labs/">Computing Labs</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="http://localhost:4000/tutorials/">R Tutorials</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="http://localhost:4000/dap/">Data Analysis Project</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="http://localhost:4000/assessments/">Assessments</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="http://localhost:4000/research/">Research/Publication</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="http://localhost:4000/manual/">Implementation Manual</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="http://localhost:4000/workshop/">Faculty Workshops</a></li>
+          
+        </ul>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+    
+
+
+
+
+
+<div id="main" role="main">
+  
+
+
+  <div class="sidebar sticky">
+  
+
+
+
+<div itemscope itemtype="http://schema.org/Person">
+
+  <div class="author__avatar">
+    
+    	<img src="http://localhost:4000/images/ncat-nsf-logo.jpg" class="author__avatar" alt="Introduction to Probability & Statistics">
+    
+  </div>
+
+  <div class="author__content">
+    <h3 class="author__name">Introduction to Probability & Statistics</h3>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">Follow</button>
+    <ul class="author__urls social-icons">
+      
+        <li><i class="fa fa-fw fa-map-marker" aria-hidden="true"></i> NC A&T State University</li>
+      
+      
+      
+      
+      
+       
+      
+      
+      
+      
+      
+      
+      
+      
+      
+        <li><a href="https://github.com/IntroToStatNCAT/IntroToStatNCAT.github.io"><i class="fab fa-fw fa-github" aria-hidden="true"></i> Github</a></li>
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+    </ul>
+  </div>
+</div>
+
+  
+  </div>
+
+
+  <article class="page" itemscope itemtype="http://schema.org/CreativeWork">
+    <meta itemprop="headline" content="Exploratory Data Analysis Part II">
+    
+    
+    
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 class="page__title" itemprop="headline">Exploratory Data Analysis Part II
+</h1>
+          
+        
+        
+        
+        
+             
+        
+    
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        ```{r setup, include=FALSE}
+library(tidyverse)
+library(openintro)
+library(MASS)
+library(readr)
+library(learnr)
+library(ggplot2)
+library(gradethis) #remotes::install_github("rstudio/gradethis")
+library(learnrhash) #devtools::install_github("rundel/learnrhash")
+library(gapminder)
+library(emo) #devtools::install_github("hadley/emo")
+library(png)
+library(grid)
+
+tutorial_options(exercise.timelimit = 120, 
+                 exercise.checker = gradethis::grade_learnr)
+
+gradethis_setup(exercise.reveal_solution = FALSE)
+```
+
+Please type `"Your Name"` in the interactive R chunk below and run it by clicking `Run Code` hitting `crtl+Enter` or `cmd+Enter` for MAC users.
+
+```{r Student-Name, exercise = TRUE}
+
+```
+
+Some define statistics as the field that focuses on turning information into knowledge. The first step in that process is to summarize and describe the raw information -- the data.
+
+In this lab we will continue exploring the `mpg` dataset. We will generate simple graphical and numerical summaries of some variables in the `mpg` data.
+
+# Getting Started
+
+### Load R Packages
+
+-   In this lab, we will explore and visualize the data using the `tidyverse` suite of packages.
+-   The data is found in the `ggplot2` package which is part of the `tidyverse` collection.
+
+Let's load the packages.
+
+```{r install-packages, exercise = TRUE}
+library(tidyverse)
+```
+
+::: {#boxedtext}
+**Summary statistics review:** Some useful function calls for summary statistics for a single numerical variable are as follows:
+
+-   `mean()` - The arithmetic mean is found by adding the numbers and dividing the sum by the number of numbers in the list
+-   `median()` - The middle number in a sorted, ascending or descending, list of numbers and can be more descriptive of that data set than the mean.
+-   `sd()` - The standard deviation: a measure of the amount of variation or dispersion of a set of values.
+-   `var()` - The variance: the expectation of the squared deviation of a random variable from its population mean or sample mean.
+-   `IQR()` - The interquartile range is a measure of statistical dispersion, which is the spread of the data. The IQR may also be called the midspread, middle 50%.
+-   `min()` - The smallest value in the data set.
+-   `max()` - The largest value in the data set.
+
+Note that each of these functions takes a single vector as an argument and returns a single value as shown in CL2.
+:::
+
+### The data
+
+Next, we'll continue our analysis of the `mpg` dataset. Run the following line to load the data.
+
+```{r load-data, exercise = TRUE}
+data(mpg)
+```
+
+The dataset `mpg` that shows up in your workspace is a *data matrix*, with each row representing an *observation* and each column representing a *variable*. `R` calls this data format a **data frame**, which is a term that will be used throughout the labs.
+
+To view the names of the variables, type the command;
+
+```{r load-packages, exercise = TRUE}
+names(mpg)
+```
+
+This returns the names of the variables in this data frame. The **codebook** (description of the variables) can be accessed by pulling up the help file:
+
+```{r help, exercise = TRUE}
+?mpg
+```
+
+One of the variables is `drv` which refers to the drive train of the vehicle, which is coded according to the following system.
+
+-   `drv`: The type of drive train
+
+    -   `4`: four-wheel drive.
+    -   `f`: front-wheel drive.
+    -   `r`: rear wheel drive.
+    
+Remember that you can use `glimpse` to take a quick peek at your data to understand its contents better.
+
+```{r glimpse, exercise = TRUE}
+glimpse(mpg)
+```
+
+### Data Manipulation
+
+A significant portion of data analysis focuses on data preparation. This includes manipulating data in many ways to make it ready for various types of analyses. The `tidyverse` functions: `filter()`, `select()`, `mutate()`, `group_by()`, and `arrange()` are very useful for manipulating or wrangling data as necessary for analysis. In this section, we will explore some of these functions. 
+
+The `filter()` function is used to subset a data frame, while maintaining all the rows that satisfy the specified conditions.
+
+The code chunk below shows how we can filter the `mpg` data frame to focus on the vehicles from a specific manufacturer, say `toyota`. 
+
+Notice that we use the double equal sign `==` to say the variable `manufacturer` takes the level `toyota`. Also, recall that we can join multiple data analysis steps (or operations) using the pipe (`%>%`) operator.
+
+```{r toyota-mpg, exercise = TRUE}
+toyota_mpg <- mpg %>% 
+  filter(manufacturer == "toyota")
+head(toyota_mpg)
+```
+
+Now let us extend our subset dataset to include three manufacturers say **"ford","hyundai", "volkswagen"** using the `%in%` which mean `belong to this list`.
+
+```{r comb-mpg, exercise = TRUE}
+comb_mpg <- mpg %>% 
+  filter(manufacturer %in% c("ford","hyundai", "volkswagen"))
+head(comb_mpg)
+```
+
+1. Create a new data frame that includes only dodge vehicles, and save this data frame as `dodge_mpg`. Then use `head(dodge_mpg)` to display portion of the data.
+    
+```{r dodge_mpg, exercise = TRUE}
+
+```
+
+```{r dodge_mpg-solution}
+dodge_mpg <- mpg %>% 
+  filter(manufacturer == "dodge")
+head(dodge_mpg)
+```
+
+```{r dodge_mpg-check}
+grade_code()
+```
+
+```{r spreadIntuition1, echo = FALSE}
+quiz(
+  question(
+    "How many vehicle are they in total?",
+    answer("11"),
+    answer("234"),
+    answer("37", correct = TRUE),
+    answer("66"),
+    allow_retry = TRUE
+  )
+)
+```
+
+2. Create a new data frame that includes vehicles from `audi`, `chevrolet`, `nissan`, `pontiac`, and `subaru`. Save this data frame as `mult_mpg`.
+    
+```{r mult_mpg, exercise = TRUE}
+
+```
+
+```{r mult_mpg-solution}
+mult_mpg <- mpg %>% 
+  filter(manufacturer %in% c("audi","chevrolet", "nissan", "pontiac", "subaru"))
+head(mult_mpg)
+```
+
+```{r mult_mpg-check}
+grade_code()
+```
+
+```{r spreadIntuition2, echo = FALSE}
+quiz(
+  question(
+    "How many rows and columns does mult_mpg have?",
+    answer("11 rows, 50 columns"),
+    answer("234 rows, 11 columns"),
+    answer("60 rows, 69 columns"),
+    answer("69 rows, 11 columns", correct = TRUE),
+    allow_retry = TRUE
+  )
+)
+```
+
+Next, we introduce another key function in data wrangling and analysis. The `mutate()` function adds new variables while retaining the old variables to a data frame. To create the new variable, we start with the data frame with the `pipe` operator and use `mutate()` function. Inside `mutate()` function, we specify the name of the new variable we are creating and how exactly we are creating it.
+
+We want to convert the vehicle's highway mileage `hwy` from miles per gallon to kilometers per gallons. Note that 1 mile equals 1.60934 kilometers. We can use this information within the `mutate()` function to create a new variable called `hwyKM` as follows.
+
+```{r hwyMilesGallon-mpg, exercise = TRUE}
+mpg <- mpg %>% 
+  mutate(hwyKM = hwy*1.60934)
+head(mpg)
+```
+
+Also, we can use `mutate()` to update an existing variable in the data set. For example, below we modify the `trans` variable by recoding its levels for clarity/simplicity purposes. Notice that no new variables will be added after running the below code. Only the `trans` variable levels are recoded.
+
+```{r trans-mpg, exercise = TRUE}
+mpg <- mpg %>% 
+  mutate(trans = recode(trans, "auto(av)" = "AV", "auto(l3)" = "L3", "auto(l4)" = "L4", "auto(l5)" = "L5",
+                        "auto(l6)" = "L6", "auto(s4)" = "S4", "auto(s5)" = "S5", "auto(s6)" = "S6", "manual(m5)" = "M5", "manual(m6)" = "M6"))
+head(mpg)
+```
+
+3. Modify the `mpg` data set by creating a new variable called `ctyKM` which stores the vehicle's city mileage in kilometers per gallon. Then use `head(mpg)` to show that the variable has been created.
+
+```{r ctyKM_mpg, exercise = TRUE}
+
+```
+
+```{r ctyKM_mpg-solution}
+mpg <- mpg %>% 
+  mutate(ctyKM = cty*1.60934)
+head(mpg)
+```
+
+```{r ctyKM_mpg-check}
+grade_code()
+```
+
+4. Use the `recode()` function to create a new variable called `drv_nw` by recoding the levels of `drv` as follows: **f = Front-Wheel**, **r = Rear-Wheel**, and **4 = Four-Wheel**.
+
+```{r drv1_mpg, exercise = TRUE}
+
+```
+
+```{r drv1_mpg-solution}
+mpg <- mpg %>% 
+  mutate(drv_nw = recode(drv, "f" = "Front-Wheel", "r" = "Rear-Wheel", "4" = "Four-Wheel"))
+```
+
+```{r drv1_mpg-check}
+grade_code()
+```
+
+### Visualization
+
+Data visualization is a major component of data analysis. Using visual displays, we can easily and effectively communicate data-driven findings. You may have also heard the saying: "A picture is worth a thousand words".
+
+Let's start by examining the distribution of the vehicles' highway mileage (`hwy`) using a boxplot.
+
+```{r hwy-boxplot, exercise = TRUE}
+mpg %>% 
+  ggplot(aes(x = hwy)) + 
+  geom_boxplot(fill = "green")
+```
+
+We can make a vertical boxplot instead by assigning our variable to the `y` aesthetic as follows.
+
+```{r hwy-boxplot-v, exercise = TRUE}
+mpg %>% 
+  ggplot(aes(y = hwy)) + 
+  geom_boxplot(fill = "green")
+```
+
+We can use a barplot to summarize the distribution of the vehicle's `class` which is a categorical variable in the `mpg` data.
+
+```{r class-barplot, exercise = TRUE}
+mpg %>% 
+  ggplot(aes(x = class)) + 
+  geom_bar()
+```
+
+To use different fill color for each bar in the above bar chart, we set `fill = class` inside `ggplot()` as follows.
+
+```{r class-barplot-fill, exercise = TRUE}
+mpg %>% 
+  ggplot(aes(x = class, fill = class)) + 
+  geom_bar()
+```
+
+Now, suppose we want to compare the vehicles' highway mileage by the vehicle's class. We can achieve this using side-by-side boxplots as follows.
+
+```{r class-boxplot, exercise = TRUE}
+mpg %>% 
+  ggplot(aes(x = class, y = hwy)) + 
+  geom_boxplot()
+```
+
+Let's use a scatterplot to display the relationship between engine displacement in liters and the vehicle's highway mileage. Notice how we colored the points in blue.
+
+```{r HighwayDispl-plot, exercise = TRUE}
+mpg %>% 
+  ggplot(aes(x = displ, y = hwy)) + 
+  geom_point(color = 'blue')
+```
+
+To show how the above relationship varies by the vehicle's class, we can instead color the points according the levels of the `class` variable as follows. 
+
+```{r displhwy-point, exercise = TRUE}
+mpg %>% 
+  ggplot(aes(x = displ, y = hwy, col = class)) + 
+  geom_point()
+```
+
+Alternatively, can use a separate scatterplot for each class through the `facet_wrap()`.
+
+```{r ClassDisplHwy-scatterplot, exercise = TRUE}
+mpg %>% 
+  ggplot(aes(x = displ, y = hwy, col = class)) + 
+  geom_point() +
+  facet_wrap(~class, nrow = 2)
+```
+
+5. Use the code chunk below to create a horizontal boxplot for the vehicle's city mileage `cty`. Make sure to fill the boxplot with the color "orange".
+
+```{r displ-boxplot, exercise = TRUE}
+
+```
+
+```{r displ-boxplot-solution}
+mpg %>% 
+  ggplot(aes(x=cty)) + 
+  geom_boxplot(fill = "orange")
+```
+
+```{r displ-boxplot-check}
+grade_code()
+```
+
+6. Create side-by-side boxplots comparing the distribution of the vehicle's city mileage `cty` across the different types of drive train `drv`. Make sure to fill the boxplots according the the levels of `drv`.
+
+```{r drvcty-boxplot, exercise = TRUE}
+
+```
+
+```{r drvcty-boxplot-solution}
+mpg %>% 
+  ggplot(aes(x = drv, y = cty, fill = drv)) + 
+  geom_boxplot()
+```
+
+```{r drvcty-boxplot-check}
+grade_code()
+```
+
+7. Create a bar chart to show the distribution of the vehicle's fuel type `fl`. Make sure to fill the different bars according to the levels of `fl`.
+
+```{r fl-barplot, exercise = TRUE}
+
+```
+
+```{r fl-barplot-solution}
+mpg %>% 
+  ggplot(aes(x = fl, fill = fl)) + 
+  geom_bar()
+```
+
+```{r fl-barplot-check}
+grade_code()
+```
+
+8. Create a scatterplot to show the relationship between the vehicle's engine displacement in liters (`displ`) on and the vehicle's city mileage (`cty`). Make sure to color the points in `red`.
+
+```{r ctydispl-point, exercise = TRUE}
+
+```
+
+```{r ctydispl-point-solution}
+mpg %>% 
+  ggplot(aes(x = displ, y = cty)) + 
+  geom_point(color = 'red')
+```
+
+```{r ctydispl-point-check}
+grade_code()
+```
+
+9. Create a scatterplot to show the relationship between the vehicle's engine displacement in liters (`displ`) on and the vehicle's city mileage (`cty`). Make sure to color the points according to the levels of transmission type (`trans`).
+
+```{r ctytrans-point, exercise = TRUE}
+
+```
+
+```{r ctytrans-point-solution}
+mpg %>% 
+  ggplot(aes(x = displ, y = cty, col = trans)) + 
+  geom_point()
+```
+
+```{r ctytrans-point-check}
+grade_code()
+```
+
+10. Create a faceted scatterplot to show the relationship between the vehicle's engine displacement in liters (`displ`) on and the vehicle's city mileage (`cty`). Use transmission type (`trans`) as the faceting variable and organize the subplots in 5 rows.
+
+```{r ctytrans5rows-point, exercise = TRUE}
+
+```
+
+```{r ctytrans5rows-point-solution}
+mpg %>% 
+  ggplot(aes(x = displ, y = cty, col = trans)) + 
+  geom_point() +
+  facet_wrap(~trans, nrow = 5)
+```
+
+```{r ctytrans5rows-point-check}
+grade_code()
+```
+
+
+### Submit
+
+```{r context="server"}
+learnrhash::encoder_logic(strip_output = TRUE)
+```
+
+```{r encode, echo=FALSE}
+learnrhash::encoder_ui(
+  ui_before = shiny::div(
+    "If you have completed this tutorial and are happy with all of your",
+    "solutions, please click the button below to generate your hash and",
+    "submit it using the corresponding tutorial assignment tab on Blackboard",
+    shiny::tags$br()
+  ), 
+  ui_after = shiny::tags$a(href = "https://blackboard.ncat.edu/", "NCAT Blackboard")
+)
+```
+
+### Resources for learning R and working in RStudio
+
+That was a short introduction to Data Manipulation and Visualization in the `tidyverse` which is a suite of R packages. 
+
+The book [R For Data Science](https://r4ds.had.co.nz/) by Grolemund and Wickham is a great resource for data analysis in R with the tidyverse. If you are Goggling for R code, make sure to also include these package names in your search query. For example, instead of Goggling "scatterplot in R", Goggle "scatterplot in R with the tidyverse".
+
+These may come in handy throughout the semester:
+
+-   [RMarkdown cheatsheet](https://github.com/rstudio/cheatsheets/raw/master/rmarkdown-2.0.pdf)
+-   [Data transformation cheatsheet](https://github.com/rstudio/cheatsheets/raw/master/data-transformation.pdf)
+-   [Data visualization cheatsheet](https://github.com/rstudio/cheatsheets/raw/master/data-visualization-2.1.pdf)
+
+Note that some of the code on these cheatsheets may be too advanced for this course. However the majority of it will become useful throughout the semester.
+
+------------------------------------------------------------------------
+
+<a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">![Creative Commons License](https://i.creativecommons.org/l/by-sa/4.0/88x31.png){style="border-width:0"}</a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>.
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+
+
+
+
+      </footer>
+
+      
+
+      
+
+
+    </div>
+
+    
+  </article>
+
+  
+  
+</div>
+
+
+    <div class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+<a href="/sitemap/">Sitemap</a>
+<!-- end custom footer snippets -->
+
+        
+
+<div class="page__footer-follow">
+  <ul class="social-icons">
+    
+      <li><strong>Follow:</strong></li>
+    
+    
+    
+    
+      <li><a href="http://github.com/IntroToStatNCAT/IntroToStatNCAT.github.io"><i class="fab fa-github" aria-hidden="true"></i> GitHub</a></li>
+    
+    
+    <li><a href="http://localhost:4000/feed.xml"><i class="fa fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2023 Intro To Stat NCAT. Powered by <a href="http://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://github.com/academicpages/academicpages.github.io">AcademicPages</a>, a fork of <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    <script src="http://localhost:4000/assets/js/main.min.js"></script>
+
+
+
+
+  <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', '', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+
+
+
+  </body>
+</html>
+

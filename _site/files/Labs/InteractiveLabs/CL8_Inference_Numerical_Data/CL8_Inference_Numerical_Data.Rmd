@@ -1,0 +1,617 @@
+
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+
+<meta charset="utf-8">
+
+
+
+<!-- begin SEO -->
+
+
+
+
+
+
+
+
+
+<title>Foundations for Inference II: Inference for numerical data   MATH 224 - Intro to Stat</title>
+
+
+
+
+
+
+
+<meta property="og:locale" content="en-US">
+<meta property="og:site_name" content="MATH 224 - Intro to Stat">
+<meta property="og:title" content="Foundations for Inference II: Inference for numerical data">
+
+
+  <link rel="canonical" href="http://localhost:4000/files/Labs/InteractiveLabs/CL8_Inference_Numerical_Data/CL8_Inference_Numerical_Data.Rmd">
+  <meta property="og:url" content="http://localhost:4000/files/Labs/InteractiveLabs/CL8_Inference_Numerical_Data/CL8_Inference_Numerical_Data.Rmd">
+
+
+
+
+
+
+
+  
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <script type="application/ld+json">
+    {
+      "@context" : "http://schema.org",
+      "@type" : "Person",
+      "name" : "Intro To Stat NCAT",
+      "url" : "http://localhost:4000",
+      "sameAs" : null
+    }
+  </script>
+
+
+
+
+
+
+<!-- end SEO -->
+
+
+<link href="http://localhost:4000/feed.xml" type="application/atom+xml" rel="alternate" title="MATH 224 - Intro to Stat Feed">
+
+<!-- http://t.co/dKP3o1e -->
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="http://localhost:4000/assets/css/main.css">
+
+<meta http-equiv="cleartype" content="on">
+    
+
+<!-- start custom head snippets -->
+
+<link rel="apple-touch-icon" sizes="57x57" href="http://localhost:4000/images/apple-touch-icon-57x57.png?v=M44lzPylqQ">
+<link rel="apple-touch-icon" sizes="60x60" href="http://localhost:4000/images/apple-touch-icon-60x60.png?v=M44lzPylqQ">
+<link rel="apple-touch-icon" sizes="72x72" href="http://localhost:4000/images/apple-touch-icon-72x72.png?v=M44lzPylqQ">
+<link rel="apple-touch-icon" sizes="76x76" href="http://localhost:4000/images/apple-touch-icon-76x76.png?v=M44lzPylqQ">
+<link rel="apple-touch-icon" sizes="114x114" href="http://localhost:4000/images/apple-touch-icon-114x114.png?v=M44lzPylqQ">
+<link rel="apple-touch-icon" sizes="120x120" href="http://localhost:4000/images/apple-touch-icon-120x120.png?v=M44lzPylqQ">
+<link rel="apple-touch-icon" sizes="144x144" href="http://localhost:4000/images/apple-touch-icon-144x144.png?v=M44lzPylqQ">
+<link rel="apple-touch-icon" sizes="152x152" href="http://localhost:4000/images/apple-touch-icon-152x152.png?v=M44lzPylqQ">
+<link rel="apple-touch-icon" sizes="180x180" href="http://localhost:4000/images/apple-touch-icon-180x180.png?v=M44lzPylqQ">
+<link rel="icon" type="image/png" href="http://localhost:4000/images/favicon-32x32.png?v=M44lzPylqQ" sizes="32x32">
+<link rel="icon" type="image/png" href="http://localhost:4000/images/android-chrome-192x192.png?v=M44lzPylqQ" sizes="192x192">
+<link rel="icon" type="image/png" href="http://localhost:4000/images/favicon-96x96.png?v=M44lzPylqQ" sizes="96x96">
+<link rel="icon" type="image/png" href="http://localhost:4000/images/favicon-16x16.png?v=M44lzPylqQ" sizes="16x16">
+<link rel="manifest" href="http://localhost:4000/images/manifest.json?v=M44lzPylqQ">
+<link rel="mask-icon" href="http://localhost:4000/images/safari-pinned-tab.svg?v=M44lzPylqQ" color="#000000">
+<link rel="shortcut icon" href="/images/favicon.ico?v=M44lzPylqQ">
+<meta name="msapplication-TileColor" content="#000000">
+<meta name="msapplication-TileImage" content="http://localhost:4000/images/mstile-144x144.png?v=M44lzPylqQ">
+<meta name="msapplication-config" content="http://localhost:4000/images/browserconfig.xml?v=M44lzPylqQ">
+<meta name="theme-color" content="#ffffff">
+<link rel="stylesheet" href="http://localhost:4000/assets/css/academicons.css"/>
+
+<script type="text/x-mathjax-config"> MathJax.Hub.Config({ TeX: { equationNumbers: { autoNumber: "all" } } }); </script>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/latest.js?config=TeX-MML-AM_CHTML' async></script>
+
+<!-- end custom head snippets -->
+
+  </head>
+
+  <body>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        <button><div class="navicon"></div></button>
+        <ul class="visible-links">
+          <li class="masthead__menu-item masthead__menu-item--lg"><a href="http://localhost:4000/">MATH 224 - Intro to Stat</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="http://localhost:4000/home/">Home</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="http://localhost:4000/syllabus/">Syllabus</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="http://localhost:4000/slides/">Slides</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="http://localhost:4000/assignments/">Assignments</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="http://localhost:4000/labs/">Computing Labs</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="http://localhost:4000/tutorials/">R Tutorials</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="http://localhost:4000/dap/">Data Analysis Project</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="http://localhost:4000/assessments/">Assessments</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="http://localhost:4000/research/">Research/Publication</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="http://localhost:4000/manual/">Implementation Manual</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="http://localhost:4000/workshop/">Faculty Workshops</a></li>
+          
+        </ul>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+    
+
+
+
+
+
+<div id="main" role="main">
+  
+
+
+  <div class="sidebar sticky">
+  
+
+
+
+<div itemscope itemtype="http://schema.org/Person">
+
+  <div class="author__avatar">
+    
+    	<img src="http://localhost:4000/images/ncat-nsf-logo.jpg" class="author__avatar" alt="Introduction to Probability & Statistics">
+    
+  </div>
+
+  <div class="author__content">
+    <h3 class="author__name">Introduction to Probability & Statistics</h3>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">Follow</button>
+    <ul class="author__urls social-icons">
+      
+        <li><i class="fa fa-fw fa-map-marker" aria-hidden="true"></i> NC A&T State University</li>
+      
+      
+      
+      
+      
+       
+      
+      
+      
+      
+      
+      
+      
+      
+      
+        <li><a href="https://github.com/IntroToStatNCAT/IntroToStatNCAT.github.io"><i class="fab fa-fw fa-github" aria-hidden="true"></i> Github</a></li>
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+    </ul>
+  </div>
+</div>
+
+  
+  </div>
+
+
+  <article class="page" itemscope itemtype="http://schema.org/CreativeWork">
+    <meta itemprop="headline" content="Foundations for Inference II: Inference for numerical data">
+    
+    
+    
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 class="page__title" itemprop="headline">Foundations for Inference II: Inference for numerical data
+</h1>
+          
+        
+        
+        
+        
+             
+        
+    
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        ```{r setup, include=FALSE}
+library(tidyverse)
+library(openintro)
+library(infer)
+library(MASS)
+library(learnr)
+library(gradethis) #remotes::install_github("rstudio/gradethis")
+library(learnrhash) #devtools::install_github("rundel/learnrhash")
+library(emo) #devtools::install_github("hadley/emo")
+library(png)
+library(grid)
+
+tutorial_options(exercise.timelimit = 120, 
+                 exercise.checker = gradethis::grade_learnr)
+
+gradethis_setup(exercise.reveal_solution = FALSE)
+```
+
+### Inference for Categorical Data
+
+Please type `"Your Name"` in the interactive R chunk below and run it by clicking `Run Code` or by hitting `crtl+Enter` or `cmd+Enter` for MAC users.
+
+```{r Student-Name, exercise = TRUE}
+
+```
+
+### Introduction
+
+In this lab, we will explore and visualize the data using the **tidyverse** suite of packages, and perform statistical inference using the **infer** package.
+The data can be found in the companion package for OpenIntro resources, **openintro**.
+
+
+```{r load-packages, exercise = TRUE}
+library(infer)
+library(tidyverse)
+library(openintro)
+```
+
+### The Data
+
+Every two years, the Centers for Disease Control and Prevention conduct the Youth Risk Behavior Surveillance System (YRBSS) survey, where it takes data from high schoolers (9th through 12th grade), to analyze health patterns. You will work with a selected group of variables from a random sample of observations during one of the years the YRBSS was conducted.
+
+Let's start by loading the `yrbss` dataset and taking a glimpse of it by running the following code chunk.
+
+```{r yrbss-data, exercise = TRUE}
+data(yrbss)
+glimpse(yrbss)
+```
+
+Notice that there are **13583** observations on **13** different variables, some categorical and some numerical. The meaning of each variable can be found by bringing up the help file:
+
+```{r help-nc, exercise = TRUE}
+?yrbss
+```
+
+### Inference for Mean(s)
+
+Now consider the variable `weight` which reports the students weight in Kilograms (kg). Let's first plot the distribution of this variable in a density plot.
+
+```{r weight-density, exercise = TRUE}
+yrbss %>%
+  filter(!is.na(weight)) %>%
+  ggplot(aes(x = weight))+
+  geom_density()
+```
+
+Let's also calculate some summary statistics for `weight` using the `summarize()` as follows. Notice that we first filter out any cases with missing weight using the `filter(!is.na(weight))` layer in the code chunk below.
+
+```{r weight-summary, exercise = TRUE}
+yrbss %>%
+  filter(!is.na(weight)) %>%
+  summarise(n = n(),
+            x_bar = mean(weight),
+            s = sd(weight),
+            min = min(weight),
+            max = max(weight))
+```
+
+A recent study reported that college students have mean weight of 66.82 kg. Suppose we are interested in testing if the mean weight of all high school students in the U.S. $(\mu)$ differs from 66.82 kg (the hypothesized mean weight of college students). We can conduct a hypothesis test and construct a 95% confidence interval using the `t_test()` function from the `infer` package as shown below.
+
+$$H_0: \mu = 66.82 \ \ \ \text{Versus} \ \ \ H_a: \mu \not= 66.82$$
+
+```{r weight-HypoTest, exercise = TRUE}
+yrbss %>%
+  filter(!is.na(weight)) %>%
+  t_test(response = weight,
+         mu = 66.82,
+         conf_int = TRUE,
+         conf_level = 0.95)
+```
+
+**Exercise:** You are encouraged to use the code chunk below to run a hypothesis test for testing if the mean `height` of all high school students is different from 1.68 meters. Use a 5% significance level ($\alpha = 0.05$). Report the 90% confidence interval as well.
+
+
+```{r Ques_Exer1, exercise = TRUE}
+
+```
+
+```{r Ques_Exer1-solution}
+yrbss %>%
+  filter(!is.na(height)) %>%
+  t_test(response = height,
+         mu = 1.68,
+         conf_int = TRUE,
+         conf_level = 0.90)
+```
+
+```{r Ques_Exer1-check}
+grade_code()
+```
+
+> Note: The `t_test()` is for means while the `prop_test()` is for porportions.
+
+### Comparing Two Means
+
+Consider the possible relationship between a high schooler's weight and their physical activity. The variable `physically_active_7d` stores the levels of physcial activity during the week and it has 8 categories: $0, 1, 2, \dots, 7$. We will first create a new variable called `physical_3plus` which will be coded as "yes" if the student is physically active for *at least 3 days a week*, and "no" if not.
+
+Then, we will make side-by-side boxplots of `weight` by `physical_3plus` to see the relationship between the two variables. Plotting the data is a useful first step because it helps us quickly visualize trends, identify associations, and develop research questions. The following code does that for us.
+
+```{r weight-plot, exercise = TRUE}
+#first create the binary variable physical_3plus
+yrbss <- yrbss %>% 
+  mutate(physical_3plus = if_else(physically_active_7d > 2, "yes", "no"))
+
+#make side-by-side violin plots of weight
+yrbss %>%
+  filter(!is.na(physical_3plus), !is.na(weight))%>%
+  ggplot(aes(x = physical_3plus, y = weight, fill = physical_3plus))+
+  geom_boxplot(show.legend = FALSE)
+```
+
+Base on the above plot we can see that there is an observable difference. But the difference isn’t big enough for us to deem it statistically significant without conducting a hypothesis test. We can confirm this difference by calculating the `mean()` of `weight` for each group as shown below;
+
+```{r weight-mean, exercise = TRUE}
+yrbss <- yrbss %>% 
+  mutate(physical_3plus = if_else(physically_active_7d > 2, "yes", "no"))
+
+yrbss %>%
+  filter(!is.na(physical_3plus), !is.na(weight)) %>%
+  group_by(physical_3plus) %>%
+  summarise(mean_weight = mean(weight))
+```
+
+We can also set up a hypothesis test to verify if the mean `weight` is different for those who are physically active at least 3 days a week from the mean `weight` of those who are not physically active at least 3 days a week. We will use a $5\%$ significant level $(\alpha = 0.05)$ and also report the $95\%$ confidence interval.
+
+$$H_0: {\mu}_{yes} - {\mu}_{no} = 0 \ \ \ \text{Versus} \ \ \ H_a: {\mu}_{yes} - {\mu}_{no} \neq 0$$
+
+```{r weight-Hypo, exercise = TRUE}
+yrbss <- yrbss %>% 
+  mutate(physical_3plus = if_else(physically_active_7d > 2, "yes", "no"))
+
+yrbss %>%
+  filter(!is.na(physical_3plus), !is.na(weight)) %>%
+  t_test(response = weight,
+         explanatory = physical_3plus,
+         order = c("yes","no"), #to make sure the order is mu_yes - mu_no
+         mu = 0, #the difference under H0
+         conf_int = TRUE,
+         conf_level = 0.95)
+```
+
+**Exercise:** You are encouraged to use the three code chunks below to run similar analysis on the variable `height`. 
+
+```{r Ques_Exer2, exercise = TRUE}
+
+```
+
+```{r Ques_Exer2-solution}
+yrbss <- yrbss %>% 
+  mutate(physical_3plus = if_else(physically_active_7d > 2, "yes", "no"))
+
+yrbss %>%
+  filter(!is.na(physical_3plus), !is.na(height)) %>%
+  ggplot(aes(x = physical_3plus, y = height, fill = physical_3plus))+
+  geom_boxplot()
+```
+
+```{r Ques_Exer2-check}
+grade_code()
+```
+
+```{r Ques_Exer3, exercise = TRUE}
+
+```
+
+```{r Ques_Exer3-solution}
+yrbss <- yrbss %>% 
+  mutate(physical_3plus = if_else(physically_active_7d > 2, "yes", "no"))
+
+yrbss %>%
+  filter(!is.na(physical_3plus), !is.na(height)) %>%
+  group_by(physical_3plus) %>%
+  summarise(mean_height = mean(height))
+```
+
+```{r Ques_Exer3-check}
+grade_code()
+```
+
+```{r Ques_Exer4, exercise = TRUE}
+
+```
+
+```{r Ques_Exer4-solution}
+yrbss <- yrbss %>% 
+  mutate(physical_3plus = if_else(physically_active_7d > 2, "yes", "no"))
+
+yrbss %>%
+  filter(!is.na(physical_3plus), !is.na(height)) %>%
+  t_test(response = height,
+         explanatory = physical_3plus,
+         order = c("yes","no"), #to make sure the order is mu_yes - mu_no
+         mu = 0, #the difference under H0
+         conf_int = TRUE,
+         conf_level = 0.95)
+```
+
+```{r Ques_Exer4-check}
+grade_code()
+```
+
+<!-- ### Submit -->
+
+<!-- ```{r context="server"} -->
+<!-- learnrhash::encoder_logic(strip_output = TRUE) -->
+<!-- ``` -->
+
+<!-- ```{r encode, echo=FALSE} -->
+<!-- learnrhash::encoder_ui( -->
+<!--   ui_before = shiny::div( -->
+<!--     "If you have completed this tutorial and are happy with all of your", -->
+<!--     "solutions, please click the button below to generate your hash and", -->
+<!--     "submit it using the corresponding tutorial assignment tab on Blackboard", -->
+<!--     shiny::tags$br() -->
+<!--   ),  -->
+<!--   ui_after = shiny::tags$a(href = "https://blackboard.ncat.edu/", "NCAT Blackboard") -->
+<!-- ) -->
+<!-- ``` -->
+
+### Resources for learning R and working in RStudio
+
+The book [R For Data Science](https://r4ds.had.co.nz/) by Grolemund and Wickham is a great resource for data analysis in R with the tidyverse. If you are Goggling for R code, make sure to also include these package names in your search query. For example, instead of Goggling "scatterplot in R", Goggle "scatterplot in R with the tidyverse".
+
+These may come in handy throughout the semester:
+
+-   [RMarkdown cheatsheet](https://github.com/rstudio/cheatsheets/raw/master/rmarkdown-2.0.pdf)
+-   [Data transformation cheatsheet](https://github.com/rstudio/cheatsheets/raw/master/data-transformation.pdf)
+-   [Data visualization cheatsheet](https://github.com/rstudio/cheatsheets/raw/master/data-visualization-2.1.pdf)
+
+Note that some of the code on these cheatsheets may be too advanced for this course. However the majority of it will become useful throughout the semester.
+
+------------------------------------------------------------------------
+
+<a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">![Creative Commons License](https://i.creativecommons.org/l/by-sa/4.0/88x31.png){style="border-width:0"}</a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>.
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+
+
+
+
+      </footer>
+
+      
+
+      
+
+
+    </div>
+
+    
+  </article>
+
+  
+  
+</div>
+
+
+    <div class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+<a href="/sitemap/">Sitemap</a>
+<!-- end custom footer snippets -->
+
+        
+
+<div class="page__footer-follow">
+  <ul class="social-icons">
+    
+      <li><strong>Follow:</strong></li>
+    
+    
+    
+    
+      <li><a href="http://github.com/IntroToStatNCAT/IntroToStatNCAT.github.io"><i class="fab fa-github" aria-hidden="true"></i> GitHub</a></li>
+    
+    
+    <li><a href="http://localhost:4000/feed.xml"><i class="fa fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2023 Intro To Stat NCAT. Powered by <a href="http://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://github.com/academicpages/academicpages.github.io">AcademicPages</a>, a fork of <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    <script src="http://localhost:4000/assets/js/main.min.js"></script>
+
+
+
+
+  <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', '', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+
+
+
+  </body>
+</html>
+

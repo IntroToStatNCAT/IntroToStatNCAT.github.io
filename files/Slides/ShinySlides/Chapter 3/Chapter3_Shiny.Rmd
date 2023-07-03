@@ -1,0 +1,1468 @@
+---
+title: "Chapter 3"
+subtitle: "Probability"
+urlcolor: blue
+output: 
+  ioslides_presentation:
+    progressive: FALSE
+    smaller: yes
+    widescreen: yes
+    transition: "faster"
+
+runtime: shiny_prerendered
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+```{r, echo=F, message=F, warning=F}
+library(datasets)
+library(tidyverse)
+library(tikzDevice)
+library(shiny)
+library(scales)
+library(jpeg)
+library(openintro)
+library(dplyr)
+library(ggplot2)
+library(learnr)
+library(readr)
+library(knitr)
+library(png)
+library(gradethis) #remotes::install_github("rstudio/gradethis")
+library(learnrhash) #devtools::install_github("rundel/learnrhash")
+library(grid)
+library(tinytex)
+data("COL")
+```
+
+
+
+## Acknowledgement
+
+<center>
+<div class="black">
+These notes use content from OpenIntro Statistics Slides by   
+
+Mine Cetinkaya-Rundel.
+</div>
+</center>
+
+## Chapter Outline
+
+- 3.1 Defining Probability
+- 3.2 Conditional Probability
+- 3.3 Sampling from a Small  Population
+- 3.4 Random Variables
+- 3.5 Continuous Distributions
+
+## 3.1 Defining Probability 
+<div class="black">
+In this section, we introduce basic concepts and rules of **probability**, which is the foundation of statistical inference.  
+
+List of terms
+
+- Probability of equally likely outcomes
+\
+- Event and probability of an event
+\
+- Union and intersection of events; complement of an event
+\
+- Mutually exclusive (or disjoint) events
+\
+- General addition rule (and special case)
+\
+- Rule of complements
+\
+- Probability distribution
+\
+- Independent events and multiplication rule
+\
+- Finding probability from table
+</div>
+
+## Introduction to Probability
+<div class="black">
+Probability is a way to quantify (measure) uncertainty.
+
+**Example.** If we toss a coin, what is the probability of getting Head?
+
+- If the coin is fair, then the chance of getting head is the same as the chance of getting Tail. Since there are two possible outcomes, the chance is 1-in-2, that is, 1/2   (**Equally likely outcomes**, theoretic)
+\
+
+- If the coin is unfair, then we need to do many observations of tosses to get the  probability of getting head, that is, use the proportion of times the Head would occur if we observed the random process an infinite number of times (frequentist interpretation).
+</div>
+
+
+## Random processes
+<div class="black">
+
++ A **random process** is a situation in which we know what outcomes could happen, but we don't know which particular outcome will happen.
+
++ A **random process** is the process of observing a random phenomena. 
+
++ Examples: 
+
+1) coin tosses (possible outcomes are either "Head" or "Tail", but we do not know which one occurs for sure)
+
+2) die rolls (possible outcomes are "1", "2", "3", "4", "5", "6")
+
+3) the stock market next year tomorrow (possible outcomes are goes "up", "down")
+</div>
+
+
+
+## Law of large numbers
+
+<div class="black">
+**Law of large numbers** states that as more observations are collected, the proportion of occurrences with a particular outcome, $\hat{p}_n$, converges to the probability of that outcome, p. 
+
+**Example.** Roll a die. Let $\hat{p}_n$  be the proportion of outcomes that are "1" after the first $n$ rolls. 
+
+- The figure below is a plot of $\hat{p}_n$ vs number of rolls ($n$) for $n$ between 1 and 10,000 rolls.
+- It shows that after 10,000 rolls, $\hat{p}_n$ is very close to $P(1)=1/6\approx 0.167$ (round to three decimals) which is the theoretical probability of rolling 1 on a fair die.
+
+```{r, echo=FALSE, out.width= "50%", fig.align='center'}
+set.seed(111)
+n = 1:10000
+outcomes = c(1, 2, 3, 4, 5, 6)
+p.1 = NULL
+for(i in n){
+  p.1[i] = mean(sample(outcomes, i, replace = T) == 1)
+}
+plot(n, p.1, type = "l", col = "blue", ylab = "Proportion of One")
+abline(h = 1/6, col = "red")
+```
+
+<!-- ```{r, out.width= "50%", fig.align='center'} -->
+<!-- ll <- readJPEG("ll.jpeg") -->
+<!-- grid.raster(ll) -->
+<!-- ``` -->
+
+</div>
+
+## Law of large numbers (R Practice)
+
+<div class="black">
+**Example.** Roll a die. Let $\hat{p}_n$  be the proportion of outcomes that are "1" after the first $n$ rolls. 
+
+- Run the below code for different number of rolls (try max n = 10, 100, 1000, 10000). What do you notice?
+
+```{r LLN_ex, exercise = TRUE, out.width= "28%", fig.align='center'}
+n = 1:10
+outcomes = c(1, 2, 3, 4, 5, 6)
+p.1 = NULL
+for(i in n){
+  p.1[i] = mean(sample(outcomes, i, replace = T) == 1)
+}
+plot(n, p.1, type = "l", col = "blue", ylab = "Proportion of One")
+abline(h = 1/6, col = "red")
+```
+
+</div>
+
+## Law of large numbers (R Practice)
+
+<div class="black">
+**Example.** Roll a die. Let $\hat{p}_n$  be the proportion of outcomes that are "1" after the first $n$ rolls. 
+
+- Fix max n = 1000 and run the code multiple times. What do you notice?
+
+```{r LLN_ex2, exercise = TRUE, out.width= "28%", fig.align='center'}
+n = 1:1000
+outcomes = c(1, 2, 3, 4, 5, 6)
+p.1 = NULL
+for(i in n){
+  p.1[i] = mean(sample(outcomes, i, replace = T) == 1)
+}
+plot(n, p.1, type = "l", col = "blue", ylab = "Proportion of One")
+abline(h = 1/6, col = "red")
+```
+
+</div>
+
+## Small number VS Large number run
+<div class="black">
+With a small number of observations, outcomes of random phenomena may look quite different from what you expect.
+
+**Example.** Toss a fair coin twice:
+You may see “HH”, or “TT”,  may not be exactly as expected “HT” or “TH”
+
+With a large number of observations, summary statistics settle down and get increasingly closer to particular numbers. As we make more observations, the proportion of times that a particular outcome occurs gets closer and closer to a certain number we would expect.
+
+**Example.** Toss a fair coin 1 million times, you may see nearly half of the times showing head, nearly half of the times showing tail.
+ 
+The long-run proportion provides the basis for the definition of probability.
+
+</div>
+
+
+## Probability
+<div class="black">
+For any random process, the probability of a particular outcome is the proportion of times that would occur in a long run of observations.
+
+The sample space associated with an experiment (or a trial) is the set of $\underline {\text{all possible outcomes}}.$
+
+Example.
+
+1) Flip a coin once, the sample space S= {H,T}\
+2) Flip a coin twice, the sample space S= {HH,HT,TH,TT}\
+3) Flip a coin three times, the sample space \
+    S={HHH,HHT,HTH,HTT,THH,THT,TTH,TTT}
+    
+Notes:
+<div class="blue">
+1) The list in sample space is not ordered, no repeating. 
+2) One may use tree diagram to help organize.
+</div>
+
++ **Two basic probability rules:**
+
+    -  $0 \leq P(x_i) \leq 1$
+    -  $\sum P(x_i) = 1$
+where the summation is taken over all possible outcomes in sample space. 
+
+</div>
+
+## Law of large numbers (continued)
+<div class="black">
+
+When tossing a fair coin, it is expected that the H and T will be shown equally likely.
+
+if heads comes up on each of the 10 tosses, what do you think the chance is that another head will come  up on the next toss? 0.5, less than 0.5, or more than 0.5?
+ 
+
+$$
+{\underline{H} \underline{H} \underline{H} \underline{H} \underline{H} \underline{H} \underline{H} \underline{H} \underline{H} \underline{H} \underline{?}}
+$$
+- The probability is still 0.5, or there is still a 50% chance that another head will come up on the next toss.
+
+$$ {P(H \text{ } on \text{ } 11^{th} \text{ } toss) = P(T \text{ } on \text{ } 11^{th} \text{ } toss) = 0.5}$$
+- The coin is not "due" for a tail.
+
+- The common misunderstanding of the LLN is that random processes are supposed to compensate for whatever happened in the past; this is just not true and is also called **gambler's fallacy** (or **law of averages**).
+</div>
+
+
+
+## Probability and Events
+<div class="black">
+For a random phenomena, the **probability** of a particular outcome is the proportion of times that would occur in a long run of observations. 
+
+An **event** is a subset of the sample space. An event consists of a particular outcome (simple event)  or a group of possible outcomes possessing designated feature. 
+
+We use capital letters for events.
+
+**Example.** If a test consists of 3 questions of multiple choices. Students’ answer is either correct (C) or incorrect (I). 
+
+a) What is the sample space?
+
+b) What is the event  of getting all three questions correct? 
+
+c) What is the event of getting at least two questions correct? 
+
+**Sample space:** {CCC, CCI, CIC, CII, ICC, ICI, IIC, III}.
+
+Event A = student answers all 3 questions correctly = {CCC}
+
+Event B = student passes (at least 2 correct) = {CCI, CIC, ICC, CCC}.
+        
+</div>
+
+## Finding Probability
+<div class="black">
+<div class="blue">
+For a sample space **with equally likely outcomes**, the probability of an outcome is **the relative ratio**.
+</div>
+
+**Examples**
+
+1) Flip a fair coin, the probability of getting a head or a tail is 1/2, or 0.5.
+       $$𝑃(𝐻)=\frac{1}{2} \ \ \ \text{and} \ \ \ P(T)=\frac{1}{2}$$
+
+2) Roll a fair die, the probability of getting numbers 1, 2, 3, 4, 5, 6 are all $\frac{1}6.$
+
+3) If a teacher gives 1 quiz question of 4 multiple choices, only one is correct. Assume the student is not prepared, s/he selects the choice by guessing. What is the probability that student guessed correctly?
+
+$$P(\text{student guessed correctly})=\frac{1}{4}$$  
+
+4) Flip a coin twice, what is the probability of getting heads twice? As the sample space is {HH, HT, TH, TT}, each outcome is equally likely,
+        $$P(HH) =\frac{1}{4}$$
+        
+</div>
+
+
+## Finding Probability
+<div class="black">
+<div class="yellow">
+The probability of an event is the sum of probabilities of outcomes in the event.
+</div>
+
+**Examples**
+
+1) Roll a fair die, the sample space has  six outcomes: S = {1, 2, 3, 4, 5, 6}.
+       Let A be the event that the outcomes are even numbers, find P(A).
+
+Solution.   A = { 2, 4, 6},  then 
+       𝑃(𝐴)=𝑃(2)+𝑃(4)+𝑃(6)=$\frac{1}6 + \frac{1}6 + \frac{1}6 = \frac{3}6 =\frac{1}2$
+       Another way to think: 
+       the outcomes are equally likely, there are 3 outcomes in A, there are six outcomes in total, so $𝑃(𝐴) =\frac{3}6 =\frac{1}2$ (relative ratio)
+
+2) Flip a fair coin twice, what is the probability of getting exactly on head?
+Solution. As the sample space is {HH, HT, TH, TT}, 
+       Let B be event of getting exactly one head ={ HT, TH},  then  $P(B)= \frac{1}2$
+
+3) If a teacher gives 1 quiz question of 4 multiple choices, only one is correct. Assume the student is not prepared, s/he selects the choice by guessing.
+
+What is the probability that student guessed wrong?
+       Ans: $\frac{3}4$
+
+</div>
+
+
+## Intersection, Union, and Disjoint Events
+
+<font size="3">
+<div class="black">
+
+<div style="float: left; width: 50%;">
++ The *intersection* of A and B consists of outcomes that are in both $\color{blue}{\text{A and B}}$. (Use $\color{blue}{\text{A and B}}$ for the intersection, or use $\color{blue}{\text{𝐴∩𝐵}}$.
+
++ The **union** of A and B consists of outcomes that are in A or in B or both. (use $\color{blue}{\text{A or B}}$ for the union, or use $\color{blue}{\text{𝐴∪𝐵}}$.
+</div>
+
+<div style="float: right; width: 50%;">
+```{r, out.width= "80%", fig.align='left'}
+iu <- readJPEG("iu.jpeg")
+grid.raster(iu)
+```
+</div>
+
+<div style="float: left; width: 50%;">
++ Two events A and B are **disjoint** if they do not have any common outcomes. 
+     (A and B) =∅  (empty set)
+      or 𝐴∩𝐵=∅
+</div>
+
+<div style="float: right; width: 50%;">
+```{r, out.width="45%", fig.align='left'}
+u <- readJPEG("u.jpeg")
+grid.raster(u)
+```
+</div>
+
+Two events A and B are **non-disjoint** if they have common outcome(s).
+</div>
+</font>
+
+
+## Addition Rule: Probability of the Union of Two Events
+
+<div class="black">
+<div style="float: left; width: 50%;">
+For the **union** of two events,
+<div class="blue"> P(A or B) = P(A) + P(B) -P(A and B).</div> -- general addition rule.
+</div>
+
+<div style="float: right; width: 50%;">
+```{r, out.width= "90%", fig.align='left'}
+ab <- readJPEG("ab.jpeg")
+grid.raster(ab)
+```
+</div>
+
+<div style="float: left; width: 50%;">
+**The probability of the Union, (with Outcomes in A or B or Both)**, add P(A) to P(B) and subtract P(A and B) to adjust for outcomes counted twice.
+</div>
+
+<div style="float: right; width: 50%;">
+```{r, out.width="40%"}
+u <- readJPEG("u.jpeg")
+grid.raster(u)
+```
+</div>
+
+**Question:** When does P(A or B) = P(A) + P(B)?
+
+Answer: if the events are **disjoint**, them P(A and B)= 0, P(A or B) = P(A) + P(B)-- special addition rule.
+</div>
+
+## Examples of non-disjoint events
+<div class="black">
+Let A be the red cards, B be the Jacks, then A and B are non-disjoint events.
+
+```{r,echo=FALSE, out.width="70%"}
+m <- readPNG("cards.png")
+grid.raster(m)
+```
+</div>
+
+## Union of non-disjoint events (use addition rule)
+<div class="black">
+<div class="red">
+**Example** Find the P(red), P(Jack) and P(red and jack), P(red or jack)
+</div>
+
+```{r,echo=FALSE, out.width="40%", fig.align='center'}
+m <- readPNG("cards.png")
+grid.raster(m)
+```
+
+**Solution** : There are a total of 52 cards.
+$${P(jack \text{ } or \text{ } red) = P(jack) + P(red) - \color{red}{P(jack \text{ } and \text{ } red)}}$$
+
+$${= \frac{4}{52} + \frac{26}{52} - \frac{2}{52} = \frac{28}{52}}= \frac{7}{13}\approx 0.538461538$$
+Round to three decimals: 0.538; round to four decimals: 0.5385.
+
+</div>
+
+## Example (addition rule)
+<div class="black">
+
+**Examples.**  
+
+1) Assume that in a meeting, 38 % are Biology majors,  68% are sophomores, 20% are sophomores and Biology majors. What is the percentage of meeting attendees who are either sophomores or Biology majors?
+
+**Solution.** 
+
+$\text{𝑃 (𝐵𝑖𝑜𝑙𝑜𝑔𝑦 𝑚𝑎𝑗𝑜𝑟𝑠)}=0.38 \hspace{0.4cm} \text{𝑃(𝑆𝑜𝑝ℎ𝑜𝑚𝑜𝑟𝑒𝑠)}=0.68,\hspace{0.4cm} \text{𝑃(𝐵 𝑎𝑛𝑑 𝑆)}=0.20$
+
+ Use addition rule, 
+  $𝑃(𝐵 𝑜𝑟 𝑆)=𝑃(𝐵) +𝑃(S) – 𝑃(𝐵 𝑎𝑛𝑑 𝑆)= 0.38+0.68−0.2=0.86$,
+  
+ 86% of meeting attendees who are either sophomores or Biology majors.
+
+2) If known 𝑃(𝐴)=0.25, 𝑃(𝐵)=0.64, 𝑃 (𝐴 𝑜𝑟 𝐵)=0.72,  find 𝑃 (𝐴 𝑎𝑛𝑑 𝐵).
+
+**Solution.** 
+
+From addition rule,
+$(𝐴 𝑜𝑟 𝐵) = 𝑃(𝐴) + 𝑃(𝐵) – \color{blue}{\text{𝑃(𝐴 𝑎𝑛𝑑 𝐵)}}$, 
+
+$\color{blue}{\text{𝑃(𝐴 𝑎𝑛𝑑 𝐵)}} = 𝑃(𝐴) + 𝑃(𝐵) – 𝑃(𝐴 𝑜𝑟 𝐵)$,
+
+                                        = 0.25+0.64 –0.72=0.17
+
+  Note: Students can make other similar questions, using addition rule.
+
+</div>
+
+
+## Complementary events, Rule of Complement.
+
+<div class="black">
+
+The complement of event A, denoted as $A^c$, (or $\bar{A}$) is the event of all outcomes that are not in A. 
+
+A and $A^c$ are mutually exclusive (disjoint): 𝑃(𝐴)+𝑃($A^c$)=1
+
+
+</div>
+
+```{r, out.width= "25%", fig.align='center'}
+cv <- readJPEG("cvv.jpeg")
+grid.raster(cv)
+```
+
+<div class="blue">
+This implies
+</div>
+
+$$𝑃(A^c)=1−𝑃(𝐴) \ \text{and} \ 𝑃(𝐴)=1−𝑃(A^c)$$
+ 
+**Examples**  
+
+1) If the sample space is 𝑆 = {HH, HT, TH, TT}, event 𝐴={HH}, then 
+$A^c$={HT, TH, TT}. 
+
+2) If 𝑃(𝐴)=0.81,   then 𝑃($A^c$)=0.19
+</div>
+
+## Probability from Frequency Table
+<div class="black">
+
+**Example**. Below is a frequency table of class rank from a survey of 406 students. If one student is randomly selected, what is the probability that the student is:
+
+a) Freshman
+
+b) not a Freshman
+
+c) a Freshman or a senior.
+
+<div style="float: left; width: 50%;">
+
+**Answers (round to 3 decimals)**
+
+a) 0.362
+
+b) 0.638
+
+c) 0.522
+
+</div>
+
+<div style="float: right; width: 45%;">
+$$
+\begin{align*}
+&\color{blue}{\text{class rank}} \\ \hline
+\color{green}{\text{class}} && \color{red}{\text{Frequency}} \\ \hline
+\text{Freshman}&& 147 \\
+\text{Sophomore} && 96 \\
+\text{Junior} && 98 \\
+\text{Senior} && 65 \\ \hline
+\text{Total} && 406
+\end{align*}
+$$
+</div>
+
+
+## Probability Distributions
+
+```{r, out.width= "80%"}
+pd <- readJPEG("pd.jpeg")
+grid.raster(pd)
+```
+
+## Independence 
+
+<div class="black">
+Two processes are **independent** if knowing the outcome of one  provides no useful information about the outcome of the other.
+
+**Examples**
+
+- Knowing that the coin landed on a head on the first toss  does not provide any useful information for determining what  the coin will land on in the second toss. → <div class="blue"> Outcomes of two  tosses of a coin are independent.
+</div> 
+<div class="black">
+- Knowing that the first card drawn from a deck is an ace does  provide useful information for determining the probability of  drawing an ace in the second draw. → <div class="blue"> Outcomes of two draws  from a deck of cards (without replacement) are dependent.
+</div>
+</div>
+
+
+## Product rule for independent events
+<font size="4">
+<div class="black">
+For independent events A, B, the product rule holds: P(A and B) = P(A) × P(B)
+Or more generally,${𝑃(A_1  \hspace{0.2cm}𝑎𝑛𝑑 \hspace{0.2cm} … \hspace{0.2cm}𝑎𝑛𝑑 \hspace{0.2cm} A_k) = \hspace{0.2cm}𝑃 (𝐴_1)\hspace{0.2cm} ×…× \hspace{0.2cm}𝑃 (A_k)}$
+
+**Examples**
+
+1) If you toss an **unfair** coin twice, what is the probability of getting 2 heads? Assume the coin has 60% of chance showing head.
+
+2) If a quiz contains **3** questions, **each has a multiple choice of 4**, only one is correct, what is the  probability that a student gets all questions correctly by guessing?
+
+3) If a quiz contains **3** questions, **#1 has a multiple choice of 4, #2 is a T/F, #3 has a multiple choice of 6**, what is the  probability that a student gets all questions correctly by guessing?
+
+Answer 
+
+1)   $0.6^2$=0.36 
+
+2)  $(\frac{1}{4})^3= \frac{1}{64}$=0.015625 
+
+3)  $(\frac{1}{4})(\frac{1}{2})(\frac{1}{6})$=0.02083
+</div>
+</font>
+
+
+## Practice
+<div class="black">
+<div class="red"> 
+A recent Gallup poll suggests that 25.5\% of Texans do not have health insurance as of June 2012. Assuming that the uninsured rate stayed constant, what is the probability that two randomly selected Texans are both <div class="blue">uninsured?</div>
+</div>
+
+<div style="float: left; width: 50%;">
+A) $25.5^2$ 
+B) $0.255^2$ 
+C) $0.255 \times 2$ 
+D) $(1-0.255)^2$ 
+</div>
+<div style="float: right; width: 50%;">
+```{r,echo=FALSE, out.width="100%"}
+un <- readJPEG("uninsured.jpg")
+grid.raster(un)
+```
+</div>
+</div>
+
+## Practice
+<div class="black">
+<div class="red"> 
+A recent Gallup poll suggests that 25.5\% of Texans do not have health insurance as of June 2012. Assuming that the uninsured rate stayed constant, what is the probability that two randomly selected Texans are both <div class="blue">uninsured?</div>
+</div>
+
+<div style="float: left; width: 50%;">
+A) $25.5^2$ 
+B) $\color{red}{0.255^2}$ 
+C) $0.255 \times 2$ 
+D) $(1-0.255)^2$ 
+</div>
+<div style="float: right; width: 50%;">
+```{r,echo=FALSE, out.width="100%"}
+un <- readJPEG("uninsured.jpg")
+grid.raster(un)
+```
+</div>
+</div>
+
+
+
+## Practice
+<div class="black">
+<div class="red"> 
+A recent Gallup poll suggests that 25.5\% of Texans do not have health insurance as of June 2012. Assuming that the uninsured rate stayed constant, what is the probability that two randomly selected Texans are both <div class="blue">insured?</div>
+</div>
+
+<div style="float: left; width: 50%;">
+A) $25.5^2$ 
+B) $0.255^2$ 
+C) $0.255 \times 2$ 
+D) $(1-0.255)^2$ 
+</div>
+<div style="float: right; width: 50%;">
+```{r,echo=FALSE, out.width="100%"}
+un <- readJPEG("uninsured.jpg")
+grid.raster(un)
+```
+</div>
+</div>
+
+
+## Example 
+<div class="black">
+<div class="red"> Roughly 20\% of undergraduates at a university are vegetarian or vegan. What is the probability that, among a random sample of 3 undergraduates, at least one is vegetarian or vegan?
+</div>
+
+**Solution**
+We break down to the following parts to consider:
+
+1) {At least 1 is vegetarian or vegan} is complement of {none veg}
+2) For all 3 in the sample, weather s/he is veg is independent
+3) 80% of UG are not vegetarian
+
+So, using the **rule of complement, product rule for independent events**
+<div style="float: left; width: 50%;">
+A) $1-0.2 \times 3$ 
+B) $1-0.2^3$ 
+C) $0.8^3$ 
+D) $1-0.8 \times 3$ 
+E) $\color{red}{1-0.8^3}$ 
+</div>
+
+<div style="float: right; width: 50%;">
+$$\text{P(at least 1 from veg)}
+\\= 1 - \text{P(none veg)} 
+\\= 1 - (1 - 0.2)^3 
+\\= 1 - 0.8^3
+\\= 1 - 0.512
+\\= 0.488$$
+</div>
+</div>
+
+
+
+## Probability from a contigency table
+<font size="4">
+<div class="black">
+**Example**: The following contingency table is a sample of 100 people (gender and dominant hand use). If randomly select a person from the surveyed group, use the table to find the probability that 
+
+a) The person is right-handed
+\
+b) The person is male
+\
+c) The person is a male and right-handed
+\
+d) The person is male if we know the person is right-handed
+\
+e) The person is right-handed if we know the person is male
+
+<div style="float: left; width: 50%;">
+```{r,out.width="80%"}
+pt <- readPNG("pt.png")
+grid.raster(pt)
+```
+</div>
+
+<div style="float: right; width: 50%;">
+Ans: 
+
+a) 0.87  (marginal probability)
+\
+b) 0.52 (marginal probability) 
+
+c) 0.43 (joint probability)   
+
+d) 0.49 (conditional probability)
+
+e) 0.83 (conditional probability)
+</div>
+</div>
+</font>
+
+## Discussions                      (end of 3.1)
+<div class="black">
+<div class="blue">
+Disjoint vs. Complementary; Disjoint vs. Independent 
+</div>
+<div class="red">
+Do the sum of probabilities of two disjoint events always add up to  1?
+
+Not necessarily, there may be more than 2 events in the sample  space, e.g. Party aﬀiliation.
+  
+Do the sum of probabilities of two complementary events always  add up to 1?
+</div>
+Yes, that’s the definition of complementary, e.g. Heads and Tails.
+Complements form special disjoint events.
+
+<font size="4">
+**Examples.**
+\
+1) If 𝑃(𝐴)=0.3, 𝑃(𝐵)=0.6, events 𝐴 and 𝐵 are independent, find 𝑃(𝐴 𝑜𝑟 𝐵)
+\
+2) If 𝑃(𝐴)=0.3, 𝑃(𝐵)=0.6, events 𝐴 and 𝐵 are disjoint, find 𝑃(𝐴 𝑜𝑟 𝐵) 
+</font>
+
+<font size="4">
+**Solution.** 
+\
+1) By product rule, $𝑃(𝐴 𝑎𝑛𝑑 𝐵)=P(A)P(B)=0.18$
+\
+then by addition rule, $𝑃(𝐴 𝑜𝑟 𝐵)= P(A)+P(B)−P(A and B)$
+\
+=0.3+0.6−0.18=0.72
+\
+2) 𝑃(𝐴 𝑎𝑛𝑑 𝐵)=0, 𝑃(𝐴 𝑜𝑟 𝐵)=P(A)+P(B)=0.9
+</font>
+</div>
+
+
+## 3.2 Conditional Probability
+
+<div class="black">
+In this section, we discuss whether the probability of an event is related to (affected by) another event that has taken place.
+
+<div class="yellow">
+The probability of A given that B has occurred is called the conditional probability of A given B is denoted by 𝑃(𝐴|𝐵)
+</div>
+
+- Marginal probability
+- Joint probability
+- Conditional Probability
+- General multiplication rule
+- Independence and conditional probability
+- Bayer’s Theorem
+
+</div>
+
+## Example -- Relapse
+
+<div class="black">
+Researchers randomly assigned **72** chronic users of cocaine into three groups: desipramine (antidepressant), lithium (standard treatment for cocaine) and placebo. Results of the study are summarized below.
+
+$$
+\begin{align}
+            && \text{relapse} && \text{no relapse} &&\text{total} \\ \hline
+\text{desipramine} && 10      && 14         && 24    \\
+\text{lithium}     && 18      && 6          && 24    \\
+\text{placebo}     && 20      && 4          && 24    \\ \hline
+\text{total}       && 48      && 24         && 72   
+\end{align}
+$$
+</div>
+
+
+
+## Marginal probability
+<div class="black">
+<div class="red"> What is the probability that a patient relapsed?
+</div>
+
+$$
+\begin{align}
+            && \text{relapse} && \text{no relapse} && \text{total} \\ \hline
+\text{desipramine} && 10      && 14         && \color{green}{24}    \\
+\text{lithium}     && 18      && 6          && 24    \\
+\text{placebo}     && 20      && 4          && 24    \\ \hline
+\text{total}       && \color{red}{48}      && 24         && \color{purple}{72}   
+\end{align}
+$$
+
+$P(relapsed) = \frac{\color{red}{48}}{\color{purple}{72}} = \frac{2}{3} \approx 0.67$
+<div class="red">What is the probability that a patient received the desipramine)? 
+</div>
+
+$\text{P(desipramine)} = \frac{\color{green}{24}}{\color{purple}{72}}= \frac{1}{3} \approx 0.33$
+</div>
+<div class="yellow">
+These are called Marginal Probability.
+</div>
+
+
+## Joint probability
+<div class="black">
+What is the probability that a patient received the antidepressant(desipramine) $\underline{\color{red}{and}}$ relapsed?
+
+$$
+\begin{align}
+            && \text{relapse} && \text{no relapse} && \text{total} \\ \hline
+\text{desipramine} && \color{red}{10}      && 14         && 24    \\
+\text{lithium}     && 18      && 6          && 24    \\
+\text{placebo}     && 20      && 4          && 24    \\ \hline
+\text{total}       && 48      && 24         && \color{red}{72}   
+\end{align}
+$$
+P(relapsed and desipramine) = $\frac{10}{72}=\frac{5}{36}\approx 0.14$  (joint probability)
+
+Review on Addition Rule: find P (relapsed or desipramine)
+P (relapsed or desipramine) 
+
+= P (relapsed) + P (desipramine) - P(relapsed and desipramine)
+
+$\approx 0.67+0.33 −0.14=0.86 (or  \frac{(48+24−10)}{72}=\frac{62}{72}\approx 0.86 )$
+</div>
+
+## Marginal and Joint Probability
+<font size="2">
+<div class="black">
+Divide each entry by the grand total, we have a table showing joint probability and marginal probability.
+
+$$
+\begin{align}
+            && \text{relapse} && \text{no relapse} && \text{total} \\ \hline
+\text{desipramine} && 10      && 14         && 24    \\
+\text{lithium}     && 18      && 6          && 24    \\
+\text{placebo}     && 20      && 4          && 24    \\ \hline
+\text{total}       && 48      && 24         && 72   
+\end{align}
+$$
+</font>
+
+<font size="2">
+$$
+\begin{align}
+            && \text{relapse} && \text{no relapse} && \text{total} \\ \hline
+\text{desipramine} && \frac{10}{72} \approx 0.14      && \frac{14}{72}\approx 0.19       && \frac{24}{72}\approx0.33    \\
+\text{lithium}     && \frac{18}{72} \approx0.25      && \frac{6}{72}\approx 0.33         && \frac{24}{72}\approx0.33   \\
+\text{placebo}     && \frac{20}{72}\approx 0.28     && \frac{4}{72}\approx 0.06          && \frac{24}{72}\approx0.33    \\ \hline
+\text{total}       && \frac{48}{72}\approx 0.67     && \frac{24}{72} \approx 0.33         && \frac{72}{72} \approx 1  
+\end{align}
+$$
+</font>
+<font size="2">
+$$
+\begin{align}
+            && \text{relapse} && \text{no relapse} && \text{total} \\ \hline
+\text{desipramine} && 0.14     && 0.19       && 0.33    \\
+\text{lithium}     && 0.25    && 0.08      && 0.33\\
+\text{placebo}     && 0.28    && 0.06       && 0.33   \\ \hline
+\text{total}       && 0.67    && 0.33       && 1 
+\end{align}
+$$
+</font>
+</div>
+
+
+## Conditonal probability
+<div class="black">
+
+The conditional probability of the outcome of interest A given condition B is calculated as
+
+$${P(A|B) = \frac{P(A \text{ and }B)}{P(B)}}$$
+<div style="float: left; width: 50%;">
+<font size="2">
+
+**Example** : If we know that a patient received the antidepressant (desipramine), what is the probability that they relapsed?
+</div>
+
+<div style="float: right; width: 50%;">
+$$
+\begin{align}
+            && relapse && no relapse && total \\ \hline
+desipramine && 10      && 14         && 24    \\
+lithium     && 18      && 6          && 24    \\
+placebo     && 20      && 4          && 24    \\ \hline
+total       && 48      && 24         && 72   
+\end{align}
+$$
+</font>
+</div>
+<font size="2">
+$$
+\begin{eqnarray*}
+P(relapse|desipramine) &=& \frac{P(relapse \text{ }and \text{ }desipramine)}{P(desipramine)}
+\\
+&=& \frac{10/72}{24/72}
+\\ &=& \frac{10}{24}
+\\ &=& 0.42
+\end{eqnarray*}
+$$
+</font>
+</div>
+
+
+## Conditional probability
+
+<div class="black">
+Another way to understand/compute
+P(A|B) is the portion of A in B. For contingency table,
+
+$$P(A|B) = \frac{\text{count of (A and B)}}{\text{the count of B}}$$
+
+In this example, 
+
+<font size="2">
+
+$$
+\begin{align}
+            && relapse && no relapse && total \\ \hline
+desipramine && \color{red}{10}      && 14         && 24    \\
+lithium     && 18      && 6          && 24    \\
+placebo     && 20      && 4          && 24    \\ \hline
+total       && \color{red}{48}      && 24         && 72   
+\end{align}
+$$
+
+</font>
+
+
+$$P(relapse|desipramine)=
+\frac{\text{count of (relapse and desipramine)}}{\text{the count of desipramine}}=
+\frac{10}{24}=
+\frac{5}{12} = 0.42$$
+
+</div>
+
+<font size="3">
+<div class="red"> Question. If we know that a patient relapsed, what is the probability that they received the antidepressant (desipramine)?
+
+$P(desipramine | relapse) = \frac{10}{48} \approx 0.21$
+</font>
+</div>
+
+
+
+## Conditional probability
+<font size="4">
+<div class="black">
+$$
+\begin{align}
+            && relapse && no relapse && total \\ \hline
+desipramine && 10      && 14         && 24    \\
+lithium     && 18      && 6          && 24    \\
+placebo     && 20      && 4          && 24    \\ \hline
+total       && 48      && 24         && 72   
+\end{align}
+$$
+</font>
+
+<font size="4">
+1) If we know that a patient received the lithium, what is the probability that they relapsed?
+\
+2) If we know that a patient received placebo, what is the probability that they relapsed?
+\
+3) If we know that a patient relapsed, what is the probability that they received the lithium?
+\
+4)If we know that a patient relapsed, what is the probability that they received placebo?
+</font>
+
+<font size="4">
+**Answers:**  
+\
+- $𝑃 ( 𝑟𝑒𝑙𝑎𝑝𝑠𝑒𝑑  ┤|  𝑙𝑖𝑡ℎ𝑖𝑢𝑚 )=18/24≈0.75$ 
+\
+- $P( 𝑟𝑒𝑙𝑎𝑝𝑠𝑒𝑑  ┤|  𝑝𝑙𝑎𝑐𝑒𝑏𝑜 )=20/24≈0.83$
+\
+- $𝑃(𝑙𝑖𝑡ℎ𝑖𝑢𝑚 ┤|  𝑟𝑒𝑙𝑎𝑝𝑠𝑒𝑑 )=18/48≈0.38$
+\
+- $𝑃( 𝑝𝑙𝑎𝑐𝑒𝑏𝑜┤|  𝑟𝑒𝑙𝑎𝑝𝑠𝑒𝑑 )=20/48≈0.42$
+</font>
+</div>
+
+
+
+
+## General multiplication rule
+<div class="black">
+- Earlier we saw that if two events are independent, their joint probability is simply the product of their probabilities. 
+${\text{P(A and B)} = P(A) \times P(B)}$
+- If the events are not believed to be independent, the joint probability is calculated slightly differently.
+
+- If A and B represent two outcomes or events, then 
+
+${\text{P(A and B)} = P(A | B) \times P(B)}\hspace{0.2cm} or \hspace{0.2cm} {\text{P(A and B)} = P(B|A) \times P(A)}$
+
+- Note: that this formula is simply the conditional probability formula, rearranged.
+  
+- It is useful to think of A as the outcome of interest and B as the condition.
+
+We can generalize the general multiplication rule as 
+$P(A_1 and A_2) = P(A_1)P(A_2|A_1),$
+
+$P(A_1 and A_2 and A_3) = P(A_1 and A_2)P(A_3| A_1 and A_2)= P(A_1)P(A_2|A_1)P(A_3|A_1,A_2)$
+
+<div class="blue">
+$P(A_1 and ... A_n)= P(A_1)P(A_2|A_1)P(A_3|A_1 and A_2)..... P(A_n|A_1 and ... A_{n-1})$
+</div>
+
+</div>
+
+## Example
+<div class="black">
+In a bag, there are 10 marbles: 2 red, 3 blue,  5 white. If we pick up 3 marbles without replacement, what is the probability that the 1st is red, the 2nd is blue, and the 3rd is white?
+
+**Solution.**
+$𝑃(𝑅𝐵𝑊)=𝑃(𝑅)𝑃(𝐵│𝑅)𝑃(𝑊|𝑅𝐵)=\frac{2}{10} (\frac{3}{9})(\frac{5}{8})= \frac{1}{24}\approx 0.042$
+
+Practice: Find 
+
+1) P(WWR)
+2) P(RBWB)
+</div>
+
+
+
+## Independence and conditional probabilities
+<div class="black">
+Consider the following (hypothetical) distribution of gender and major of students in an introductory statistics class:
+
+$$
+\begin{align}
+       && social science && non-social science && total \\ \hline
+female && 30             && 20                 && 50    \\
+male   && 30             && 20                 && 50    \\ \hline
+total  && 60             && 40                 && 100  
+\end{align}
+$$
+
+- The probability that a randomly selected student is a social science major is $\frac{60}{100} = 0.6.$
+
+- The probability that a randomly selected student is a social science major given that they are female is $\frac{30}{50} = 0.6.$
+
+- Since P(SS | M) = 0.6, major of students in this class does not depend on their gender: P(SS | F) = P(SS).
+</div>
+
+
+## Independence and conditional probabilities
+<div class="black">
+Generically, if P(A | B) = P(A) then the events A and B are said to be independent.
+  
+  - Conceptually: Giving B doesn't tell us anything about A.
+  
+  - Mathematically: We know that if events A and B are independent, P(A and B) = P(A) $\times$ P(B). Then,
+  
+$${P(A|B) = \frac{P(A \text{ }and \text{ }B)}{P(B)} = \frac{P(A) \times P(B)}{P(B)} = P(A)}$$
+So, there are two ways to determine/use the independence of two events:
+
+1) P(A and B) = P(A) $\times$ P(B) or 
+2) P(A|B) = P(A) (or P(B|A) = P(B))
+</div>
+
+## Example 
+<div class="black">
+Between January 9-12, 2013, SurveyUSA interviewed a random  sample of 500 NC residents asking them whether they think  widespread gun ownership protects law abiding citizens from crime,  or makes society more dangerous. 58% of all respondents said it  protects citizens. 67% of White respondents, 28% of Black  respondents, and 64% of Hispanic respondents shared this view.
+
+<div class="red">
+Claim: Opinion on gun and race ethnicity are Dependent.
+</div>
+
+Check  if  P(A|B) = P(A).
+
+- P(randomly selected NC resident says gun ownership protects  citizens ) = 0.58
+- P(protects citizens | White) = 0.67 ≠0.58 
+- P(protects citizens | Black) = 0.28 ≠0.58 
+- P(protects citizens | Hispanic) = 0.64≠ 0.58 
+
+- P(protects citizens) varies by race/ethnicity, therefore opinion on  gun ownership and race ethnicity are most likely dependent (using the sample).
+</div>
+
+
+## Review Basic Rules of Probability
+<div class="black">
+<div style="float: left; width: 50%;">
+- $P(A) + P(A^C)=1$
+- $P(A or B) = P(A) +P(B) -P(A and B)$
+</div>
+<div style="float: right; width: 50%;">
+```{r, out.width= "30%"}
+cvv <- readJPEG("cvv.jpeg")
+grid.raster(cvv)
+```
+</div>
+
+<div style="float: left; width: 50%;">
+
+- if the events are **disjoint**, then 
+
+P(A and B)=0, P(A or B)= P(A)+P(B).
+
+- if A,B are independent, then all below three are true 
+
+$𝑃(𝐴 𝑎𝑛𝑑 𝐵)=𝑃(𝐴)×𝑃(𝐵)$
+
+$𝑃(𝐴│𝐵)=𝑃(𝐴),  𝑃(𝐵│𝐴)=𝑃(𝐵)$ 
+
+- Note:  $(A or B)^c = (A^cand B^c)$ 
+(the green part in the lower right diagram)
+</div>
+
+<div style="float: right; width: 50%;">
+```{r, out.width= "30%"}
+u <- readJPEG("u.jpeg")
+grid.raster(u)
+```
+
+</div>
+<div style="float: left; width: 50%;">
+```{r, out.width= "50%"}
+iu <- readJPEG("iu.jpeg")
+grid.raster(iu)
+```
+
+</div>
+<div style="float: right; width: 50%;">
+```{r, out.width= "30%"}
+abb <- readPNG("abb.png")
+grid.raster(abb)
+```
+</div>
+</div>
+
+
+## Bayes Theorem
+<div class="black">
+- Bayes Theorem gives inverting probabilities: express 𝑃$(𝐴│𝐵)$   in terms of $𝑃(𝐵│𝐴)$  and $𝑃(𝐴)$.
+
+<div style="float: left; width: 80%;">
+- We first  discuss rule of total probability (of $𝑃(𝐵)$ )
+    $𝑃(𝐵)=𝑃(𝐵 and 𝐴)+𝑃(𝐵 and  A^c)$
+</div>
+
+<div style="float: right; width: 20%;">
+```{r, out.width= "60%"}
+px <- readPNG("px.png")
+grid.raster(px)
+```
+</div>
+
+Notice that $A$ and $A^c$ are a partition of sample space S:
+
+1)  𝐴 and $A^c$ are disjoint (mutually exclusive) : 𝐴∩ $A^c=\phi$
+
+2)  their union is the whole space:  $𝐴∪A^c=𝑆$
+
+- Combining the conditional  probability formula,  the general multiplication rule, and the rule of total probability, we have the Bayes Theorem
+ $$𝑃(𝐴│𝐵)= \frac{𝑃(𝐵│𝐴)𝑃(𝐴)}{𝑃(𝐵│𝐴)𝑃(𝐴)+𝑃(𝐵│𝐴^𝑐)𝑃(𝐴^𝑐)},$$
+where usually $A$ is an event of one variable, and $B$ is an event of another variable.
+
+ The formula used the rule of total probability and
+  $$𝑃(𝐴│𝐵)= 𝑃(𝐴\ and \ 𝐵)/𝑃(𝐵), 𝑃(𝐴\ 𝑎𝑛𝑑\ 𝐵)= 𝑃(𝐵│𝐴)𝑃(𝐴), 𝑃( A^c\  𝑎𝑛𝑑\ 𝐵)= 𝑃(𝐵│ A^c)𝑃( A^c )$$
+</div>
+
+## Example 
+<div class="black">
+In a statistics class, 80% of students can construct  box plots, of those who can construct box plots, 86% passed, while only 65%  of those students who cannot construct box plots passed.  What is the probability that a student can construct  box plots if it is known that the student passed?
+
+**Solution.**  
+
+Let A ={ students can construct box plots} and B ={ students passed}, then
+ $$𝑃(𝐴)=0.80,   𝑃(𝐵│𝐴)=0.86, 𝑃(𝐵│𝐴^𝑐 )=0.65$$
+ 
+ To find 𝑃(𝐴|B), use Bayes’ Theorem 
+ $$
+ \begin{eqnarray*}𝑃(𝐴│𝐵)&=& \frac{𝑃(𝐵│𝐴)𝑃(𝐴)}{𝑃(𝐵│𝐴)𝑃(𝐴)+𝑃(𝐵│𝐴^𝑐 )𝑃(𝐴^𝑐)}\\ &=&\frac{(0.86×0.80)}{(0.86×0.80+0.65×0.20)}=\frac{0.688}{(0.688+0.13)} = \frac{0.688}{0.818}\approx 0.84
+ \end{eqnarray*}
+ $$
+ 
+Answer: Of those students who passed, 84% can draw box plots. 
+
+We can also draw contingency table to explain – next slide
+</div>
+
+
+## Example
+<div class="black">
+Draw contingency table to explain
+ A ={ students can construct box plots}
+ B ={ students passed}, then
+ 𝑃(𝐴)=0.80,   𝑃(𝐵│𝐴)=0.86, $(𝐵│𝐴^𝑐)$=0.65
+ To find 𝑃(𝐴|B).
+<left>
+<font size= "3">
+$$
+\begin{eqnarray*}
+ && A (\text{can draw Box Plots)} && A^c(\text{cannot draw Box plots}) &&   
+ \\
+ \hline
+ B (\text{passed}) && \color{blue}{0.86\times0.80= 0.688}&& \color{purple}{0.65\times0.20=0.13} && \color{red}{0.688+0.13=0.818}\\
+ \
+ B^c(\text{not passed}) && \color{purple}{0.80-0.688=0.112}&& \color{red}{0.20-0.13=0.07} && fill \\
+ \
+ && 0.80 && 0.20 && 1
+\end{eqnarray*}
+$$
+</left>
+</font>
+
+$𝑃(\text{𝑐𝑎𝑛 𝑑𝑟𝑎𝑤 𝑏𝑜𝑥 𝑝𝑙𝑜𝑡𝑠 │𝑝𝑎𝑠𝑠𝑒𝑑)}=𝑃(𝐴│𝐵)= \frac{0.688}{0.818} \approx 0.84$
+
+</div>
+
+## Use Tree Diagram
+<div class="black">
+
+Let A ={ students can construct box plots} and B ={ students passed}, then
+
+$$P(𝐴)=0.80,   𝑃(𝐵│𝐴)=0.86, 𝑃(𝐵│𝐴^𝑐 )=0.65$$
+<center>
+```{r, out.width="40%", fig.align='center'}
+tree <- readPNG("tree_new.png")
+grid.raster(tree)
+```
+</center>
+
+$$𝑃(\text{𝑐𝑎𝑛 𝑑𝑟𝑎𝑤 𝑏𝑜𝑥 𝑝𝑙𝑜𝑡𝑠 │𝑝𝑎𝑠𝑠𝑒𝑑)}=𝑃(𝐴│𝐵)= \frac{0.688}{0.818} \approx 0.84$$
+</div>
+
+
+## Bayes Theorem
+<div class="black">
+
+For a variable with events $𝐴_1, 𝐴_2, … , 𝐴_𝑘$.  If they are mutually disjoint $(𝐴_𝑖∩𝐴_𝑗=\alpha$  for all $𝑖≠𝑗)$, and their union forms the whole sample space $S = (𝐴_1∪𝐴_2∪…∪𝐴_𝑘)$, then for an event B of another variable, 
+
+ $$𝑷(𝑨_𝒊│𝑩)= \frac{𝑷(𝑩│𝑨_𝒊 )𝑷(𝑨_𝒊)}{𝑷(𝑩│𝑨_𝟏 )𝑷(𝑨_𝟏 )+𝑷(𝑩│𝑨_𝟐 )𝑷(𝑨_𝟐 )+…+𝑷(𝑩│𝑨_𝒌 )𝑷(𝑨_𝒌)}$$
+
+Note : This is really  $$𝑷(𝑨_𝒊│𝑩)=  \frac{𝑷(𝑩 𝒂𝒏𝒅 𝑨_𝒊 )}{𝑷(𝑩)}$$
+
+```{r, out.width="35%"}
+bay <- readPNG("bay.png") 
+grid.raster(bay)
+
+```
+</div>
+
+
+## Example
+<div class="black">
+Joe visits campus every Thursday evening. However, some days the  parking garage is full, often due to college events. There are  academic events on 35% of evenings, sporting events on 20% of  evenings, and no events on 45% of evenings. When there is an  academic event, the garage fills up about 25% of the time, and it  fills up 70% of evenings with sporting events. On evenings when  there are no events, it only fills up about 5% of the time. If Jose  comes to campus and finds the garage full, what is the probability  that there is a sporting event?
+
+<div class="yellow">
+The outcome of interest is there is a sporting event (call  this 𝐴1), and the condition is that the lot is full (call this as 𝐵). Let 𝐴2  represent an academic event and 𝐴3 represent there being no  event on campus. Then the given probabilities can be written as:
+</div>
+
+$$P(A_1) = 0.20 \hspace{1.5cm} P(A_2) = 0.35\hspace{1.5cm}  P(A_3)= 0.45$$
+$$P(B|A_1) =0.70\hspace{1.5cm} P(B|A_2) =0.25\hspace{1.5cm} P(B|A_3) =0.05$$
+
+</div>
+
+## Example         (end of 3.2)
+<div class="black">
+$P(A_1) = 0.2 \hspace{1.5cm}P(A_2) = 0.35\hspace{1.5cm}P(A_3)= 0.45$
+\
+$P(B|A_1) =0.7\hspace{1.5cm}P(B|A_2) =0.25\hspace{1.5cm}P(B|A_3) =0.05$
+
+Bayes’ Theorem can be used to compute the probability of a  sporting event ($𝐴_1$) under the condition that the parking lot is full  (𝐵):
+
+$𝑃(𝐴_1│𝐵)= \frac{𝑃(𝐵│𝐴_1 )𝑃(𝐴_1)}{𝑃(𝐵│𝐴_1 )𝑃(𝐴_1 )+𝑃(𝐵│𝐴_2 )𝑃(𝐴_2 )+𝑃(𝐵│𝐴_3 )𝑃(𝐴_3)}$
+
+$=\frac{(0.7×0.2)}{(0.7×0.2+0.25×0.35+0.05×0.45)}=0.56$
+
+Based on the information that the garage is full, there is a *56%* chance that a sporting event is being held on campus that evening.
+</div>
+
+## 3.4 Random Variables
+<div class="black">
+
+List of topics
+
+- Random variable 
+- Expected value (of discrete R. V.) 
+- Variance, and standard deviation (of discrete R. V.) 
+</div>
+
+
+## Random variables
+<div class="black">
+
+A **random variable** is a numerical measurement of the outcome of a random phenomenon. A **random variable** assumes numerical values associated with the random outcomes of an experiment. 
+
+- We use a capital letter, like 𝑋, to denote a random variable.
+
+- The values of a random variable are denoted with a lowercase  letter, in this case 𝑥.
+- There are two types of random variables:
+
+    - **Discrete random variables** often take integer values (countable).
+           **Example**. Flip a coin three times. 
+           X = number of heads in the 3 flips; X denotes a random variable.
+           𝑥=0, 1, 2, 3 are possible values of the random variable.
+
+     - **Continuous random variables** take values in real numbers of an interval.
+     
+Example. time, age, and size measures such as height and weight.
+     
+</div>
+
+## Expected Value (mean)
+<div class="black">
+
+- We are often interested in the average outcome of a random  variable.
+
+- We call this the **expected value** (mean), and it is a weighted  average of the possible outcomes
+
+- For discrete random variables, say X, the expected value is defined/calculated by
+    𝜇=𝐸(𝑋)= $\sum{x_ip(x_i)}$
+    
+   where the summation is taken over all possible values $𝑥_𝑖$.
+
+</div>
+
+## Expected value of a discrete random variable
+<div class="black">
+
+In a game of cards you win \$1 if you draw a heart, \$5 if you draw an ace (including the ace of hearts), \$10 if you draw the king of spades and nothing for any other card you draw. Write the probability model for your winnings, and calculate your expected winning.
+**Solution**. Let X be the dollar amount of making (discrete r.v), then
+$E(X)= \sum{x_ip(x_i)}=1(\frac{12}{52}) + 5(\frac{4}{52}) + 10(\frac{1}{52})+ 0(\frac{35}{52})=(\frac{42}{52}) \approx 0.81$
+
+<left>
+<font size="2">
+$$
+\begin{align}
+Event           && X  && P(X)         && X \cdot P(X)  \\ \hline
+Heart (not ace) && 1    && \frac{12}{52}&& \frac{12}{52} \\
+Ace             && 5    && \frac{4}{52} && \frac{20}{52} \\
+King of spades  && 10   && \frac{1}{52} && \frac{10}{52} \\
+All else        && 0    && \frac{35}{52} && 0             \\ \hline
+Total           &&      &&                && E(X) = \frac{42}{52} \approx 0.81  
+\end{align}
+$$
+</font>
+</left>
+
+</div>
+
+```{r quiz1, exercise=TRUE}
+
+```
+
+## Expected value of a discrete random variable
+<div class="black">
+Below is a visual representation of the probability distribution of winnings from this game:
+
+```{r, out.width="20%",fig.align='center'}
+bay <- readPNG("tab_prob.png") 
+grid.raster(bay)
+```
+
+Compute the expected value:
+
+$$E(X) = 0.23 +0.40 +0.2 = 0.83$$
+
+```{r, echo=F, message=F, warning=F, out.width="40%",fig.align='center'}
+win = c(rep(1, 12), rep(5, 4), rep(10, 1), rep(0, 35))
+win = factor(win, levels = c(0:10))
+
+barplot(table(win)/52, col = COL[1], las = 1)
+```
+</div>
+
+
+## Variability , Standard Deviation
+<div class="black">
+We are also often interested in the variability in the values of a random variable.
+
+The variance 
+\
+$${\sigma^2 = Var(X) = \sum_{i=1}^{k}(x_i-𝜇)^2P(X=x_i)}$$
+\
+The Standard Deviation
+\
+$${\sigma = SD(X) = \sqrt{Var(X)}}= \sqrt{\sum(x_i-𝜇)^2P(X=x_i)}$$
+</div>
+
+
+
+## Variability of a discrete random variable
+<div class="black">
+<div class="red"> For the previous card game example, how much would you expect the winnings to vary from game to game?
+</div>
+<font size="2">
+<left>
+
+$$
+\begin{align}
+X && P(X)  && X \cdot P(X) && (X - E(X))^2  && P(X) \cdot (X - E(X))^2\\ \hline
+1 && \frac{12}{52} && 1 \times \frac{12}{52} = \frac{12}{52} && (1-0.81)^2 = 0.0361 && \frac{12}{52} \times 0.0361 = 0.0083 \\ \hline
+5 && \frac{4}{52} && 5 \times \frac{4}{52} = \frac{20}{52} && (5-0.81)^2 = 17.5561 && \frac{4}{52} \times 17.5561 = 1.3505 \\ \hline
+10 && \frac{1}{52} && 10 \times \frac{1}{52} = \frac{10}{52} && (10-0.81)^2 = 84.4561 && \frac{1}{52} \times 84.4561 = 1.6242 \\ \hline
+0 && \frac{35}{52} && 0 \times \frac{35}{52} = 0 && (0-0.81)^2 = 0.6561 && \frac{35}{52} \times 0.6561 = 0.4416 \\ \hline
+ && && E(X) = 0.81 
+\end{align}
+$$
+</font>
+</left>
+</div>
+
+## Variability of a discrete random variable
+<div class="black">
+<div class="red"> For the previous card game example, how much would you expect the winnings to vary from game to game?
+</div>
+<left>
+<font size="2">
+$$
+\begin{align}
+X && P(X)  && X \cdot P(X) && (X - E(X))^2  && P(X) \cdot (X - E(X))^2\\ \hline
+1 && \frac{12}{52} && 1 \times \frac{12}{52} = \frac{12}{52} && (1-0.81)^2 = 0.0361 && \frac{12}{52} \times 0.0361 = 0.0083 \\ \hline
+5 && \frac{4}{52} && 5 \times \frac{4}{52} = \frac{20}{52} && (5-0.81)^2 = 17.5561 && \frac{4}{52} \times 17.5561 = 1.3505 \\ \hline
+10 && \frac{1}{52} && 10 \times \frac{1}{52} = \frac{10}{52} && (10-0.81)^2 = 84.4561 && \frac{1}{52} \times 84.4561 = 1.6242 \\ \hline
+0 && \frac{35}{52} && 0 \times \frac{35}{52} = 0 && (0-0.81)^2 = 0.6561 && \frac{35}{52} \times 0.6561 = 0.4416 \\ \hline
+ && && E(X) = 0.81  && && {\\V(X)= 3.4246}
+ \end{align}
+$$
+</left>
+</font>
+</div>
+
+
+ 
+## Variability of a discrete random variable
+<div class="black">
+<div class="red"> For the previous card game example, how much would you expect the winnings to vary from game to game?
+</div>
+<left>
+<font size="2">
+
+$$
+\begin{align}
+X && P(X)  && X \cdot P(X) && (X - E(X))^2  && P(X) \cdot (X - E(X))^2\\ \hline
+1 && \frac{12}{52} && 1 \times \frac{12}{52} = \frac{12}{52} && (1-0.81)^2 = 0.0361 && \frac{12}{52} \times 0.0361 = 0.0083 \\ \hline
+5 && \frac{4}{52} && 5 \times \frac{4}{52} = \frac{20}{52} && (5-0.81)^2 = 17.5561 && \frac{4}{52} \times 17.5561 = 1.3505 \\ \hline
+10 && \frac{1}{52} && 10 \times \frac{1}{52} = \frac{10}{52} && (10-0.81)^2 = 84.4561 && \frac{1}{52} \times 84.4561 = 1.6242 \\ \hline
+0 && \frac{35}{52} && 0 \times \frac{35}{52} = 0 && (0-0.81)^2 = 0.6561 && \frac{35}{52} \times 0.6561 = 0.4416 \\ \hline
+ && && E(X) = 0.81&& && {\\V(X)= 3.4246}&&
+ {\\SD(X)=\sqrt{3.4246} = 1.85}
+ \end{align}
+$$
+</left>
+</font>
+</div>
+
+## Practice    (end of 3.4 Chapter 3)
+<div class="black">
+
+For a given probability distribution, compute the mean and standard deviation.
+
+<div style="float: left; width: 50%;">
+\
+
+Check answer:
+
+  𝜇=0.8
+\
+  𝜎=0.6928203
+</div>
+<div style="float: right; width: 50%;">
+```{r, out.width= "70%"}
+hh <- readPNG("hh.png")
+grid.raster(hh)
+```
+</div>
+</div>
+

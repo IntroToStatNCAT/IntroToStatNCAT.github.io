@@ -1,0 +1,585 @@
+---
+title: "Chapter 5"
+subtitle: "Foundations for inference"
+urlcolor: blue
+output: 
+  ioslides_presentation:
+  progressive: FALSE
+smaller: yes
+widescreen: yes
+transition: "faster"
+runtime: shiny_prerendered
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r,echo=F, message=F, warning=F}
+library(datasets)
+library(tidyverse)
+library(tikzDevice)
+library(shiny)
+library(scales)
+library(jpeg)
+library(openintro)
+library(dplyr)
+library(ggplot2)
+library(learnr)
+library(readr)
+library(knitr)
+library(png)
+library(gradethis) #remotes::install_github("rstudio/gradethis")
+library(learnrhash) #devtools::install_github("rundel/learnrhash")
+library(grid)
+library(tinytex)
+data("COL")
+
+```
+
+## Acknowledgement
+
+<center>
+<div class="black">
+These notes use content from OpenIntro Statistics Slides by   
+
+Mine Cetinkaya-Rundel.
+</div>
+</center>
+
+## 5.3 Hypothesis testing for a proportion
+<div class="black">
+- Hypothesis testing (or significance testing) is a method that uses data to determine if there is sufficient evidence to support certain statements or predication's (hypotheses). 
+
+- Hypothesis testing uses probability to quantify how plausible a parameter value is while controlling the chance of an incorrect inference.
+
+- In this section, we discuss hypothesis testing for a population proportion. The framework is the same for a population mean or other population parameters.
+</div>
+
+## Hypothesis testing for a proportion
+<div class="black">
+
+- Null Hypothesis and the Alternative Hypothesis
+- Computing z-test statistic
+- Testing Hypothesis using p-value
+- Testing Hypothesis using Rejection Region
+- Decision errors (type I, type II)
+- Testing Hypothesis using confidence intervals
+- Default significance level 0.05
+</div>
+
+## Hypothesis Testing Framework
+<div class="black">
+<font size="5">
+- Hypothesis Testing begins with setting up hypotheses.
+
+<div class="blue">
+- Each hypothesis test has two hypotheses: the null hypothesis $H_0$ , the alternative hypothesis $H_a$.
+</div>
+
+- The null hypothesis represents a skeptical claim to be tested. The null hypothesis is presented as that the parameter takes a particular value. 
+
+<div class="purple">
+- The alternative hypothesis represents an alternative claim, usually the research question, that is what researcher hopes to test for. The alternative hypothesis is often represented as that the parameter falls in a range of possible values. 
+</div>
+
+- The task of hypothesis testing is to use a sample statistic obtained from data to see if there is sufficient (strong) evidence under a preselected significance level to reject the null hypothesis, so that the alternative hypothesis can be substantiated.
+</font>
+</div>
+
+
+## Format of hypotheses
+<div class="black">
+<font size="4">
+* The null hypothesis is always in the form as
+$$H_0: \text{parameter} = \text{value}. (𝐻_0 \ \text{is read as “ H-naught”})$$
+* For alternative hypothesis, there are 3 possible forms for $𝐻_a$
+
+  - $𝐻_𝑎: parameter > value \ (right-sided)$ 
+  - $H_𝑎: parameter < value \ (left-sided)$ 
+  - $𝐻_𝑎: parameter ≠ value \ (two-sided)$
+
+*For population proportion, the parameter is $𝑝$,  the value is some number $𝑝_0$, 
+with $0≤𝑝_0≤1$. So 
+
+  - The null hypothesis is  $𝐻_0: 𝑝 = 𝑝_0 \ (𝑝_0 \ {\text{is the null value})}$
+  - The alternative hypothesis is one of the three:
+
+    - $𝐻_𝑎: 𝑝 > 𝑝_0 \ (right-sided)$
+    - $𝐻_𝑎: 𝑝 < 𝑝_0 \ (left-sided)$
+    - $𝐻_𝑎: 𝑝 ≠ 𝑝_0 \ (two-sided)$
+  
+</font>
+</div>
+
+
+
+## Form the Null and Alternative Hypotheses
+<div class="black">
+<font size="5">
+**Example.** Fracking is a method that uses high-pressure water and chemicals to extract oil and gas from underground rock formations. Let $𝑝$ be the proportion of people in the United States who oppose the increased use of fracking. Consider the claim, “In the Unites States, the proportion of people who oppose the increased use of fracking is less than 0.50; i.e. they are in the minority.” Form the null and alternative hypotheses.
+
+
+**Solution.**
+
+The parameter is the population proportion $𝑝$,
+\
+The null hypothesis $𝐻_0:𝑝=0.50$  
+\
+The alternative hypothesis   $𝐻_𝑎:𝑝<0.50$  
+\
+This is a one-sided hypothesis (left-sided). 
+
+
+In words, “the null hypothesis is, the proportion of people oppose fracking equals 0.50”
+\
+“the alternative hypothesis is, the proportion of people oppose fracking is less than 0.50”
+</font>
+</div>
+
+## Form the Null and Alternative Hypotheses
+<div class="black">
+Example. Someone believes that NFL (professional football) is the favored sport for 40% of the people in U.S., but you suspect this claim. 
+
+Form the null and alternative hypotheses.
+
+**Solution.**  
+
+The null hypothesis $𝐻_0:𝑝=0.40$
+\
+The alternative hypothesis   $𝐻_𝑎:𝑝≠0.40$
+
+**This is a two-sided hypothesis.**
+
+In words, “the null hypothesis is, the proportion of people in U.S. think NFL is the favored sport equals 0.40”
+
+“the alternative hypothesis is, the proportion of people in U.S. think NFL is the favored sport does not equal to 0.40”
+</div>
+
+## Example (Form Null and Alternative Hypotheses)
+<div class="black">
+<font size="5">
+**Example.** A campus store plans to sell posters to students. The manger conjects that more than one third of all freshman will buy at least one poster for their dorm rooms.
+
+Form the null and alternative hypotheses.
+
+**Solution.**  
+
+The null hypothesis $𝐻_0:𝑝= \frac{1}{3}$
+
+The alternative hypothesis   $𝐻_𝑎:𝑝> \frac{1}{3}$
+
+This is a right-sided hypothesis. 
+
+In words, “the null hypothesis is, 1/3 of freshman buy a poster”
+
+“the alternative hypothesis is, more than 1/3 of freshman buy a poster”
+</font>
+</div>
+
+
+## Hypothesis testing framework.
+<div class="black">
+
+We conduct a hypothesis test under the assumption that the  null hypothesis is true. For hypothesis testing about a proportion, we use sample with large enough size and traditional  methods based on the central limit theorem (CLT). 
+
+We use examples to illustrate various methods for hypothesis testing: 
+
+    - Using p-value
+    - Using test statistic
+    - Using confidence interval
+</div>
+
+## Example (Hypothesis testing using p-value)
+<div class="black">
+<font size="4">
+**Example.**  A campus manger randomly sampled 116 freshmen, 40 said they would buy posters for their dorm rooms.  Use this data to test for the conject that more than one third of all freshman will buy at least one poster for their dorm rooms.
+
+**Solution.**  The hypotheses are
+
+$$𝐻_0:𝑝= \frac{1}{3} \ \ \text{versus} \ \ 𝐻_𝑎:𝑝> \frac{1}{3}$$
+
+**Check if** $\hat{p}$ **is nearly normal under $H_0$ (use $p_0$ and $n$)**
+
+  - Assume it uses simple random sample. 
+  - Check success-failure conditions:
+
+$$n= 116, p_0= \frac{1}{3} \implies np_0= 38.67>10 \ \text{and}\ n(1-p_0)= 77.33>10$$
+
+So, if the null hypothesis were true, then
+
+$$𝜇_{\hat{p}}= \frac{1}{3} \ \text{and} \ S.E_{\hat{p}}= \sqrt{\frac{(1/3)*(1-1/3)}{116}}=0.0438$$
+
+By CLT, $\hat{p} \sim N(1/3,0.0438)$.
+</font>
+</div>
+
+## Compute p-value
+<div class="black">
+<font size="4">
+**Example (contd.)** The hypotheses are
+
+$$𝐻_0:𝑝= \frac{1}{3} \ \ \text{versus} \ \ 𝐻_𝑎:𝑝> \frac{1}{3}$$
+
+If $H_0$ were true, then $\hat{p} \sim N(1/3,0.0438)$. Also, $n=116$.
+
+<div class="blue">
+Calculate the p-value:
+</div>
+
+  - From the sample data, $\hat{p} = \frac{40}{116} =0.3448$
+
+  - Since it is a right-sided test, the p-value is $P(\hat{p} > 0.3448) = 0.3967$
+
+<div class="green">
+Notes: 
+
+- The calculation of P-value is the same as the direction of $𝐻_𝑎$)
+
+- There is a minor round off error in the above value due to rounding the sample proportion $P(\hat{p} > \frac{40}{116}) = 0.3964$.
+
+</font>
+</div>
+
+
+## Compute p-value
+
+<div class="black">
+<div class="blue">
+What is the p-value (how to compute)?
+</div>
+
+* The P-value is the probability calculated using the observed statistic $\hat{p}$ (here, $\hat{p}=40/116= 0.3448$) and the p-value describes how likely you are to have found a particular set of observations as in the direction of alternative hypothesis (greater than 0.3448) if the null hypothesis were true.
+
+<div class="blue">
+* The P-value summarizes the evidence against $𝐻_0$ in favor of $𝐻_a$.
+</div>
+
+
+* The approach used in hypothesis testing is called a proof by contradiction. To convince ourselves that $H_a$ is true, we must show that data contradict $H_0$. If the P-value is small, the data contradict $H_0$ and support $H_a$.
+</div>
+
+## Making Decision using p-value 
+<div class="black">
+**Using P-value**
+
+* The smaller P-value, the stronger evidence to reject 𝐻_0  in favor of $H_a$.
+
+* Usually, we compare the P-value with a pre-selected significance level 𝛼(which is small)—the default number is 𝛼=0.05. 
+
+<div class="blue">
+* Compare P-value with 𝛼: 
+</div>
+
+<div class="purple">
+  - If P-value $≤𝛼$, then we reject $𝐻_0$ in favor of $H_a$ ;
+  - If P-value $>𝛼$, then we lack strong evidence to reject $𝐻_0$, and $H_a$ cannot be substantiated.
+
+* In our example, P-value = 0.3967,  so we do not have strong  evidence to reject $𝐻_0$.</div>
+</div>
+
+
+## Calculating Test Statistic 
+<div class="black">
+<font size="4">
+**Example (cont.)**: The hypotheses are $H_0:𝑝= \frac{1}{3} \ \ \text{versus} \ \ 𝐻_𝑎:𝑝> \frac{1}{3}$
+
+* The sampling distribution is: $\hat{p}\sim𝑁(1/3, 0.0438)$
+
+* The observed statistic is: $\hat{p}= \frac{40}{116} \approx 0.3448$
+
+* The scaled test statistic $z$ is: 
+$z= \frac{\hat{p} - p_0}{se_0}= \frac{0.3448-\frac{1}{3}}{0.0438}= 0.26$
+
+```{r, out.width="55%" , echo=FALSE, fig.align='center'}
+bb <- readPNG("bb.png")
+grid.raster(bb)
+```
+</font>
+</div>
+
+
+## Making Decision using test statistic
+<div class="black">
+<font size="4">
+<div style="blue">
+Using Test Statistic:
+</div>
+
+* For given significant level $𝛼$,  find rejection region (R.R.): 
+
+  - For right-sided $𝐻_𝑎$, the rejection region is R.R. = ${𝑍>𝑧_𝛼}$, where $𝑃(𝑍>𝑧_𝛼 )=𝛼$. 
+  - (Note: R.R. is also in the same direction of $𝐻_𝑎$)
+  
+* So, for the right-sided test, for  $𝛼=0.05$, the R.R. $=\{𝑍>1.645\}$ since $z_{0.05}=1.645$ (check $𝑃(𝑍>1.645)=0.05$). 
+
+* If test statistic is in the R.R., we reject $𝐻_0$ in favor of $𝐻_𝑎$ ;
+
+* If test statistic is not in the R.R, we lack strong evidence to reject $𝐻_0$, and $𝐻_𝑎$ cannot be substantiated. 
+
+* In our example, $𝑧=0.26<1.645$,  not in the R.R. So, we do not have strong  evidence to reject $𝐻_0$. 
+</font>
+</div>
+
+
+## P-value and significance level (for right-sided)
+<div class="black">
+<font size="5">
+<div style="float: left; width: 70%;">
+* The drawing on the right represents a right-tail test where we fail to reject the null hypothesis: 
+
+  - P-Value $>𝛼$
+
+  - $c$: test static, 
+
+  - The area of shaded pink region is the P-value. 
+
+  - The area of shaded green region is the significance level $𝛼$, 
+
+  - $d$: score related to $𝛼 \ (𝑑=𝑧_𝛼\ \text{for}\ 𝑁(0,1))$. 
+
+* The drawing on the lower right represents a right-tail test where we reject the null hypothesis: P-Value $<𝛼$
+</div>
+
+<div style="float: left; width: 30%;">
+```{r, out.width="90%", echo=FALSE, fig.align='center'}
+vv <-readPNG("vv.png")
+grid.raster(vv)
+```
+
+```{r,  out.width="90%", echo=FALSE, fig.align='center'}
+vb <-readPNG("vb.png")
+grid.raster(vb)
+```
+</div>
+</font>
+</div>
+
+## Remarks
+<div class="black">
+<font size="4">
+
+- Using P-value or the z-test statistic (rejection region) give the same conclusion, for the same specified significance level $𝛼$. 
+
+- We call this as 1-proportion $𝑧$-test.
+
+- For hypothesis testing, we are in the setting that $\hat{p}$ is normally distributed: $\hat{p} \sim N(p_0, \sqrt{\frac{p_0(1−𝑝_0)}{n}})$ . It is called the null distribution as if the null hypothesis were true (i.e., $𝑝_0$ is used).
+</font>
+</div>
+
+## Example (Left-sided Test) 
+<div class="black">
+<font size="4">
+Fracking is a drilling method that uses high-pressure water and chemicals to exact oil and natural gas from underground rock formations. Consider the claim: “In the U. S., the proportion of people who oppose the use of fracking is less than 0.5”. Data from a Pew Research survey conducted in November 2014 shows, in a sample of 1353 people, 47.1% (637 of 1353) were opposed to the increased use of fracking, the rest either favored or no definite opinion. 
+
+**Questions to explore:**
+
+1) How strong is the evidence to support the claim that those opposing the increased use of fracking in the U.S. are in the minority?
+2) What decision can be made regarding this claim at a 0.05 significance level?
+</font>
+</div>
+
+## Example (cont.)
+<div class="black">
+<font size="4">
+
+Step 1: Form Hypotheses
+
+$H_0:𝑝=0.50$
+
+$𝐻_𝑎:𝑝<0.50$ [This is a left-sided hypothesis (one-sided)]
+
+Step 2: Check conditions (independence and large size):
+
+  - The 1353 people were selected randomly.
+  - $𝑛=1353, 𝑝_0=0.5, \hat{p}=0.471$
+  - $𝑛 𝑝_0=1353 × 0.5=676.5>10 \ \text{and} \ 𝑛 (1−𝑝_0 )=1353 ×0.5=676.5>10$.
+
+Step 3: Compute P-value
+
+  - If $𝐻_0$ were true, $S.E._{\hat{p}} =\sqrt{((0.5(1−0.5))/1353)}=0.01359$, then $\hat{p}\sim𝑁(0.5, 0.0136)$.
+
+  - The observed statistic is $\hat{p}=0.47$
+
+  - The test statistic is $z=(\hat{p}−𝑝_0)/𝑆.𝐸._\hat{p}= (0.47−0.5)/0.01359=−2.2075$
+
+  - Compute P-Value: $P(\hat{p} < 0.47)=P(Z<−2.2075)=0.0136$
+
+</font>
+</div>
+
+## Example (cont.)
+<div class="black">
+<font size="4">
+
+Step 4: Make Decision:
+
+  - As P-value $P(\hat{p} < 0.47)$ = P(z <−2.2075) = 0.0136 is very small, 0.0136 < 0.05 at significance level of 0.05, the evidence is very strong to reject $H_0$ and support $H_a$: That those opposing the increased use of frackling are in minority.
+
+<div class="blue">
+Note: for left-sided test, with 𝛼=0.05, the rejection region is R.R = $\{Z <-1.645\}$ ({$Z < -Z_𝛼$})
+</div>
+
+  - If we change the question to: “How strong is the evidence to support the claim that those opposing the increased use of fracking in the U.S. are not even?”
+  
+  - Then the alternative hypothesis is $H_a : p \neq 0.5$ (This is two-sided)
+  
+  - For $\hat{p} = 0.47$, the test statistic is $z = -2.21$, and the P-value is 
+  
+  $$P(|Z| > 2.21)= P(Z <-2.21) + P(Z >2.21)= 2P(Z <-2.21) = 2P(\hat{p} < 0.47)= 2(0.0136)= 0.0272$$
+
+  - The R.R = $|z| > z_{\frac{𝛼}{2}} = {Z < -z_{\frac{𝛼}{2}}} \ \text{or} \ Z > - z_{\frac{𝛼}{2}}$
+
+  - For $𝛼=0.05$, the two-sided R.R $={|𝑍|>1.96}$.
+</font>
+</div>
+
+## Testing Hypotheses using confidence intervals
+<div class="black">
+<font size="5">
+Using confidence intervals to do hypothesis tests if 
+- $𝐻_𝑎$ is two-sided;
+- the confidence level and significance level add to 100%.
+
+Steps
+
+1) Construct $\color{blue} {CI: \hat{p} \pm z_{\frac{𝛼}{2}} \times \sqrt{\frac{\hat{p}(1-\hat{p})}{n}}}$
+ 
+2) Make decision
+<div class="blue">
+- Null value $𝑝_0$ is not included in the interval → reject the null  hypothesis.
+
+- Null value $𝑝_0$ is included in the interval →cannot reject the null  hypothesis.
+</div>
+- This is a quick-and-dirty approach for hypothesis testing, but it doesn’t tell us the likelihood of certain outcomes under the  null hypothesis (the p-value).
+
+</font>
+</div>
+
+## Example
+<div class="black">
+<font size="4">
+If the hypotheses are $𝐻_0:𝑝=0.33$, $𝐻_𝑎:𝑝\neq 0.33$
+For a sample with 𝑛=50, $\hat{p}=0.24$,  use CI to test hypothesis.
+
+- **Construct 95% CI.** 
+
+check success and failure condition:
+
+n$\hat{p}$= 50 * 0.24 = 12>10,        n(1-$\hat{p}$) = 50*0.24=12>10
+
+$S.E_{\hat{p}} = \sqrt{\frac{0.24*(0.76)}{50}}=0.06$ (Note: we use $\hat{p}$ for C.I)
+
+for 95% confidence level, $z_{0.025}$= 1.96, the 95% CI is $\hat{p} \pm z_{0.025} \times S.E._{\hat{p}} = 0.24 \pm 1.96 \times 0.06$, That is, (0.122,0.358)
+
+
+-**The null value $p_0$ =0.33 is in the 95% CI**, so we failed to reject $H_0$ in favor of $H_a.$ 
+
+Note: Not reject $H_0$ does not necessarily mean $H_0$ is true.
+</font>
+</div>
+
+
+## Decision errors
+<div class="black">
+- Hypothesis tests are not flawless.
+
+- In the court system,  innocent people are sometimes wrongly  convicted and the guilty sometimes walk free.
+
+- Similarly, we can make a wrong decision in statistical  hypothesis tests as well.
+
+- In statistical hypothesis tests, we have tools necessary to quantify  how often we make errors in statistics.
+</div>
+
+
+## Hypothesis Test as a trial
+<div class="black">
+<div class="red"> Which error do you think is the worse error to make?
+</div>
+
+
+"Better that ten guilty person escape than that one innocent suffer"
+
+<div style="float: right; width: 50%;">
+$-$ William Blackstone
+</div> 
+</div>
+
+
+## Decision errors
+<div class="black">
+There are two competing hypotheses: the null and the alternative. In a hypothesis test, we make a decision about which might be true, but our choice might be incorrect.
+
+$$
+\begin{align}
+{} && {\textbf{Decision}} \\
+&&   && \text{fail to reject}\ H_0 &&  \text{reject}\ H_0 \\ \hline
+&& H_0 \ \text{true} && {{\checkmark}} &&  {\color{red}{Type \ I \ Error}} \\
+{\textbf{Truth}} && H_a \ \text{true} && {\color{red}{Type \ II \ Error}} && {{\checkmark}} \\ \hline
+\end{align}
+$$
+
+- A **Type I Error** is rejecting the null hypothesis when $H_0$ is true.
+- A **Type II Error** is failing to reject the null hypothesis when $H_a$ is true.
+- We (almost) never know if $H_0$ or $H_a$ is true, but we need to consider all possibilities.
+</div>
+
+
+## Type I and Type II Errors
+<div class="black">
+
+- Type I error, or “ false positive”, is the error of rejecting the null hypothesis and accepting an alternative hypothesis (the hypothesis of interest) when $H_0$ is actually true. This is the error when the sample result could be attributed to chance. 
+
+$\color{blue}{\text{P(Type I error)}= P(\text{reject}\ 𝐻_0 | 𝐻_0  \ \text{true})}$
+
+- Type II error, or "false negative",  is the error of not rejecting a null hypothesis and not accepting an alternative hypothesis when the alternative hypothesis is the true state of nature. This is the error when the true alternative hypothesis is not  observed. 
+
+$\color{blue}{\text{𝑃( Type II error)}=P(\text{not reject}\ 𝐻_0| 𝐻_𝑎 \ \text{true} )}$
+</div>
+
+## Type I and Type II errors and significance level
+<div class="black">
+<font size="5">
+$\color{blue}{\text{P(Type I error)}= P(\text{reject}\ 𝐻_0 | 𝐻_0 \ \text{true})= \alpha}$ (We reject $H_0$ if P-value $≤𝛼$)
+
+$\color{blue}{\text{𝑃( Type II error)}=P(\text{not reject} \ 𝐻_0| 𝐻_𝑎 \ \text{true})}= 1 - P(\text{reject}\ H_0|H_a \ \text{true})= \beta$
+
+- Choosing  smaller value of 𝛼 means (less rejection) less chance to make Type I error.
+
+- When using small values of $𝛼$, the P-value needs to be smaller so that we can reject $𝐻_0$, so it leads to less rejection, so smaller Type I error.
+
+- However, the smaller value of 𝛼 means (less rejection) leads to  more chance to make Type II error.
+
+- Choosing larger value of 𝛼 leads larger Type I error but  smaller Type II error.
+</font>
+</div>
+
+## Choosing a significance level
+<div class="black">
+
+While the traditional significance level is 0.05, it is helpful to adjust the  significance level based on the application.
+
+- Select a level that is smaller or larger than 0.05 depending on  the consequences of any conclusions reached from the test.
+
+- If making a Type I Error is dangerous or especially costly, we  should choose a small significance level (e.g. 0.01). Under this  scenario we want to be very cautious about rejecting the null  hypothesis, so we demand very strong evidence favoring $𝐻_a$  before we would reject $𝐻_0$.
+
+- If a Type II Error is relatively more dangerous or much more  costly than a Type I Error, then we should choose a higher  significance level (e.g. 0.10). Here we want to be cautious  about failing to reject $𝐻_0$ when the null is actually false.
+</div>
+
+
+## One vs. Test sided hypothesis tests( end of 5.3)
+<div class="black">
+- In two sided hypothesis tests we are interested in whether $p$ is either  above or below some null value $p_0: H_a: p \neq p_0$.
+
+- In one sided hypothesis test we are interested in $p$ differing from the null value $p_0$ in one direction (and not the other):
+
+  - If there is only value in detecting if population parameter is less than $p_0$, then $H_a: p<p_0$.
+  
+  - If there is only value in detecting if population parameter is greater than $p_0$ than $H_a: p>p_0$.
+  
+- Two-sided tests are often more appropriate as we often want to detect if the data goes clearly in the opposite direction of our alternative hypothesis as well.
+</div>
+
+
+
+

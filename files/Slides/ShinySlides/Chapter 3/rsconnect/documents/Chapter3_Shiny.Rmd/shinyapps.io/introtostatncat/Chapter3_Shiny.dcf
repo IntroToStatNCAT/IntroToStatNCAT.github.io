@@ -1,0 +1,13 @@
+name: Chapter3_Shiny
+title: Chapter3_Shiny
+username:
+account: introtostatncat
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 8148085
+bundleId: 6834366
+url: https://introtostatncat.shinyapps.io/Chapter3_Shiny/
+when: 1676077225.98944
+lastSyncTime: 1676077225.98945
+asMultiple: FALSE
+asStatic: FALSE

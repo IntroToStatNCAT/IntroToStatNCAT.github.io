@@ -1,0 +1,13 @@
+name: CL7_Inference_Categorical
+title:
+username:
+account: introtostatncat
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 8712403
+bundleId: 7028791
+url: https://introtostatncat.shinyapps.io/CL7_Inference_Categorical/
+when: 1680187407.48374
+lastSyncTime: 1680187407.48375
+asMultiple: FALSE
+asStatic: FALSE

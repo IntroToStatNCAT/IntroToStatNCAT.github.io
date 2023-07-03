@@ -1,0 +1,649 @@
+---
+title: "Chapter 9"
+subtitle: "Multiple and logistic regression"
+output: 
+  ioslides_presentation:
+    progressive: FALSE
+    smaller: yes
+    widescreen: yes
+    transition: "faster"
+
+runtime: shiny_prerendered
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+```{r, echo=F, message=F, warning=F}
+library(datasets)
+library(tidyverse)
+library(shiny)
+library(here)
+library(faraway)
+library(xtable)
+library(broom)
+library(scales)
+library(jpeg)
+library(openintro)
+library(learnr)
+library(readr)
+library(knitr)
+library(png)
+library(gradethis) #remotes::install_github("rstudio/gradethis")
+library(learnrhash) #devtools::install_github("rundel/learnrhash")
+library(grid)
+library(GGally)
+library(tinytex)
+library(DAAG)
+library(Sleuth3)
+library(ROCR)
+data(allbacks)
+data(COL)
+```
+
+
+## Acknowledgement
+
+<center>
+<div class="black">
+These notes use content from OpenIntro Statistics Slides by   
+
+Mine Cetinkaya-Rundel.
+</div>
+</center>
+
+# Model selection
+
+## Beauty in the classroom
+<div class="black">
+
+- Data: Student evaluations of instructors' beauty and teaching quality for 463 courses at the University of Texas.
+
+- Evaluations conducted at the end of semester, and the beauty judgements were made later, by six students who had not attended the classes and were not aware of the course evaluations (2 upper level females, 2 upper level males, one lower level female, one lower level male).
+
+</div>
+
+
+
+## Professor rating vs. beauty
+<div class="black">
+Professor evaluation score (higher score means better) vs. beauty score (a score of 0 means average, negative score means below average, and a positive score above average):
+
+```{r, echo=F, message=F, warning=F, out.width="80%",fig.align='center'}
+d = read.csv(file = "beauty.csv")
+
+###############################################################################
+# Do more beautiful profs get higher evaluations?
+###############################################################################
+
+# lm: beauty
+beauty_profeval = lm(profevaluation ~ beauty, data = d)
+
+par(mar=c(4,4,0.5,0.5))
+plot(x = d$beauty, y = d$profevaluation, xlab="beauty", ylab="professor evaluation", pch = 19, col = COL[1,2], cex = 1, cex.lab = 1.5)
+abline(beauty_profeval, col = COL[4], lwd = 4)
+```
+</div>
+
+
+##
+<div class="black">
+<div class="red">
+Which of the below is $\underline{correct}$ based on the model output?
+</div>
+
+$$
+\begin{eqnarray*}
+  \hline
+ & Estimate & Std. Error & t value & Pr(>|t|) \\ 
+  \hline
+(Intercept) & 4.19 & 0.03 & 167.24 & 0.00 \\ 
+  beauty & 0.13 & 0.03 & 4.00 & 0.00 \\
+   \hline
+R^2 = 0.0336
+\end{eqnarray*}
+$$
+
+- Model predicts 3.36\% of professor ratings correctly.
+\
+- Beauty is not a significant predictor of professor evaluation.
+\
+- Professors who score 1 point above average in their beauty score are tend to also score 0.13 points higher in their evaluation.
+\
+
+- 3.36\% of variability in beauty scores can be explained by professor evaluation.
+\
+
+- The correlation coefficient could be $\sqrt{0.0336} = 0.18$ or $-0.18$, we can't tell which is correct.
+</div>
+
+
+##
+<div class="black">
+<div class="red">
+Which of the below is $\underline{correct}$ based on the model output?
+</div>
+
+$$
+\begin{eqnarray*}
+  \hline
+ & Estimate & Std. Error & t value & Pr(>|t|) \\ 
+  \hline
+(Intercept) & 4.19 & 0.03 & 167.24 & 0.00 \\ 
+  beauty & 0.13 & 0.03 & 4.00 & 0.00 \\
+   \hline
+R^2 = 0.0336
+\end{eqnarray*}
+$$
+
+- Model predicts 3.36\% of professor ratings correctly.
+\
+- Beauty is not a significant predictor of professor evaluation.
+\
+- <div class="red"> Professors who score 1 point above average in their beauty score are tend to also score 0.13 points higher in their evaluation.</div>
+\
+- 3.36\% of variability in beauty scores can be explained by professor evaluation.
+\
+- The correlation coefficient could be $\sqrt{0.0336} = 0.18$ or $-0.18$, we can't tell which is correct.
+</div>
+
+
+
+## Exploratory analysis
+<div class="black">
+<div style="float: left; width: 45%;">
+```{r, echo=F, message=F, warning=F, out.width="100%",fig.align='center'}
+# lm: beauty + gender
+
+d$pch = NA
+d$col = NA
+d$pch[d$gender == "male"] = 15
+d$col[d$gender == "male"] = COL[1,2]
+d$pch[d$gender == "female"] = 17
+d$col[d$gender == "female"] = COL[2,2]
+
+par(mar=c(4,4,0.5,0.5), las=1, mgp=c(3,0.7,0), cex.lab = 1.5, cex.axis = 1.5)
+plot(d$profevaluation ~ d$beauty, pch = d$pch, col = d$col, xlab="beauty", ylab="professor evaluation")
+legend("bottomright", c("male","female"), col = c(COL[1,2],COL[2,2]), pch = c(15,17), cex = 1.5, inset = 0.05)
+
+```
+
+</div>
+<div style="float: right; width: 45%;">
+
+$\color{red}{\text{Any interesting features?}}$
+
+Few females with very low beauty scores.
+
+<div class="red">
+For a given beauty score, are male professors evaluated higher, lower, or about the same as female professors?
+</div>
+
+Difficult to tell from this plot only.
+
+</div>
+</div>
+
+
+## Professor rating vs. beauty + gender
+<div class="black">
+<div class="red">
+For a given beauty score, are male professors evaluated higher, lower, or about the same as female professors?
+</div>
+
+$$
+\begin{eqnarray*}
+  \hline
+ & Estimate & Std. Error & t value & Pr(>|t|) \\ 
+  \hline
+(Intercept) & 4.09 & 0.04 & 107.85 & 0.00 \\ 
+  beauty & 0.14 & 0.03 & 4.44 & 0.00 \\ 
+  gender.male & 0.17 & 0.05 & 3.38 & 0.00 \\ 
+   \hline
+R^2_{adj} = 0.057
+\end{eqnarray*}
+$$
+
+- higher
+- lower
+- about the same
+</div>
+
+
+## Professor rating vs. beauty + gender
+<div class="black">
+<div class="red">
+For a given beauty score, are male professors evaluated higher, lower, or about the same as female professors?
+</div>
+
+$$
+\begin{eqnarray*}
+  \hline
+ & Estimate & Std. Error & t value & Pr(>|t|) \\ 
+  \hline
+(Intercept) & 4.09 & 0.04 & 107.85 & 0.00 \\ 
+  beauty & 0.14 & 0.03 & 4.44 & 0.00 \\ 
+  gender.male & 0.17 & 0.05 & 3.38 & 0.00 \\ 
+   \hline
+R^2_{adj} = 0.057
+\end{eqnarray*}
+$$
+
+- <div class="red"> higher$\rightarrow$ Beauty held constant, male professors are rated 0.17 points higher on average than female professors. </div>
+
+- lower
+- about the same
+</div>
+
+## Full model
+<div class="black">
+
+<small>
+$$
+\begin{eqnarray*}
+  \hline
+ & Estimate & Std. Error & t value & Pr(>|t|) \\ 
+  \hline
+(Intercept) & 4.6282 & 0.1720 & 26.90 & 0.00 \\ 
+  beauty & 0.1080 & 0.0329 & 3.28 & 0.00 \\ 
+  gender.male & 0.2040 & 0.0528 & 3.87 & 0.00 \\ 
+  age & -0.0089 & 0.0032 & -2.75 & 0.01 \\ 
+formal.yes \tt{formal}: picture wearing tie\&jacket/blouse, levels: \tt{yes}, \tt{no} & 0.1511 & 0.0749 & 2.02 & 0.04 \\ 
+  lower.yes \tt{lower}: lower division course, levels: \tt{yes}, \tt{no} & 0.0582 & 0.0553 & 1.05 & 0.29 \\ 
+  native.non english & -0.2158 & 0.1147 & -1.88 & 0.06 \\ 
+  minority.yes & -0.0707 & 0.0763 & -0.93 & 0.35 \\ 
+  students \tt{students}: number of students & -0.0004 & 0.0004 & -1.03 & 0.30 \\ 
+  tenure.tenure track \tt{tenure}: tenure status, levels: \tt{non-tenure track}, \tt{tenure track}, \tt{tenured} & -0.1933 & 0.0847 & -2.28 & 0.02 \\ 
+  tenure.tenured & -0.1574 & 0.0656 & -2.40 & 0.02 \\ 
+   \hline
+\end{eqnarray*}
+$$
+</small>
+</div>
+
+## Hypotheses
+<div class="black">
+Just as the interpretation of the slope parameters take into account all other variables in the model,  the hypotheses for testing for significance of a predictor also takes into account all other variables.
+
+
+- [$H_0:$] $B_i = 0$ when other explanatory variables are included in the model.
+
+- [$H_A:$] $B_i \ne 0$ when other explanatory variables are included in the model.
+
+</div>
+
+
+
+## Assessing significance: numerical variables
+<div class="black">
+<div class="red">
+The p-value for age is 0.01. What does this indicate?
+</div>
+
+$$
+\begin{eqnarray*}
+  \hline
+ & Estimate & Std. Error & t value & Pr(>|t|) \\ 
+  \hline
+...\\
+  age & -0.0089 & 0.0032 & -2.75 & 0.01 \\ 
+...\\
+   \hline
+\end{eqnarray*}
+$$
+- Since p-value is positive, higher the professor's age, the higher we would expect them to be rated.
+
+- If we keep all other variables in the model, there is strong evidence that professor's age is associated with their rating.
+
+- Probability that the true slope parameter for age is 0 is 0.01.
+
+- There is about 1\% chance that the true slope parameter for age is -0.0089.
+</div>
+
+
+## Assessing significance: numerical variables
+<div class="black">
+<div class="red">
+The p-value for age is 0.01. What does this indicate?
+</div>
+
+$$
+\begin{eqnarray*}
+  \hline
+ & Estimate & Std. Error & t value & Pr(>|t|) \\ 
+  \hline
+...\\
+  age & -0.0089 & 0.0032 & -2.75 & 0.01 \\ 
+...\\
+   \hline
+\end{eqnarray*}
+$$
+
+- Since p-value is positive, higher the professor's age, the higher we would expect them to be rated.
+\
+- <div class="red"> If we keep all other variables in the model, there is strong evidence that professor's age is associated with their rating.</div>
+
+\
+- Probability that the true slope parameter for age is 0 is 0.01.
+\
+- There is about 1\% chance that the true slope parameter for age is -0.0089.
+</div>
+
+
+## Assessing significance: categorical variables
+<div class="black">
+<div class="red">
+Tenure is a categorical variable with 3 levels: non tenure track, tenure track, tenured. Based on the model output given, which of the below is $\underline{false}$?
+</div>
+
+$$
+\begin{eqnarray*}
+  \hline
+ & Estimate & Std. Error & t value & Pr(>|t|) \\ 
+  \hline
+... \\
+  tenure.tenure track & -0.1933 & 0.0847 & -2.28 & 0.02 \\ 
+  tenure.tenured & -0.1574 & 0.0656 & -2.40 & 0.02 \\ 
+   \hline
+\end{eqnarray*}
+$$
+
+- Reference level is non tenure track.
+\
+- All else being equal, tenure track professors are rated, on average, 0.19 points lower than non-tenure track professors.
+\
+- All else being equal, tenured professors are rated, on average, 0.16 points lower than non-tenure track professors.
+\
+- All else being equal, there is a significant difference between the average ratings of tenure track and tenured professors.
+</div>
+
+
+
+## Assessing significance: categorical variables
+<div class="black">
+<div class="red">
+Tenure is a categorical variable with 3 levels: non tenure track, tenure track, tenured. Based on the model output given, which of the below is $\underline{false}$?
+</div>
+
+$$
+\begin{eqnarray*}
+  \hline
+ & Estimate & Std. Error & t value & Pr(>|t|) \\ 
+  \hline
+... \\
+  tenure.tenure track & -0.1933 & 0.0847 & -2.28 & 0.02 \\ 
+  tenure.tenured & -0.1574 & 0.0656 & -2.40 & 0.02 \\ 
+   \hline
+\end{eqnarray*}
+$$
+
+- Reference level is non tenure track.
+\
+- All else being equal, tenure track professors are rated, on average, 0.19 points lower than non-tenure track professors.
+\
+- All else being equal, tenured professors are rated, on average, 0.16 points lower than non-tenure track professors.
+\
+- <div class="red"> All else being equal, there is a significant difference between the average ratings of tenure track and tenured professors.</div>
+
+</div>
+
+## Assessing significance
+<div class="black">
+<div class="red">
+Which predictors do not seem to meaningfully contribute to the model, i.e. may not be significant predictors of professor's rating score?
+</div>
+$$
+\begin{eqnarray*}
+  \hline
+ & Estimate & Std. Error & t value & Pr(>|t|) \\ 
+  \hline
+(Intercept) & 4.6282 & 0.1720 & 26.90 & 0.00 \\ 
+  beauty & 0.1080 & 0.0329 & 3.28 & 0.00 \\ 
+  gender.male & 0.2040 & 0.0528 & 3.87 & 0.00 \\ 
+  age & -0.0089 & 0.0032 & -2.75 & 0.01 \\ 
+  formal.yes & 0.1511 & 0.0749 & 2.02 & 0.04 \\ 
+  \hline
+  \color{red}{lower.yes} & \color{red}{0.0582} & \color{red}{0.0553} & \color{red}{1.05} & \color{red}{0.29} \\ 
+  \color{red}{native.non english} & \color{red}{-0.2158} & \color{red}{0.1147} & \color{red}{-1.88} & \color{red}{0.06} \\ 
+  \color{red}{minority.yes} & \color{red}{-0.0707} & \color{red}{0.0763} & \color{red}{-0.93} & \color{red}{0.35} \\ 
+  \color{red}{students} & \color{red}{-0.0004} & \color{red}{0.0004} & \color{red}{-1.03} & \color{red}{0.30} \\ 
+  \hline
+  tenure.tenure track & -0.1933 & 0.0847 & -2.28 & 0.02 \\ 
+  tenure.tenured & -0.1574 & 0.0656 & -2.40 & 0.02 \\ 
+   \hline
+  \end{eqnarray*}
+$$
+</div>
+
+
+## Model selection strategies
+<div class="black">
+<div class="red">
+Based on what we've learned so far, what are some ways you can think of that can be used to determine which variables to keep in the model and which to leave out?
+</div>
+</div>
+
+
+
+## Backward-elimination
+<div class="black">
+
+- Start with the full model
+
+- Drop one variable at a time and record $R^2_{adj}$ of each smaller model
+
+- Pick the model with the highest increase in $R^2_{adj}$
+
+- Repeat until none of the models yield an increase in $R^2_{adj}$
+</div>
+
+
+## Backward-elimination
+<div class="black">
+<small>
+$$
+\begin{eqnarray*}
+&gender + age + formal + lower + native + minority + students + tenure & \color{red}{0.0839} \\
+\hline
+Step 1 	& gender + age + formal + lower + native + minority + students + tenure		& 0.0642 \\
+		& beauty + age + formal + lower + native + minority + students + tenure		& 0.0557 \\
+		& beauty + gender + formal + lower + native + minority + students + tenure	& 0.0706 \\
+		& beauty + gender + age + lower + native + minority + students + tenure		& 0.0777 \\
+		& beauty + gender + age + formal + native + minority + students + tenure		& 0.0837 \\
+		& beauty + gender + age + formal + lower + minority + students + tenure		& 0.0788 \\
+		& beauty + gender + age + formal + lower + native + students + tenure		& \color{red}{0.0842} \\
+		& beauty + gender + age + formal + lower + native + minority + tenure		& 0.0838 \\
+		& beauty + gender + age + formal + lower + native + minority + students		& 0.0733 \\
+\hline
+\end{eqnarray*}
+$$
+</small>
+</div>
+
+## Backward-elimination
+<div class="black">
+<small>
+$$
+\begin{eqnarray*}
+\hline
+Step 2	& gender + age + formal + lower + native + students + tenure 				& 0.0647 \\
+		& beauty + age + formal + lower + native + students + tenure 				& 0.0543 \\
+		& beauty + gender + formal + lower + native + students + tenure 			& 0.0708 \\
+		& beauty + gender + age + lower + native + students + tenure 				&0.0776  \\
+		& beauty + gender + age + formal + native + students + tenure 			& \color {red}{0.0846} \\
+		& beauty + gender + age + formal + lower + native + tenure 				& 0.0844 \\
+		& beauty + gender + age + formal + lower + native + students 				& 0.0725 \\
+\hline
+\end{eqnarray*}
+$$
+</small>
+</div>
+
+## Backward-elimination
+<div class="black">
+<small>
+$$
+\begin{eqnarray*}
+\hline
+Step 3	& gender + age + formal + native + students + tenure 					& 0.0653 \\
+		& beauty + age + formal + native + students + tenure					& 0.0534 \\
+		& beauty + gender + formal + native + students + tenure					& 0.0707 \\
+		& beauty + gender + age + native + students + tenure					& 0.0786 \\
+		& beauty + gender + age + formal + students + tenure					& 0.0756 \\
+		& beauty + gender + age + formal + native + tenure						& \color{red}{0.0855} \\
+		& beauty + gender + age + formal + native + students					& 0.0713 \\
+\hline
+Step 4	& gender + age + formal + native + tenure 							& 0.0667 \\
+		& beauty + age + formal + native + tenure								& 0.0553 \\
+		& beauty + gender + formal + native + tenure							& 0.0723 \\
+		& beauty + gender + age + native + tenure							& 0.0806 \\
+		& beauty + gender + age + formal + tenure							& 0.0773 \\
+		& beauty + gender + age + formal + native							& 0.0713 \\
+\end{eqnarray*}
+$$
+</small>
+</div>
+
+
+## $\tt{step}$ function in R
+<div class="black">
+<normalsize>
+Best model: beauty + gender + age + formal + native + tenure
+</normalsize>
+<small>
+```{r, out.width="20%", out.height="30%"}
+# full model
+m = lm(profevaluation ~ beauty + gender + age + formal + lower + native + minority + students + tenure, data = d)
+summary(m)
+```
+</small>
+</div>
+
+
+## Forward selection
+<div class="black">
+
+- Start with regressions of response vs. each explanatory variable
+
+- Pick the model with the highest $R^2_{adj}$
+
+- Add the remaining variables one at a time to the existing model, and once again pick the model  with the highest $R^2_{adj}$
+
+- Repeat until the addition of any of the remaining variables does not result in a higher $R^2_{adj}$
+
+</div>
+
+
+##
+
+<div class="black">
+
+- Backward elimination with the p-value approach: 
+
+    - Start with the full model
+    
+    - Drop the variable with the highest p-value and refit a smaller model
+    
+    - Repeat until all variables left in the model are significant
+
+
+- Forward selection with the p-value approach: 
+
+    - Start with regressions of response vs. each explanatory variable
+    
+    - Pick the variable with the lowest significant p-value 
+    
+    - Add the remaining variables one at a time to the existing model, and pick the variable with the lowest significant p-value
+    
+    - Repeat until any of the remaining variables does not have a significant p-value
+</div>
+
+
+
+
+
+## Backward-elimination: $p-value$ approach
+<div class="black">
+<small>
+$$
+\begin{eqnarray*}
+\hline
+Full & beauty	& gender		& age	& formal		& lower 	& native	 	& minority		& students	& tenure		& tenure \\
+		& 		& male		& 		& yes		& yes	 & nonenglish	& yes		& 			& tenure track	& tenured \\
+		&  0.00 	&  0.00 		& 0.01	& 0.04		& 0.29	& 0.06		& \color{red}{0.35}	& 0.30		& 0.02		& 0.02 \\
+\hline
+Step 1	& beauty	& gender		& age	& formal		& lower 		& native	 	& 			& students	& tenure		& tenure \\
+		& 		& male		& 		& yes		& yes		& nonenglish	& 			& 			& tenure track	& tenured \\
+		&  0.00 	&  0.00 		& 0.01	& 0.04		& \color{red}{0.38}	& 0.03		&			& 0.34		& 0.02		& 0.01 \\
+\hline
+Step 2	& beauty	& gender		& age	& formal		& 	 		& native	 	& 			& students	& tenure		& tenure \\
+		& 		& male		& 		& yes		& 			& nonenglish	& 			& 			& tenure track	& tenured \\
+		&  0.00 	&  0.00 		& 0.01	& 0.05		& 			& 0.02		&			& \color{red}{0.44}	& 0.01		& 0.01\\ 
+\hline
+Step 3 	& beauty	& gender		& age	& formal		& 	 		& native	 	& 			& 			& tenure		& tenure \\
+		& 		& male		& 		& yes		& 			& nonenglish	& 			& 			& tenure track	& tenured \\
+		&  0.00 	&  0.00 		& 0.01	& \color{red}{0.06}	& 			& 0.02		&			& 			& 0.01		& 0.01  \\
+\hline
+Step 	4	& beauty	& gender		& age	& 			& 	 		& native	 	& 			& 			& tenure		& tenure \\
+		& 		& male		& 		& 			& 			& nonenglish	& 			& 			& tenure track	& tenured \\
+		&  0.00 	&  0.00 		& 0.01	&			& 			& \color{red}{0.06}	&			& 			& 0.01		& 0.01  \\
+\hline
+Step 5 	& beauty	& gender		& age	& 			& 	 		& 		 	& 			& 			& tenure		& tenure \\
+		& 		& male		& 		& 			& 			&			& 			& 			& tenure track	& tenured \\
+		&  0.00 	&  0.00 		& 0.01	&			& 			& 			&			& 			& 0.01		& 0.01 \\ 
+\end{eqnarray*}
+$$
+</small>
+</div>
+
+
+## Backward-elimination: $p-value$ approach
+<div class="black">
+<small>
+$$
+\begin{eqnarray*}
+\hline
+Full		& beauty	& gender		& age	& formal		& lower 	& native	 	& minority		& students	& tenure		& tenure \\
+		& 		& male		& 		& yes		& yes	 & nonenglish	& yes		& 			& tenure track	& tenured \\
+		&  0.00 	&  0.00 		& 0.01	& 0.04		& 0.29	& 0.06		& \color{red}{0.35}	& 0.30		& 0.02		& 0.02 \\
+\hline
+Step 1	& beauty	& gender		& age	& formal		& lower 		& native	 	& 			& students	& tenure		& tenure \\
+		& 		& male		& 		& yes		& yes		& nonenglish	& 			& 			& tenure track	& tenured \\
+		&  0.00 	&  0.00 		& 0.01	& 0.04		& \color{red}{0.38}	& 0.03		&			& 0.34		& 0.02		& 0.01 \\
+\hline
+Step 2	& beauty	& gender		& age	& formal		& 	 		& native	 	& 			& students	& tenure		& tenure \\
+		& 		& male		& 		& yes		& 			& nonenglish	& 			& 			& tenure track	& tenured \\
+		&  0.00 	&  0.00 		& 0.01	& 0.05		& 			& 0.02		&			& \color{red}{0.44}	& 0.01		& 0.01\\ 
+\hline
+Step 3 	& beauty	& gender		& age	& formal		& 	 		& native	 	& 			& 			& tenure		& tenure \\
+		& 		& male		& 		& yes		& 			& nonenglish	& 			& 			& tenure track	& tenured \\
+		&  0.00 	&  0.00 		& 0.01	& \color{red}{0.06}	& 			& 0.02		&			& 			& 0.01		& 0.01  \\
+\hline
+Step 	4	& beauty	& gender		& age	& 			& 	 		& native	 	& 			& 			& tenure		& tenure \\
+		& 		& male		& 		& 			& 			& nonenglish	& 			& 			& tenure track	& tenured \\
+		&  0.00 	&  0.00 		& 0.01	&			& 			& \color{red}{0.06}	&			& 			& 0.01		& 0.01  \\
+\hline
+Step 5 	& beauty	& gender		& age	& 			& 	 		& 		 	& 			& 			& tenure		& tenure \\
+		& 		& male		& 		& 			& 			&			& 			& 			& tenure track	& tenured \\
+		&  0.00 	&  0.00 		& 0.01	&			& 			& 			&			& 			& 0.01		& 0.01 \\ 
+\end{eqnarray*}
+$$
+</small>
+Best model: beauty + gender + age + tenure
+</div>
+
+## Adjusted $R^2$ vs. p-value approaches
+<div class="black">
+
+- The two approaches are similar, but they sometimes lead to different models, with the adjusted $R^2$ approach tending to include more predictors in the final model.
+
+- When the sole goal is to improve prediction accuracy, use $R^2$ . This is commonly the case in machine learning applications.
+
+- When we care about understanding which variables are statistically significant predictors of the response, or if there is interest in producing a simpler model at the potential cost of a little prediction accuracy, then the p-value approach is preferred.
+
+- Regardless of the approach we use, our job is not done after variable selection -- we must still verify the model conditions are reasonable.
+</div>
+
+
+

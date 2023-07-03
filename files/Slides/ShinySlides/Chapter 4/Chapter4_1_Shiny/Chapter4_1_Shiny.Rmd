@@ -1,0 +1,920 @@
+---
+title: "Chapter 4"
+subtitle: 'Distributions of Random Variables' 
+output: 
+  ioslides_presentation:
+  progressive: FALSE
+smaller: yes
+widescreen: yes
+transition: "faster"
+runtime: shiny_prerendered
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+```{r, echo=F, message=F, warning=F}
+library(tidyverse)
+library(readr)
+library(openintro)
+library(shiny)
+library(scales)
+library(jpeg)
+library(dplyr)
+library(ggplot2)
+library(learnr)
+library(knitr)
+library(png)
+library(gradethis) #remotes::install_github("rstudio/gradethis")
+library(learnrhash) #devtools::install_github("rundel/learnrhash")
+library(grid)
+library(datasets)
+
+data(COL)
+```
+
+## Acknowledgement
+
+<center>
+<div class="black">
+These notes use content from OpenIntro Statistics Slides by   
+
+Mine Cetinkaya-Rundel.
+</div>
+</center>
+
+## 4.1  Normal distribution
+<div class="black">
+In this section, we discuss Normal Distribution, a continuous random variable distribution. 
+
+- Probability Distribution of a Continuous Random Variable 
+\
+- The Characteristics of Normal Distribution (shape, mean, standard deviation)
+\
+- The Standard normal distribution
+\
+- Find probability for standard/general normal distribution using R
+\
+- Compute z-scores for any value of normally distributed random variable
+\
+- Find the value of normal distribution variable given probability
+\
+- Find percentile
+\
+- The 68-95-99.7 Rule (Empirical Rule)
+
+
+## Continous Random Variable (3.5)
+<div class="black">
+<font size= "5">
+- A random variable is called continuous when its possible values form an interval.
+\
+- The probability distribution of a continuous random variable $X$ is denoted by a probability density function (pdf) $𝑓(𝑥)$, with $𝑓(𝑥)≥0$.
+\
+- The pdf of $X$ is usually represented by a probability density curve over the interval of all possible values of the random variable as shown below.
+\
+- The probability that $X$ falls between two values 𝑎 and 𝑏, is the area under the curve between 𝑎 and 𝑏,  expressed as $𝑃(𝑎<𝑋<𝑏)$.
+</font>
+
+```{r, out.width= "30%", fig.align='center'}
+pp <- readPNG("pp.png")
+grid.raster(pp)
+```
+
+<font size= "5">
+- Similar definition applies to $𝑃(𝑋<𝑏)$ and $𝑃(𝑎<𝑋)$.
+\
+- The total probability (the total area under the density curve) equals to 1.
+</font>
+
+</div>
+
+
+## Probability Distribution of a Continuous Random Variable
+<div class="black">
+<div style="float: left; width: 50%;">
+**Example**. The graph on the right represents the probability distribution of commuting time from a survey.
+The area under the curve for values higher than 45 is 0.15. That is, $𝑃(𝑋≥45)=0.15$.
+</div>
+
+<div style="float: right; width: 50%;">
+```{r, out.width= "80%"}
+ss <- readPNG("ss.png")
+grid.raster(ss)
+```
+</div>
+\
+Practice:
+
+1) Find $𝑃(𝑋<45)$.
+ \
+2) What is the percentage of commuting time that is less than 45 minutes?
+
+**Note**: $𝑃(𝑋<45)=𝑃(𝑋≤45)$  -- the equal sign does not make difference here in the case of continuous random variable because $𝑃(𝑋=45)=0$.
+</div>
+
+## From Histograms to Continous Distribution
+<div class="black">
+
+**Example.** Below are a some histograms with different bin widths (10, 5, 2.5, 1.25) for the heights of U.S. adults. 
+```{r, out.width="45%", fig.align='center'}
+xx <- readPNG("xx.png")
+grid.raster(xx)
+```
+
+<div style="float: left; width: 50%;">
+In the last two plots,  the bins are so slim that they start to resemble a smooth curve, which represents a density function.
+</div>
+
+<div style="float: right; width: 50%;">
+```{r, out.width="60%", fig.align='center'}
+rr <- readPNG("rr.png")
+grid.raster(rr)
+```
+</div>
+</div>
+
+
+
+## Probabilities from a Continous Distribution
+<div class="black">
+<font size="4">
+
+**Example**.  From the histogram, if the sample size is 3,000, 000, and the counts in bins [180, 182.5) and [182.5, 185) are 195,307 and 156,239, Find the proportion of US adults whose heights in  [180, 185).
+
+- The estimated probability is $\frac{195,307+156,239}{3,000,000}=0.1172$
+</font>
+
+```{r, out.width="25%", fig.align='center'}
+hh <- readPNG("hh.png") 
+grid.raster(hh)
+```
+
+<font size="4">
+- For continuous distribution, P(height in [180, 185)) = area under the curve between 180 and 185 =0.1157
+
+```{r, out.width= "25%", fig.align='center'}
+kk <- readPNG("kk.png")
+grid.raster(kk)
+```
+</font>
+</div>
+
+
+
+## Normal distribution (4.1)
+<div class="black">
+<font size="3">
+
+- Normal distribution is a probability distribution of a continuous random variable with values on $(-\infty, \infty)$.
+\
+- The normal distribution is characterized by its mean $\mu$ and standard deviation $\sigma$. Its probability density function is 
+
+$$𝑓(𝑥)=\frac{1}{\sigma \sqrt{2\pi}}e^{-\frac{1}{2}\left(\frac{𝑥−\mu}{\sigma}\right)^2}\ \ ; \ \  (−∞<𝑥<∞)$$
+
+- The graph of this function is bell-shaped, symmetric about the center $\mu$.
+
+- Normal distribution is denoted as $\color{red}{𝑁(\mu, \sigma)}$. It is determined by the mean $\mu$ (the center) and standard  deviation $\sigma$.
+\
+- $𝑁(0, 1)$  is the standard normal distribution with $\mu=0$ and $\sigma=1$
+\
+- Many variables are nearly normal, but none are exactly normal.
+
+```{r, echo=F, message=F, warning=F, fig.width=4, fig.height=1.5,fig.align='center'}
+#===> plot <===#
+par(mfrow=c(1,1), las=1, mar=0.5*c(1,1,1,1))
+
+# curve 1
+X <- seq(-4,4,0.01)
+Y <- dnorm(X)
+plot(X, Y, type='l', axes=F, xlim=c(-3.4,3.4), col='#335588', lwd=4)
+#axis(1, at=-3:3)
+abline(h=-0.002, col='#888888')
+```
+</font>
+</div>
+
+## Normal Distributions with Different $\mu$ and $\sigma$
+<div class="black">
+
+```{r, out.width= "55%", fig.align='center'}
+ff <- readPNG("ff.png")
+grid.raster(ff)
+```
+
+**Discussion:**
+
+1) What does the value of $\mu$ represent?
+\
+2) How does the value of $\sigma$ affect the shape of the curve?
+
+</div>
+ 
+<!-- ## Normal distributions with different parameters -->
+<!-- <div class="black"> -->
+
+<!-- $$\mu: \text{mean}, \sigma: \text{standard deviation}$$ -->
+<!-- \ -->
+<!-- ```{r, echo=F, message=F, warning=F, fig.width=4, fig.height=2,fig.align='center',include=F} -->
+<!-- set.seed(1) -->
+
+<!-- x <- rnorm(100000) -->
+<!-- hold <- hist(x, breaks=50, prob=T) -->
+
+<!-- ``` -->
+<!-- \ -->
+<!-- ```{r, echo=F, message=F, warning=F, fig.width=3, fig.height=1.5,fig.align='center'} -->
+
+<!-- #===> plot <===# -->
+<!-- par(mfrow=c(1,2), las=1, mar=c(2.5,1,0.5,1)) -->
+
+<!-- #main = bquote('N('~mu==.0~','~sigma==.1~')') -->
+
+<!-- # curve 1 -->
+<!-- X <- seq(-4,4,0.01) -->
+<!-- Y <- dnorm(X) -->
+<!-- plot(X, Y, type='l', axes=F, xlim=c(-3.4,3.4), -->
+<!--      main = bquote('N('~mu==.0~','~sigma==.1~')'),line=-0.01) -->
+<!-- axis(1, at=-3:3) -->
+<!-- for(i in 1:length(hold$counts)){ -->
+<!-- 	rect(hold$breaks[i], 0, hold$breaks[i+1], hold$density[i], -->
+<!-- 		border='#DDDDDD', col='#F4F4F4') -->
+<!-- } -->
+<!-- lines(X, Y) -->
+<!-- abline(h=0) -->
+
+<!-- # curve 2 -->
+<!-- X <- seq(3,35,0.01) -->
+<!-- Y <- dnorm(X, 19, 4) -->
+<!-- plot(X, Y, type='l', axes=F, xlim=c(5.4,32.6), -->
+<!--      main = bquote('N('~mu==19~','~sigma==.4~')'),line=-0.01) -->
+<!-- axis(1, at=19+4*(-3:3)) -->
+
+<!-- for(i in 1:length(hold$counts)){ -->
+<!-- 	rect(19+4*hold$breaks[i], 0, 19+4*hold$breaks[i+1], hold$density[i]/4, -->
+<!-- 		border='#DDDDDD', col='#F4F4F4') -->
+<!-- } -->
+<!-- lines(X, Y) -->
+<!-- abline(h=0) -->
+<!-- ``` -->
+<!-- \ -->
+
+<!-- ```{r, echo=F, message=F, warning=F, fig.width=4, fig.height=2,fig.align='center',include=F} -->
+<!-- set.seed(1) -->
+
+<!-- x <- rnorm(100000) -->
+<!-- hold <- hist(x, breaks=50, prob=T) -->
+<!-- ``` -->
+<!-- \ -->
+<!-- ```{r, echo=F, message=F, warning=F, fig.width=3, fig.height=1.5,fig.align='center'} -->
+
+<!-- #===> plot <===# -->
+<!-- par(mfrow=c(1,1), las=1, mar=c(2.5,1,0.5,1)) -->
+
+<!-- # curve 1 -->
+<!-- X <- seq(-4,4,0.01) -->
+<!-- Y <- dnorm(X) -->
+<!-- plot(X, Y, type='l', axes=F, xlim=c(-5,35)) -->
+<!-- axis(1, at=seq(-10, 40, 10)) -->
+<!-- lines(X, Y) -->
+<!-- abline(h=0) -->
+
+<!-- # curve 2 -->
+<!-- X <- seq(3,35,0.01) -->
+<!-- Y <- dnorm(X, 19, 4) -->
+<!-- lines(X, Y) -->
+<!-- ``` -->
+<!-- </div> -->
+
+## Finding Normal Probabilities Using R
+<div class="black">
+<font size="3">
+Using the function `pnorm()`:
+
+- Find the area to the left of a given value $x$: `pnorm(x, mean, sd)`
+\
+- Find the area to the right of $𝑥$: `pnorm(x, mean, sd, lower.tail = FALSE)`
+
+**Example**: Suppose $X\sim 𝑁(72, 15.2)$ (that is $\mu=72, \sigma=15.2$). To find
+\
+- P(X < 84)
+
+```{r Ex_1,exercise=TRUE}
+pnorm(84, mean =72, sd = 15.2)
+```
+
+- P(X > 84)
+
+```{r Ex__3,exercise=TRUE}
+
+pnorm(84, mean =72, sd = 15.2, lower.tail = FALSE)
+
+```
+
+</font>
+</div>
+
+## Finding Normal Probabilities Using R
+<div class="black">
+<font size="3">
+Using the function `pnorm()`:
+
+- Find the area to between two values $a$ and $b$: `pnorm(b, mean, sd) - pnorm(a, mean, sd)`
+\
+
+**Example**: Suppose $X\sim 𝑁(72, 15.2)$ (that is $\mu=72, \sigma=15.2$). To find
+\
+
+- P(70 < X < 90)
+
+```{r Ex__4,exercise=TRUE}
+
+pnorm(90, mean =72, sd = 15.2)- pnorm(70, mean =72, sd = 15.2)
+
+```
+
+OR
+
+```{r Ex__41,exercise=TRUE}
+
+1 - (pnorm(70, mean =72, sd = 15.2) + pnorm(90, mean =72, sd = 15.2, lower.tail = FALSE))
+
+```
+
+</font>
+</div>
+
+## Standard Normal Distribution: $N(0,1)$
+<div class="black">
+<font size="5">
+- The standard normal distribution is $𝑁(0,1)$. That is, $\mu=0$ and $\sigma=1$. 
+\
+- The letter $Z$ is used for the random variable that has standard normal distribution.
+\
+- The cumulative probability under the standard normal distribution is given by a table (see Textbook, Appendix C, page 410-411)  -- See an Example on next slide.
+\
+- The function `pnorm()` can also be used to compute probabilities under the standard normal distribution by setting the `mean = 0` and `sd = 1` or simply not specifying them.
+\
+-Example: Suppose $Z\sim N(0,1)$. Find $P(Z<1)$.
+
+```{r Ex__42,exercise=TRUE}
+pnorm(1, mean =0, sd = 1)
+```
+
+OR
+
+```{r Ex__43,exercise=TRUE}
+pnorm(1)
+```
+
+</font>
+</div>
+
+## Calculating probabilities - using tables
+
+-Example: Suppose $Z\sim N(0,1)$. Find $P(Z<1)$ using the Z-Table.
+
+```{r, echo=FALSE, out.width= "65%", fig.align='center'}
+z <- readPNG("z.png")
+grid.raster(z)
+```
+
+- Note that the Table gives the same result as R (previous slide).
+
+## Practice 
+<div class="black">
+<font size="4">
+For $𝑁(0,1)$, what percent of the variable is in each region? Sketch the graph for each region and use the code chunk below to find the probabilities using `pnorm()`.
+\
+1) $𝑍<1.25$
+\
+2) $𝑍>−0.25$
+\
+3) $−0.4 <𝑍<1.5$
+\
+4) $|𝑍|<1.25$
+\
+5) $|𝑍|> 2.23$
+
+```{r Quiz1, exercise=TRUE, size=2}
+
+```
+</font>
+</div>
+
+## Practice Answers
+<div class="black">
+<font size="4">
+For 𝑁(0,1) , what percent of the variable is in each region? Sketch the graph for each region.
+\
+1) 𝑍<1.25
+\
+2) 𝑍>−0.25
+\
+3) −0.4 <𝑍<1.5 
+\
+4) |𝑍|<1.25
+\
+5) |𝑍|> 2.23
+
+Answers:
+
+0.8944 (89.44%)
+\
+0.5987
+\
+0.5886
+\
+0.7888
+\
+0.0258
+
+</font>
+</div>
+
+## Finding Probability Using  Online App
+<div class="black">
+<font size="4">
+
+- **Web Applet:** [https://gallery.shinyapps.io/dist_calc/](https://gallery.shinyapps.io/dist_calc/)
+
+This app allows us to change: 1) mean; 2) standard deviation; 3) area (lower tail, upper tail, two tails, middle)
+
+```{r,echo= FALSE,out.width= "70%", Include= F, fig.align='center'}
+app <- readPNG("zprobs_app.png")
+grid.raster(app)
+```
+</font>
+</div>
+
+## The Z-score
+<div class="black">
+<font size="4">
+- For an observation $𝑥$ of $𝑋$, the z-score (standardized scores) is
+  $𝑧=\frac{𝑥−\mu}{\sigma}$ where $\mu$ is the mean, $\sigma$ is the standard deviation
+  
+- If $𝑋$ has a normal distribution $𝑁(\mu, \sigma)$, then $𝑍=\frac{𝑋−\mu}{\sigma}$  has the standard normal distribution $N(0,1)$.
+
+- The z-score of an observation is the number of standard deviations  it falls  above ($𝑧>0$) or below ($𝑧<0$) the mean: $$𝑥=\mu+𝑧\sigma $$
+
+- The z score of $\mu$ is  0 (for any distribution)
+
+- Observations that are more than 2 SD away from the mean  ($|𝑍| > 2$) are usually considered unusual.
+
+</font>
+</div>
+
+## Standard Normal to General Normal Distribution
+<div class="black">
+<div style="float:left; width: 70%;">
+Using R, we can find (see earlier example)
+
+* $𝑃(𝑍<1.43)=0.9236$,  
+
+* $𝑃(𝑍>1.43)=0.0764$.
+
+</div>
+
+<div style="float: right; width: 30%;">
+```{r, out.width="80%"}
+il <- readPNG("il.png")
+grid.raster(il)
+```
+</div>
+
+<div style="float: left; width: 50%;">
+For a general normal random variable  $X\sim N(\mu, \sigma)$, we have
+
+$$𝑃(𝑋<\mu+1.43\sigma)=0.9236$$
+
+$$𝑃(𝑋>\mu+1.43\sigma)=0.0764$$
+</div>
+
+<div style="float: right; width: 30%;">
+```{r, out.width="80%"}
+w <- readPNG("w.png")
+grid.raster(w)
+```
+
+</div>
+</div>
+
+## Example (Standby Time of Smartphones)
+<div class="black">
+<font size="4">
+Based on data from smartphones available from major carriers in the U.S, in 2014, the distribution of the standby time approximately follows a normal distribution with a mean of $\mu=330$ minutes and a standard deviation of $\sigma=80$ minutes.
+
+a) What percentage of smartphones have a standby time 1.25 standard deviations below the mean?
+b) What percentage of smartphones have a standby time 1.25 standard deviation above the mean?
+c) What percentage of smartphones have a standby time that is within 1.25 standard deviations of the mean?
+
+Solution. Use the `pnorm()` command in the below R code chunk to confirm the following probabilities.
+
+a) $𝑃(𝑍<−1.25)=0.1056$,
+\
+b) $𝑃(𝑍>1.25)=0.1056$,
+\
+c) $𝑃(−1.25<𝑍<1.25)=0.7888$.
+
+```{r Ex_2_2, exercise=TRUE}
+
+```
+</font>
+</div>
+
+
+## Example (Cont.)
+<div class="black">
+
+
+```{r, out.width="40%", fig.align='center'}
+mm <- readPNG("mm2.png")
+grid.raster(mm)
+```
+
+As $\mu=330$, $\sigma=80$ , we can compute $\mu−1.25\sigma$, $\mu+1.25\sigma$:
+\
+$\mu−1.25\sigma=330−1.25×80=230$, 
+\
+$\mu +1.25 \sigma=330+1.25×80=430$.
+
+a) 10.56% smartphones have standby time shorter than 230 minutes;
+b) 10.56% smartphones have standby time longer than 430 minutes;
+c) 78.88% smartphones have standby time  between 230 and 430 minutes.
+
+</div>
+
+## Example -- Quality Control
+<div class="black">
+<font size="3">
+At Heinz ketchup factory the amounts which go into bottles of  ketchup are supposed to be normally distributed with mean 36 oz.  and standard deviation 0.11 oz. Once every 30 minutes a bottle is  selected from the production line, and is below 35.8 oz. or above 36.2 oz., then the bottle fails the quality control inspection.
+
+```{r Ex_2_3,exercise=TRUE, size=2}
+pnorm(35.8, mean= 36, sd= 0.11) #part (1)
+
+pnorm(36.2, mean= 36, sd= 0.11) - pnorm(35.8, mean= 36, sd= 0.11) #part (2)
+```
+
+1) What  percent of bottles have less than 35.8 ounces of ketchup?
+\
+2) What percent of bottles pass the inspection?
+
+<div style="float: left; width: 60%;">
+Solution. 
+Let $𝑋$  represent the amount of ketchup in a bottle, then $𝑋  \sim 𝑁(36,  0.11)$
+\
+
+* Using `pnorm()` in R (see code chunk above), we get
+
+$$𝑃(𝑋< 35.8) = 0.0344$$
+
+* Using `pnorm()` in R (see code chunk above), we get
+
+$$𝑃(35.8 < 𝑋< 36.2) = 0.9310$$
+
+</div>
+
+<div style="float: right; width: 40%;">
+```{r, out.width="50%"}
+qc <- readPNG("qc.png")
+grid.raster(qc)
+```
+</div>
+
+</font>
+</div>
+
+## Example: Comparing z -Scores.
+<div class="black">
+
+SAT scores are distributed nearly normally with mean 1100 and  standard deviation 200. ACT scores are distributed nearly  normally with mean 21 and statdard deviation 5. A college  admissions oﬀicer wants to determine which of the two applicants  scored better on their standardized test with respect to the other  test takers: Ann, who earned 1300 on her SAT, or Tom, who  scored 24 on his ACT?
+<center>
+```{r, out.width= "45%"}
+vv <- readPNG("vv.png")
+grid.raster(vv)
+```
+</center>
+</div>
+
+
+## Example (cont.)
+<div class= "black">
+We cannot just compare the two raw scores. We instead compare how many standard deviations beyond the mean each score is by using the Z-scores.
+
+- Ann’s score is $\frac{(1300−1100)}{200}= 1 \ \text{standard deviation above the mean}$
+\
+- Tom’s score is $\frac{24−21}{5}=0.6 \ \text{standard deviations above the mean}$
+\
+- Therefore, Ann's score is better than Tom's score.
+
+```{r, out.width="35%", fig.align='center'}
+lp <- readPNG("lp.png")
+grid.raster(lp)
+```
+
+<center>
+Discussion: If Tom has ACT score of 30, whose score is better?
+</center>
+
+</div>
+
+## Percentiles and inverse normal distribution
+<div class="black">
+- A $𝒑^{th}$ percentile is a score below which p% of observations  falls below or at the value of the score. 
+
+- Graphically, percentile is the score(observation) of random variable that that area (probability)under the probability  distribution curve to the left of that observation is 𝑝/100.   It is also called the value of the inverse cumulative density function.
+
+For any normal distribution, the mean 𝜇 is the 50th percentile.
+
+```{r, out.width="40%"}
+p <- readPNG("p.png")
+grid.raster(p)
+```
+</div>
+
+
+## Find percentiles for normal distribution
+<div class="black">
+
+For $N(0,1)$, −1.96 is the 2.5th percentile: 
+the probability that a normal random variable falls at least 1.96 standard deviations below (because of the negative sign) the mean is 0.025, or $𝑃(𝑍<−1.96)=0.025$
+
+```{r, out.width= "40%", fig.align='center'}
+cv <- readPNG("cv.png")
+grid.raster(cv)
+```
+</div>
+
+## Find inverse Normal Distribution - Use R
+<div class="black">
+<font size="4">
+The function `qnorm()` returns the value of the $p(\times 100)th$ percentile under the the normal distribution curve (i.e., the value that has $p$ probability to its left under the normal curve). 
+
+Use syntax: `qnorm(p, mean, sd)` in general, or simply `qnorm(p)` for standard Normal Distribution
+
+**Example.**
+
+- Finding quartiles for $𝑁(0,1)$ 
+
+```{r Quiz3,exercise=TRUE}
+qnorm(0.25)
+
+qnorm(0.5)
+
+qnorm(0.75)
+
+```
+
+- The 95th percentile for $𝑁(10, 2)$  (make change for general Normal Distribution) 
+
+```{r Quiz4,exercise=TRUE}
+
+qnorm(0.95, 10, 2)
+
+```
+</font>
+</div>
+
+## Example Finding cutoff points
+<font size="5">
+<div class="black">
+<div class="red">Body temperatures of healthy humans are distributed nearly normally with mean ${98.2^\circ}$F and standard deviation ${0.73^\circ}$F. What is the cutoff for the lowest 3\% of human body temperatures?
+</div>
+
+- Short Method:
+
+```{r Quiz5, exercise=TRUE}
+x = qnorm(0.03, 98.2, 0.73)
+x
+```
+
+```{r, echo=F, message=F, warning=F, fig.width=5, fig.height=2,fig.align='center'}
+par(mar=c(2.1,0,0,0))
+normTail(m = 98.2, s = 0.73, L = 96.8, axes = FALSE, col = COL[1], lwd=)
+axis(1, at=c(96.01, 96.8, 98.2, 100.39), label=expression("", "x", "98.2", ""))
+text(x = 96.4, y = 0.11, "0.03", col = COL[1], cex = 1.25)
+```
+</font>
+</div>
+
+## Example Finding cutoff points
+<font size="5">
+<div class="black">
+<div class="red">Body temperatures of healthy humans are distributed nearly normally with mean ${98.2^\circ}$F and standard deviation ${0.73^\circ}$F. What is the cutoff for the lowest 3\% of human body temperatures?
+</div>
+
+- Long Method (through z-score)
+
+```{r Quiz51, exercise=TRUE}
+z = qnorm(0.03)
+z
+```
+
+<div style="float: left; width: 50%;">
+```{r, echo=F, message=F, warning=F, fig.width=5, fig.height=2,fig.align='center'}
+par(mar=c(2.1,0,0,0))
+normTail(m = 98.2, s = 0.73, L = 96.8, axes = FALSE, col = COL[1], lwd=)
+axis(1, at=c(96.01, 96.8, 98.2, 100.39), label=expression("", "x", "98.2", ""))
+text(x = 96.4, y = 0.11, "0.03", col = COL[1], cex = 1.25)
+```
+</div> 
+<div style="float: right; width: 50%;">
+$P(X<x) = 0.03 \rightarrow P(Z<\color{red}{-1.88})=0.03$
+$Z = \frac{obs-mean}{SD} \rightarrow \frac{x-98.2}{0.73}=-1.88$
+$x = (-1.88 \times 0.73)+98.2 = {96.8} F$
+</font>
+</div> 
+</div>
+
+
+## Practice
+<font size="5">
+<div class="black">
+<div class="red"> Body temperature of healthy humans are distributed nearly normally with mean ${98.2^\circ}$F and standard deviation ${0.73^\circ}$F. What is the cutoff for the highest 10\% of human body temperatures?
+</div>
+
+A) ${97.3^\circ}$F 
+B) ${99.1^\circ}$F 
+C) ${99.4^\circ}$F 
+D) ${99.6^\circ}$F
+
+```{r, echo=F, message=F, warning=F, fig.width=4, fig.height=2,fig.align='center'}
+par(mar=c(2.1,0,0,0))
+normTail(m = 98.2, s = 0.73, U = 99.1, axes = FALSE, col = COL[1])
+axis(1, at=c(96.01, 98.2, 99.1, 100.39), label=expression("", "98.2", "x", ""))
+text(x = 99.7, y = 0.22, "0.10", col = COL[1], cex = 1.25)
+text(x = 98.2, y = 0.25, "0.90", col = COL[1], cex = 1.25)
+```
+</div>
+</font>
+
+## Practice
+<font size="5">
+<div class="black">
+<div class="red"> Body temperature of healthy humans are distributed nearly normally with mean ${98.2^\circ}$F and standard deviation ${0.73^\circ}$F. What is the cutoff for the highest 10\% of human body temperatures?
+</div>
+
+<div style="float: left; width: 65%;">
+```{r Quiz52, exercise=TRUE}
+qnorm(0.90, 98.2, 0.73)
+```
+
+```{r Quiz53, exercise=TRUE}
+qnorm(0.10, 98.2, 0.73, lower.tail = FALSE)
+```
+</div>
+
+<div style="float: right; width: 35%;">
+```{r, echo=F, message=F, warning=F, fig.width=4, fig.height=2,fig.align='center'}
+par(mar=c(2.1,0,0,0))
+normTail(m = 98.2, s = 0.73, U = 99.1, axes = FALSE, col = COL[1])
+axis(1, at=c(96.01, 98.2, 99.1, 100.39), label=expression("", "98.2", "99.1", ""))
+text(x = 99.7, y = 0.22, "0.10", col = COL[1], cex = 1.25)
+text(x = 98.2, y = 0.25, "0.90", col = COL[1], cex = 1.25)
+```
+</div>
+</div>
+</font>
+
+## 68 - 95 - 99.7 Rule (Empirical Rule)
+<div class="black">
+<font size="4">
+- For nearly normally distributed data,
+
+  - about 68\% falls within 1 SD of the mean,
+  - about 95\% falls within 2 SD of the mean,
+  - about 99.7\% falls within 3 SD of the mean.
+  
+- It is possible for observations to fall 4, 5, or more standard deviations away from the mean, but these occurrences are very rare if the data are nearly normal.
+
+- For normal distributions, beyond 2 SD, the observations are said to be unusual.  
+
+
+```{r, echo=F, message=F, warning=F, fig.width=4, fig.height=2,fig.align='center'}
+#===> plot <===#
+par(las=1, mar=c(2.5,0,0.3,0))
+X <- seq(-4,4,0.01)
+Y <- dnorm(X)
+plot(X, Y, type='n', axes=F, ylim=c(0,0.4), xlim=c(-3.2,3.2))
+abline(h=0, col='#AAAAAA')
+axis(1, at=-3:3, label=expression(mu-3*sigma,mu-2*sigma,mu-sigma,mu,
+	mu+sigma,mu+2*sigma,mu+3*sigma))
+COL <- c('#DFF0E8', '#CFC8D8', '#B8AFA8')
+for(i in 3:1){
+	these <- (X>=-i & X <= i)
+	polygon(c(-i,X[these],i),c(0,Y[these],0), col=COL[i], border=COL[i])
+}
+#lines(c(0,0),c(0,dnorm(0)), col='#888888')
+
+#===> label 99.7 <===#
+arrows(-3,0.03, 3,0.03, code=3, col='#666666', length=0.15)
+#lines(c(-3,-3), c(0,0.03), lty=3, col='#888888')
+#lines(c(3,3), c(0,0.03), lty=3, col='#888888')
+text(0, 0.02, '99.7%', col='#333333', pos=3)
+
+#===> label 95 <===#
+arrows(-2,0.13, 2,0.13, code=3, col='#666666', length=0.15)
+#lines(c(-2,-2), c(0,0.13), lty=3, col='#888888')
+#lines(c(2,2), c(0,0.13), lty=3, col='#888888')
+text(0, 0.12, '95%', col='#333333', pos=3)
+
+#===> label 68 <===#
+arrows(-1,0.23, 1,0.23, code=3, col='#666666', length=0.15)
+#lines(c(-1,-1), c(0,0.23), lty=3, col='#888888')
+#lines(c(1,1), c(0,0.23), lty=3, col='#888888')
+text(0, 0.22, '68%', col='#333333', pos=3)
+
+lines(X, Y, col='#888888')
+abline(h=0, col='#AAAAAA')
+```
+Note:  Empirical rule is not exactly normal.
+</font>
+</div>
+
+## Example 
+<div class="black">
+<font size="4">
+<div style="float: left; width: 65%;">
+The following graph shows the normal distributions for women’s height $𝑁 (65,3.5)$ and men’s height $𝑁(70, 4)$ in North America.
+</div>
+<div style="float: right; width: 35%;">
+```{r, out.width= "80%", fig.align='center'}
+kn <- readPNG("kn.png")
+grid.raster(kn)
+```
+</div>
+</font>
+</div>
+
+<div class="black">
+<font size="4">
+**Question:** For men’s height, within what interval, do the 68% of men’s height fell?  95%? 99.7%? 
+
+* 68% of men’s height fell the interval within 1 S.D. of the mean: 
+$$(𝜇−𝜎,𝜇+𝜎)=(70−4, 70+4)=(66, 74) $$
+
+That is, 68% of men has height between 66 inches and 74 inches.
+
+* 95% of men’s height fell the interval within 2 S.D. of the mean: 
+
+$$(𝜇−2𝜎,𝜇+2𝜎)=(70−2×4, 70+2×4)=(62, 78)$$
+
+That is，95% of men has height between 62 inches and 78 inches.
+
+* 99.7% of men’s height fell the interval within 3 S.D. of the mean: 
+
+$$(𝜇−3𝜎,𝜇+3𝜎)=(70−3×4, 70+3×4)=(58, 82)$$
+
+That is， 99.7% of men has height between 58 inches and 82 inches.
+
+Exercise. Do the same for women’s height data.
+</font>
+</div>
+
+
+## Describing variability using the 68 - 95 - 99.7 Rule (End of 4.1)
+<div class="black">
+SAT scores are distributed nearly normally with mean 1500 and standard deviation 300.
+
+- $\sim$ 68\% of students score between 1200 and 1800 on the SAT.
+- $\sim$ 95\% of students score between 900 and 2100 on the SAT.
+- $\sim$ 99.7\% of students score between 600 and 2400 on the SAT.
+
+```{r, echo=F, message=F, warning=F, fig.width=5, fig.height=2,fig.align='center'}
+#===> plot <===#
+par(las=1, mar=c(2.5,0,0.3,0))
+X <- seq(-4,4,0.01)
+Y <- dnorm(X)
+plot(X, Y, type='n', axes=F, ylim=c(0,0.4), xlim=c(-3.2,3.2))
+abline(h=0, col='#AAAAAA')
+axis(1, at=-3:3, label=c("600","900","1200","1500","1800","2100","2400"))
+COL <- c('#DFF0E8', '#CFC8D8', '#B8AFA8')
+for(i in 3:1){
+	these <- (X>=-i & X <= i)
+	polygon(c(-i,X[these],i),c(0,Y[these],0), col=COL[i], border=COL[i])
+}
+#lines(c(0,0),c(0,dnorm(0)), col='#888888')
+
+#===> label 99.7 <===#
+arrows(-3,0.03, 3,0.03, code=3, col='#666666', length=0.15)
+#lines(c(-3,-3), c(0,0.03), lty=3, col='#888888')
+#lines(c(3,3), c(0,0.03), lty=3, col='#888888')
+text(0, 0.02, '99.7%', col='#333333', pos=3)
+
+#===> label 95 <===#
+arrows(-2,0.13, 2,0.13, code=3, col='#666666', length=0.15)
+#lines(c(-2,-2), c(0,0.13), lty=3, col='#888888')
+#lines(c(2,2), c(0,0.13), lty=3, col='#888888')
+text(0, 0.12, '95%', col='#333333', pos=3)
+
+#===> label 68 <===#
+arrows(-1,0.23, 1,0.23, code=3, col='#666666', length=0.15)
+#lines(c(-1,-1), c(0,0.23), lty=3, col='#888888')
+#lines(c(1,1), c(0,0.23), lty=3, col='#888888')
+text(0, 0.22, '68%', col='#333333', pos=3)
+
+lines(X, Y, col='#888888')
+abline(h=0, col='#AAAAAA')
+```
+</div>

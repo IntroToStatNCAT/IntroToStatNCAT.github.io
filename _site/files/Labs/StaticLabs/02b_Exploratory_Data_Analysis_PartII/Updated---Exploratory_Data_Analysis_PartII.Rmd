@@ -1,0 +1,648 @@
+
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+
+<meta charset="utf-8">
+
+
+
+<!-- begin SEO -->
+
+
+
+
+
+
+
+
+
+<title>Exploratory Data Analysis Part II   MATH 224 - Intro to Stat</title>
+
+
+
+
+
+
+
+<meta property="og:locale" content="en-US">
+<meta property="og:site_name" content="MATH 224 - Intro to Stat">
+<meta property="og:title" content="Exploratory Data Analysis Part II">
+
+
+  <link rel="canonical" href="http://localhost:4000/files/Labs/StaticLabs/02b_Exploratory_Data_Analysis_PartII/Updated---Exploratory_Data_Analysis_PartII.Rmd">
+  <meta property="og:url" content="http://localhost:4000/files/Labs/StaticLabs/02b_Exploratory_Data_Analysis_PartII/Updated---Exploratory_Data_Analysis_PartII.Rmd">
+
+
+
+
+
+
+
+  
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <script type="application/ld+json">
+    {
+      "@context" : "http://schema.org",
+      "@type" : "Person",
+      "name" : "Intro To Stat NCAT",
+      "url" : "http://localhost:4000",
+      "sameAs" : null
+    }
+  </script>
+
+
+
+
+
+
+<!-- end SEO -->
+
+
+<link href="http://localhost:4000/feed.xml" type="application/atom+xml" rel="alternate" title="MATH 224 - Intro to Stat Feed">
+
+<!-- http://t.co/dKP3o1e -->
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="http://localhost:4000/assets/css/main.css">
+
+<meta http-equiv="cleartype" content="on">
+    
+
+<!-- start custom head snippets -->
+
+<link rel="apple-touch-icon" sizes="57x57" href="http://localhost:4000/images/apple-touch-icon-57x57.png?v=M44lzPylqQ">
+<link rel="apple-touch-icon" sizes="60x60" href="http://localhost:4000/images/apple-touch-icon-60x60.png?v=M44lzPylqQ">
+<link rel="apple-touch-icon" sizes="72x72" href="http://localhost:4000/images/apple-touch-icon-72x72.png?v=M44lzPylqQ">
+<link rel="apple-touch-icon" sizes="76x76" href="http://localhost:4000/images/apple-touch-icon-76x76.png?v=M44lzPylqQ">
+<link rel="apple-touch-icon" sizes="114x114" href="http://localhost:4000/images/apple-touch-icon-114x114.png?v=M44lzPylqQ">
+<link rel="apple-touch-icon" sizes="120x120" href="http://localhost:4000/images/apple-touch-icon-120x120.png?v=M44lzPylqQ">
+<link rel="apple-touch-icon" sizes="144x144" href="http://localhost:4000/images/apple-touch-icon-144x144.png?v=M44lzPylqQ">
+<link rel="apple-touch-icon" sizes="152x152" href="http://localhost:4000/images/apple-touch-icon-152x152.png?v=M44lzPylqQ">
+<link rel="apple-touch-icon" sizes="180x180" href="http://localhost:4000/images/apple-touch-icon-180x180.png?v=M44lzPylqQ">
+<link rel="icon" type="image/png" href="http://localhost:4000/images/favicon-32x32.png?v=M44lzPylqQ" sizes="32x32">
+<link rel="icon" type="image/png" href="http://localhost:4000/images/android-chrome-192x192.png?v=M44lzPylqQ" sizes="192x192">
+<link rel="icon" type="image/png" href="http://localhost:4000/images/favicon-96x96.png?v=M44lzPylqQ" sizes="96x96">
+<link rel="icon" type="image/png" href="http://localhost:4000/images/favicon-16x16.png?v=M44lzPylqQ" sizes="16x16">
+<link rel="manifest" href="http://localhost:4000/images/manifest.json?v=M44lzPylqQ">
+<link rel="mask-icon" href="http://localhost:4000/images/safari-pinned-tab.svg?v=M44lzPylqQ" color="#000000">
+<link rel="shortcut icon" href="/images/favicon.ico?v=M44lzPylqQ">
+<meta name="msapplication-TileColor" content="#000000">
+<meta name="msapplication-TileImage" content="http://localhost:4000/images/mstile-144x144.png?v=M44lzPylqQ">
+<meta name="msapplication-config" content="http://localhost:4000/images/browserconfig.xml?v=M44lzPylqQ">
+<meta name="theme-color" content="#ffffff">
+<link rel="stylesheet" href="http://localhost:4000/assets/css/academicons.css"/>
+
+<script type="text/x-mathjax-config"> MathJax.Hub.Config({ TeX: { equationNumbers: { autoNumber: "all" } } }); </script>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/latest.js?config=TeX-MML-AM_CHTML' async></script>
+
+<!-- end custom head snippets -->
+
+  </head>
+
+  <body>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        <button><div class="navicon"></div></button>
+        <ul class="visible-links">
+          <li class="masthead__menu-item masthead__menu-item--lg"><a href="http://localhost:4000/">MATH 224 - Intro to Stat</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="http://localhost:4000/home/">Home</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="http://localhost:4000/syllabus/">Syllabus</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="http://localhost:4000/slides/">Slides</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="http://localhost:4000/assignments/">Assignments</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="http://localhost:4000/labs/">Computing Labs</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="http://localhost:4000/tutorials/">R Tutorials</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="http://localhost:4000/dap/">Data Analysis Project</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="http://localhost:4000/assessments/">Assessments</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="http://localhost:4000/research/">Research/Publication</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="http://localhost:4000/manual/">Implementation Manual</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="http://localhost:4000/workshop/">Faculty Workshops</a></li>
+          
+        </ul>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+    
+
+
+
+
+
+<div id="main" role="main">
+  
+
+
+  <div class="sidebar sticky">
+  
+
+
+
+<div itemscope itemtype="http://schema.org/Person">
+
+  <div class="author__avatar">
+    
+    	<img src="http://localhost:4000/images/ncat-nsf-logo.jpg" class="author__avatar" alt="Introduction to Probability & Statistics">
+    
+  </div>
+
+  <div class="author__content">
+    <h3 class="author__name">Introduction to Probability & Statistics</h3>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">Follow</button>
+    <ul class="author__urls social-icons">
+      
+        <li><i class="fa fa-fw fa-map-marker" aria-hidden="true"></i> NC A&T State University</li>
+      
+      
+      
+      
+      
+       
+      
+      
+      
+      
+      
+      
+      
+      
+      
+        <li><a href="https://github.com/IntroToStatNCAT/IntroToStatNCAT.github.io"><i class="fab fa-fw fa-github" aria-hidden="true"></i> Github</a></li>
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+    </ul>
+  </div>
+</div>
+
+  
+  </div>
+
+
+  <article class="page" itemscope itemtype="http://schema.org/CreativeWork">
+    <meta itemprop="headline" content="Exploratory Data Analysis Part II">
+    
+    
+    
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 class="page__title" itemprop="headline">Exploratory Data Analysis Part II
+</h1>
+          
+        
+        
+        
+        
+             
+        
+    
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        ```{r global-options, include=FALSE}
+knitr::opts_chunk$set(eval = TRUE, results = FALSE, message = FALSE)
+library(tidyverse)
+library(openintro)
+library(nycflights13)
+```
+
+Some define statistics as the field that focuses on turning information into knowledge.
+The first step in that process is to summarize and describe the raw information -- the data.
+In this lab we explore flights, specifically a random sample of domestic flights that departed from the three major New York City airports in 2013.
+We will generate simple graphical and numerical summaries of data on these flights and explore delay times.
+Since this is a large data set, along the way you'll also learn the indispensable skills of data processing and subsetting.
+
+## Getting started
+
+### Load packages
+
+In this lab, we will explore and visualize the data using the **tidyverse** suite of packages.
+The data can be found in the companion package for OpenIntro labs, **openintro**.
+
+Let's load the packages.
+
+```{r load-packages, message=FALSE}
+library(tidyverse)
+library(openintro)
+library(nycflights13)
+```
+
+### Creating a reproducible lab report
+
+Remember that we will be using R Markdown to create reproducible lab reports.
+In RStudio, go to New File -\> R Markdown... Then, choose From Template and then choose `Lab Report for OpenIntro Statistics Labs` from the list of templates.
+
+See the following video describing how to get started with creating these reports for this lab, and all future labs:
+
+[**Basic R Markdown with an OpenIntro Lab**](https://www.youtube.com/watch?v=Pdc368lS2hk) <iframe width="669" height="502" src="https://www.youtube.com/embed/Pdc368lS2hk" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen data-external="1"></iframe>
+
+
+### The data
+
+The [Bureau of Transportation Statistics](http://www.rita.dot.gov/bts/about/) (BTS) is a statistical agency that is a part of the Research and Innovative Technology Administration (RITA).
+As its name implies, BTS collects and makes transportation data available, such as the flights data we will be working with in this lab.
+
+First, we'll view the `nycflights` data frame.
+Type the following in your console to load the data:
+
+```{r load-data}
+data(nycflights)
+```
+
+The data set `nycflights` that shows up in your workspace is a *data matrix*, with each row representing an *observation* and each column representing a *variable*.
+R calls this data format a **data frame**, which is a term that will be used throughout the labs.
+For this data set, each *observation* is a single flight.
+
+To view the names of the variables, type the command
+
+```{r names}
+names(nycflights)
+```
+
+This returns the names of the variables in this data frame.
+The **codebook** (description of the variables) can be accessed by pulling up the help file:
+
+```{r help}
+?nycflights
+```
+
+One of the variables refers to the carrier (i.e. airline) of the flight, which is coded according to the following system.
+
+-   `carrier`: Two letter carrier abbreviation.
+
+    -   `9E`: Endeavor Air Inc.
+    -   `AA`: American Airlines Inc.
+    -   `AS`: Alaska Airlines Inc.
+    -   `B6`: JetBlue Airways
+    -   `DL`: Delta Air Lines Inc.
+    -   `EV`: ExpressJet Airlines Inc.
+    -   `F9`: Frontier Airlines Inc.
+    -   `FL`: AirTran Airways Corporation
+    -   `HA`: Hawaiian Airlines Inc.
+    -   `MQ`: Envoy Air
+    -   `OO`: SkyWest Airlines Inc.
+    -   `UA`: United Air Lines Inc.
+    -   `US`: US Airways Inc.
+    -   `VX`: Virgin America
+    -   `WN`: Southwest Airlines Co.
+    -   `YV`: Mesa Airlines Inc.
+
+Remember that you can use `glimpse` to take a quick peek at your data to understand its contents better.
+
+```{r glimpse}
+glimpse(nycflights)
+```
+
+The `nycflights` data frame is a massive trove of information.
+Let's think about some questions we might want to answer with these data:
+
+-   Can we add new variables that can help us analyze the data better?
+-   How delayed were flights that were headed to Los Angeles?
+-   How do departure delays vary by month?
+-   Which of the three major NYC airports has the best on time percentage for departing flights?
+
+## Analysis
+
+### R as a big calculator
+
+Now, suppose we want to plot the speed of each of the flights in the data set. To compute this, we could use the fact that we can use `R` as a big calculator. To do this, we can type in mathematical expressions such as the below calculation into the console.
+
+```{r calc-total-bapt-numbers}
+2475 / 313
+```
+
+> Note: $Speed =\frac{Distance}{Air\_time}$ 
+
+This calculation would provide us with the speed of the first flight in the data. We could then repeat this calculation once for each of the flights. This would probably take us a while, but luckily there is a faster way! If we divide `distance` by `air_time`, `R` can compute each of the speed for each of the flights simultaneously.
+
+```{r calc-total-bapt-vars}
+nycflights$distance / nycflights$air_time
+```
+
+What you will see is a list of 32735 numbers. These numbers appear as a list, because we are working with vectors rather than a data frame. Each number represents the speed of a given flight. You can take a look at the first few rows of the `distance` and `air_time` columns to see if the calculation is right.
+
+### Adding a new variable to the data frame
+
+We are interested in using this new vector of the flight speeds to generate some plots, so we'll want to save it as a permanent column in our data frame. We can do this using the following code:
+
+```{r calc-total-bapt-vars-save}
+nycflights <- nycflights %>%
+  mutate(speed = distance / air_time)
+```
+
+This code has a lot of new pieces to it, so let's break it down. In the first line we are doing two things, (1) adding a new `speed` column to this updated data frame, and (2) overwriting the existing `nycflights` data frame with an updated data frame that includes the new `speed` column. We are able to chain these two processes together using the **piping** (`%>%`) operator. The piping operator takes the output of the previous expression and "pipes it" into the first argument of the next expression.
+
+To continue our analogy with mathematical functions, `x %>% f(y)` is equivalent to `f(x, y)`. Connecting `nycflights` and `mutate(speed = distance / air_time)` with the pipe operator is the same as typing `mutate(nycflights, speed = distance / air_time)`, where `nycflights` becomes the first argument included in the `mutate()` function.
+
+::: {#boxedtext}
+**A note on piping:** Note that we can read these two lines of code as the following:
+
+*"Take the `nycflights` dataset and **pipe** it into the `mutate` function. Mutate the `nycflights` data set by creating a new variable called `speed` that is the division of the variables called `distance` and `air_time`. Then assign the resulting dataset to the object called `nycflights`, i.e. overwrite the old `nycflights` dataset with the new one containing the new variable."*
+
+This is equivalent to going through each row and dividing the `distance` and `air_time` of each of the flights and recording that value in a new column called `speed`.
+:::
+
+<div>
+
+**Where is the new variable?** When you make changes to variables in your dataset, click on the name of the dataset again to update it in the data viewer.
+
+</div>
+
+You'll see that there is now a new column called `speed` that has been tacked onto the data frame. The special symbol `<-` performs an *assignment*, taking the output of the piping operations and saving it into an object in your environment. In this case, you already have an object called `nycflights` in your environment, so this command updates that data set with the new mutated column.
+
+1. Make a scatter plot for distance vs speed. Is there any observable pattern?
+
+
+### Departure delays
+
+Let's start by examining the distribution of departure delays of all flights with a histogram.
+
+```{r hist-dep-delay}
+ggplot(data = nycflights, aes(x = dep_delay)) +
+  geom_histogram()
+```
+
+If you want to visualize only delays of flights headed to Los Angeles, you need to first `filter` the data for flights with that destination (`dest == "LAX"`) and then make a histogram of the departure delays of only those flights.
+
+```{r lax-flights-hist}
+lax_flights <- nycflights %>%
+  filter(dest == "LAX")
+ggplot(data = lax_flights, aes(x = dep_delay)) +
+  geom_histogram()
+```
+
+Let's decipher these two commands (OK, so it might look like four lines, but the first two physical lines of code are actually part of the same command. It's common to add a break to a new line after `%>%` to help readability).
+
+-   Command 1: Take the `nycflights` data frame, `filter` for flights headed to LAX, and save the result as a new data frame called `lax_flights`.
+
+    -   `==` means "if it's equal to".
+    -   `LAX` is in quotation marks since it is a character string.
+
+-   Command 2: Basically the same `ggplot` call from earlier for making a histogram, except that it uses the smaller data frame for flights headed to LAX instead of all flights.
+
+::: {#boxedtext}
+**Logical operators:** Filtering for certain observations (e.g. flights from a particular airport) is often of interest in data frames where we might want to examine observations with certain characteristics separately from the rest of the data.
+To do so, you can use the `filter` function and a series of **logical operators**.
+The most commonly used logical operators for data analysis are as follows:
+
+-   `==` means "equal to"
+-   `!=` means "not equal to"
+-   `>` or `<` means "greater than" or "less than"
+-   `>=` or `<=` means "greater than or equal to" or "less than or equal to"
+:::
+
+You can also obtain numerical summaries for these flights:
+
+```{r lax-flights-summ}
+lax_flights %>%
+  summarise(mean_dd   = mean(dep_delay), 
+            median_dd = median(dep_delay), 
+            n         = n())
+```
+
+Note that in the `summarise` function you created a list of three different numerical summaries that you were interested in.
+The names of these elements are user defined, like `mean_dd`, `median_dd`, `n`, and you can customize these names as you like (just don't use spaces in your names).
+Calculating these summary statistics also requires that you know the function calls.
+Note that `n()` reports the sample size.
+
+::: {#boxedtext}
+**Summary statistics:** Some useful function calls for summary statistics for a single numerical variable are as follows:
+
+-   `mean()` - The arithmetic mean is found by adding the numbers and dividing the sum by the number of numbers in the list
+-   `median()` - The middle number in a sorted, ascending or descending, list of numbers and can be more descriptive of that data set than the mean.
+-   `sd()` - The measure of the amount of variation or dispersion of a set of values.
+-   `var()` - the expectation of the squared deviation of a random variable from its population mean or sample mean.
+-   `IQR()` - the interquartile range is a measure of statistical dispersion, which is the spread of the data. The IQR may also be called the midspread, middle 50%.
+-   `min()` - The smallest value in the data set.
+-   `max()` - The largest value in the data set.
+
+Note that each of these functions takes a single vector as an argument and returns a single value.
+:::
+
+You can also filter based on multiple criteria.
+Suppose you are interested in flights headed to San Francisco (SFO) in February:
+
+```{r sfo-feb-flights}
+sfo_feb_flights <- nycflights %>%
+  filter(dest == "SFO", month == 2)
+```
+
+Note that you can separate the conditions using commas if you want flights that are both headed to SFO **and** in February.
+If you are interested in either flights headed to SFO **or** in February, you can use the `|` instead of the comma.
+
+1.  Create a new data frame that includes flights headed to SFO in February, and save this data frame as `sfo_feb_flights`.
+    How many flights meet these criteria?
+
+2.  Describe the distribution of the **arrival** delays of these flights using a histogram and appropriate summary statistics.
+    **Hint:** The summary statistics you use should depend on the shape of the distribution.
+
+Another useful technique is quickly calculating summary statistics for various groups in your data frame.
+For example, we can modify the above command using the `group_by` function to get the same summary stats for each origin airport:
+
+```{r summary-custom-list-origin}
+sfo_feb_flights %>%
+  group_by(origin) %>%
+  summarise(median_dd = median(dep_delay), iqr_dd = IQR(dep_delay), n_flights = n())
+```
+
+Here, we first grouped the data by `origin` and then calculated the summary statistics.
+
+1.  Calculate the median and interquartile range for `arr_delay`s of flights in in the `sfo_feb_flights` data frame, grouped by carrier. Which carrier has the most variable arrival delays?
+
+### Departure delays by month
+
+Which month would you expect to have the highest average delay departing from an NYC airport?
+
+Let's think about how you could answer this question:
+
+-   First, calculate monthly averages for departure delays. With the new language you are learning, you could
+
+    -   `group_by` months, then
+    -   `summarise` mean departure delays.
+
+-   Then, you could to `arrange` these average delays in `desc`ending order
+
+```{r mean-dep-delay-months}
+nycflights %>%
+  group_by(month) %>%
+  summarise(mean_dd = mean(dep_delay)) %>%
+  arrange(desc(mean_dd))
+```
+
+1.  Suppose you really dislike departure delays and you want to schedule your travel in a month that minimizes your potential departure delay leaving NYC. One option is to choose the month with the lowest mean departure delay. Another option is to choose the month with the lowest median departure delay. What are the pros and cons of these two choices?
+
+```{=html}
+<!--
+Which month has the highest average departure delay from an NYC airport? What
+    about the highest median departure delay? Which of these measures is more 
+    reliable for deciding which month(s) to avoid flying if you really dislike 
+    delayed flights.
+-->
+```
+
+------------------------------------------------------------------------
+
+<a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">![Creative Commons License](https://i.creativecommons.org/l/by-sa/4.0/88x31.png){style="border-width:0"}</a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>.
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+
+
+
+
+      </footer>
+
+      
+
+      
+
+
+    </div>
+
+    
+  </article>
+
+  
+  
+</div>
+
+
+    <div class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+<a href="/sitemap/">Sitemap</a>
+<!-- end custom footer snippets -->
+
+        
+
+<div class="page__footer-follow">
+  <ul class="social-icons">
+    
+      <li><strong>Follow:</strong></li>
+    
+    
+    
+    
+      <li><a href="http://github.com/IntroToStatNCAT/IntroToStatNCAT.github.io"><i class="fab fa-github" aria-hidden="true"></i> GitHub</a></li>
+    
+    
+    <li><a href="http://localhost:4000/feed.xml"><i class="fa fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2023 Intro To Stat NCAT. Powered by <a href="http://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://github.com/academicpages/academicpages.github.io">AcademicPages</a>, a fork of <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    <script src="http://localhost:4000/assets/js/main.min.js"></script>
+
+
+
+
+  <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', '', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+
+
+
+  </body>
+</html>
+

@@ -1,0 +1,383 @@
+---
+title: "Introduction to R and RStudio"
+output: 
+  learnr::tutorial:
+    progressive: TRUE
+runtime: shiny_prerendered
+---
+
+```{r setup, include=FALSE}
+library(tidyverse)
+library(openintro)
+library(ggplot2)
+library(learnr)
+library(gradethis) #remotes::install_github("rstudio/gradethis")
+library(learnrhash) #devtools::install_github("rundel/learnrhash")
+
+tutorial_options(exercise.timelimit = 120, exercise.checker = gradethis::grade_learnr)
+```
+
+Please type `"Your Name"` in the interactive R chunk below and run it by clicking `Run Code` hitting `crtl+Enter` or `cmd+Enter` for MAC users.
+
+```{r Student-Name, exercise = TRUE}
+
+```
+
+
+### The RStudio Interface
+
+The goal of this lab is to introduce you to R and RStudio, which you'll be using throughout the course both to learn the statistical concepts discussed in the course and to analyze real data and come to informed conclusions. To clarify which is which: `R` is the name of the programming language itself and RStudio is a convenient interface for working with `R`.
+
+As the labs progress, you are encouraged to explore beyond what the labs dictate; a willingness to experiment will make you a much better programmer! Before we get to that stage, however, you need to build some basic fluency in `R`. First, we will explore the fundamental building blocks of `R` and RStudio: the RStudio interface, reading in data, and basic commands for working with data in `R`.
+
+Go ahead and launch RStudio. You should see a window that looks like the image shown below.
+
+![](images/interface-sample.png){width=650px}
+
+
+The panel on the lower left is where the action happens. This panel is called the *console*. Every time you launch RStudio, it will have the same text at the top of the console telling you the version of R that you're running. Below that information is the *prompt*, indicated by the `>` symbol. As its name suggests, this prompt is really a request: a request for a command. Initially, interacting with `R` is all about typing commands and interpreting the output. These commands and their syntax have evolved over decades (literally) and now provide what many users feel is a fairly natural way to access data and organize, describe, and invoke statistical computations.
+
+The panel in the upper right contains your *environment* as well as a history of the commands that you've previously entered.
+
+The panel in the lower right contains tabs for browse the *files* in your project folder, access *help* files for `R` functions, install and manage `R` *packages*, and inspecting visualizations. By default, all data visualizations you make will appear directly below the code you used to create them. If you would rather your plots appear in the *plots* tab, you will need to change your global options.
+
+### R Packages
+
+`R` is an open-source programming language, meaning that users can contribute packages that make our lives easier, and we can use them for free. For this lab, and many others in the future, we will use the following:
+
+-   The **tidyverse** "umbrella" package which houses a suite of many different `R` packages: for data wrangling and data visualization
+-   The **openintro** `R` package: for data and custom functions with the OpenIntro resources
+
+In the lower right hand corner click on the *Packages* tab. Type the name of each of these packages (tidyverse, openintro) into the search box to see if they have been installed. If these packages do not appear when you type in their name, install them by copying and pasting or typing the following two lines of code into the console of your RStudio session. Be sure to press enter/return after each line of code.
+
+```{r install-packages, eval=FALSE, exercise = FALSE}
+install.packages("tidyverse")
+install.packages("openintro")
+```
+
+After pressing enter/return, a stream of text will begin, communicating the process `R` is going through to install the package from the location you selected when you installed `R`. If you were not prompted to select a server for downloading packages when you installed `R`, RStudio may prompt you to select a server from which to download; any of them will work.
+
+You only need to *install* packages once, but you need to *load* them each time you relaunch RStudio. We load packages with the `library` function. Copy and paste or type the the following two lines in your console to load the tidyverse and openintro packages into your working environment.
+
+
+```{r load-packages, exercise = TRUE}
+library(tidyverse)
+library(openintro)
+```
+
+We are choosing to use the tidyverse package because it consists of a set of packages necessary for different aspects of working with data, anything from loading data to wrangling data to visualizing data to analyzing data. Additionally, these packages share common philosophies and are designed to work together. You can find more about the packages in the tidyverse at [tidyverse.org](http://tidyverse.org/).
+
+### Creating a reproducible lab report
+
+We will be using R Markdown to create reproducible lab reports. See the following videos describing why and how:
+
+
+[**Why use R Markdown for Lab Reports?**](https://youtu.be/lNWVQ2oxNho) <iframe width="669" height="502" src="https://www.youtube.com/embed/lNWVQ2oxNho" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen data-external="1"></iframe>
+
+[**Using R Markdown for Lab Reports in RStudio**](https://youtu.be/o0h-eVABe9M) <iframe width="669" height="502" src="https://www.youtube.com/embed/o0h-eVABe9M" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen data-external="1"></iframe>
+
+In a nutshell, in RStudio, go to New File -\> R Markdown... Then, choose "From Template" and then choose `Lab Report for OpenIntro Statistics Lab 1` from the list of templates.
+
+Going forward you should refrain from typing your code directly in the console, as this makes it very difficult to remember and reproduce the output you want to reference. Potentially the most important feature of R Markdown files is that they allow for us to nest our `R` code within a written report. In an R Markdown file, `R` code appears in a gray box, which we call "code chunks." The R Markdown file knows that the gray box contains `R` code because it begins with three tick marks (\`\`\`), followed by two curly braces that contain a lowercase letter r ({r}). You've already seen this above!
+
+Instead of typing our `R` code into the console, we encourage you to type any code you produce (final correct answer, or anything you're just trying out) in the `R` code chunk associated with each problem. You can execute the `R` code you type in these code chunks similar to how you typed code into the console and pressed enter/return. Within the code chunk there are two ways to execute a line of `R` code: (1) place your cursor on the line on code and press `Ctrl-Enter` or `Cmd-Enter` at the same time, or (2) place your cursor on the line and press the "Run" button in the upper right hand corner of the R Markdown file. Alternatively, if you wanted to run all of the `R` code in a given code chunk, you can click on the "Play" button in the upper right hand corner of the code chunk (green sideways triangle).
+
+If at any point you need to start over and run all of the code chunks before a specific code chunk, you click on the "Fastforward" button in the upper right hand corner of that code chunk (gray upside down triangle with a bar below). This will run every code chunk that occurred *before* that code chunk, but *will not* execute the `R` code included in that code chunk.
+
+### Using R as a calculator
+
+R can be used as an calculator as we already saw in the tutorial. So let's get a refresher on this.
+
+Let's say we want to calculate $\frac{36}{29(15-9)}$. Then we would do the following:
+
+```{r Rcalcexamplefrac, exercise = TRUE}
+
+```
+
+```{r Rcalcexamplefrac-solution}
+36 / (29 * (15 - 9))
+```
+
+```{r Rcalcexamplefrac-check}
+grade_result(
+  pass_if(~ identical(.result, 36 / (29 * (15 - 9))))
+)
+```
+
+R also has built-in constants such as $pi$ and mathematical functions such as $e$ and $log$.
+
+Let's find the radius of a circle with radius 4. Then using R we can get the area and the circumference.
+
+```{r pi-example, exercise = TRUE}
+radius = 4
+
+area = pi * radius^2
+
+circumference = 2 * pi * radius
+
+c("Area" = area, "Circumference" = circumference)
+```
+
+> Note: `c()` allows us to concatenate multiple values or vectors together. We can also give each column a name as we did above.
+
+Now let's use the built-in mathematical functions.
+
+To use the exponential function $(e)$, we will make use of `exp()` and to compute logarithms, we will use `log()`, which by default finds the natural log of the input. `log()` has the capability to take in a parameter where we can specify the base we want to work on as well.
+
+Let's test these functions to obtain common numbers that we know of
+
+```{r exp-example, exercise = TRUE}
+exp(1)
+```
+
+```{r log-example, exercise = TRUE}
+log(1)
+```
+
+Now, we will test the property of $e^{ln(x)} = x = ln(e^x)$.
+
+```{r logproperty-example, exercise = TRUE}
+x = 10
+
+exp(log(x))
+```
+
+```{r expproperty-example, exercise = TRUE}
+x = 10
+log(exp(x))
+```
+
+As we can see, the property still holds true.
+
+Now with the help of the Introduction to R tutorial and the examples provided above, answer the following exercises:
+
+### Exercises
+
+1. Use R to calculate $\frac{2.59 - \frac{22}{7}}{10-\sqrt{23}}$. Type your code in the code-chunk below and click run to show result.
+
+```{r testStatEval, exercise = TRUE}
+
+```
+
+<!-- ```{r testStatEval-solution} -->
+<!-- (2.59 - 22/7)/(10 - sqrt(23)) -->
+<!-- ``` -->
+
+```{r testStatEval-check}
+grade_result(
+  pass_if(~ identical(.result, (2.59 - 22/7)/(10 - sqrt(23))))
+)
+```
+
+2a. Find the natural log of $pi$ 
+
+```{r testStatEval2a, exercise = TRUE}
+
+```
+
+<!-- ```{r testStatEval2a-solution} -->
+<!-- log(pi) -->
+<!-- ``` -->
+
+```{r testStatEval2a-check}
+grade_result(
+  pass_if(~ identical(.result, log(pi)))
+)
+```
+
+2b. Find the natural log of $e^{2\pi^2}$. 
+
+```{r testStatEval2b, exercise = TRUE}
+
+```
+
+<!-- ```{r testStatEval2b-solution} -->
+<!-- log(exp(2*pi^2)) -->
+<!-- ``` -->
+
+```{r testStatEval2b-check}
+grade_result(
+  pass_if(~ identical(.result, log(exp(2*pi^2))))
+)
+```
+
+3a. Let $a=3$ and $b=7$. Check to see if you obtain the same values for $(a+b)^2$.
+
+```{r testStatEval3a, exercise = TRUE}
+
+```
+
+<!-- ```{r testStatEval3a-solution} -->
+<!-- a = 3 -->
+<!-- b = 7 -->
+
+<!-- (a+b)^2 -->
+<!-- ``` -->
+
+```{r testStatEval3a-check}
+grade_result(
+  pass_if(~ identical(.result, (a+b)^2))
+)
+```
+
+3b. Let $a=3$ and $b=7$. Check to see if you obtain the same values for $a^2 + 2ab + b^2$.
+
+```{r testStatEval3b, exercise = TRUE}
+
+```
+
+<!-- ```{r testStatEval3b-solution} -->
+<!-- a = 3 -->
+<!-- b = 7 -->
+
+<!-- a^2 + 2*a*b + b^2 -->
+<!-- ``` -->
+
+```{r testStatEval3b-check}
+grade_result(
+  pass_if(~ identical(.result, a^2 + 2*a*b + b^2))
+)
+```
+
+4. Let $x1 = [1,2,3,4,5]$ and $x2 = [6,9,1,11,5]$. Find $\frac{x1^2+x2}{2}$.
+
+```{r testStatEval4, exercise = TRUE}
+
+```
+
+<!-- ```{r testStatEval4-solution} -->
+<!-- x1 = c(1,2,3,4,5) -->
+<!-- x2 = c(6,9,1,11,5) -->
+
+<!-- (x1^2 + x2)/2 -->
+<!-- ``` -->
+
+```{r testStatEval4-check}
+grade_result(
+  pass_if(~ identical(.result, (x1^2 + x2)/2))
+)
+```
+
+5. Let $x3 = [7,6,8,5,5,9,1]$ and $x4 = [1,2,3]$. Find $x3+x4$ and explain the reason behind obtaining this result.
+
+```{r testStatEval5, exercise = TRUE}
+
+```
+
+<!-- ```{r testStatEval5-solution} -->
+<!-- x3 = c(7,6,8,5,5,9,1) #4 Points -->
+<!-- x4 = c(1,2,3) -->
+
+<!-- x3 + x4 -->
+<!-- ``` -->
+
+```{r testStatEval5-check}
+grade_result(
+  pass_if(~ identical(.result, x3 + x4))
+)
+```
+
+### Dr. Arbuthnot's Baptism Records
+
+To get started, let's take a peek at the data.
+
+```{r loadabrbuthnot-data, exercise = TRUE}
+arbuthnot
+```
+
+Again, you can run the code above by:
+
+-   placing your cursor on the line and pressing `Ctrl-Enter` or `Cmd-Enter`
+-   placing your cursor on the line and pressing the "Run" button in the upper right hand corner of the R Markdown file, or
+-   by clicking on the green arrow at the top right hand corner of the code chunk
+
+The single line of code included in this code chunk instructs `R` to load some data: the Arbuthnot baptism counts for boys and girls. You should see that the *Environment* tab in the upper right hand corner of the RStudio window now lists a data set called `arbuthnot` that has 82 observations on 3 variables. As you interact with `R`, you will create objects for a variety of purposes. Sometimes you load the objects into your workspace by loading a package, as we have done here, but sometimes you create objects yourself as a byproduct of a computation process, for an analysis you have performed, or for a visualization you have created.
+
+The Arbuthnot data set refers to the work of Dr. John Arbuthnot, an 18<sup>th</sup> century physician, writer, and mathematician. He was interested in the ratio of newborn boys to newborn girls, so he gathered the baptism records for children born in London for every year from 1629 to 1710. Once again, we can view the data by running the code below or by typing the name of the dataset into the console. Be careful the spelling and capitalization you use! `R` is case sensitive, so if you accidentally type `Arbuthnot` `R` will tell you that object cannot be found.
+
+```{r view-data, exercise = TRUE, eval=TRUE}
+arbuthnot
+```
+
+This command does display the data for us, however, printing the whole dataset in the console is not that useful. One advantage of RStudio is that it comes with a built-in data viewer. The *Environment* tab (in the upper right pane) lists the objects in your environment. Clicking on the name `arbuthnot` will open up a *Data Viewer* tab next to your R Markdown file, which provides an alternative display of the data set. This display should feel similar to viewing data in Excel, where you are able to scroll through the dataset to inspect it. However, unlike Excel, you **will not** be able to edit the data in this tab. Once you are done viewing the data, You can close this tab by clicking on the `x` in the upper left hand corner.
+
+When inspecting the data, you should see four columns of numbers and 82 rows. Each row represents a different year that Arbuthnot collected data. The first entry in each row is the row number (an index we can use to access the data from individual years if we want), the second is the year, and the third and fourth are the numbers of boys and girls baptized that year, respectively. Use the scrollbar on the right side of the console window to examine the complete data set.
+
+Note that the row numbers in the first column are not part of Arbuthnot's data. `R` adds these row numbers as part of its printout to help you make visual comparisons. You can think of them as the index that you see on the left side of a spreadsheet. In fact, the comparison of the data to a spreadsheet will generally be helpful. `R` has stored Arbuthnot's data in an object similar to a spreadsheet or a table, which `R` calls a *data frame*.
+
+You can see the dimensions of this data frame as well as the names of the variables and the first few observations by inserting the name of the dataset into the `glimpse()` function, as seen below:
+
+```{r glimpse-data, exercise = TRUE}
+glimpse(arbuthnot)
+```
+
+Although we previously said that it is best practice to type all of your `R` code into the code chunk, it is better practice to type this command into your console. Generally, you should type all of the code that is necessary for your solution into the code chunk. 
+
+We can see that there are 82 observations and 3 variables in this dataset. The variable names are `year`, `boys`, and `girls`. At this point, you might notice that many of the commands in `R` look a lot like functions from math class; that is, invoking `R` commands means supplying a function with some number of inputs (what are called arguments) which the function uses to produce an output. The `glimpse()` command, for example, took a single argument, the name of a data frame and produced a display of the dataset as an output.
+
+### Some Exploration
+
+Let's start to examine the data a little more closely. We can access the data in a single column of a data frame by extracting the column with a `$`. For example, the code below extracts the `boys` column from the `arbuthnot` data frame.
+
+```{r view-boys, exercise = TRUE}
+arbuthnot$boys
+```
+
+This command will only show the number of boys baptized each year. `R` interprets the `$` as saying "go to the data frame that comes before me, and find the variable that comes after me."
+
+6. What command would you use to extract just the counts of girls baptized? 
+
+```{r testStatEval6, exercise = TRUE}
+
+```
+
+<!-- ```{r testStatEval6-solution} -->
+<!-- arbuthnot$girls -->
+<!-- ``` -->
+
+```{r testStatEval6-check}
+grade_result(
+  pass_if(~identical(.result, arbuthnot$girls))
+)
+```
+
+Notice that the way `R` has printed these data is different. When we looked at the complete data frame, we saw 82 rows, one on each line of the display. These data have been extracted from the data frame, so they are no longer structured in a table with other variables. Instead, these data are displayed one right after another. Objects that print out in this way are called *vectors*; similar to the vectors you have seen in mathematics courses, vectors represent a list of numbers. `R` has added numbers displayed in [brackets] along the left side of the printout to indicate each entry's location within the vector. For example, 5218 follows `[1]`, indicating that `5218` is the first entry in the vector. If `[43]` was displayed at the beginning of a line, that indicate that the first number displayed on that line would correspond to the 43<sup>rd</sup> entry in that vector.
+
+### Submit
+
+```{r context="server"}
+learnrhash::encoder_logic(strip_output = TRUE)
+```
+
+```{r encode, echo=FALSE}
+learnrhash::encoder_ui(
+  ui_before = shiny::div(
+    "If you have completed this tutorial and are happy with all of your",
+    "solutions, please click the button below to generate your hash and",
+    "submit it using the corresponding tutorial assignment tab on Blackboard",
+    shiny::tags$br()
+  ), 
+  ui_after = shiny::tags$a(href = "https://blackboard.ncat.edu/", "NCAT Blackboard")
+)
+```
+
+
+### Resources for learning R and working in RStudio
+
+That was a short introduction to R and RStudio, but we will provide you with more functions and a more complete sense of the language as the course progresses.
+
+In this course we will be using the suite of R packages from the **tidyverse**. The book [R For Data Science](https://r4ds.had.co.nz/) by Grolemund and Wickham is a fantastic resource for data analysis in R with the tidyverse. If you are Goggling for R code, make sure to also include these package names in your search query. For example, instead of Goggling "scatterplot in R", Goggle "scatterplot in R with the tidyverse".
+
+These may come in handy throughout the semester:
+
+-   [RMarkdown cheatsheet](https://github.com/rstudio/cheatsheets/raw/master/rmarkdown-2.0.pdf)
+-   [Data transformation cheatsheet](https://github.com/rstudio/cheatsheets/raw/master/data-transformation.pdf)
+-   [Data visualization cheatsheet](https://github.com/rstudio/cheatsheets/raw/master/data-visualization-2.1.pdf)
+
+Note that some of the code on these cheatsheets may be too advanced for this course. However the majority of it will become useful throughout the semester.
+
+------------------------------------------------------------------------
+
+<a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">![Creative Commons License](https://i.creativecommons.org/l/by-sa/4.0/88x31.png){style="border-width:0"}</a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>.
+
+

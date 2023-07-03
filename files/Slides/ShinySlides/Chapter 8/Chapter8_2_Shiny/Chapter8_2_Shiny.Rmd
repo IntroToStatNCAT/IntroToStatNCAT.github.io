@@ -1,0 +1,545 @@
+---
+title: "Chapter 8"
+subtitle: "Introduction to Linear Regression"
+output: 
+  ioslides_presentation:
+    progressive: FALSE
+    smaller: yes
+    widescreen: yes
+    transition: "faster"
+
+runtime: shiny_prerendered
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+```{r, echo=F, message=F, warning=F}
+library(datasets)
+library(tidyverse)
+library(shiny)
+library(readr)
+library(openintro)
+library(here)
+library(xtable)
+library(broom)
+library(faraway)
+library(scales)
+library(jpeg)
+library(openintro)
+library(learnr)
+library(knitr)
+library(png)
+library(kableExtra)
+library(gradethis) #remotes::install_github("rstudio/gradethis")
+library(learnrhash) #devtools::install_github("rundel/learnrhash")
+library(grid)
+library(tinytex)
+data("COL")
+```
+
+
+## Acknowledgement
+
+<center>
+<div class="black">
+These notes use content from OpenIntro Statistics Slides by   
+
+Mine Cetinkaya-Rundel.
+</div>
+</center>
+
+
+## 8.2 Least Squares Regression 
+<div class="black">
+In this section, we use least squares regression as a rigorous approach for fitting data using a linear model.
+
+- Draw the scatter plot, then observe if there is a linear pattern. 
+
+- The least square regression line: $y=b_0 + b_1x$, where the coefficients $b_0$, $b_1$ are determined by minimizing
+$$D = \sum{(\text{Observed response - Predicted response})^2}\\
+=\sum{(y_i - b_0 - b_1x)^2} = \sum{e_i}^2$$
+
+- There are formulas to compute $b_0$ and $b_0$. 
+
+</div>
+
+## A measure for the best line
+<div class= "black">
+
+- We want a line that has small residuals
+      
+  1. Option 1: Minimize the sum of magnitudes (absolute values) of residuals. 
+         $|e_1| + |e_2|+ ... + |e_n|$
+  2. Option 2: Minimize the sum of squared residuals -- least squares. 
+          $e_1^2 + e_2^2 + ... + e_n^2$
+          
+- Why least squares?
+
+  1. Most commonly used.
+    
+  2. Easier to compute by hand and using software.
+    
+</div>
+
+
+## The least squares Line
+<div class="black">
+<div style="float: left; width: 50%;">
+```{r, out.width="90%"}
+pm <- readPNG("pm.png")
+grid.raster(pm)
+```
+</div>
+<div style="float: right; width: 50%;">
+**Notation:**
+
+- Intercept: 
+
+    - Parameter: $\beta_0$
+    - Point estimate: $b_0$
+    
+- Slope: 
+
+    - Parameter: $\beta_1$
+    - Point estimate: $b_1$
+
+</div>
+</div>
+
+## Conditions for the least squares line
+<div class="black">
+
+1. Linearity
+
+2. Nearly normal residuals
+
+3. Constant variability 
+
+4. Independent observations
+
+</div>
+
+
+## Conditions: (1) Linearity 
+<div class="black">
+
+- The relationship between the explanatory and the response variable should be linear.
+
+- Check using a scatter plot of the data, or a **residuals plot**.
+
+```{r, out.width="70%"}
+kl <- readPNG("kl.png")
+grid.raster(kl)
+```
+
+</div>
+
+## Conditions: (2) Nearly Normal residuals
+<div class= "black">
+- The residuals should be nearly normal (bell shaped, symmetric).
+
+- Check using a histogram or normal probability plot of residuals
+
+```{r, out.width="70%"}
+hj <- readPNG("hj.png")
+grid.raster(hj)
+```
+
+</div>
+
+## Conditions: (3) Constant variability 
+<div class="black">
+
+<div style="float: left; width: 50%;">
+
+```{r, out.width="100%"}
+cx <- readPNG("cx.png")
+grid.raster(cx)
+```
+</div>
+
+<div style="float: right; width: 50%;">
+- The variability of points around the least squares line should be roughly constant.
+
+- This implies that the variability of residuals around the 0 line should be roughly constant as well.
+
+- That is also called **homoscedasticity**.
+</div>
+</div>
+
+## Checking conditions
+<div class="black">
+
+<div style="float: left; width: 50%;">
+What condition is this linear model obviously violating?
+
+- Constant variability
+- Linear relationship
+- Normal residuals
+- No extreme outliers
+
+**(b) Linear relationship**
+</div>
+
+<div style="float: right; width: 50%;">
+```{r, out.width="100%"}
+nn <- readPNG("nn.png")
+grid.raster(nn)
+```
+</div>
+</div>
+
+## Checking conditions
+<div class="black">
+<div style="float: left; width: 50%;">
+What condition is this linear model obviously violating?
+
+- Constant variability
+- Linear relationship
+- Normal residuals
+- No extreme outliers
+
+**(a) Constant variability**
+</div>
+
+<div style="float: right; width: 50%;">
+```{r, out.width="100%"}
+lp <- readPNG("lp.png")
+grid.raster(lp)
+```
+</div>
+</div>
+
+## Use Sample Summary to find least squares line
+<font size= "4">
+<div class="black">
+<center>
+```{r, out.width="50%"}
+ul <- readPNG("ul.png")
+grid.raster(ul)
+```
+</center>
+Estimate Slope of the regression line: 
+
+$$\color{blue}{b_1 = \frac{s_y}{s_x}R} = \frac{3.1}{3.73} \times (-0.75)= -0.62$$
+</div>
+</font>
+
+## Use Sample Summary to find least squares line contd.
+<font size= "4">
+<div class="black">
+Estimate Intercept of the regression line:
+
+ $$\color{blue}{b_0 = \bar{y} - b_1 \bar{x}}= 11.35 -(-0.62) \times 86.01= 64.68$$
+ (Use the fact that regression line passes through ($\bar{x},\bar{y})$)
+ 
+ The estimate linear regression model for Poverty vs. HS grad is
+ 
+ $$\hat{y} = 64.68 - 0.62x$$
+</div>
+</font>
+
+
+## Regression line
+<div class="black">
+
+```{r, out.width="80%"}
+vx <- readPNG("vx.png")
+grid.raster(vx)
+```
+
+</div>
+
+## Use Sample Summary to find least squares line
+<font size="3">
+<div class="black">
+
+The following code computes the summary statistics needed to manually calculate the point estimates of the intercept and slope in the regression model for the % in Poverty on the % of HS Grads using the states data. 
+
+```{r quiz11__2, exercise=TRUE}
+library(dplyr)
+Poverty = c(14.6, 8.3, 13.3, 18.0, 12.8,  9.4,  7.8,  8.1, 16.8, 12.1, 12.1, 10.6,
+       11.8, 11.2,  8.7 , 8.3,  9.4, 13.1, 17.0, 11.3,  7.3,  9.6, 10.3,6.5, 17.6,
+       9.6, 13.7,  9.5, 8.3,  5.6,  7.8, 17.8, 14.0, 13.1, 11.9, 10.1, 14.7,
+       11.2 ,9.2 ,10.3,13.5, 10.2 ,14.2, 15.3, 9.3,  9.9,8.7 ,10.8, 16.0,  8.6 , 9.5)
+
+Graduates = c(79.9,90.6 ,83.8, 80.9, 81.1,88.7, 87.5, 88.7, 86.0, 84.7,85.1,88.5, 88.2,
+      85.9, 86.4, 89.7, 88.6, 82.8, 79.8,86.6, 87.6,87.1,87.6,91.6,
+      81.2, 88.3,90.1, 90.8, 85.6, 92.1, 86.2, 81.7, 84.2, 81.4, 89.7, 87.2, 85.7,
+      86.9, 86.0, 81.0, 80.8 ,88.7 ,81.0 ,77.2, 89.4, 88.9,87.8 ,89.1, 78.7,88.6, 90.9)
+
+df = data.frame(Poverty,Graduates)
+
+df %>% summarize(HSGrad_Mean = mean(Graduates), HSGrad_sd= sd(Graduates),
+            Poverty_Mean= mean(Poverty), Poverty_sd= sd(Poverty),
+            R = cor(Graduates, Poverty, method = "pearson")) %>% round(digits = 2)
+
+```
+</div>
+</font>
+
+## Estimating Linear regression using R
+<font size="2">
+<div class="black">
+
+Below, we use the `lm()` function to estimate the linear regression model directly. We save the estimated model in the object `lreg`. To extract the estimated coefficients, we apply the function `coef()` to the `lreg` object. The `summary(lreg)` command produces much more details of the model. 
+
+```{r quiz1_5, exercise=TRUE}
+Poverty = c(14.6, 8.3, 13.3, 18.0, 12.8,  9.4,  7.8,  8.1, 16.8, 12.1, 12.1, 10.6,
+       11.8, 11.2,  8.7 , 8.3,  9.4, 13.1, 17.0, 11.3,  7.3,  9.6, 10.3,6.5, 17.6,
+       9.6, 13.7,  9.5, 8.3,  5.6,  7.8, 17.8, 14.0, 13.1, 11.9, 10.1, 14.7,
+       11.2 ,9.2 ,10.3,13.5, 10.2 ,14.2, 15.3, 9.3,  9.9,8.7 ,10.8, 16.0,  8.6 , 9.5)
+
+Graduates = c(79.9,90.6 ,83.8, 80.9, 81.1,88.7, 87.5, 88.7, 86.0, 84.7,85.1,88.5, 88.2,
+      85.9, 86.4, 89.7, 88.6, 82.8, 79.8,86.6, 87.6,87.1,87.6,91.6,
+      81.2, 88.3,90.1, 90.8, 85.6, 92.1, 86.2, 81.7, 84.2, 81.4, 89.7, 87.2, 85.7,
+      86.9, 86.0, 81.0, 80.8 ,88.7 ,81.0 ,77.2, 89.4, 88.9,87.8 ,89.1, 78.7,88.6, 90.9)
+
+df = data.frame(Poverty,Graduates)
+
+lreg = lm(Poverty ~ Graduates, data=df) ## Linear Regression
+coef(lreg)
+#summary(lreg)
+
+```
+</div>
+</font>
+
+## Practice 
+<div class="black">
+
+Given $\bar{x}= 7.5$, $\bar{y} = 14.265$, $s_x= 0.909$, $s_y= 1.849$, $R= 0.8976$.
+
+1) Calculate the slope of the regression line $\color{blue}{b_1 = \frac{s_y}{s_x}R}$
+2) Calculate the intercept of the regression line $\color{blue}{b_0 = \bar{y} - b_1 \bar{x}}$
+3) Write the equation of the regression line.
+4) Use this model to predict the value of y if x= 100
+5) Find the coefficient of determination ($R^2$)
+
+**Check Answers:** 
+
+1) $b_1 = \frac{s_y}{s_x}R = 1.8258$
+\
+2) $b_0 = \bar{y} - b_1 \bar{x}= 0.5714$
+\
+3) $y= 0.5714 + 1.8258x$
+\
+4)  18.8294
+\
+5) 0.8057
+\
+Discussion: if know $s_x$, $s_y$ and the slope, how to find R?
+\
+Answer: $R = b_1\frac{s_x}{s_y}$
+</div>
+
+
+## Example (HW question)
+<div class="black">
+A researcher measures the wrist circumference and height of a random sample of individuals. The data summary is displayed below.
+
+<center>
+```{r, out.width="65%"}
+ky <- readPNG("ky.png")
+grid.raster(ky)
+```
+</center>
+
+Residual standard error: 4.0929 on 28 degrees of freedom. R-squared: 0.6683, Adjusted R-squared: 0.6564.
+
+</div>
+
+
+## Example (HW question)
+
+<div class="black">
+
+a) The equation of the best-fit line is(Use x(Wrist circumference) and y (height) for variables: 
+
+$y= 27.1107 + 6.4843x$
+
+b) Identify the coefficient of determination
+
+$R^2 = 0.6683$ (variability of height that can be explained using the model)
+
+c) Calculate the correlation coefficient 
+
+$R= \sqrt{0.6683} = 0.8174961774 \hspace{0.2cm} (\text{pay attention to sign of} \hspace{0.2cm}b_1)$
+
+d) Typical error using the model to predict heights
+
+$4.0929$
+
+e) Find the residual for one observation (7.3,84)
+
+$e= y-\hat{y} = 84- (27.1107 + 6.4843 \times 7.3)= 9.55391$
+
+</div>
+
+
+
+## Interpretation of Slope and Intercept
+<div class="black">
+Interpretation of $\hat{y}= 64.68- 0.62x$
+
+1) Slope $b_1=−0.62$:  For each additional % point in HS graduate rate, we would expect the % living in poverty to be lower on average by 0.62% points.
+2) Intercept $b_0=64.68$:  States with no HS graduates are expected on average to have 64.68% of residents living below the poverty line.
+
+- Note: Since there are no states in the data set with no HS graduates, the intercept is of no interest, not very useful, and not reliable.  In fact, the predicted value of the intercept is so far from the bulk of the data.
+
+<center>
+```{r, out.width="45%"}
+lo <- readPNG("lo.png")
+grid.raster(lo)
+```
+</center>
+</div>
+
+## Prediction 
+<div class="black">
+- Using the linear model to predict the value of the response variable for a given value of the explanatory variable is called **prediction**, simply by plugging in the value of x in the linear model equation.
+
+- There will be some uncertainty associated with the predicted value.
+
+<center>
+```{r,out.width="50%"}
+hg <- readPNG("hg.png")
+grid.raster(hg)
+```
+</center>
+</div>
+
+
+## Extrapolation 
+<div class="black">
+
+- Applying a model estimate to values outside of the realm of the original data is called **extrapolation** *(Extrapolation is used to estimate values that go beyond a set of given data or observations)*.  
+
+- In our example, the intercept is an extrapolation.
+
+<center>
+```{r,out.width="50%"}
+hh <- readPNG("hh.png")
+grid.raster(hh)
+```
+</center>
+</div>
+
+## More on correlation R and R squared
+<div class="black">
+
+- The correlation 
+    
+  $R = \frac{1}{n-1}\sum_{i=1}^n \frac{x_i-\bar{x}}{s_x}\frac{y_i-\bar{y}}{s_y}\hspace{0.2cm} {\text{OR}}\hspace{0.2cm} R= \frac{\sum(x_i-\bar{x})(y_i-\bar{y})}{\sqrt{\sum(x_i-\bar{x})^2(y_i-\bar{y})^2}}$
+
+- The quantity $R^2$ is called the **coefficient of determination** (see.in 8.1)
+
+- It is a statistical measure in a linear regression model that determines the proportion of variance in the response variable that can be explained by the explanatory variable(or input,or predictor variable).
+
+- The larger $R^2$ (Close to 1), the better fit;
+- The smaller $R^2$ (close to 0), the more noise; the model does not give a good fit: due to either little association or nonlinear association. 
+
+</div>
+
+## Interpretation of $R^2$
+<div class="black">
+<div style="float: left; width: 50%;">
+Which of the below is the correct interpretation of $R^2$ = 0.38 
+(with R = -0.62):
+
+a) 38% of the variability in the % of HS graduates among the 51 states is explained by the model.
+b) 38% of the variability in the % of residents living in poverty among the 51 states is explained by the model.
+c) 38% of the time % HS graduates predict % living in poverty correctly.
+d) 62% of the variability in the % of residents living in poverty among the 51 states is explained by the model
+</div>
+
+<div style="float: right; width: 50%;">
+```{r, out.width="80%"}
+xc <- readPNG("xc.png")
+grid.raster(xc)
+```
+</div>
+</div>
+
+## Interpretation of $R^2$ (end of 8.2)
+<div class="black">
+<div style="float: left; width: 50%;">
+Which of the below is the correct interpretation of $R^2$ = 0.38 
+(with R = -0.62):
+
+a) 38% of the variability in the % of HS graduates among the 51 states is explained by the model.
+
+b) <div class="red">38% of the variability in the % of residents living in poverty among the 51 states is explained by the model.</div>
+
+c) 38% of the time % HS graduates predict % living in poverty correctly.
+
+d) 62% of the variability in the % of residents living in poverty among the 51 states is explained by the model
+</div>
+
+<div style="float: right; width: 50%;">
+```{r, out.width="80%"}
+xc <- readPNG("xc.png")
+grid.raster(xc)
+```
+</div>
+</div>
+
+
+## Categorical predictor(s)
+<div class="black">
+We can allow to use categorical variable to predict outcomes.
+
+If we divide the US into East and West, and use the model 
+$$ \hat{poverty} = 11.17 + 0.38 \times west $$
+
+- Explanatory variable: region, reference level: east
+
+- Intercept: The estimated average poverty percentage in eastern states is 11.17%.
+
+     - This is the value we get if we plug in **0** for the explanatory variable. 
+     
+- Slope: The estimated average poverty percentage in western states is 0.38% higher than eastern states.
+
+    - Then, the estimated average poverty percentage in western states is 11.17 + 0.38 =  11.55%.
+    - This is the value we get if we plug in 1 for the explanatory variable
+
+</div>
+
+## Poverty vs. region (northeast, midwest, west, south) (end of 8.2)
+<font size="3">
+<div class="black">
+If we divide the US into 4 regions: Northeast, Midwest, West, and South, and use the model 
+
+```{r,out.width="55%"}
+yt <- readPNG("yt.png")
+grid.raster(yt)
+```
+
+Which region (northeast, mid-west, west, or south) is the reference level?
+</div>
+</font>
+
+
+## Poverty vs. region (northeast, midwest, west, south) (end of 8.2)
+<font size="3">
+<div class="black">
+
+a) northeast
+b) mid-west
+c) west
+d) south
+e) cannot tell
+\
+**(a) northeast**
+
+
+The model is 
+$$\hat{poverty}= 9.50 + 0.03 \times midwest+ 1.79\times west +4.16 \times south$$ 
+The variables takes value 0 or 1.
+
+
+</div>
+</font>
+

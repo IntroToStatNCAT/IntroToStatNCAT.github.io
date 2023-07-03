@@ -1,0 +1,753 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Chapter 5</title>
+
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <meta name="generator" content="pandoc" />
+
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+
+  <base target="_blank">
+
+  <script type="text/javascript">
+    var SLIDE_CONFIG = {
+      // Slide settings
+      settings: {
+                title: 'Chapter 5',
+                        subtitle: 'Foundations for inference',
+                useBuilds: true,
+        usePrettify: true,
+        enableSlideAreas: true,
+        enableTouch: true,
+                      },
+
+      // Author information
+      presenters: [
+            ]
+    };
+  </script>
+
+  <!-- HEAD_CONTENT -->
+
+  <style type="text/css">
+
+    b, strong {
+      font-weight: bold;
+    }
+
+    em {
+      font-style: italic;
+    }
+
+    summary {
+      display: list-item;
+    }
+
+    details > summary > p:only-child {
+      display: inline;
+    }
+
+    slides > slide {
+      -webkit-transition: all 0.4s ease-in-out;
+      -moz-transition: all 0.4s ease-in-out;
+      -o-transition: all 0.4s ease-in-out;
+      transition: all 0.4s ease-in-out;
+    }
+
+    .auto-fadein {
+      -webkit-transition: opacity 0.6s ease-in;
+      -webkit-transition-delay: 0.4s;
+      -moz-transition: opacity 0.6s ease-in 0.4s;
+      -o-transition: opacity 0.6s ease-in 0.4s;
+      transition: opacity 0.6s ease-in 0.4s;
+      opacity: 0;
+    }
+/* https://github.com/ropensci/plotly/pull/524#issuecomment-468142578 */
+slide:not(.current) .plotly.html-widget{
+  display: block;
+}
+
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+            
+  </style>
+
+
+</head>
+
+<body style="opacity: 0">
+
+<slides class="layout-widescreen">
+
+  <slide class="title-slide segue nobackground">
+        <!-- The content of this hgroup is replaced programmatically through the slide_config.json. -->
+    <hgroup class="auto-fadein">
+      <h1 data-config-title><!-- populated from slide_config.json --></h1>
+      <h2 data-config-subtitle><!-- populated from slide_config.json --></h2>
+      <p data-config-presenter><!-- populated from slide_config.json --></p>
+          </hgroup>
+  </slide>
+
+<slide class=""><hgroup><h2>Acknowledgement</h2></hgroup><article  id="acknowledgement">
+
+<center>
+
+<div class="black">
+<p>These notes use content from OpenIntro Statistics Slides by</p>
+
+<p>Mine Cetinkaya-Rundel.</p></div>
+
+</center>
+
+</article></slide><slide class=""><hgroup><h2>5.2 Confidence intervals for a proportion</h2></hgroup><article  id="confidence-intervals-for-a-proportion">
+
+<div class="black">
+<p>In this section, we discuss using confidence intervals to estimate the population proportion.</p>
+
+<ul>
+<li><p>Construction of confidence intervals (width depends on given confidence level)</p></li>
+<li><p>Margin of error</p></li>
+<li><p>Interpreting confidence intervals</p></li>
+</ul></div>
+
+</article></slide><slide class=""><hgroup><h2>Confidence intervals</h2></hgroup><article  id="confidence-intervals">
+
+<div class="black">
+<p><font size="4"></p>
+
+<ul>
+<li><p>If we report a point estimate, we probably won’t hit the exact population parameter. If we report a range of plausible values, we have a good shot at capturing the parameter. A plausible range of values for the population parameter is called a <strong>confidence interval</strong>.</p></li>
+<li><p>Using only a sample statistic to estimate a parameter is like fishing in a murky lake with a spear, and using a confidence interval is like fishing with a net.</p></li>
+</ul>
+
+<div style="float: left; width: 50%;">
+<p><img src="Chapter5_2_Shiny_files/figure-html/unnamed-chunk-2-1.png" width="70%" /></p></div>
+
+<div style="float: right; width: 50%;">
+<p><img src="Chapter5_2_Shiny_files/figure-html/unnamed-chunk-3-1.png" width="70%" /></p></div>
+
+<p>We can throw a spear where we saw a fish but we will probably miss. If we toss a net in that area, we have a good chance of catching the fish.</p>
+
+<p></font></p></div>
+
+</article></slide><slide class=""><hgroup><h2>Confidence Intervals</h2></hgroup><article  id="confidence-intervals-1">
+
+<div class="black">
+<ul>
+<li><p>A confidence interval is a plausible range of values so defined that there is a specified probability that the value of the interested population parameter lies within it.</p></li>
+<li><p>The probability of the confidence interval that contains the parameter is called the confidence level – which is a number chosen to be close to 1 (usually use percentages like 90%, 95%, 99%).</p></li>
+<li><p>Confidence intervals are interval estimates and they are built around a point estimate (value of sample proportion)</p></li>
+</ul></div>
+
+</article></slide><slide class=""><hgroup><h2>Constructing confidence intervals</h2></hgroup><article  id="constructing-confidence-intervals">
+
+<div class="black">
+<ul>
+<li><p>By CLT, if the conditions are met, \(\hat{p} \sim N(p, \sqrt{\frac{p(1-p)}{n}})\)</p></li>
+<li><p>The Standard Error is \(\sigma_{\hat{p}}= S.E._{\hat{p}} = \sqrt{\frac{p(1-p)}{n}}\)</p></li>
+<li><p>When \(p\) is unknown, we replace \(p\) by \(\hat{p}\)</p></li>
+</ul>
+
+<p>\[S.E._{\hat{p}}= \sqrt{\frac{\hat{p}(1-\hat{p})}{n}}\]</p>
+
+<ul>
+<li>A \((1-\alpha)100\%\) confidence interval for the proportion \(p\) is \[\hat{p} ± z_{\frac{\alpha}{2}} \times S.E._{\hat{p}}\] where \(z_{\frac{\alpha}{2}}\) is a z-score from the standard normal distribution and is related to the confidence level \((1-\alpha)100\%\).</li>
+</ul></div>
+
+</article></slide><slide class=""><hgroup><h2>Example: 95% confidence intervals</h2></hgroup><article  id="example-95-confidence-intervals">
+
+<div class="black">
+<ul>
+<li>The 95% confidence interval for p is given by:</li>
+</ul>
+
+<p>\[\hat{p} ± 1.96 \times S.E._{\hat{p}}\]</p>
+
+<ul>
+<li><p>Note that \((1-\alpha)100\%=95\% \implies \alpha = 0.05 \implies \alpha/2 = 0.025\)</p></li>
+<li><p>\(z_{\frac{\alpha}{2}} = z_{0.025} = 1.96\) is the z-score that makes the upper-tail area under the standard normal distribution curve equal to \(\alpha/2\) (0.025).</p></li>
+</ul>
+
+<p><img src="Chapter5_2_Shiny_files/figure-html/unnamed-chunk-4-1.png" width="40%" height="130%" style="display: block; margin: auto;" /></p>
+
+<!-- ```{r, out.width="50%", echo=FALSE, fig.align='center'} -->
+
+<!-- cb <- readPNG("zalpha2.png") -->
+
+<!-- grid.raster(cb) -->
+
+<!-- ``` --></div>
+
+</article></slide><slide class=""><hgroup><h2>More about \(𝑧_{\frac{𝛼}{2}}\)</h2></hgroup><article  id="more-about-𝑧_frac𝛼2">
+
+<div class="black">
+<ul>
+<li>The value of \(𝑧_{\frac{𝛼}{2}}\) is determined by the value of the subscript.</li>
+</ul>
+
+<!-- ```{r, out.width="35%", echo=FALSE, fig.align='center'} -->
+
+<!-- xv <- readPNG("xv.png") -->
+
+<!-- grid.raster(xv) -->
+
+<!-- ``` -->
+
+<p><img src="Chapter5_2_Shiny_files/figure-html/unnamed-chunk-5-1.png" width="50%" style="display: block; margin: auto;" /></p>
+
+<ul>
+<li>The textbook uses the notation \(z*\) to refer to \(𝑧_{\frac{𝛼}{2}}\).</li>
+</ul></div>
+
+</article></slide><slide class=""><hgroup><h2>Margin of error (M.E.)</h2></hgroup><article  id="margin-of-error-m.e.">
+
+<div class="black">
+<ul>
+<li><p>Recall that a \((1-\alpha)100\%\) confidence interval for the proportion \(p\) is given by: \[\hat{p} ± z_{\frac{\alpha}{2}} \times S.E._{\hat{p}}\]</p></li>
+<li><p>The <strong>margin of error (M.E.)</strong> of the confidence interval is:</p></li>
+</ul>
+
+<p>\[M.E. = z_{\frac{\alpha}{2}} \times S.E._{\hat{p}}\]</p>
+
+<ul>
+<li><p>The <strong>margin of error (M.E.)</strong> depends on the confidence level (through \(z_{\frac{\alpha}{2}}\)) and the standard error (\(S.E._{\hat{p}}=\sqrt{\frac{\hat{p}(1-\hat{p})}{n}}\)).</p></li>
+<li><p>The confidence interval can also be written as follows:</p></li>
+</ul>
+
+<p>\[\hat{p} ± M.E.\]</p></div>
+
+</article></slide><slide class=""><hgroup><h2>Illusteration of the 95% confidence interval</h2></hgroup><article  id="illusteration-of-the-95-confidence-interval">
+
+<div class="black">
+<ul>
+<li>For large random samples, there is about 95% chance that \(\hat{p}\) falls within \(1.96\times S.E.\) of the population proportion \(𝑝\).</li>
+</ul>
+
+<p><img src="Chapter5_2_Shiny_files/figure-html/unnamed-chunk-6-1.png" width="65%" style="display: block; margin: auto;" /></p></div>
+
+</article></slide><slide class=""><hgroup><h2>Interpretation of the 95% confidence interval</h2></hgroup><article  id="interpretation-of-the-95-confidence-interval">
+
+<div class="black">
+<div class="blue">
+<p>What does 95% confident mean?</p></div>
+
+<ul>
+<li><p>If we draw many samples of the same size and build a 95% C.I. \(\hat{𝒑} ±𝟏.𝟗𝟔\times S.E.\) from each sample. Then, about 95% of such C.I.s would contain the true population proportion \(𝑝\).</p></li>
+<li><p>The figure below shows twenty-five (25) point-estimates and 95% confidence intervals from the simulations relative to the population proportion p = 0.88. Only 1 of these 25 intervals did not capture the population proportion, and this interval has been marked red bolded. (Note that: 1/25=0.04, 24/25=0.96)</p></li>
+</ul>
+
+<p><img src="Chapter5_2_Shiny_files/figure-html/unnamed-chunk-7-1.png" width="40%" style="display: block; margin: auto;" /></p></div>
+
+</article></slide><slide class=""><hgroup><h2>Interpretation of the 95% confidence interval</h2></hgroup><article  id="interpretation-of-the-95-confidence-interval-1">
+
+<div class="black">
+<font size="3">
+
+<div class="blue">
+<p>What does 95% confident mean? The code below performs the simulation described in previous slide.</p></div>
+
+<div class="tutorial-exercise" data-label="CL_sim" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
+<pre class = 'prettyprint lang-text'>library(tidyverse)
+nsim = 25 #number of simulations to run (larger nsim will produce more accurate estimate of true confidence level)
+CL = 0.95 #confidence level
+p = 0.88 #population proportion (parameter)
+N = 100000 #population size
+pop = c(rep(&quot;success&quot;, N*p), rep(&quot;failure&quot;, N*(1-p))) #population of successes and failures
+n = 100 #sample size
+
+phat = numeric(nsim)
+L = numeric(nsim)
+U = numeric(nsim)
+
+for (i in 1:nsim){
+  s = sample(pop, n, replace = TRUE)
+  phat[i] = sum(s==&quot;success&quot;)/n
+  SE = sqrt(phat[i]*(1-phat[i])/n)
+  L[i] = phat[i] - qnorm((1-CL)/2, lower.tail = FALSE)*SE
+  U[i] = phat[i] + qnorm((1-CL)/2, lower.tail = FALSE)*SE
+}
+
+ci95 = data.frame(Sample = seq(1,nsim), phat, L, U) 
+ci95 = mutate(ci95, capture = as.factor(ifelse(L &lt;= p &amp; p &lt;= U, 1, 0)))
+
+ggplot(data = ci95, aes(x = Sample, y = phat)) + 
+  geom_point(aes(color = capture)) + 
+  geom_errorbar(aes(ymin = L, ymax = U, color = capture)) + 
+  scale_color_manual(values = c(&#39;0&#39;=&#39;red&#39;,&#39;1&#39;=&#39;black&#39;)) + 
+  coord_flip() + 
+  geom_hline(yintercept = p, linetype = &quot;dashed&quot;, color = &quot;blue&quot;) + 
+  labs(title = paste0(CL*100, &quot;% Confidence Intervals&quot;)) + 
+  theme(plot.title = element_text(hjust = 0.5))</pre>
+
+<script type="application/json" data-ui-opts="1">{"engine":"r","has_checker":false,"caption":"<span data-i18n=\"text.enginecap\" data-i18n-opts=\"{&quot;engine&quot;:&quot;R&quot;}\">R Code<\/span>"}</script></div>
+
+<p></font></p></div>
+
+</article></slide><slide class=""><hgroup><h2>Changing the confidence level</h2></hgroup><article  id="changing-the-confidence-level">
+
+<div class="black">
+<p><font size="4"> If the confidence level is changed to 90%, would you expect the confidence interval to be wider or narrower?</p>
+
+<ul>
+<li><p>Here, \(1 - \alpha = 0.90 \implies \alpha = 0.10 \implies \alpha/2 = 0.05\)</p></li>
+<li><p>So, using R, we find \(z_{\frac{\alpha}{2}} = z_{0.05} = 1.645\)</p></li>
+</ul>
+
+<div class="tutorial-exercise" data-label="Ex_8" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
+<pre class = 'prettyprint lang-text'>qnorm(0.05, lower.tail = FALSE)
+qnorm(1-0.05, lower.tail = TRUE) </pre>
+
+<script type="application/json" data-ui-opts="1">{"engine":"r","has_checker":false,"caption":"<span data-i18n=\"text.enginecap\" data-i18n-opts=\"{&quot;engine&quot;:&quot;R&quot;}\">R Code<\/span>"}</script></div>
+
+<ul>
+<li><p>The 90% confident interval would be \(\hat{p} ± 1.645×𝑆.𝐸.\) which will be narrower than the 95% interval because the margin of error is higher for the 95% interval (\(z_{\frac{\alpha}{2}} = z_{0.025} = 1.96\)).</p></li>
+<li><p>Practice: Find the 99% confidence interval.</p></li>
+</ul>
+
+<div class="tutorial-exercise" data-label="Ex_81" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
+<pre class = 'prettyprint lang-text'>qnorm(0.005, lower.tail = FALSE)
+qnorm(1-0.005, lower.tail = TRUE)</pre>
+
+<script type="application/json" data-ui-opts="1">{"engine":"r","has_checker":false,"caption":"<span data-i18n=\"text.enginecap\" data-i18n-opts=\"{&quot;engine&quot;:&quot;R&quot;}\">R Code<\/span>"}</script></div>
+
+<p>\(\hat{p} ± 2.58×𝑆.𝐸.\) </font></p></div>
+
+</article></slide><slide class=""><hgroup><h2>Changing the confidence level</h2></hgroup><article  id="changing-the-confidence-level-1">
+
+<div class="black">
+<ul>
+<li>The following table shows the values of \(z_{\frac{\alpha}{2}}\) for commonly used confidence levels. You are encouraged to use R to confirm the values in the table.</li>
+</ul>
+
+<p><img src="Chapter5_2_Shiny_files/figure-html/unnamed-chunk-8-1.png" width="50%" style="display: block; margin: auto;" /></p>
+
+<ul>
+<li>Practice: For an 80% confidence level, find \(z_{\frac{\alpha}{2}}\).</li>
+</ul>
+
+<p>Answer: \(𝛼= 0.20 \implies \frac{\alpha}{2} = 0.10 \implies z_{\frac{\alpha}{2}} = 𝑧_{0.10} = 1.281552\)</p></div>
+
+</article></slide><slide class=""><hgroup><h2>Practice</h2></hgroup><article  id="practice">
+
+<div class="black">
+<div class="red">
+<p>Which of the below Z scores is the appropriate \(z^*\) when calculating a 98% confidence interval?</p></div>
+
+<ol>
+<li>Z = 2.05</li>
+<li>Z = 1.96</li>
+<li>Z = 2.33</li>
+<li>Z = -2.33</li>
+<li>Z = -1.65</li>
+</ol></div>
+
+</article></slide><slide class=""><hgroup><h2>Practice</h2></hgroup><article  id="practice-1">
+
+<div class="black">
+<div class="red">
+<p>Which of the below Z scores is the appropriate \(z^*\) when calculating a 98% confidence interval?</p></div>
+
+<ol>
+<li>Z = 2.05</li>
+<li>Z = 1.96</li>
+<li><div class="red">
+Z = 2.33</div></li>
+<li>Z = -2.33</li>
+<li>Z = -1.65 <left></li>
+</ol>
+
+<p><img src="Chapter5_2_Shiny_files/figure-html/unnamed-chunk-9-1.png" width="40%" height="130%" style="display: block; margin: auto;" /> </left></p></div>
+
+</article></slide><slide class=""><hgroup><h2>Facebook’s categorization of user interests</h2></hgroup><article  id="facebooks-categorization-of-user-interests">
+
+<div class="black">
+<p><font size="4"> Most commercial websites (e.g. social media platforms, news outlets, online retailers) collect a data about their users’ behaviors and use these data to deliver targeted content, recommendations, and ads. To understand whether Americans think their lives line up with how the algorithm-driven classification systems categorizes them, Pew Research asked a representative sample of 850 American Facebook users how accurately they feel the list of categories Facebook has listed for them on the page of their supposed interests actually represents them and their interests. 67% of the respondents said that the listed categories were accurate.</p>
+
+<p>Estimate the true proportion of American Facebook users who think the Facebook categorizes their interests accurately.</p>
+
+<ol>
+<li><p>Find the <strong>point estimate</strong> in this case</p></li>
+<li><p>Estimate the <strong>standard error</strong></p></li>
+<li><p>Construct a <strong>95% confidence interval</strong> for population proportion</p></li>
+<li><p>Construct a <strong>90% confidence interval</strong> for population proportion</p></li>
+</ol>
+
+<p></font></p></div>
+
+</article></slide><slide class=""><hgroup><h2>Facebook’s categorization of user interests</h2></hgroup><article  id="facebooks-categorization-of-user-interests-1">
+
+<div class="black">
+<p><font size="3"></p>
+
+<p>Note that: \(\hat{p} = 0.67\) and \(n=850\)</p>
+
+<p>Ans 1. The point estimate is \(\hat{p}\) = 0.67</p>
+
+<p>Ans 2. The standard error is: \[{S.E. = \sqrt{\frac{p(1-p)}{n}} = \sqrt{\frac{0.67 \times 0.33}{850}} \approx 0.0161281}\]</p>
+
+<p>Ans 3. The approximate 95% confidence interval is</p>
+
+<p>\[
+\begin{align*}
+\hat{p} \pm 1.96 \times S.E. &amp;= 0.67 \pm 1.96 \times 0.016\\
+&amp;= (0.67-0.03136, 0.67+0.03136)\\
+&amp;= (0.639, 0.701)
+\end{align*}
+\] We are 95% confident that 63.9% to 70.1% of all American Facebook users think Facebook categorizes their interests accurately.</p>
+
+<p>Ans 4. The 90% confidence interval is</p>
+
+<p>\[
+\begin{align*}
+\hat{p} \pm 1.645 \times S.E. &amp;= 0.67 \pm 1.645 \times 0.016\\
+&amp;= (0.67-0.02632, 0.67+0.02632)\\
+&amp;= (0.644, 0.696)
+\end{align*}
+\] * Note that the 90% confidence interval is narrower since it has a smaller margin of error. </font></p></div>
+
+</article></slide><slide class=""><hgroup><h2>Practice</h2></hgroup><article  id="practice-2">
+
+<div class="black">
+<div class="red">
+<p>Which of the following is the correct interpretation of this confidence interval?</p></div>
+
+<p>We are 95% confident that</p>
+
+<ol>
+<li><p>64% to 70% of American Facebook users in this sample think Facebook categorizes their interests accurately.</p></li>
+<li><p>64% to 70% of all American Facebook users think Facebook categorizes their interests accurately.</p></li>
+<li><p>There is a 64% to 70% chance that a randomly chosen American Facebook user’s interests are categorized accurately.</p></li>
+<li><p>There is a 64% to 70% chance that 95% of American Facebook users’ interests are categorized accurately.</p></li>
+</ol></div>
+
+</article></slide><slide class=""><hgroup><h2>Practice</h2></hgroup><article  id="practice-3">
+
+<div class="black">
+<div class="red">
+<p>Which of the following is the correct interpretation of this confidence interval?</p></div>
+
+<p>We are 95% confident that</p>
+
+<ol>
+<li><p>64% to 70% of American Facebook users in this sample think Facebook categorizes their interests accurately.</p></li>
+<li><div class="red">
+64% to 70% of all American Facebook users think Facebook categorizes their interests accurately.</div></li>
+<li><p>There is a 64% to 70% chance that a randomly chosen American Facebook user’s interests are categorized accurately.</p></li>
+<li><p>There is a 64% to 70% chance that 95% of American Facebook users’ interests are categorized accurately.</p></li>
+</ol></div>
+
+</article></slide><slide class=""><hgroup><h2>Factors affecting width of confidence interval</h2></hgroup><article  id="factors-affecting-width-of-confidence-interval">
+
+<div class="black">
+<ul>
+<li>The \((1-\alpha)100\%\) confidence interval for the population proportion is</li>
+</ul>
+
+<p>\[\text{point estimate} \pm z_{\frac{\alpha}{2}} \times S.E. \implies \text{point estimate} \pm M.E. \]</p>
+
+<ul>
+<li><p>If we increase our confidence level, then we would have a wider interval.</p></li>
+<li><p>If we know the lower limit and upper limit of the confidence interval \((𝐿,𝑈)\), then we can find the point estimate and the M.E. as follows:</p>
+
+<p>\[\text{the point estimate} =  \text{the midpoint of the interval}=\frac{𝐿+𝑈}{2}\]</p>
+
+<p>\[\text{M. E.} = \text{half of the length of the C.I.} = \frac{𝑈−𝐿}{2}\]</p></li>
+</ul></div>
+
+</article></slide><slide class=""><hgroup><h2>Determining the sample size given M.E. and C.L.</h2></hgroup><article  id="determining-the-sample-size-given-m.e.-and-c.l.">
+
+<div class="black">
+<p><font size="3"> Since \(M.E. = z_{\frac{\alpha}{2}} \times \sqrt{\frac{p(1-p)}{n}}\), we can solve for \(n\) if we are given the M.E. and confidence level:</p>
+
+<p>\[n=p(1-p) \left({\frac{z_{\frac{\alpha}{2}}}{M.E.}}\right)^2\]</p>
+
+<ul>
+<li>When \(p\) is unknown, use \(\hat{p}\) to replace \(p\):</li>
+</ul>
+
+<p>\[n=\hat{p}(1-\hat{p}) \left({\frac{z_{\frac{\alpha}{2}}}{M.E.}}\right)^2\] - As the maximum of \(p(1-p)\) is \(\frac{1}{4}\) (i.e., when \(p=0.5\)), we can use</p>
+
+<p>\[n=\frac{1}{4}\left({\frac{z_{\frac{\alpha}{2}}}{M.E.}}\right)^2\] which gives the minimum size to guarantee the required M.E. </font></p></div>
+
+</article></slide><slide class=""><hgroup><h2>Example</h2></hgroup><article  id="example">
+
+<div class="black">
+<p><font size="4"> Example. Determine the sample size to be 98% certain that the M.E. is below 0.05. Consider two cases:</p>
+
+<ul>
+<li>\(p=0.3\)</li>
+<li>\(p\) is unknown</li>
+</ul>
+
+<p><strong>Solution</strong></p>
+
+<p>For confidence level 98%, \(z_{\frac{\alpha}{2}} = z_{0.01} = 2.326\)</p>
+
+<ul>
+<li>When \(p=0.3\), take the sample size as</li>
+</ul>
+
+<p>\[
+n=p(1-p) \left({\frac{z_{\frac{\alpha}{2}}}{M.E}}\right)^2 =0.3 *(0.7) \left({\frac{2.326}{0.05}}\right)^2= 454.4632\approx 455 \ (\text{Always round up!})
+\]</p>
+
+<ul>
+<li>When \(p\) is unknown, use \(p=0.5\) to get</li>
+</ul>
+
+<p>\[
+n=\frac{1}{4}\left({\frac{z_{\frac{\alpha}{2}}}{M.E}}\right)^2 =\frac{1}{4} \left({\frac{2.326}{0.05}}\right)^2 = 541.02 \approx 542 \ (\text{Always round up!})
+\]</p>
+
+<ul>
+<li>Note: whenever the sample size is not an integer, round it up to the next integer.</li>
+</ul>
+
+<p></font></p></div>
+
+</article></slide><slide class=""><hgroup><h2>Interpreting confidence intervals</h2></hgroup><article  id="interpreting-confidence-intervals">
+
+<div class="black">
+<p>Confidence intervals are …</p>
+
+<ul>
+<li>Always about the population.</li>
+<li>Not probability statements.</li>
+<li>Only about population parameters, not individual observation.</li>
+<li>Only reliable if the sample statistic they’re based on is an unbiased estimator of the population parameter.</li>
+</ul></div>
+
+</article></slide><slide class=""><hgroup><h2>Extending to the population mean (end of 5.2)</h2></hgroup><article  id="extending-to-the-population-mean-end-of-5.2">
+
+<div class="black">
+<p><font size="4"> For the population mean \(\mu\):</p>
+
+<ul>
+<li><p>Use sample mean \(\bar{x}\) as the point estimator.</p></li>
+<li><p>The Central Limit Theorem for the mean is similar: &ldquo;If the sample observations are independent and the sample size is at least 30 (\(𝑛\ge30\)), then the sample mean \(\bar{X}\) is approximately normally distributed.&rdquo;</p></li>
+<li><p>The mean of the sampling distribution of \(\bar{X}\) is \(𝐸(\bar{X})=\mu\)</p></li>
+<li><p>The standard error of the sampling distribution of \(\bar{X}\) is \[𝑆.𝐸._{\bar{X}} = \frac{\sigma}{\sqrt{𝑛}} \approx \frac{s}{\sqrt{𝑛}}\]</p></li>
+</ul>
+
+<p>where \(\sigma\) is the population standard deviation and \(s\) is the sample standard deviation.</p>
+
+<ul>
+<li>The CI for the mean \(\mu\) is: \[\color{red}{\text{point estimate}}\pm z_{\frac{\alpha}{2}} \times S.E \hspace{0.7cm} or  \hspace{0.7cm} \color{red}{\text{point estimate}} \pm M.E\]</li>
+</ul>
+
+<p>\[\bar{x} \pm z_{\frac{\alpha}{2}} \times \frac{𝜎}{\sqrt{𝑛}}(\hspace{0.2cm} or \hspace{0.2cm} \bar{x} \pm z_{\frac{\alpha}{2}} \times \frac{s}{\sqrt{n}})\]</p>
+
+<p></font></p></div>
+
+<p>
+<script type="application/shiny-prerendered" data-context="server-start">
+knitr::opts_chunk$set(echo = TRUE)
+</script>
+ 
+<script type="application/shiny-prerendered" data-context="server">
+learnr:::register_http_handlers(session, metadata = NULL)
+</script>
+ 
+<script type="application/shiny-prerendered" data-context="server">
+learnr:::prepare_tutorial_state(session)
+</script>
+ 
+<script type="application/shiny-prerendered" data-context="server">
+learnr:::i18n_observe_tutorial_language(input, session)
+</script>
+ 
+<script type="application/shiny-prerendered" data-context="server">
+session$onSessionEnded(function() {
+        learnr:::event_trigger(session, "session_stop")
+      })
+</script>
+ 
+<script type="application/shiny-prerendered" data-context="server">
+`tutorial-exercise-CL_sim-result` <- learnr:::setup_exercise_handler(reactive(req(input$`tutorial-exercise-CL_sim-code-editor`)), session)
+output$`tutorial-exercise-CL_sim-output` <- renderUI({
+  `tutorial-exercise-CL_sim-result`()
+})
+</script>
+ 
+<script type="application/shiny-prerendered" data-context="server">
+learnr:::store_exercise_cache(structure(list(label = "CL_sim", global_setup = structure("knitr::opts_chunk$set(echo = TRUE)", chunk_opts = list(
+    label = "setup", include = FALSE)), setup = NULL, chunks = list(
+    list(label = "CL_sim", code = "library(tidyverse)\nnsim = 25 #number of simulations to run (larger nsim will produce more accurate estimate of true confidence level)\nCL = 0.95 #confidence level\np = 0.88 #population proportion (parameter)\nN = 100000 #population size\npop = c(rep(\"success\", N*p), rep(\"failure\", N*(1-p))) #population of successes and failures\nn = 100 #sample size\n\nphat = numeric(nsim)\nL = numeric(nsim)\nU = numeric(nsim)\n\nfor (i in 1:nsim){\n  s = sample(pop, n, replace = TRUE)\n  phat[i] = sum(s==\"success\")/n\n  SE = sqrt(phat[i]*(1-phat[i])/n)\n  L[i] = phat[i] - qnorm((1-CL)/2, lower.tail = FALSE)*SE\n  U[i] = phat[i] + qnorm((1-CL)/2, lower.tail = FALSE)*SE\n}\n\nci95 = data.frame(Sample = seq(1,nsim), phat, L, U) \nci95 = mutate(ci95, capture = as.factor(ifelse(L <= p & p <= U, 1, 0)))\n\nggplot(data = ci95, aes(x = Sample, y = phat)) + \n  geom_point(aes(color = capture)) + \n  geom_errorbar(aes(ymin = L, ymax = U, color = capture)) + \n  scale_color_manual(values = c('0'='red','1'='black')) + \n  coord_flip() + \n  geom_hline(yintercept = p, linetype = \"dashed\", color = \"blue\") + \n  labs(title = paste0(CL*100, \"% Confidence Intervals\")) + \n  theme(plot.title = element_text(hjust = 0.5))", 
+        opts = list(label = "\"CL_sim\"", exercise = "TRUE", 
+            out.width = "\"40%\"", fig.align = "\"center\"", 
+            message = "FALSE"), engine = "r")), code_check = NULL, 
+    error_check = NULL, check = NULL, solution = NULL, tests = NULL, 
+    options = list(eval = FALSE, echo = TRUE, results = "markup", 
+        tidy = FALSE, tidy.opts = NULL, collapse = FALSE, prompt = FALSE, 
+        comment = NA, highlight = FALSE, size = "normalsize", 
+        background = "#F7F7F7", strip.white = TRUE, cache = 0, 
+        cache.path = "Chapter5_2_Shiny_cache/html/", cache.vars = NULL, 
+        cache.lazy = TRUE, dependson = NULL, autodep = FALSE, 
+        cache.rebuild = FALSE, fig.keep = "high", fig.show = "asis", 
+        fig.align = "center", fig.path = "Chapter5_2_Shiny_files/figure-html/", 
+        dev = "png", dev.args = NULL, dpi = 192, fig.ext = "png", 
+        fig.width = 7.5, fig.height = 4.5, fig.env = "figure", 
+        fig.cap = NULL, fig.scap = NULL, fig.lp = "fig:", fig.subcap = NULL, 
+        fig.pos = "", out.width = "40%", out.height = NULL, out.extra = NULL, 
+        fig.retina = 2, external = TRUE, sanitize = FALSE, interval = 1, 
+        aniopts = "controls,loop", warning = TRUE, error = FALSE, 
+        message = FALSE, render = NULL, ref.label = NULL, child = NULL, 
+        engine = "r", split = FALSE, include = TRUE, purl = TRUE, 
+        exercise.timelimit = 60, exercise.checker = "function (label = NULL, solution_code = NULL, user_code = NULL, \n    check_code = NULL, envir_result = NULL, evaluate_result = NULL, \n    envir_prep = NULL, last_value = NULL, stage = NULL, ..., \n    solution_eval_fn = NULL) \n{\n    (utils::getFromNamespace(\"check_exercise\", \"gradethis\"))(label = label, \n        solution_code = solution_code, user_code = user_code, \n        check_code = check_code, envir_result = envir_result, \n        evaluate_result = evaluate_result, envir_prep = envir_prep, \n        last_value = last_value, stage = stage, ...)\n}", 
+        exercise.error.check.code = "gradethis_error_checker()", 
+        label = "CL_sim", exercise = TRUE, code = c("library(tidyverse)", 
+        "nsim = 25 #number of simulations to run (larger nsim will produce more accurate estimate of true confidence level)", 
+        "CL = 0.95 #confidence level", "p = 0.88 #population proportion (parameter)", 
+        "N = 100000 #population size", "pop = c(rep(\"success\", N*p), rep(\"failure\", N*(1-p))) #population of successes and failures", 
+        "n = 100 #sample size", "", "phat = numeric(nsim)", "L = numeric(nsim)", 
+        "U = numeric(nsim)", "", "for (i in 1:nsim){", "  s = sample(pop, n, replace = TRUE)", 
+        "  phat[i] = sum(s==\"success\")/n", "  SE = sqrt(phat[i]*(1-phat[i])/n)", 
+        "  L[i] = phat[i] - qnorm((1-CL)/2, lower.tail = FALSE)*SE", 
+        "  U[i] = phat[i] + qnorm((1-CL)/2, lower.tail = FALSE)*SE", 
+        "}", "", "ci95 = data.frame(Sample = seq(1,nsim), phat, L, U) ", 
+        "ci95 = mutate(ci95, capture = as.factor(ifelse(L <= p & p <= U, 1, 0)))", 
+        "", "ggplot(data = ci95, aes(x = Sample, y = phat)) + ", 
+        "  geom_point(aes(color = capture)) + ", "  geom_errorbar(aes(ymin = L, ymax = U, color = capture)) + ", 
+        "  scale_color_manual(values = c('0'='red','1'='black')) + ", 
+        "  coord_flip() + ", "  geom_hline(yintercept = p, linetype = \"dashed\", color = \"blue\") + ", 
+        "  labs(title = paste0(CL*100, \"% Confidence Intervals\")) + ", 
+        "  theme(plot.title = element_text(hjust = 0.5))"), out.width.px = "40%", 
+        out.height.px = 432, params.src = "CL_sim, exercise=TRUE, out.width=\"40%\", fig.align='center', message=FALSE", 
+        fig.num = 0, exercise.df_print = "default"), engine = "r", 
+    version = "4"), class = c("r", "tutorial_exercise")))
+</script>
+ 
+<script type="application/shiny-prerendered" data-context="server">
+`tutorial-exercise-Ex_8-result` <- learnr:::setup_exercise_handler(reactive(req(input$`tutorial-exercise-Ex_8-code-editor`)), session)
+output$`tutorial-exercise-Ex_8-output` <- renderUI({
+  `tutorial-exercise-Ex_8-result`()
+})
+</script>
+ 
+<script type="application/shiny-prerendered" data-context="server">
+learnr:::store_exercise_cache(structure(list(label = "Ex_8", global_setup = structure("knitr::opts_chunk$set(echo = TRUE)", chunk_opts = list(
+    label = "setup", include = FALSE)), setup = NULL, chunks = list(
+    list(label = "Ex_8", code = "qnorm(0.05, lower.tail = FALSE)\nqnorm(1-0.05, lower.tail = TRUE) ", 
+        opts = list(label = "\"Ex_8\"", exercise = "TRUE"), engine = "r")), 
+    code_check = NULL, error_check = NULL, check = NULL, solution = NULL, 
+    tests = NULL, options = list(eval = FALSE, echo = TRUE, results = "markup", 
+        tidy = FALSE, tidy.opts = NULL, collapse = FALSE, prompt = FALSE, 
+        comment = NA, highlight = FALSE, size = "normalsize", 
+        background = "#F7F7F7", strip.white = TRUE, cache = 0, 
+        cache.path = "Chapter5_2_Shiny_cache/html/", cache.vars = NULL, 
+        cache.lazy = TRUE, dependson = NULL, autodep = FALSE, 
+        cache.rebuild = FALSE, fig.keep = "high", fig.show = "asis", 
+        fig.align = "default", fig.path = "Chapter5_2_Shiny_files/figure-html/", 
+        dev = "png", dev.args = NULL, dpi = 192, fig.ext = "png", 
+        fig.width = 7.5, fig.height = 4.5, fig.env = "figure", 
+        fig.cap = NULL, fig.scap = NULL, fig.lp = "fig:", fig.subcap = NULL, 
+        fig.pos = "", out.width = 720, out.height = NULL, out.extra = NULL, 
+        fig.retina = 2, external = TRUE, sanitize = FALSE, interval = 1, 
+        aniopts = "controls,loop", warning = TRUE, error = FALSE, 
+        message = TRUE, render = NULL, ref.label = NULL, child = NULL, 
+        engine = "r", split = FALSE, include = TRUE, purl = TRUE, 
+        exercise.timelimit = 60, exercise.checker = "function (label = NULL, solution_code = NULL, user_code = NULL, \n    check_code = NULL, envir_result = NULL, evaluate_result = NULL, \n    envir_prep = NULL, last_value = NULL, stage = NULL, ..., \n    solution_eval_fn = NULL) \n{\n    (utils::getFromNamespace(\"check_exercise\", \"gradethis\"))(label = label, \n        solution_code = solution_code, user_code = user_code, \n        check_code = check_code, envir_result = envir_result, \n        evaluate_result = evaluate_result, envir_prep = envir_prep, \n        last_value = last_value, stage = stage, ...)\n}", 
+        exercise.error.check.code = "gradethis_error_checker()", 
+        label = "Ex_8", exercise = TRUE, code = c("qnorm(0.05, lower.tail = FALSE)", 
+        "qnorm(1-0.05, lower.tail = TRUE) "), out.width.px = 720, 
+        out.height.px = 432, params.src = "Ex_8, exercise=TRUE", 
+        fig.num = 0, exercise.df_print = "default"), engine = "r", 
+    version = "4"), class = c("r", "tutorial_exercise")))
+</script>
+ 
+<script type="application/shiny-prerendered" data-context="server">
+`tutorial-exercise-Ex_81-result` <- learnr:::setup_exercise_handler(reactive(req(input$`tutorial-exercise-Ex_81-code-editor`)), session)
+output$`tutorial-exercise-Ex_81-output` <- renderUI({
+  `tutorial-exercise-Ex_81-result`()
+})
+</script>
+ 
+<script type="application/shiny-prerendered" data-context="server">
+learnr:::store_exercise_cache(structure(list(label = "Ex_81", global_setup = structure("knitr::opts_chunk$set(echo = TRUE)", chunk_opts = list(
+    label = "setup", include = FALSE)), setup = NULL, chunks = list(
+    list(label = "Ex_81", code = "qnorm(0.005, lower.tail = FALSE)\nqnorm(1-0.005, lower.tail = TRUE)", 
+        opts = list(label = "\"Ex_81\"", exercise = "TRUE"), 
+        engine = "r")), code_check = NULL, error_check = NULL, 
+    check = NULL, solution = NULL, tests = NULL, options = list(
+        eval = FALSE, echo = TRUE, results = "markup", tidy = FALSE, 
+        tidy.opts = NULL, collapse = FALSE, prompt = FALSE, comment = NA, 
+        highlight = FALSE, size = "normalsize", background = "#F7F7F7", 
+        strip.white = TRUE, cache = 0, cache.path = "Chapter5_2_Shiny_cache/html/", 
+        cache.vars = NULL, cache.lazy = TRUE, dependson = NULL, 
+        autodep = FALSE, cache.rebuild = FALSE, fig.keep = "high", 
+        fig.show = "asis", fig.align = "default", fig.path = "Chapter5_2_Shiny_files/figure-html/", 
+        dev = "png", dev.args = NULL, dpi = 192, fig.ext = "png", 
+        fig.width = 7.5, fig.height = 4.5, fig.env = "figure", 
+        fig.cap = NULL, fig.scap = NULL, fig.lp = "fig:", fig.subcap = NULL, 
+        fig.pos = "", out.width = 720, out.height = NULL, out.extra = NULL, 
+        fig.retina = 2, external = TRUE, sanitize = FALSE, interval = 1, 
+        aniopts = "controls,loop", warning = TRUE, error = FALSE, 
+        message = TRUE, render = NULL, ref.label = NULL, child = NULL, 
+        engine = "r", split = FALSE, include = TRUE, purl = TRUE, 
+        exercise.timelimit = 60, exercise.checker = "function (label = NULL, solution_code = NULL, user_code = NULL, \n    check_code = NULL, envir_result = NULL, evaluate_result = NULL, \n    envir_prep = NULL, last_value = NULL, stage = NULL, ..., \n    solution_eval_fn = NULL) \n{\n    (utils::getFromNamespace(\"check_exercise\", \"gradethis\"))(label = label, \n        solution_code = solution_code, user_code = user_code, \n        check_code = check_code, envir_result = envir_result, \n        evaluate_result = evaluate_result, envir_prep = envir_prep, \n        last_value = last_value, stage = stage, ...)\n}", 
+        exercise.error.check.code = "gradethis_error_checker()", 
+        label = "Ex_81", exercise = TRUE, code = c("qnorm(0.005, lower.tail = FALSE)", 
+        "qnorm(1-0.005, lower.tail = TRUE)"), out.width.px = 720, 
+        out.height.px = 432, params.src = "Ex_81, exercise=TRUE", 
+        fig.num = 0, exercise.df_print = "default"), engine = "r", 
+    version = "4"), class = c("r", "tutorial_exercise")))
+</script>
+</p>
+
+<!--html_preserve-->
+
+<script type="application/shiny-prerendered" data-context="dependencies">
+{"type":"list","attributes":{},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["header-attrs"]},{"type":"character","attributes":{},"value":["2.14"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["rmd/h/pandoc"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["header-attrs.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["rmarkdown"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["2.14"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["bootstrap"]},{"type":"character","attributes":{},"value":["3.3.5"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["rmd/h/bootstrap"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["viewport"]}},"value":[{"type":"character","attributes":{},"value":["width=device-width, initial-scale=1"]}]},{"type":"character","attributes":{},"value":["js/bootstrap.min.js","shim/html5shiv.min.js","shim/respond.min.js"]},{"type":"character","attributes":{},"value":["css/bootstrap.min.css"]},{"type":"character","attributes":{},"value":["<style>h1 {font-size: 34px;}\n       h1.title {font-size: 38px;}\n       h2 {font-size: 30px;}\n       h3 {font-size: 24px;}\n       h4 {font-size: 18px;}\n       h5 {font-size: 16px;}\n       h6 {font-size: 12px;}\n       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}\n       pre:not([class]) { background-color: white }<\/style>"]},{"type":"NULL"},{"type":"character","attributes":{},"value":["rmarkdown"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["2.14"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["ioslides"]},{"type":"character","attributes":{},"value":["13.5.1"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["rmd/ioslides/ioslides-13.5.1"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["js/modernizr.custom.45394.js","js/prettify/prettify.js","js/prettify/lang-r.js","js/prettify/lang-yaml.js","js/hammer.js","js/slide-controller.js","js/slide-deck.js"]},{"type":"character","attributes":{},"value":["fonts/fonts.css","theme/css/default.css","theme/css/phone.css"]},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["rmarkdown"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["2.14"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["jquery"]},{"type":"character","attributes":{},"value":["3.6.0"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/3.6.0"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["jquery-3.6.0.min.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["jquerylib"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.1.4"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["font-awesome"]},{"type":"character","attributes":{},"value":["5.1.0"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["rmd/h/fontawesome"]}]},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["css/all.css","css/v4-shims.css"]},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["rmarkdown"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["2.14"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["bootbox"]},{"type":"character","attributes":{},"value":["5.5.2"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/bootbox"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["bootbox.min.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.11.2"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["idb-keyvalue"]},{"type":"character","attributes":{},"value":["3.2.0"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/idb-keyval"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["idb-keyval-iife-compat.min.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[false]},{"type":"character","attributes":{},"value":["0.11.2"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["tutorial"]},{"type":"character","attributes":{},"value":["0.11.2"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/tutorial"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["tutorial.js"]},{"type":"character","attributes":{},"value":["tutorial.css"]},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.11.2"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["ace"]},{"type":"character","attributes":{},"value":["1.10.1"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/ace"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["ace.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.11.2"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["clipboardjs"]},{"type":"character","attributes":{},"value":["2.0.10"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/clipboardjs"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["clipboard.min.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.11.2"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["ace"]},{"type":"character","attributes":{},"value":["1.10.1"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/ace"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["ace.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.11.2"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["clipboardjs"]},{"type":"character","attributes":{},"value":["2.0.10"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/clipboardjs"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["clipboard.min.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.11.2"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["ace"]},{"type":"character","attributes":{},"value":["1.10.1"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/ace"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["ace.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.11.2"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["clipboardjs"]},{"type":"character","attributes":{},"value":["2.0.10"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/clipboardjs"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["clipboard.min.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.11.2"]}]}]}
+</script>
+
+<!--/html_preserve-->
+
+<!--html_preserve-->
+
+<script type="application/shiny-prerendered" data-context="execution_dependencies">
+{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["packages"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["packages","version"]},"class":{"type":"character","attributes":{},"value":["data.frame"]},"row.names":{"type":"integer","attributes":{},"value":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91,92,93,94,95,96]}},"value":[{"type":"character","attributes":{},"value":["airports","assertthat","backports","base","broom","bslib","cellranger","cherryblossom","cli","colorspace","compiler","crayon","curl","datasets","DBI","dbplyr","digest","dplyr","ellipsis","evaluate","fansi","fastmap","filehash","forcats","fs","gargle","generics","ggplot2","glue","googledrive","googlesheets4","gradethis","graphics","grDevices","grid","gtable","haven","highr","hms","htmltools","htmlwidgets","httpuv","httr","jpeg","jquerylib","jsonlite","knitr","later","learnr","learnrhash","lifecycle","lubridate","magrittr","methods","mime","modelr","munsell","openintro","pillar","pkgconfig","png","promises","purrr","R6","Rcpp","readr","readxl","reprex","rlang","rmarkdown","rprojroot","rstudioapi","rvest","sass","scales","shiny","stats","stringi","stringr","tibble","tidyr","tidyselect","tidyverse","tikzDevice","tinytex","tools","tzdb","usdata","utf8","utils","vctrs","withr","xfun","xml2","xtable","yaml"]},{"type":"character","attributes":{},"value":["0.1.0","0.2.1","1.4.1","4.1.3","0.8.0","0.3.1","1.1.0","0.1.0","3.3.0","2.0-3","4.1.3","1.5.1","4.3.2","4.1.3","1.1.2","2.1.1","0.6.29","1.0.9","0.3.2","0.15","1.0.3","1.1.0","2.4-3","0.5.1","1.5.2","1.2.0","0.1.2","3.3.6","1.6.2","2.0.0","1.0.0","0.2.11.9000","4.1.3","4.1.3","4.1.3","0.3.0","2.5.0","0.9","1.1.1","0.5.2","1.5.4","1.6.5","1.4.3","0.1-9","0.1.4","1.8.0","1.39","1.3.0","0.11.2","0.2.0","1.0.1","1.8.0","2.0.3","4.1.3","0.12","0.1.8","0.5.0","2.3.0","1.7.0","2.0.3","0.1-7","1.2.0.1","0.3.4","2.5.1","1.0.8.3","2.1.2","1.4.0","2.0.1","1.0.2","2.14","2.0.3","0.13","1.0.2","0.4.1","1.2.0","1.7.2","4.1.3","1.7.6","1.4.0","3.1.7","1.2.0","1.1.2","1.3.2","0.12.3.1","0.39","4.1.3","0.3.0","0.2.0","1.2.2","4.1.3","0.4.1","2.5.0","0.31","1.3.3","1.8-4","2.3.5"]}]}]}
+</script>
+
+<!--/html_preserve--></article></slide>
+
+
+  <slide class="backdrop"></slide>
+
+</slides>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+<!-- map slide visiblity events into shiny -->
+<script>
+  (function() {
+    if (window.jQuery) {
+       window.jQuery(document).on('slideleave', function(e) {
+         window.jQuery(e.target).trigger('hidden');
+      });
+       window.jQuery(document).on('slideenter', function(e) {
+         window.jQuery(e.target).trigger('shown');
+      });
+    }
+  })();
+</script>
+
+</body>
+</html>
