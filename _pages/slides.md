@@ -3,6 +3,8 @@ permalink: /slides/
 title: "Lecture Slides"
 ---
 
+{% include base_path %}
+
 The following slides are derived from the [OpenIntro Statistics](https://www.openintro.org/book/os/){:target="_blank"} slides. 
 
 ## 1. Interactive (Shiny) Slides
@@ -45,47 +47,25 @@ These slides use tools from the R package _learnr_ to integrate interactive R co
 
 [Chapter 9 - Multiple and Logistic regression - Source](https://github.com/IntroToStatNCAT/IntroToStatNCAT.github.io/tree/main/files/Slides/ShinySlides/Chapter%209){:target="_blank"}
 
-## 2. Section by Section PDF Slides
+## 2. PDF Slides
 
 Here, we provide the slides in both pdf and R Markdown format. The markdown format allows for the instructor to easily customize the R codes and output embedded in the slides. 
 
-[Chapter 1 - Introduction to data](https://github.com/IntroToStatNCAT/IntroToStatNCAT.github.io/tree/main/files/Slides/Chapter%201){:target="_blank"}
+[Chapter 1 - Introduction to data](https://github.com/IntroToStatNCAT/IntroToStatNCAT.github.io/tree/main/files/Slides/PDFSlides/Chapter%201){:target="_blank"}
 
-[Chapter 2 - Summarizing data](https://github.com/IntroToStatNCAT/IntroToStatNCAT.github.io/tree/main/files/Slides/Chapter%202){:target="_blank"}
+[Chapter 2 - Summarizing data](https://github.com/IntroToStatNCAT/IntroToStatNCAT.github.io/tree/main/files/Slides/PDFSlides/Chapter%202){:target="_blank"}
 
-[Chapter 3 - Probability](https://github.com/IntroToStatNCAT/IntroToStatNCAT.github.io/tree/main/files/Slides/Chapter%203){:target="_blank"}
+[Chapter 3 - Probability](https://github.com/IntroToStatNCAT/IntroToStatNCAT.github.io/tree/main/files/Slides/PDFSlides/Chapter%203){:target="_blank"}
 
-[Chapter 4 - Distributions](https://github.com/IntroToStatNCAT/IntroToStatNCAT.github.io/tree/main/files/Slides/Chapter%204){:target="_blank"}
+[Chapter 4 - Distributions](https://github.com/IntroToStatNCAT/IntroToStatNCAT.github.io/tree/main/files/Slides/PDFSlides/Chapter%204){:target="_blank"}
 
-[Chapter 5 - Foundations for Inference](https://github.com/IntroToStatNCAT/IntroToStatNCAT.github.io/tree/main/files/Slides/Chapter%205){:target="_blank"}
+[Chapter 5 - Foundations for Inference](https://github.com/IntroToStatNCAT/IntroToStatNCAT.github.io/tree/main/files/Slides/PDFSlides/Chapter%205){:target="_blank"}
 
-[Chapter 6 - Inference for categorical data](https://github.com/IntroToStatNCAT/IntroToStatNCAT.github.io/tree/main/files/Slides/Chapter%206){:target="_blank"}
+[Chapter 6 - Inference for categorical data](https://github.com/IntroToStatNCAT/IntroToStatNCAT.github.io/tree/main/files/Slides/PDFSlides/Chapter%206){:target="_blank"}
 
-[Chapter 7 - Inference for numerical data](https://github.com/IntroToStatNCAT/IntroToStatNCAT.github.io/tree/main/files/Slides/Chapter%207){:target="_blank"}
+[Chapter 7 - Inference for numerical data](https://github.com/IntroToStatNCAT/IntroToStatNCAT.github.io/tree/main/files/Slides/PDFSlides/Chapter%207){:target="_blank"}
 
-[Chapter 8 - Introduction to linear regression](https://github.com/IntroToStatNCAT/IntroToStatNCAT.github.io/tree/main/files/Slides/Chapter%208){:target="_blank"}
+[Chapter 8 - Introduction to linear regression](https://github.com/IntroToStatNCAT/IntroToStatNCAT.github.io/tree/main/files/Slides/PDFSlides/Chapter%208){:target="_blank"}
 
-[Chapter 9 - Multiple and Logistic regression](https://github.com/IntroToStatNCAT/IntroToStatNCAT.github.io/tree/main/files/Slides/Chapter%209){:target="_blank"}
-
-## 3. Complete Chapter PDF Slides
-
-The following links provide access to the complete pdf and rmd source lecture slides files for each of the chapters.
-
-[Chapter 1 - Introduction to data](https://github.com/IntroToStatNCAT/IntroToStatNCAT.github.io/tree/main/files/Slides/Chapter%201){:target="_blank"}
-
-[Chapter 2 - Summarizing data](https://github.com/IntroToStatNCAT/IntroToStatNCAT.github.io/tree/main/files/Slides/Chapter%202){:target="_blank"}
-
-[Chapter 3 - Probability](https://github.com/IntroToStatNCAT/IntroToStatNCAT.github.io/tree/main/files/Slides/Chapter%203){:target="_blank"}
-
-[Chapter 4 - Distribution](https://github.com/IntroToStatNCAT/IntroToStatNCAT.github.io/tree/main/files/Slides/Chapter%204){:target="_blank"}
-
-[Chapter 5 - Foundations for Inference](https://github.com/IntroToStatNCAT/IntroToStatNCAT.github.io/tree/main/files/Slides/Chapter%205){:target="_blank"}
-
-[Chapter 6 - Inference for categorical data](https://github.com/IntroToStatNCAT/IntroToStatNCAT.github.io/tree/main/files/Slides/Chapter%206){:target="_blank"}
-
-[Chapter 7 - Inference for numerical data](https://github.com/IntroToStatNCAT/IntroToStatNCAT.github.io/tree/main/files/Slides/Chapter%207){:target="_blank"}
-
-[Chapter 8 - Introduction to linear regression](https://github.com/IntroToStatNCAT/IntroToStatNCAT.github.io/tree/main/files/Slides/Chapter%208){:target="_blank"}
-
-[Chapter 9 - Multiple and Logistic regression](https://github.com/IntroToStatNCAT/IntroToStatNCAT.github.io/tree/main/files/Slides/Chapter%209){:target="_blank"}
+[Chapter 9 - Multiple and Logistic regression](https://github.com/IntroToStatNCAT/IntroToStatNCAT.github.io/tree/main/files/Slides/PDFSlides/Chapter%209){:target="_blank"}
 
