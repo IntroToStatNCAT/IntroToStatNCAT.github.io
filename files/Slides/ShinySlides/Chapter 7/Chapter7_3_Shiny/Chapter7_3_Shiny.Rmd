@@ -82,7 +82,7 @@ The t-distribution can be used for inference when working with the standardized 
 
 The standard error may be computed as 
 
-$SE= \sqrt{\frac{{\sigma_1}^2}{n_1} + \frac{{\sigma_2}^2}{n_2}} \approx  \sqrt{\frac{{s_1}^2}{n_1} + \frac{{s_2}^2}{n_2}}$
+$SE= \sqrt{\frac{\sigma_1^2}{n_1} + \frac{\sigma_2^2}{n_2}} \approx  \sqrt{\frac{{s_1}^2}{n_1} + \frac{{s_2}^2}{n_2}}$
 
 For degrees of freedom,  the official formula is quite complex 
 and is generally computed using software.
@@ -127,7 +127,7 @@ Construct the CI for the difference $\mu_{esc} - \mu_{control}$
 **Point- Estimate** : $\bar{x}_{esc} - \bar{x}_{control} = 3.50-(-4.33)= 7.83$
 \
 \
-$SE= \sqrt{\frac{{\sigma_1}^2}{n_1} + \frac{{\sigma_2}^2}{n_2}} \approx  \sqrt{\frac{{s_1}^2}{n_1} + \frac{{s_2}^2}{n_2}}\\ = \sqrt{\frac{{5.17}^2}{9} + \frac{{2.76}^2}{9}} \approx 1.9535$
+$SE= \sqrt{\frac{\sigma_1^2}{n_1} + \frac{\sigma_2^2}{n_2}} \approx  \sqrt{\frac{{s_1}^2}{n_1} + \frac{{s_2}^2}{n_2}}\\ = \sqrt{\frac{{5.17}^2}{9} + \frac{{2.76}^2}{9}} \approx 1.9535$
 </div>
 
 <div style="float: right; width: 50%;">
