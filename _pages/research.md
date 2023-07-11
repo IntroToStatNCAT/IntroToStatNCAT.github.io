@@ -12,11 +12,11 @@ title: "Research/Publication"
 
 ## Talks
 
-+ Satellite Conference of the International Association for Statistical Education (IASE), Virtual, August 2021. “The potential of introductory statistics to promote data literacy and attract underrepresented minority students to data science”. [[Slides](https://github.com/IntroToStatNCAT/IntroToStatNCAT.github.io/blob/main/files/Publications/IASE2021-Talk.pdf){:target="_blank"}]
++ **Satellite Conference of the International Association for Statistical Education (IASE)**, Virtual, August 2021. “The potential of introductory statistics to promote data literacy and attract underrepresented minority students to data science”. [[Slides](https://github.com/IntroToStatNCAT/IntroToStatNCAT.github.io/blob/main/files/Publications/IASES2021-Talk.pdf){:target="_blank"}]
 
-+ Annual Johnny L. Houston Mathematical Sciences Lecture Series, Department of Mathematics, Computer Science and Engineering Technology, Elizabeth City State University, Elizabeth City, NC, March 2022. “Preparing Students for the Data Science Era through Introductory Statistics: A Proposed Model”. [[Slides](https://github.com/IntroToStatNCAT/IntroToStatNCAT.github.io/blob/main/files/Publications/ECSU-SP22-Talk.pdf){:target="_blank"}]
++ **Annual Johnny L. Houston Mathematical Sciences Lecture Series**, Department of Mathematics, Computer Science and Engineering Technology, Elizabeth City State University, Elizabeth City, NC, March 2022. “Preparing Students for the Data Science Era through Introductory Statistics: A Proposed Model”. [[Slides](https://github.com/IntroToStatNCAT/IntroToStatNCAT.github.io/blob/main/files/Publications/ECSU-SP22-Talk.pdf){:target="_blank"}]
 
-+ Satellite Conference of the International Association for Statistical Education (IASE), Toronto, Canada, July 2023. “Infusion of Data Science and Computation into Introductory Statistics”. [[Slides](https://github.com/IntroToStatNCAT/IntroToStatNCAT.github.io/blob/main/files/Publications/IASE2023-Talk.pdf){:target="_blank"}]
++ **Satellite Conference of the International Association for Statistical Education (IASE)**, Toronto, Canada, July 2023. “Infusion of Data Science and Computation into Introductory Statistics”. [[Slides](https://github.com/IntroToStatNCAT/IntroToStatNCAT.github.io/blob/main/files/Publications/IASES2023-Talk.pdf){:target="_blank"}]
 
 
 
