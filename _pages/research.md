@@ -7,7 +7,7 @@ title: "Research/Publication"
 
 ## News Report
 
-+ **Infusing Data-Centered Pedagogy into Introductory Statistics**. A News Report Published in *AMSTATNEWS: The Membership Magazine of the American Statistical Association.* \url{https://magazine.amstat.org/blog/2024/07/01/nsfawardees724/}
++ **Infusing Data-Centered Pedagogy into Introductory Statistics**. A News Report Published in *AMSTATNEWS: The Membership Magazine of the American Statistical Association.* [Link](https://magazine.amstat.org/blog/2024/07/01/nsfawardees724/)
 
 ## Publications
 
