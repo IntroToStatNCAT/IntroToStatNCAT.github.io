@@ -5,10 +5,15 @@ title: "Research/Publication"
   
 {% include base_path %}
 
+## News Report
+
++ **Infusing Data-Centered Pedagogy into Introductory Statistics**. A News Report Published in *AMSTATNEWS: The Membership Magazine of the American Statistical Association.* \url{https://magazine.amstat.org/blog/2024/07/01/nsfawardees724/}
+
 ## Publications
 
 + Mostafa, S. A. and Elbayoumi, T. M. (2022). The potential of introductory statistics to promote data literacy and attract underrepresented minority students to data science. In: R Helenius, E Falck (Eds.), *Statistics Education in the Era of Data Science. Proceedings of the Satellite Conference of the International Association for Statistical Education (IASE).* DOI:10.52041/iase.vrlii [[Paper](https://github.com/IntroToStatNCAT/IntroToStatNCAT.github.io/blob/main/files/Publications/IASE2021%20Satellite%20145_MOSTAFA.pdf){:target="_blank"}]
 
++ Mostafa, S. A., Elbayoumi, T. M. and Kim, S. (2023). Infusion of Data Science and Computation in Introductory Statistics. In: EM Jones (Ed.), *Fostering Learning of Statistics and Data Science Proceedings of the Satellite conference of the International Association for Statistical Education (IASE).*  [[Paper](https://github.com/IntroToStatNCAT/IntroToStatNCAT.github.io/blob/9371da5131a637476400fa5ced094793492d875c/files/Publications/IASE2023-SatelliteProceedingsPaper.pdf){:target="_blank"}]
 
 ## Talks
 
@@ -18,5 +23,10 @@ title: "Research/Publication"
 
 + **Satellite Conference of the International Association for Statistical Education (IASE)**, Toronto, Canada, July 2023. “Infusion of Data Science and Computation into Introductory Statistics”. [[Slides](https://github.com/IntroToStatNCAT/IntroToStatNCAT.github.io/blob/main/files/Publications/IASES2023-Talk.pdf){:target="_blank"}]
 
++ **W.E.B. Du Bois Data Science Symposium, Atlanta University Center**, Atlanta, GA, USA, February 2024. "Infusion of Data Science and Computation into Introductory Statistics" - Lightning Talk. [[Slides](https://github.com/IntroToStatNCAT/IntroToStatNCAT.github.io/blob/9371da5131a637476400fa5ced094793492d875c/files/Publications/DuBois-DS-Symposium-LightningTalk.pdf){:target="_blank"}]
+
++ **Symposium on Data Science and Statistics**, Richmond, VA, USA, June 2024. "Integration of Data Science and Computing into Introductory Statistics" - Lightning Talk and Poster Presentation. [[Slides](https://github.com/IntroToStatNCAT/IntroToStatNCAT.github.io/blob/9371da5131a637476400fa5ced094793492d875c/files/Publications/SDSS_CS026_Slides.pdf){:target="_blank"}] [[Poster](https://github.com/IntroToStatNCAT/IntroToStatNCAT.github.io/blob/9371da5131a637476400fa5ced094793492d875c/files/Publications/SDSS_PS006_Poster.pdf){:target="_blank"}]
+
++ **NSF HBCU-UP PI-PD Meeting**, Washington DC, USA, March 2024. "TIP: Infusing Data-Centered Pedagogy and Data-Analytical Skills into Introductory Statistic" - Poster Presentation. [[Poster](https://github.com/IntroToStatNCAT/IntroToStatNCAT.github.io/blob/9371da5131a637476400fa5ced094793492d875c/files/Publications/2024HBCU-UP-PI-PD-Meeting-Poster.pdf){:target="_blank"}]
 
 
