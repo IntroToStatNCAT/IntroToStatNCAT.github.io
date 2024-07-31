@@ -13,7 +13,7 @@ title: "Research/Publication"
 
 + Mostafa, S. A. and Elbayoumi, T. M. (2022). The potential of introductory statistics to promote data literacy and attract underrepresented minority students to data science. In: R Helenius, E Falck (Eds.), *Statistics Education in the Era of Data Science. Proceedings of the Satellite Conference of the International Association for Statistical Education (IASE).* DOI:10.52041/iase.vrlii [[Paper](https://github.com/IntroToStatNCAT/IntroToStatNCAT.github.io/blob/f64f2b21c2cc926b9fe2e487dfdb34e7e2d66a42/files/Publications/IASE2021-SatelliteProceedingsPaper.pdf){:target="_blank"}]
 
-+ Mostafa, S. A., Elbayoumi, T. M. and Kim, S. (2023). Infusion of Data Science and Computation in Introductory Statistics. In: EM Jones (Ed.), *Fostering Learning of Statistics and Data Science Proceedings of the Satellite conference of the International Association for Statistical Education (IASE).*  [[Paper](https://github.com/IntroToStatNCAT/IntroToStatNCAT.github.io/blob/9371da5131a637476400fa5ced094793492d875c/files/Publications/IASE2023-SatelliteProceedingsPaper.pdf){:target="_blank"}]
++ Mostafa, S. A., Elbayoumi, T. M. and Kim, S. (2023). Infusion of Data Science and Computation in Introductory Statistics. In: EM Jones (Ed.), *Fostering Learning of Statistics and Data Science. Proceedings of the Satellite conference of the International Association for Statistical Education (IASE).*  [[Paper](https://github.com/IntroToStatNCAT/IntroToStatNCAT.github.io/blob/9371da5131a637476400fa5ced094793492d875c/files/Publications/IASE2023-SatelliteProceedingsPaper.pdf){:target="_blank"}]
 
 ## Talks
 
