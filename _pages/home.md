@@ -36,4 +36,4 @@ Dr. Mingxiang Chen, Co-Principal Investigator, is a Professor of Mathematics in 
 
 Dr. Rebecca M. Eddy is the Founder and current President of Cobblestone Applied Research & Evaluation, Inc. She serves as Principal Investigator of the TIP Evaluation. [More info.](https://www.cobblestoneeval.com/team/rebecca-eddy/){:target="_blank"}
 
-Ms. Raylene Luna is a Research Assistant at Cobblestone Applied Research & Evaluation, Inc. She served as Project Manager of the TIP Evaluation during the first year of project (2021-2022). [More info.](https://www.cobblestoneeval.com/team/monique-matelski/){:target="_blank"}
+Ms. Raylene Luna is a Research Associate at Cobblestone Applied Research & Evaluation, Inc. She contributes to the project evaluation planning and monitoring, instrument development, data collection, analysis and reporting. [More info.](https://www.cobblestoneeval.com/team/raylene-luna/){:target="_blank"}
