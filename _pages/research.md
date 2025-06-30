@@ -29,4 +29,5 @@ title: "Research/Publication"
 
 + **NSF HBCU-UP PI-PD Meeting**, Washington DC, USA, March 2024. "TIP: Infusing Data-Centered Pedagogy and Data-Analytical Skills into Introductory Statistic" - Poster Presentation. [[Poster](https://github.com/IntroToStatNCAT/IntroToStatNCAT.github.io/blob/9371da5131a637476400fa5ced094793492d875c/files/Publications/2024HBCU-UP-PI-PD-Meeting-Poster.pdf){:target="_blank"}]
 
++ **NCA&T Summer Research Symposium on Infusing and Integrating Data Science and AI in Research and STEM Education**, Greensboro NC, USA, May 2025. "Integration of Data Science and Computing into Introductory Statistics" - Invited Talk. [[Slides](){:target="_blank"}]
 
