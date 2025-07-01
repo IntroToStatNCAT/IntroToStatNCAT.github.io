@@ -1027,7 +1027,7 @@ T_{df_E} &=& \frac{(\bar{x}_{bottom} - \bar{x}_{middepth})}{\sqrt{ \frac{MSE}{n_
 \pause
 T_{27} &=& \frac{( 6.04 - 5.05 )}{\sqrt{ \frac{1.38}{10} + \frac{1.38}{10} }} = \frac{0.99}{0.53}  =1.87 \\
 \pause
-0.05 &<& p-value < 0.10 \qquad \text \\
+0.05 &<& p-value < 0.10 \qquad \text{\footnotesize (two-sided)} \\
 \pause
 \alpha^\star &=& 0.05 / 3 = 0.0167
 \end{eqnarray*}

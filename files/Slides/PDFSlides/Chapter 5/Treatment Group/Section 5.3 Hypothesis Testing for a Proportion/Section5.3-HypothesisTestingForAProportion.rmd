@@ -172,8 +172,8 @@ There are two competing hypotheses: the null and the alternative. In a hypothesi
 \multicolumn{2}{c}{} & \multicolumn{2}{c}{\textbf{Decision}} \\
 & & fail to reject $H_0$ &  reject $H_0$ \\
   \cline{2-4}
-& $H_0$ true & {{$\checkmark$}} &  {\textcolor{red}{Type 1 Error}} \\
-\raisebox{1.5ex}{\textbf{Truth}} & $H_A$ true & {\textcolor{red}{Type 2 Error}} & {{$\checkmark$}} \\
+& $H_0$ true & {$\checkmark$} &  {\textcolor{red}{Type 1 Error}} \\
+\raisebox{1.5ex}{\textbf{Truth}} & $H_A$ true & {\textcolor{red}{Type 2 Error}} & {$\checkmark$} \\
   \cline{2-4}
 \end{tabular}
 \end{center}

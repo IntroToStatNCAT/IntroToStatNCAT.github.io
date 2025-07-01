@@ -1130,11 +1130,11 @@ $$
 $$
 \begin{eqnarray*}
 \text{Sum of squares of y: } SS_{Total} &=& \sum(y - \bar{y})^2 = 480.25 \\
-& & \color{red} \\
+& & \color{red}{ ~\rightarrow~total~variability} \\
 \text{Sum of squares of residuals: } SS_{Error} &=& \sum e_i^2 = 347.68 \\
-& &\color{red} \\
+& &\color{red}{ ~\rightarrow~unexplained~variability} \\
 \text{Sum of squares of x: } SS_{Model} &=& SS_{Total} - SS_{Error} \\
-& &\color{red} \\
+& &\color{red}{~\rightarrow~explained~variability} \\
 &=& 480.25 - 347.68 = 132.57
 \end{eqnarray*}
 $$
