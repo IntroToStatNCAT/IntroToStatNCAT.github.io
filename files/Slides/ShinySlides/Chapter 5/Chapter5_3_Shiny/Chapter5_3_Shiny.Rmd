@@ -514,8 +514,8 @@ $$
 \begin{align}
 {} && {\textbf{Decision}} \\
 &&   && \text{fail to reject}\ H_0 &&  \text{reject}\ H_0 \\ \hline
-&& H_0 \ \text{true} && {{\checkmark}} &&  {\color{red}{Type \ I \ Error}} \\
-{\textbf{Truth}} && H_a \ \text{true} && {\color{red}{Type \ II \ Error}} && {{\checkmark}} \\ \hline
+&& H_0 \ \text{true} && {\checkmark} &&  {\color{red}{Type \ I \ Error}} \\
+{\textbf{Truth}} && H_a \ \text{true} && {\color{red}{Type \ II \ Error}} && {\checkmark} \\ \hline
 \end{align}
 $$
 
