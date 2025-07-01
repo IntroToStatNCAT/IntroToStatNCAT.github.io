@@ -8,4 +8,4 @@ title: "Student Workbook"
 
 ## The Student Workbook for Introductory Statistics can be accessed using the following link
 
-[IntroStatsWorkbook](https://introtostatncat.github.io/bookdown/)
+[Intro Stats Workbook (Draft)](https://introtostatncat.github.io/bookdown/)

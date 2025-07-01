@@ -1,4 +1,4 @@
-# main links links
+# main links
 main:
 
   - title: "Home"
@@ -19,6 +19,9 @@ main:
   - title: "R Tutorials"
     url: /tutorials/
 
+  - title: "Student Workbook"
+    url: /workbook/
+
   - title: "Data Analysis Project"
     url: /dap/
 
@@ -31,8 +34,8 @@ main:
   - title: "Implementation Manual"
     url: /manual/
 
-  - title: "Faculty Workshops"
-    url: /workshop/
+#  - title: "Faculty Workshops"
+ #   url: /workshop/
 
 
    
