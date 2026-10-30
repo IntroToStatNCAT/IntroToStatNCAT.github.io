@@ -15,7 +15,7 @@ title: "Research/Publication"
 
 + Mostafa, S. A., Elbayoumi, T. M. and Kim, S. (2023). Infusion of Data Science and Computation in Introductory Statistics. In: EM Jones (Ed.), *Fostering Learning of Statistics and Data Science. Proceedings of the Satellite conference of the International Association for Statistical Education (IASE).*  [[Paper](https://github.com/IntroToStatNCAT/IntroToStatNCAT.github.io/blob/9371da5131a637476400fa5ced094793492d875c/files/Publications/IASE2023-SatelliteProceedingsPaper.pdf){:target="_blank"}]
 
-+ Mostafa, S. A., Elbayoumi, T. M., Kim, S. and Akinbode, O. (2026). The Design and Implementation of a Virtual Statistical Computing Lab to Teach R Coding to Introductory Statistics Students. *arXiv:2609.08868* [[Paper](https://github.com/IntroToStatNCAT/IntroToStatNCAT.github.io/blob/9371da5131a637476400fa5ced094793492d875c/files/Publications/arXiv-preprint-2609.08868v1.pdf){:target="_blank"}]
++ Mostafa, S. A., Elbayoumi, T. M., Kim, S. and Akinbode, O. (2026). The Design and Implementation of a Virtual Statistical Computing Lab to Teach R Coding to Introductory Statistics Students. *arXiv:2609.08868* [[Paper](https://github.com/IntroToStatNCAT/IntroToStatNCAT.github.io/blob/cbe5476c4915b604a1c5289c5a7a3fbf8420e414/files/Publications/arXiv-preprint-2609.08868v1.pdf){:target="_blank"}]
 
 ## Talks
 
